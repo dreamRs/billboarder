@@ -1,0 +1,6 @@
+dependencies:
+  - name: billboard
+    version: 1.0.1
+    src: htmlwidgets/lib/billboard-1.0.1
+    script: billboard.pkgd.min.js
+    stylesheet: billboard.min.css
