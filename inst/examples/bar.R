@@ -25,6 +25,21 @@ setDT(diamonds)
 
 # ex1 : simple bar --------------------------------------------------------
 
+stars <- data.frame(
+  package = c("billboarder", "ggiraph", "officer", "shinyWidgets", "visNetwork"),
+  stars = c(0, 176, 42, 40, 166)
+)
+billboarder() %>%
+  bb_bar(data = stars)
+
+billboarder() %>%
+  bb_bar(data = stars, labels = TRUE, names = list(stars = "Number of stars")) %>%
+  bb_axis(rotated = TRUE)
+
+
+billboarder() %>%
+  bb_bar(data = data.frame(x = letters[1:10], y = runif(n = 10, min = 10, max = 100)))
+
 
 billboarder() %>%
   bb_bar(data = mpg[, list(n = .N), by = class])

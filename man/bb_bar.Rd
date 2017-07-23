@@ -25,6 +25,15 @@ Create a bar chart
 }
 \examples{
 \dontrun{
+stars <- data.frame(
+  package = c("billboarder", "ggiraph", "officer", "shinyWidgets", "visNetwork"),
+  stars = c(0, 176, 42, 40, 166)
+)
+billboarder() \%>\%
+  bb_bar(data = stars)
 
+billboarder() \%>\%
+  bb_bar(data = stars, labels = TRUE, names = list(stars = "Number of stars")) \%>\%
+  bb_axis(rotated = TRUE)
 }
 }

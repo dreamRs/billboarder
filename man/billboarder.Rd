@@ -8,7 +8,8 @@ billboarder(bb_opts = list(), width = NULL, height = NULL,
   elementId = NULL)
 }
 \arguments{
-\item{bb_opts}{A \code{list} in JSON format with chart parameters, see \url{https://naver.github.io/billboard.js/demo/}.}
+\item{bb_opts}{A \code{list} in JSON format with chart parameters,
+see \url{https://naver.github.io/billboard.js/demo/}.}
 
 \item{width}{A numeric input in pixels.}
 

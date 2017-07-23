@@ -19,7 +19,7 @@ HTMLWidgets.widget({
         bb_opts.bindto = '#' + el.id;
 
         // Sizing
-        var elpar = document.getElementById(el.id).parentElement;
+        var elpar = document.getElementById(el.id); //.parentElement
         var w = elpar.clientWidth;
         var h = elpar.clientHeight;
         bb_opts.size = {};
@@ -28,13 +28,24 @@ HTMLWidgets.widget({
 
         // Generate billboard chart
         chart = bb.generate(bb_opts);
+        
+        if (typeof Shiny !== undefined) {
+          Shiny.addCustomMessageHandler(
+            'update-billboard-data-' + el.id,
+            
+            function(data) {
+            
+             chart.load(data);
+            
+          });
+        }
 
       },
 
       resize: function(width, height) {
 
         // code to re-render the widget with a new size
-        var elpar = document.getElementById(el.id).parentElement;
+        var elpar = document.getElementById(el.id);  //.parentElement
         var w = elpar.clientWidth;
         var h = elpar.clientHeight;
         console.log(h);

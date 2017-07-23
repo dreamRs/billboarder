@@ -8,6 +8,10 @@
 #'
 #' @noRd
 .bb_opt <- function(bb, name, ...) {
+  
+  if(!any(class(bb) %in% c("billboarder", "billboarder_Proxy"))){
+    stop("bb must be a billboarder or a billboarderProxy object")
+  }
 
   if (is.null(bb$x$bb_opts[[name]])) {
     bb$x$bb_opts[[name]] <- list(...)
@@ -42,6 +46,7 @@
 #' Add data to Billboard chart
 #'
 #' @param bb A \code{billboard} \code{htmlwidget} object.
+#' @param data A \code{data.frame}
 #' @param ... Arguments defined in \url{https://naver.github.io/billboard.js/demo/}.
 #'
 #' @return A \code{billboard} \code{htmlwidget} object.
@@ -51,9 +56,13 @@
 #' \dontrun{
 #'
 #' }
-bb_data <- function(bb, ...) {
+bb_data <- function(bb, data = NULL, ...) {
 
-  .bb_opt(bb, "data", ...)
+  if ("billboarder" %in% class(bb)) {
+    .bb_opt(bb, "data", json = as.list(data), ...)
+  } else if ("billboarder_Proxy" %in% class(bb)) {
+    .bb_proxy(bb, "data", json = as.list(data), ...)
+  }
 
 }
 
@@ -133,7 +142,16 @@ bb_title <- function(bb, text = NULL, padding = NULL, position = "top-center") {
 #'
 #' @examples
 #' \dontrun{
-#'
+#' stars <- data.frame(
+#'   package = c("billboarder", "ggiraph", "officer", "shinyWidgets", "visNetwork"),
+#'   stars = c(0, 176, 42, 40, 166)
+#' )
+#' billboarder() %>%
+#'   bb_bar(data = stars)
+#' 
+#' billboarder() %>%
+#'   bb_bar(data = stars, labels = TRUE, names = list(stars = "Number of stars")) %>%
+#'   bb_axis(rotated = TRUE)
 #' }
 bb_bar <- function(bb, data, stacked = FALSE, ...) {
 
