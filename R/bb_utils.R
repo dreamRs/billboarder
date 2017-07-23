@@ -124,6 +124,8 @@ bb_title <- function(bb, text = NULL, padding = NULL, position = "top-center") {
 #' @param bb A \code{billboard} \code{htmlwidget} object.
 #' @param data A \code{data.frame}, the first column will be used for x axis unless
 #' specified otherwise in \code{...}
+#' @param stacked Logical, if several columns provided, produce a stacked bar chart, else
+#' a dodge bar chart.
 #' @param ... Arguments for slot data and bar
 #'
 #' @return A \code{billboard} \code{htmlwidget} object.
@@ -133,21 +135,32 @@ bb_title <- function(bb, text = NULL, padding = NULL, position = "top-center") {
 #' \dontrun{
 #'
 #' }
-bb_bar <- function(bb, data, ...) {
+bb_bar <- function(bb, data, stacked = FALSE, ...) {
 
   args <- list(...)
 
+  x <- args$x %||% names(data)[1]
+  
+  if (stacked) {
+    stacked <- list(as.list(setdiff(names(data), x)))
+  } else {
+    stacked <- list()
+  }
+  
   data_names <- setdiff(names(args), c("width", "zerobased"))
   data_opt <- list(
-    x = args$x %||% names(data)[1],
+    x = x,
     json = as.list(data),
-    type = "bar"
+    type = "bar",
+    groups = stacked
   )
   data_opt <- c(data_opt, args[names(args) %in% data_names])
   bb <- .bb_opt2(bb, "data", data_opt)
 
   bb <- .bb_opt2(bb, "bar", args[names(args) %in% c("width", "zerobased")])
 
+  bb <- .bb_opt(bb, "axis", x = list(type = "category"))
+  
   return(bb)
 }
 

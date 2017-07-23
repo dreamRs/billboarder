@@ -4,13 +4,16 @@
 \alias{bb_bar}
 \title{Create a bar chart}
 \usage{
-bb_bar(bb, data, ...)
+bb_bar(bb, data, stacked = FALSE, ...)
 }
 \arguments{
 \item{bb}{A \code{billboard} \code{htmlwidget} object.}
 
 \item{data}{A \code{data.frame}, the first column will be used for x axis unless
 specified otherwise in \code{...}}
+
+\item{stacked}{Logical, if several columns provided, produce a stacked bar chart, else
+a dodge bar chart.}
 
 \item{...}{Arguments for slot data and bar}
 }

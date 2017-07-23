@@ -24,22 +24,70 @@ For now, you can do barcharts !
 
 
 ```r
-library(data.table)
+library("billboarder")
+library("magrittr")
+library("data.table")
+
+# data
 data("mpg", package = "ggplot2")
 setDT(mpg)
-mpgagg <- mpg[, list(n = .N), by = manufacturer]
-mpgagg
 
-library(billboarder)
-library(magrittr)
+# simple bar chart
 billboarder() %>%
-  bb_bar(data = mpgagg[, list(manufacturer, n)]) %>%
-  bb_axis(x = list(type = "category"), rotated = TRUE) %>%
+  bb_bar(data = mpg[, list(count = .N), by = manufacturer][order(count)]) %>%
+  bb_axis(rotated = TRUE) %>%
   bb_title(text = "Number of models by manufacturer", position = "left-top")
 
 ```
 
-![](inst/img/barchart0.png)
+![](inst/img/barchart1.png)
 
 
+
+
+## Raw API
+
+In fact you can do whatever you want, you just have to pass a list-JSON as parameter :
+
+
+```r
+data(economics, package = "ggplot2")
+
+# Construct a list in JSON format
+params <- list(
+  data = list(
+    x = "x",
+    json = list(
+      x = economics$date,
+      y = economics$psavert
+    ),
+    type = "spline"
+  ),
+  legend = list(show = FALSE),
+  point = list(show = FALSE),
+  axis = list(
+    x = list(
+      type = "timeseries",
+      tick = list(
+        count = 20,
+        fit = TRUE,
+        format = "%e %b %y"
+      )
+    ),
+    y = list(
+      label = list(
+        text = "Personal savings rate"
+      ),
+      tick = list(
+        format = htmlwidgets::JS("function(x) {return x + '%';}")
+      )
+    )
+  )
+)
+
+# Pass the list as parameter
+billboarder(params)
+```
+
+![](inst/img/linechart0.png)
 
