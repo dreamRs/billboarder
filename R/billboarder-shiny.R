@@ -62,8 +62,8 @@ billboarderProxy <- function(shinyId, session = shiny::getDefaultReactiveDomain(
 .bb_proxy <- function(proxy, name, ...) {
   
   proxy$session$sendCustomMessage(
-    type = sprintf("update-billboard-%s-%s", name, proxy$id),
-    message = list(...)
+    type = sprintf("update-billboard-%s", name),
+    message = list(id = proxy$id, data = list(...))
   )
   
 }

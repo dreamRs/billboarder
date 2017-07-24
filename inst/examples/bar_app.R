@@ -1,6 +1,7 @@
 
 library("shiny")
 library("billboarder")
+library("magrittr")
 
 ui <- fluidPage(
   tags$h1("Update billboard chart"),

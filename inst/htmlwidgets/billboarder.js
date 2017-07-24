@@ -1,3 +1,6 @@
+
+// HTMLWidgets billboard ----
+
 HTMLWidgets.widget({
 
   name: 'billboarder',
@@ -29,7 +32,7 @@ HTMLWidgets.widget({
         // Generate billboard chart
         chart = bb.generate(bb_opts);
         
-        if (typeof Shiny !== undefined) {
+        if (HTMLWidgets.shinyMode) {
           Shiny.addCustomMessageHandler(
             'update-billboard-data-' + el.id,
             
@@ -40,6 +43,10 @@ HTMLWidgets.widget({
           });
         }
 
+      },
+      
+      getChart: function(){
+        return chart;
       },
 
       resize: function(width, height) {
@@ -56,3 +63,33 @@ HTMLWidgets.widget({
     };
   }
 });
+
+
+// From Friss tuto (https://github.com/FrissAnalytics/shinyJsTutorials/blob/master/tutorials/tutorial_03.Rmd)
+function get_billboard(id){
+  
+  // Get the HTMLWidgets object
+  var htmlWidgetsObj = HTMLWidgets.find("#" + id);
+  
+  // Use the getChart method we created to get the underlying C3 chart
+  var bbObj = htmlWidgetsObj.getChart();
+
+  return(bbObj);
+}
+
+
+
+// Shiny ----
+
+if (HTMLWidgets.shinyMode) {
+  
+  // load
+  Shiny.addCustomMessageHandler('update-billboard-data',
+    function(data) {
+      var chart = get_billboard(data.id);
+      chart.load(data.data);
+  });
+  
+}
+
+
