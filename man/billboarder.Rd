@@ -4,12 +4,14 @@
 \alias{billboarder}
 \title{Create a Billboard.js widget}
 \usage{
-billboarder(bb_opts = list(), width = NULL, height = NULL,
+billboarder(bb_opts = list(), data = NULL, width = NULL, height = NULL,
   elementId = NULL)
 }
 \arguments{
 \item{bb_opts}{A \code{list} in JSON format with chart parameters,
 see \url{https://naver.github.io/billboard.js/demo/}.}
+
+\item{data}{A \code{data.frame}.}
 
 \item{width}{A numeric input in pixels.}
 

@@ -19,8 +19,3 @@ A \code{billboard} \code{htmlwidget} object.
 \description{
 Add data to Billboard chart
 }
-\examples{
-\dontrun{
-
-}
-}

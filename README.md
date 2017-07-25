@@ -44,6 +44,56 @@ billboarder() %>%
 
 
 
+Or with `dplyr` :
+
+```r
+library("dplyr")
+
+mpg %>% 
+  count(manufacturer) %>% 
+  arrange(n) %>% 
+  billboarder(data = .) %>% 
+  bb_bar() %>%
+  bb_axis(rotated = TRUE) %>%
+  bb_title(text = "Number of models by manufacturer", position = "left-top")
+```
+
+
+
+
+### Dodge and stacked bar charts
+
+You have to reshape the data in a "wide" format :
+
+```r
+billboarder() %>%
+  bb_bar(
+    data = dcast(
+      data = mpg[, list(count = .N), by = list(manufacturer, year)],
+      formula = manufacturer~year,
+      value.var = "count"
+    )
+  )
+
+```
+
+![](inst/img/barchart_dodge1.png)
+
+
+With `dplyr` and `tidyr` :
+
+```r
+mpg %>% 
+  group_by(manufacturer, year) %>% 
+  summarise(n = n()) %>% 
+  spread(year, n) %>% 
+  billboarder(data = .) %>%
+  bb_bar(stacked = TRUE)
+
+```
+
+![](inst/img/barchart_stacked1.png)
+
 
 ## Raw API
 

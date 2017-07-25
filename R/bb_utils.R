@@ -5,6 +5,8 @@
 #' @param ... Arguments for the slot
 #'
 #' @return A \code{billboard} \code{htmlwidget} object.
+#' 
+#' @importFrom utils modifyList
 #'
 #' @noRd
 .bb_opt <- function(bb, name, ...) {
@@ -52,10 +54,6 @@
 #' @return A \code{billboard} \code{htmlwidget} object.
 #' @export
 #'
-#' @examples
-#' \dontrun{
-#'
-#' }
 bb_data <- function(bb, data = NULL, ...) {
 
   if ("billboarder" %in% class(bb)) {
@@ -73,11 +71,6 @@ bb_data <- function(bb, data = NULL, ...) {
 #'
 #' @return A \code{billboard} \code{htmlwidget} object.
 #' @export
-#'
-#' @examples
-#' \dontrun{
-#'
-#' }
 bb_axis <- function(bb, ...) {
 
   .bb_opt(bb, "axis", ...)
@@ -93,10 +86,6 @@ bb_axis <- function(bb, ...) {
 #' @return A \code{billboard} \code{htmlwidget} object.
 #' @export
 #'
-#' @examples
-#' \dontrun{
-#'
-#' }
 bb_legend <- function(bb, ...) {
 
   .bb_opt(bb, "legend", ...)
@@ -115,10 +104,6 @@ bb_legend <- function(bb, ...) {
 #' @return A \code{billboard} \code{htmlwidget} object.
 #' @export
 #'
-#' @examples
-#' \dontrun{
-#'
-#' }
 bb_title <- function(bb, text = NULL, padding = NULL, position = "top-center") {
 
   .bb_opt2(bb, "title", dropNulls(list(text = text, padding = padding, position = position)))

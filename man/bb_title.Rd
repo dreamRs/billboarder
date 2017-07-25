@@ -21,8 +21,3 @@ A \code{billboard} \code{htmlwidget} object.
 \description{
 Add title to Billboard.js chart
 }
-\examples{
-\dontrun{
-
-}
-}

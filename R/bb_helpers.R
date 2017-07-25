@@ -25,6 +25,9 @@
 #' }
 bb_bar <- function(bb, data, stacked = FALSE, ...) {
   
+  if (missing(data))
+    data <- bb$x$data
+  
   args <- list(...)
   
   x <- args$x %||% names(data)[1]
@@ -51,3 +54,75 @@ bb_bar <- function(bb, data, stacked = FALSE, ...) {
   
   return(bb)
 }
+
+
+
+
+
+
+
+
+
+
+
+#' Helper for creating a scatter chart
+#'
+#' @param bb A \code{billboard} \code{htmlwidget} object.
+#' @param data A \code{data.frame}
+#' @param x Variable to map to the x-axis, if \code{NULL} first variable is used.
+#' @param y Variable to map to the y-axis, if \code{NULL} second variable is used.
+#' @param ... unused
+#'
+#' @return A \code{billboard} \code{htmlwidget} object.
+#' @export
+#' 
+#' @importFrom stats setNames
+#'
+#' @examples
+#' \dontrun{
+#' billboarder() %>% 
+#'   bb_points(data = iris, x = "Sepal.Length", y = "Sepal.Width")
+#' }
+bb_points <- function(bb, data, x = NULL, y = NULL, ...) {
+  
+  if (missing(data))
+    data <- bb$x$data
+  
+  args <- list(...)
+  
+  x <- x %||% names(data)[1]
+  y <- y %||% names(data)[2]
+  
+  
+  data_opt <- list(
+    xs = setNames(list(x), y),
+    json = as.list(data[, c(x, y)]),
+    type = "scatter"
+  )
+  
+  data_axis <- list(
+    x = list(
+      label = list(
+        text = x
+      )
+    ),
+    y = list(
+      label = list(
+        text = y
+      )
+    )
+  )
+  
+  bb <- .bb_opt2(bb, "data", data_opt)
+  
+  bb <- .bb_opt(bb, "legend", show = FALSE)
+  
+  bb <- .bb_opt2(bb, "axis", data_axis)
+  
+  return(bb)
+}
+
+
+
+
+
