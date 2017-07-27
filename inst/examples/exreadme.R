@@ -4,9 +4,26 @@
 # README ------------------------------------------------------------------
 
 
+
+
+# packages ----------------------------------------------------------------
+
 library("billboarder")
 library("magrittr")
 library("data.table")
+library("dplyr")
+library("tidyr")
+
+
+
+
+# data --------------------------------------------------------------------
+
+data("mpg", package = "ggplot2")
+setDT(mpg)
+
+data(iris)
+data(mtcars)
 
 
 
@@ -14,17 +31,67 @@ library("data.table")
 # bar ---------------------------------------------------------------------
 
 
-# data
-data("mpg", package = "ggplot2")
-setDT(mpg)
+### simple bar chart
 
-# simple bar chart
 billboarder() %>%
   bb_bar(data = mpg[, list(count = .N), by = manufacturer][order(count)]) %>%
   bb_axis(rotated = TRUE) %>%
   bb_title(text = "Number of models by manufacturer", position = "left-top")
 
 
+# With dplyr
+mpg %>% 
+  count(manufacturer) %>% 
+  arrange(n) %>% 
+  billboarder(data = .) %>% 
+  bb_bar() %>%
+  bb_axis(rotated = TRUE) %>%
+  bb_title(text = "Number of models by manufacturer", position = "left-top")
+
+
+
+
+### Stacked and dodge
+
+billboarder() %>%
+  bb_bar(
+    data = dcast(
+      data = mpg[, list(count = .N), by = list(manufacturer, year)],
+      formula = manufacturer~year,
+      value.var = "count"
+    )
+  )
+
+
+mpg %>% 
+  group_by(manufacturer, year) %>% 
+  summarise(n = n()) %>% 
+  spread(year, n) %>% 
+  billboarder(data = .) %>%
+  bb_bar(stacked = TRUE, labels = TRUE)
+
+
+
+
+
+
+
+# Points ------------------------------------------------------------------
+
+billboarder() %>% 
+  bb_points(data = iris, x = "Sepal.Length", y = "Sepal.Width")
+
+
+billboarder() %>% 
+  bb_points(data = iris, x = "Sepal.Length", y = "Sepal.Width", group = "Species")
+
+
+billboarder() %>% 
+  bb_points(data = mtcars, x = "wt", y = "mpg", group = "cyl")
+
+billboarder() %>% 
+  bb_points(data = mtcars, x = "wt", y = "mpg", group = "cyl") %>% 
+  bb_axis(x = list(tick = list(fit = FALSE)))
 
 
 

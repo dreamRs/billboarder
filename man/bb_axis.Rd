@@ -17,8 +17,3 @@ A \code{billboard} \code{htmlwidget} object.
 \description{
 Add axis parameters
 }
-\examples{
-\dontrun{
-
-}
-}

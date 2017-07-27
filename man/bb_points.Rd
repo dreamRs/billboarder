@@ -4,7 +4,7 @@
 \alias{bb_points}
 \title{Helper for creating a scatter chart}
 \usage{
-bb_points(bb, data, x = NULL, y = NULL, ...)
+bb_points(bb, data, x = NULL, y = NULL, group = NULL, ...)
 }
 \arguments{
 \item{bb}{A \code{billboard} \code{htmlwidget} object.}
@@ -14,6 +14,8 @@ bb_points(bb, data, x = NULL, y = NULL, ...)
 \item{x}{Variable to map to the x-axis, if \code{NULL} first variable is used.}
 
 \item{y}{Variable to map to the y-axis, if \code{NULL} second variable is used.}
+
+\item{group}{Variable to use to plot data by group.}
 
 \item{...}{unused}
 }

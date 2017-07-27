@@ -62,15 +62,13 @@ bb_bar <- function(bb, data, stacked = FALSE, ...) {
 
 
 
-
-
-
 #' Helper for creating a scatter chart
 #'
 #' @param bb A \code{billboard} \code{htmlwidget} object.
 #' @param data A \code{data.frame}
 #' @param x Variable to map to the x-axis, if \code{NULL} first variable is used.
 #' @param y Variable to map to the y-axis, if \code{NULL} second variable is used.
+#' @param group Variable to use to plot data by group.
 #' @param ... unused
 #'
 #' @return A \code{billboard} \code{htmlwidget} object.
@@ -83,7 +81,7 @@ bb_bar <- function(bb, data, stacked = FALSE, ...) {
 #' billboarder() %>% 
 #'   bb_points(data = iris, x = "Sepal.Length", y = "Sepal.Width")
 #' }
-bb_points <- function(bb, data, x = NULL, y = NULL, ...) {
+bb_points <- function(bb, data, x = NULL, y = NULL, group = NULL, ...) {
   
   if (missing(data))
     data <- bb$x$data
@@ -93,10 +91,23 @@ bb_points <- function(bb, data, x = NULL, y = NULL, ...) {
   x <- x %||% names(data)[1]
   y <- y %||% names(data)[2]
   
+  if (is.null(group)) {
+    xs <- setNames(list(x), y)
+    json <- as.list(data[, c(x, y)])
+  } else {
+    xs <- setNames(
+      object = as.list(paste(unique(data[[group]]), x, sep = "_")), 
+      nm = unique(data[[group]])
+    )
+    json <- c(
+      split(x = data[[x]], f = paste(data[[group]], x, sep = "_")),
+      split(x = data[[y]], f = data[[group]])
+    )
+  }
   
   data_opt <- list(
-    xs = setNames(list(x), y),
-    json = as.list(data[, c(x, y)]),
+    xs = xs,
+    json = json,
     type = "scatter"
   )
   
@@ -115,7 +126,7 @@ bb_points <- function(bb, data, x = NULL, y = NULL, ...) {
   
   bb <- .bb_opt2(bb, "data", data_opt)
   
-  bb <- .bb_opt(bb, "legend", show = FALSE)
+  bb <- .bb_opt(bb, "legend", show = !is.null(group))
   
   bb <- .bb_opt2(bb, "axis", data_axis)
   
