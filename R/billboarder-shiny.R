@@ -66,5 +66,6 @@ billboarderProxy <- function(shinyId, session = shiny::getDefaultReactiveDomain(
     message = list(id = proxy$id, data = list(...))
   )
   
+  proxy
 }
 

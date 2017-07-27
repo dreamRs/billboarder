@@ -30,15 +30,20 @@ bb_bar <- function(bb, data, stacked = FALSE, ...) {
   
   args <- list(...)
   
+  if (is.null(data)) {
+    bb <- .bb_opt(bb, "bar", ...)
+    return(bb)
+  }
+  
   x <- args$x %||% names(data)[1]
   
   if (stacked) {
-    stacked <- list(as.list(setdiff(names(data), x)))
+    stacked <- list(as.list(base::setdiff(names(data), x)))
   } else {
     stacked <- list()
   }
   
-  data_names <- setdiff(names(args), c("width", "zerobased"))
+  data_names <- base::setdiff(names(args), c("width", "zerobased"))
   data_opt <- list(
     x = x,
     json = as.list(data),
@@ -79,9 +84,9 @@ bb_bar <- function(bb, data, stacked = FALSE, ...) {
 #' @examples
 #' \dontrun{
 #' billboarder() %>% 
-#'   bb_points(data = iris, x = "Sepal.Length", y = "Sepal.Width")
+#'   bb_scatter(data = iris, x = "Sepal.Length", y = "Sepal.Width")
 #' }
-bb_points <- function(bb, data, x = NULL, y = NULL, group = NULL, ...) {
+bb_scatter <- function(bb, data, x = NULL, y = NULL, group = NULL, ...) {
   
   if (missing(data))
     data <- bb$x$data
@@ -92,10 +97,10 @@ bb_points <- function(bb, data, x = NULL, y = NULL, group = NULL, ...) {
   y <- y %||% names(data)[2]
   
   if (is.null(group)) {
-    xs <- setNames(list(x), y)
+    xs <- stats::setNames(list(x), y)
     json <- as.list(data[, c(x, y)])
   } else {
-    xs <- setNames(
+    xs <- stats::setNames(
       object = as.list(paste(unique(data[[group]]), x, sep = "_")), 
       nm = unique(data[[group]])
     )
@@ -136,4 +141,61 @@ bb_points <- function(bb, data, x = NULL, y = NULL, group = NULL, ...) {
 
 
 
-
+#' Helper for creating a gauge
+#'
+#' @param bb A \code{billboard} \code{htmlwidget} object.
+#' @param value A numeric value.
+#' @param name Name for the value, appear in  tooltip.
+#' @param steps Upper bound for changing colors
+#' @param steps_color Colors corresponding to steps
+#' @param ... Arguments for slot gauge
+#'
+#' @return A \code{billboard} \code{htmlwidget} object.
+#' @export
+#' 
+#' @importFrom stats setNames
+#'
+#' @examples
+#' \dontrun{
+#' billboarder() %>% 
+#'  bb_gauge(value = 50)
+#' }
+bb_gauge <- function(bb, value, name = "Value", 
+                     steps = c(30, 60, 90, 100),
+                     steps_color = c("#FF0000", "#F97600", "#F6C600", "#60B044"),
+                     ...) {
+  
+  if (missing(value) || is.null(value)) {
+    bb <- .bb_opt(bb, "gauge", ...)
+    return(bb)
+  }
+  
+  if (length(steps) != length(steps_color))
+    stop("'steps' and 'steps_color' must have same length.")
+  
+  data_opt <- list(
+    json = stats::setNames(list(list(value)), name),
+    type = "gauge"
+  )
+  
+  data_color <- list(
+    pattern = steps_color,
+    threshold = list(values = steps)
+  )
+  
+  
+  if ("billboarder" %in% class(bb)) {
+    
+    bb <- .bb_opt2(bb, "data", data_opt)
+    
+    bb <- .bb_opt(bb, "gauge", ...)
+    
+    bb <- .bb_opt2(bb, "color", data_color)
+    
+    return(bb)
+    
+  } else if ("billboarder_Proxy" %in% class(bb)) {
+    .bb_proxy(bb, "data", json = data_opt$json, ...)
+  }
+  
+}

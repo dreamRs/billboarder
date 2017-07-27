@@ -79,18 +79,18 @@ mpg %>%
 # Points ------------------------------------------------------------------
 
 billboarder() %>% 
-  bb_points(data = iris, x = "Sepal.Length", y = "Sepal.Width")
+  bb_scatter(data = iris, x = "Sepal.Length", y = "Sepal.Width")
 
 
 billboarder() %>% 
-  bb_points(data = iris, x = "Sepal.Length", y = "Sepal.Width", group = "Species")
+  bb_scatter(data = iris, x = "Sepal.Length", y = "Sepal.Width", group = "Species")
 
 
 billboarder() %>% 
-  bb_points(data = mtcars, x = "wt", y = "mpg", group = "cyl")
+  bb_scatter(data = mtcars, x = "wt", y = "mpg", group = "cyl")
 
 billboarder() %>% 
-  bb_points(data = mtcars, x = "wt", y = "mpg", group = "cyl") %>% 
+  bb_scatter(data = mtcars, x = "wt", y = "mpg", group = "cyl") %>% 
   bb_axis(x = list(tick = list(fit = FALSE)))
 
 

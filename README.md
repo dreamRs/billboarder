@@ -17,6 +17,13 @@ a re-usable easy interface JavaScript chart library, based on D3 v4+.
 Note : developpement is heavily inspired by awesome [highcharter](http://jkunst.com/highcharter/) by [Joshua Kunst](https://github.com/jbkunst).
 
 
+Installation :
+```r
+# From Github
+# install.packages("devtools")
+devtools::install_github("dreamRs/billboarder")
+```
+
 
 ## Bar chart
 
