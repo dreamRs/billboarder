@@ -9,7 +9,7 @@ bb_legend(bb, ...)
 \arguments{
 \item{bb}{A \code{billboard} \code{htmlwidget} object.}
 
-\item{...}{Arguments defined in \url{https://naver.github.io/billboard.js/demo/}.}
+\item{...}{Arguments defined in \url{https://naver.github.io/billboard.js/release/latest/doc/Options.html#.legend}.}
 }
 \value{
 A \code{billboard} \code{htmlwidget} object.

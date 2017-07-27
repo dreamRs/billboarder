@@ -81,7 +81,7 @@ bb_axis <- function(bb, ...) {
 #' Add legend parameters
 #'
 #' @param bb A \code{billboard} \code{htmlwidget} object.
-#' @param ... Arguments defined in \url{https://naver.github.io/billboard.js/demo/}.
+#' @param ... Arguments defined in \url{https://naver.github.io/billboard.js/release/latest/doc/Options.html#.legend}.
 #'
 #' @return A \code{billboard} \code{htmlwidget} object.
 #' @export
@@ -115,7 +115,7 @@ bb_title <- function(bb, text = NULL, padding = NULL, position = "top-center") {
 #' Point property for a Billboard.js chart
 #'
 #' @param bb A \code{billboard} \code{htmlwidget} object.
-#' @param ... See \link{https://naver.github.io/billboard.js/release/latest/doc/Options.html#.point}
+#' @param ... See \url{https://naver.github.io/billboard.js/release/latest/doc/Options.html#.point}
 #'
 #' @return A \code{billboard} \code{htmlwidget} object.
 #' @export
@@ -135,6 +135,34 @@ bb_point <- function(bb, ...) {
 }
 
 
+
+#' Tooltip property for a Billboard.js chart
+#'
+#' @param bb A \code{billboard} \code{htmlwidget} object.
+#' @param ... See \url{https://naver.github.io/billboard.js/release/latest/doc/Options.html#.tooltip}
+#'
+#' @return A \code{billboard} \code{htmlwidget} object.
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' # Format tooltip
+#' billboarder() %>% 
+#'   bb_scatter(data = iris, x = "Sepal.Length", y = "Sepal.Width", group = "Species") %>% 
+#'   bb_tooltip(
+#'     format = list(
+#'       # skip the title in tooltip
+#'       title = htmlwidgets::JS("function() {return undefined;}"),
+#'       name = htmlwidgets::JS("function(name, ratio, id, index) {return '';}"),
+#'       value = htmlwidgets::JS("function(value, ratio, id, index) {return id;}")
+#'     )
+#'   )
+#' }
+bb_tooltip <- function(bb, ...) {
+  
+  .bb_opt(bb, "tooltip", ...)
+  
+}
 
 
 

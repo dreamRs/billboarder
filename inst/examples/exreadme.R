@@ -78,6 +78,9 @@ mpg %>%
 
 # Points ------------------------------------------------------------------
 
+
+# iris
+
 billboarder() %>% 
   bb_scatter(data = iris, x = "Sepal.Length", y = "Sepal.Width")
 
@@ -92,6 +95,22 @@ billboarder() %>%
  bb_point(r = 8)
 
 
+# tooltip scatter
+billboarder() %>% 
+  bb_scatter(data = iris, x = "Sepal.Length", y = "Sepal.Width", group = "Species") %>% 
+  bb_tooltip(
+    format = list(
+      # skip the title in tooltip
+      title = htmlwidgets::JS("function() {return undefined;}"),
+      name = htmlwidgets::JS("function(name, ratio, id, index) {return '';}"),
+      value = htmlwidgets::JS("function(value, ratio, id, index) {return id;}")
+    )
+  )
+
+
+
+
+# mtcars
 
 billboarder() %>% 
   bb_scatter(data = mtcars, x = "wt", y = "mpg", group = "cyl")

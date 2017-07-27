@@ -9,7 +9,7 @@ bb_point(bb, ...)
 \arguments{
 \item{bb}{A \code{billboard} \code{htmlwidget} object.}
 
-\item{...}{See \link{https://naver.github.io/billboard.js/release/latest/doc/Options.html#.point}}
+\item{...}{See \url{https://naver.github.io/billboard.js/release/latest/doc/Options.html#.point}}
 }
 \value{
 A \code{billboard} \code{htmlwidget} object.
