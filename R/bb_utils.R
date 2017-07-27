@@ -59,7 +59,14 @@ bb_data <- function(bb, data = NULL, ...) {
   if ("billboarder" %in% class(bb)) {
     .bb_opt(bb, "data", json = as.list(data), ...)
   } else if ("billboarder_Proxy" %in% class(bb)) {
-    .bb_proxy(bb, "data", json = as.list(data), ...)
+    
+    if (nrow(data) == 1) {
+      json <- lapply(X = as.list(data), FUN = list)
+    } else {
+      json <- as.list(data)
+    }
+    
+    .bb_proxy(bb, "data", json = json, ...)
   }
 
 }

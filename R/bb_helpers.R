@@ -43,10 +43,16 @@ bb_bar <- function(bb, data, stacked = FALSE, ...) {
     stacked <- list()
   }
   
+  if (nrow(data) == 1) {
+    json <- lapply(X = as.list(data), FUN = list)
+  } else {
+    json <- as.list(data)
+  }
+  
   data_names <- base::setdiff(names(args), c("width", "zerobased"))
   data_opt <- list(
     x = x,
-    json = as.list(data),
+    json = json,
     type = "bar",
     groups = stacked
   )
@@ -84,6 +90,7 @@ bb_bar <- function(bb, data, stacked = FALSE, ...) {
 #' library("billboarder")
 #' 
 #' data("mpg", package = "ggplot2")
+#' setDT(mpg)
 #' 
 #' # all in blue
 #' manufa <- unique(mpg$manufacturer)

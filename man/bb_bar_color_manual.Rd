@@ -30,6 +30,7 @@ library("data.table")
 library("billboarder")
 
 data("mpg", package = "ggplot2")
+setDT(mpg)
 
 # all in blue
 manufa <- unique(mpg$manufacturer)

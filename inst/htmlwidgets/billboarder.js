@@ -87,6 +87,7 @@ if (HTMLWidgets.shinyMode) {
   Shiny.addCustomMessageHandler('update-billboard-data',
     function(data) {
       var chart = get_billboard(data.id);
+      // chart.unload(data.data);
       chart.load(data.data);
   });
   
