@@ -83,7 +83,14 @@ billboarder() %>%
 
 
 billboarder() %>% 
-  bb_scatter(data = iris, x = "Sepal.Length", y = "Sepal.Width", group = "Species")
+  bb_scatter(data = iris, x = "Sepal.Length", y = "Sepal.Width", group = "Species") %>% 
+  bb_axis(x = list(tick = list(fit = FALSE)))
+
+billboarder() %>% 
+ bb_scatter(data = iris, x = "Sepal.Length", y = "Sepal.Width", group = "Species") %>% 
+ bb_axis(x = list(tick = list(fit = FALSE))) %>% 
+ bb_point(r = 8)
+
 
 
 billboarder() %>% 

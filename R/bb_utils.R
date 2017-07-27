@@ -112,6 +112,28 @@ bb_title <- function(bb, text = NULL, padding = NULL, position = "top-center") {
 
 
 
+#' Point property for a Billboard.js chart
+#'
+#' @param bb A \code{billboard} \code{htmlwidget} object.
+#' @param ... See \link{https://naver.github.io/billboard.js/release/latest/doc/Options.html#.point}
+#'
+#' @return A \code{billboard} \code{htmlwidget} object.
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' # Set point size
+#' billboarder() %>% 
+#'   bb_scatter(data = iris, x = "Sepal.Length", y = "Sepal.Width", group = "Species") %>% 
+#'   bb_axis(x = list(tick = list(fit = FALSE))) %>% 
+#'   bb_point(r = 10)
+#' }
+bb_point <- function(bb, ...) {
+  
+  .bb_opt(bb, "point", ...)
+  
+}
+
 
 
 

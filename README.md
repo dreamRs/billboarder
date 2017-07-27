@@ -102,6 +102,21 @@ mpg %>%
 ![](inst/img/barchart_stacked1.png)
 
 
+
+## Scatter chart
+
+Classic :
+
+```r
+billboarder() %>% 
+ bb_scatter(data = iris, x = "Sepal.Length", y = "Sepal.Width", group = "Species") %>% 
+ bb_axis(x = list(tick = list(fit = FALSE))) %>% 
+ bb_point(r = 8)
+
+```
+![](inst/img/scatterchart0.png)
+
+
 ## Raw API
 
 In fact you can do whatever you want, you just have to pass a list-JSON as parameter :
