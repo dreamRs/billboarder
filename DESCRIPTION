@@ -8,7 +8,7 @@ Description: This package allow you to use billboard.js, a re-usable easy interf
 URL: https://github.com/dreamRs/billboarder
 BugReports: https://github.com/dreamRs/billboarder/issues
 Depends: R (>= 3.3.2)
-License: GPL-3
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.0.1
