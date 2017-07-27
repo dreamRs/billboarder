@@ -165,6 +165,26 @@ bb_tooltip <- function(bb, ...) {
 }
 
 
+#' Color property for a Billboard.js chart
+#'
+#' @param bb A \code{billboard} \code{htmlwidget} object.
+#' @param ... See \url{https://naver.github.io/billboard.js/release/latest/doc/Options.html#.color}
+#'
+#' @return A \code{billboard} \code{htmlwidget} object.
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' # change color
+#' 
+#' }
+bb_color <- function(bb, ...) {
+  
+  .bb_opt(bb, "color", ...)
+  
+}
+
+
 
 # dropNulls
 dropNulls <- function (x)

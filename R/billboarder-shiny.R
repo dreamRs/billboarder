@@ -58,6 +58,36 @@ billboarderProxy <- function(shinyId, session = shiny::getDefaultReactiveDomain(
 
 
 
+#' Retrieve click value in Shiny
+#'
+#' @param bb A \code{billboard} \code{htmlwidget} object.
+#' @param inputId The \code{input} slot that will be used to access the value.
+#'
+#' @return A \code{billboard} \code{htmlwidget} object.
+#' @export
+#' 
+#' @importFrom htmlwidgets JS
+#'
+#' @examples
+#' \dontrun{
+#' 
+#'  if (interactive()) {
+#'  
+#'  
+#'  }
+#' 
+#' }
+bb_click <- function(bb, inputId) {
+  
+  click <- sprintf("Shiny.onInputChange('%s', d);", inputId)
+  click <- paste0("function(d, element) {", click, "}")
+  click <- htmlwidgets::JS(click)
+  
+  bb <- .bb_opt(bb, "data", onclick = click)
+  return(bb)
+}
+
+
 
 .bb_proxy <- function(proxy, name, ...) {
   

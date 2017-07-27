@@ -62,6 +62,71 @@ bb_bar <- function(bb, data, stacked = FALSE, ...) {
 
 
 
+#' Manual color for barchart
+#' 
+#' @param bb A \code{billboard} \code{htmlwidget} object.
+#' @param values A named vector, names represent the categories of the bar chart,
+#' values correspond to colors. All categories must be present in the vector, in 
+#' the same order of the chart.
+#' 
+#' @note Must be called after \code{bb_bar}.
+#' #' 
+#' @return A \code{billboard} \code{htmlwidget} object.
+#' @export
+#' 
+#' @importFrom jsonlite toJSON
+#' @importFrom htmlwidgets JS
+#' 
+#' @examples
+#' \dontrun{
+#' 
+#' library("data.table")
+#' library("billboarder")
+#' 
+#' data("mpg", package = "ggplot2")
+#' 
+#' # all in blue
+#' manufa <- unique(mpg$manufacturer)
+#' cols <- rep("#08298A", length(manufa))
+#' names(cols) <- manufa
+#' 
+#' # Nissan in red
+#' cols[["nissan"]] <- "#DF0101"#' 
+#' 
+#' billboarder() %>%
+#'   bb_bar(data = mpg[, list(count = .N), by = manufacturer][order(count)]) %>%
+#'   bb_bar_color_manual(values = cols)
+#' }
+bb_bar_color_manual <- function(bb, values) {
+  
+  x <- bb$x$bb_opts$data$x
+  categories <- bb$x$bb_opts$data$json[[x]]
+  
+  if (is.null(categories))
+    stop("This function must be called after 'bb_bar'")
+  
+  colorjs <- htmlwidgets::JS(
+    paste(
+      "function(color, d) {",
+      paste0(
+        "var x = ", jsonlite::toJSON(categories), "; "
+      ),
+      paste(
+        sprintf(
+          "if (x[d.index] == '%s') { return '%s'; }", 
+          names(values), unname(values)
+        ),
+        collapse = "\n"
+      ),
+      "else { return color; }",
+      "}", collapse = "\n"
+    )
+  )
+  
+  bb <- .bb_opt(bb, "data", color = colorjs)
+  
+  return(bb)
+}
 
 
 

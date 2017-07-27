@@ -7,6 +7,7 @@
 
 library("shiny")
 library("billboarder")
+library("magrittr")
 
 ui <- fluidPage(
   tags$h1("Gauge with billboarder"),
