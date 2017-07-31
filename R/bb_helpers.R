@@ -367,7 +367,8 @@ bb_donut <- function(bb, data, ...) {
 #' Helper for creating an histogram
 #'
 #' @param bb A \code{billboard} \code{htmlwidget} object.
-#' @param data A \code{data.frame}.
+#' @param x A numeric \code{vector}.
+#' @param breaks Arguments passed to \code{hist}.
 #' @param ... Arguments for slot 
 #'
 #' @return A \code{billboard} \code{htmlwidget} object.
@@ -385,7 +386,7 @@ bb_hist <- function(bb, x, breaks = "Sturges", ...) {
   
   json <- list(
     data = h$counts,
-    x = head(h$breaks, -1)
+    x = h$breaks
   )
   
   

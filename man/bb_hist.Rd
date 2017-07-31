@@ -9,9 +9,11 @@ bb_hist(bb, x, breaks = "Sturges", ...)
 \arguments{
 \item{bb}{A \code{billboard} \code{htmlwidget} object.}
 
-\item{...}{Arguments for slot}
+\item{x}{A numeric \code{vector}.}
 
-\item{data}{A \code{data.frame}.}
+\item{breaks}{Arguments passed to \code{hist}.}
+
+\item{...}{Arguments for slot}
 }
 \value{
 A \code{billboard} \code{htmlwidget} object.

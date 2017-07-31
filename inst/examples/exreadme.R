@@ -44,7 +44,8 @@ billboarder() %>%
   bb_y_grid(show = TRUE) %>%
   bb_legend(show = FALSE) %>% 
   bb_y_axis(label = list(text = "# of models", position = "outer-top")) %>% 
-  bb_title(text = "Popular models by manufacturer", position = "left-top")
+  bb_title(text = "Popular models by manufacturer", position = "left-top", 
+           padding = list(top = 0, right = 0, left = 0, bottom = 20))
 
 
 

@@ -32,7 +32,12 @@ HTMLWidgets.widget({
         // Generate billboard chart
         chart = bb.generate(bb_opts);
         
-        console.log(chart.data());
+        // bold title
+        var sheet = window.document.styleSheets[0];
+        sheet.insertRule('.bb-title { font-weight: bold; }', sheet.cssRules.length);
+        
+        
+        //console.log(chart.data());
 
       },
       
