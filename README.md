@@ -39,15 +39,17 @@ library("data.table")
 data("mpg", package = "ggplot2")
 setDT(mpg)
 
-# simple bar chart
+# a bar chart !
 billboarder() %>%
-  bb_bar(data = mpg[, list(count = .N), by = manufacturer][order(count)]) %>%
-  bb_axis(rotated = TRUE) %>%
-  bb_title(text = "Number of models by manufacturer", position = "left-top")
+  bb_bar(data = mpg[, list(count = .N), by = manufacturer][order(count, decreasing = TRUE)]) %>%
+  bb_y_grid(show = TRUE) %>%
+  bb_legend(show = FALSE) %>% 
+  bb_y_axis(label = list(text = "# of models", position = "outer-top")) %>% 
+  bb_title(text = "Popular models by manufacturer", position = "left-top")
 
 ```
 
-![](inst/img/barchart1.png)
+![](inst/img/barchart0.png)
 
 
 

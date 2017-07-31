@@ -78,10 +78,29 @@ bb_data <- function(bb, data = NULL, ...) {
 #'
 #' @return A \code{billboard} \code{htmlwidget} object.
 #' @export
+#' 
+#' @name bb_axis
+#' 
 bb_axis <- function(bb, ...) {
 
   .bb_opt(bb, "axis", ...)
 
+}
+
+#' @rdname bb_axis
+#' @export
+bb_x_axis <- function(bb, ...) {
+  
+  .bb_opt(bb, "axis", x = list(...))
+  
+}
+
+#' @rdname bb_axis
+#' @export
+bb_y_axis <- function(bb, ...) {
+  
+  .bb_opt(bb, "axis", y = list(...))
+  
 }
 
 
@@ -188,6 +207,57 @@ bb_tooltip <- function(bb, ...) {
 bb_color <- function(bb, ...) {
   
   .bb_opt(bb, "color", ...)
+  
+}
+
+#' Grid property for a Billboard.js chart
+#'
+#' @param bb A \code{billboard} \code{htmlwidget} object.
+#' @param ... See \url{https://naver.github.io/billboard.js/release/latest/doc/Options.html#.grid}
+#' 
+#' @note \code{bb_x_grid} and \code{bb_y_grid} are shortcut for modifying the x-axis and the y-axis respectively.
+#'
+#' @return A \code{billboard} \code{htmlwidget} object.
+#' @export
+#' 
+#' @name bb_grid
+#'
+#' @examples
+#' \dontrun{
+#' 
+#' stars <- data.frame(
+#'   package = c("billboarder", "ggiraph", "officer", "shinyWidgets", "visNetwork"),
+#'   stars = c(1, 176, 42, 40, 166)
+#' )
+#' 
+#' billboarder() %>%
+#'   bb_bar(data = stars) %>% 
+#'   bb_y_grid(show = TRUE)
+#' 
+#' billboarder() %>%
+#'   bb_bar(data = stars) %>% 
+#'   bb_y_grid(lines = list(list(value = mean(stars$stars), text = "Horizontal line")))
+#' 
+#' }
+bb_grid <- function(bb, ...) {
+  
+  .bb_opt(bb, "grid", ...)
+  
+}
+
+#' @rdname bb_grid
+#' @export
+bb_x_grid <- function(bb, ...) {
+  
+  .bb_opt(bb, "grid", x = list(...))
+  
+}
+
+#' @rdname bb_grid
+#' @export
+bb_y_grid <- function(bb, ...) {
+  
+  .bb_opt(bb, "grid", y = list(...))
   
 }
 

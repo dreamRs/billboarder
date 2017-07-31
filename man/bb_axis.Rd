@@ -2,9 +2,15 @@
 % Please edit documentation in R/bb_utils.R
 \name{bb_axis}
 \alias{bb_axis}
+\alias{bb_x_axis}
+\alias{bb_y_axis}
 \title{Add axis parameters}
 \usage{
 bb_axis(bb, ...)
+
+bb_x_axis(bb, ...)
+
+bb_y_axis(bb, ...)
 }
 \arguments{
 \item{bb}{A \code{billboard} \code{htmlwidget} object.}

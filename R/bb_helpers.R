@@ -271,3 +271,136 @@ bb_gauge <- function(bb, value, name = "Value",
   }
   
 }
+
+
+
+
+#' Helper for creating a pie chart
+#'
+#' @param bb A \code{billboard} \code{htmlwidget} object.
+#' @param data A \code{data.frame}.
+#' @param ... Arguments for slot pie, \url{https://naver.github.io/billboard.js/release/latest/doc/Options.html#.pie}.
+#'
+#' @return A \code{billboard} \code{htmlwidget} object.
+#' @export
+#' 
+#' @examples
+#' \dontrun{
+#' stars <- data.frame(
+#'   package = c("billboarder", "ggiraph", "officer", "shinyWidgets", "visNetwork"),
+#'   stars = c(9, 177, 43, 44, 169)
+#' )
+#' 
+#' billboarder() %>% 
+#'   bb_pie(data = stars)
+#' }
+bb_pie <- function(bb, data, ...) {
+  
+  if (missing(data))
+    data <- bb$x$data
+  
+  json <- as.list(data[[2]])
+  json <- lapply(X = json, FUN = list)
+  names(json) <- data[[1]]
+  
+  data_opt <- list(
+    json = json,
+    type = "pie"
+  )
+
+  bb <- .bb_opt2(bb, "data", data_opt)
+  
+  bb <- .bb_opt(bb, "pie", ...)
+  
+  return(bb)
+}
+
+
+
+
+#' Helper for creating a donut chart
+#'
+#' @param bb A \code{billboard} \code{htmlwidget} object.
+#' @param data A \code{data.frame}.
+#' @param ... Arguments for slot donut, \url{https://naver.github.io/billboard.js/release/latest/doc/Options.html#.donut}.
+#'
+#' @return A \code{billboard} \code{htmlwidget} object.
+#' @export
+#' 
+#' @examples
+#' \dontrun{
+#' stars <- data.frame(
+#'   package = c("billboarder", "ggiraph", "officer", "shinyWidgets", "visNetwork"),
+#'   stars = c(9, 177, 43, 44, 169)
+#' )
+#' 
+#' billboarder() %>% 
+#'   bb_donut(data = stars, title = "Stars")
+#' }
+bb_donut <- function(bb, data, ...) {
+  
+  if (missing(data))
+    data <- bb$x$data
+  
+  json <- as.list(data[[2]])
+  json <- lapply(X = json, FUN = list)
+  names(json) <- data[[1]]
+  
+  data_opt <- list(
+    json = json,
+    type = "donut"
+  )
+  
+  bb <- .bb_opt2(bb, "data", data_opt)
+  
+  bb <- .bb_opt(bb, "donut", ...)
+  
+  return(bb)
+}
+
+
+
+
+
+
+
+#' Helper for creating an histogram
+#'
+#' @param bb A \code{billboard} \code{htmlwidget} object.
+#' @param data A \code{data.frame}.
+#' @param ... Arguments for slot 
+#'
+#' @return A \code{billboard} \code{htmlwidget} object.
+#' @export
+#' 
+#' @importFrom graphics hist
+#' 
+#' @examples
+#' \dontrun{
+#' }
+bb_hist <- function(bb, x, breaks = "Sturges", ...) {
+  
+  
+  h <- graphics::hist(x = x, breaks = breaks, plot = FALSE)
+  
+  json <- list(
+    data = h$counts,
+    x = head(h$breaks, -1)
+  )
+  
+  
+  data_opt <- list(
+    json = json,
+    type = "area-step",
+    x = "x"
+  )
+  
+  bb <- .bb_opt2(bb, "data", data_opt)
+  
+  bb <- .bb_opt(bb, "area", ...)
+  
+  bb <- .bb_opt(bb, "line", step = list(type = "step"))
+  
+  return(bb)
+}
+

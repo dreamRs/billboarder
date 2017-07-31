@@ -38,6 +38,15 @@ billboarder() %>%
   bb_axis(rotated = TRUE) %>%
   bb_title(text = "Number of models by manufacturer", position = "left-top")
 
+# with some other options
+billboarder() %>%
+  bb_bar(data = mpg[, list(count = .N), by = manufacturer][order(count, decreasing = TRUE)]) %>%
+  bb_y_grid(show = TRUE) %>%
+  bb_legend(show = FALSE) %>% 
+  bb_y_axis(label = list(text = "# of models", position = "outer-top")) %>% 
+  bb_title(text = "Popular models by manufacturer", position = "left-top")
+
+
 
 # With dplyr
 mpg %>% 

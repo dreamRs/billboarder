@@ -32,16 +32,7 @@ HTMLWidgets.widget({
         // Generate billboard chart
         chart = bb.generate(bb_opts);
         
-        if (HTMLWidgets.shinyMode) {
-          Shiny.addCustomMessageHandler(
-            'update-billboard-data-' + el.id,
-            
-            function(data) {
-            
-             chart.load(data);
-            
-          });
-        }
+        console.log(chart.data());
 
       },
       
@@ -87,7 +78,7 @@ if (HTMLWidgets.shinyMode) {
   Shiny.addCustomMessageHandler('update-billboard-data',
     function(data) {
       var chart = get_billboard(data.id);
-      // chart.unload(data.data);
+      // chart.unload();
       chart.load(data.data);
   });
   

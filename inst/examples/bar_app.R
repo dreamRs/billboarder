@@ -20,13 +20,6 @@ server <- function(input, output, session) {
   })
   
   observeEvent(input$update, {
-    # session$sendCustomMessage(
-    #   type = "update-billboard-data-bb",
-    #   # message = list(y = round(runif(n = 10, min = 10, max = 100)))
-    #   message = as.list(
-    #     data.frame(x = letters[1:10], y = round(runif(n = 10, min = 10, max = 100)))
-    #   )
-    # )
     billboarderProxy("mybb1") %>% 
       bb_data(data = data.frame(x = letters[1:10], y = round(runif(n = 10, min = 10, max = 100))))
   }, ignoreInit = TRUE)
