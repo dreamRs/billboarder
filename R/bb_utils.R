@@ -194,6 +194,7 @@ bb_tooltip <- function(bb, ...) {
 #' Color property for a Billboard.js chart
 #'
 #' @param bb A \code{billboard} \code{htmlwidget} object.
+#' @param palette A color palette to use with series added in the chart.
 #' @param ... See \url{https://naver.github.io/billboard.js/release/latest/doc/Options.html#.color}
 #'
 #' @return A \code{billboard} \code{htmlwidget} object.
@@ -201,14 +202,80 @@ bb_tooltip <- function(bb, ...) {
 #'
 #' @examples
 #' \dontrun{
-#' # change color
+#' 
+#' # Scatter
+#' billboarder() %>% 
+#'   bb_scatter(data = iris, x = "Sepal.Length", y = "Sepal.Width", group = "Species") %>% 
+#'   bb_axis(x = list(tick = list(fit = FALSE))) %>% 
+#'   bb_point(r = 8) %>% 
+#'   bb_color(palette = RColorBrewer::brewer.pal(n = 3, name = "Reds"))
+#'
+#' # Pie
+#' stars <- data.frame(
+#'   package = c("billboarder", "ggiraph", "officer", "shinyWidgets", "visNetwork"),
+#'   stars = c(9, 177, 43, 44, 169)
+#' )
+#' cols <- RColorBrewer::brewer.pal(n = 5, name = "Dark2")
+#' 
+#' billboarder() %>%
+#'   bb_pie(data = stars) %>%
+#'   bb_color(palette = RColorBrewer::brewer.pal(n = 5, name = "Reds"))
 #' 
 #' }
-bb_color <- function(bb, ...) {
+bb_color <- function(bb, palette = NULL, ...) {
   
-  .bb_opt(bb, "color", ...)
+  if (length(palette) == 1) {
+    palette <- list(palette)
+  }
+  
+  .bb_opt2(bb, "color", c(dropNulls(list(pattern = palette)), ...))
   
 }
+
+
+#' Set colors for each datas
+#' 
+#'
+#' @param bb A \code{billboard} \code{htmlwidget} object.
+#' @param ... A named list, where names correspond to the data, and values
+#' to color associate with it.
+#'
+#' @return A \code{billboard} \code{htmlwidget} object.
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#'  
+#' # Scatter
+#' billboarder() %>% 
+#' bb_scatter(data = iris, x = "Sepal.Length", y = "Sepal.Width", group = "Species") %>% 
+#'   bb_axis(x = list(tick = list(fit = FALSE))) %>% 
+#'   bb_point(r = 8) %>% 
+#'   bb_colors_manual(setosa = "#440154", virginica = "#21908C", versicolor = "#FDE725")
+#' 
+#' # Pie
+#' stars <- data.frame(
+#'   package = c("billboarder", "ggiraph", "officer", "shinyWidgets", "visNetwork"),
+#'   stars = c(9, 177, 43, 44, 169)
+#' )
+#' cols <- RColorBrewer::brewer.pal(n = 5, name = "Dark2")
+#' 
+#' billboarder() %>% 
+#'   bb_pie(data = stars) %>% 
+#'   bb_colors_manual(
+#'    setNames(as.list(cols), stars$package) # this is a named list
+#'   )
+#'   
+#' }
+bb_colors_manual <- function(bb, ...) {
+  
+  args <- list(...)
+  args <- as.list(unlist(args))
+  .bb_opt(bb, "data", colors = args)
+}
+
+
+
 
 #' Grid property for a Billboard.js chart
 #'
