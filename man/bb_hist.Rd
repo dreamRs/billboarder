@@ -21,7 +21,3 @@ A \code{billboard} \code{htmlwidget} object.
 \description{
 Helper for creating an histogram
 }
-\examples{
-\dontrun{
-}
-}

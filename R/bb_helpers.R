@@ -376,9 +376,6 @@ bb_donut <- function(bb, data, ...) {
 #' 
 #' @importFrom graphics hist
 #' 
-#' @examples
-#' \dontrun{
-#' }
 bb_hist <- function(bb, x, breaks = "Sturges", ...) {
   
   

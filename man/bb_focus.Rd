@@ -2,9 +2,12 @@
 % Please edit documentation in R/billboarder-shiny.R
 \name{bb_focus}
 \alias{bb_focus}
+\alias{bb_defocus}
 \title{Highlights specified targets and fade out the others.}
 \usage{
 bb_focus(proxy, ids = NULL)
+
+bb_defocus(proxy, ids = NULL)
 }
 \arguments{
 \item{proxy}{A \code{billboardProxy} \code{htmlwidget} object.}
@@ -16,6 +19,9 @@ A \code{billboardProxy} \code{htmlwidget} object.
 }
 \description{
 Highlights specified targets and fade out the others.
+}
+\note{
+\code{bb_defocus} is the opposite of \code{bb_focus}
 }
 \examples{
 \dontrun{

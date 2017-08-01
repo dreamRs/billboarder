@@ -138,6 +138,16 @@ if (HTMLWidgets.shinyMode) {
         chart.focus();
       }
   });
+  // focus
+  Shiny.addCustomMessageHandler('update-billboard-defocus',
+    function(data) {
+      var chart = get_billboard(data.id);
+      if (data.data.ids.length > 0) {
+        chart.defocus(data.data.ids);
+      } else {
+        chart.defocus();
+      }
+  });
 }
 
 

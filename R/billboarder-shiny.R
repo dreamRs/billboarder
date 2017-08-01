@@ -176,9 +176,13 @@ bb_unload <- function(proxy, ids = NULL) {
 #'
 #' @param proxy A \code{billboardProxy} \code{htmlwidget} object.
 #' @param ids Data ids (names) to be highlighted, if \code{NULL} all datas will be highlighted.
+#' 
+#' @note \code{bb_defocus} is the opposite of \code{bb_focus}
 #'
 #' @return A \code{billboardProxy} \code{htmlwidget} object.
 #' @export
+#' 
+#' @name bb_focus
 #' 
 #' @examples 
 #' \dontrun{
@@ -233,3 +237,16 @@ bb_focus <- function(proxy, ids = NULL) {
   
 }
 
+#' @rdname bb_focus
+#' @export
+bb_defocus <- function(proxy, ids = NULL) {
+  
+  if (!"billboarder_Proxy" %in% class(proxy)) 
+    stop("This function must be used with a billboarderProxy object")
+  
+  if (is.null(ids)) 
+    ids <- character(0)
+  
+  .bb_proxy2(proxy, "defocus", list(ids = ids))
+  
+}
