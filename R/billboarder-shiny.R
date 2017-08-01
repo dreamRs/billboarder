@@ -37,7 +37,7 @@ renderBillboarder <- function(expr, env = parent.frame(), quoted = FALSE) {
 billboarderProxy <- function(shinyId, session = shiny::getDefaultReactiveDomain()) {
   
   if (is.null(session)) {
-    stop("leafletProxy must be called from the server function of a Shiny app")
+    stop("billboarderProxy must be called from the server function of a Shiny app")
   }
   
   if (!is.null(session$ns) && nzchar(session$ns(NULL)) && substring(shinyId, 1, nchar(session$ns(""))) != session$ns("")) {
@@ -64,7 +64,7 @@ billboarderProxy <- function(shinyId, session = shiny::getDefaultReactiveDomain(
 #' @param inputId The \code{input} slot that will be used to access the value.
 #'
 #' @return A \code{billboard} \code{htmlwidget} object.
-#' @export
+#' @noRd
 #' 
 #' @importFrom htmlwidgets JS
 #'
@@ -89,6 +89,14 @@ bb_click <- function(bb, inputId) {
 
 
 
+#' Call a proxy method
+#'
+#' @param proxy  A \code{billboardProxy} \code{htmlwidget} object.
+#' @param name Proxy method.
+#' @param ... Arguments passed to method.
+#'
+#' @return A \code{billboardProxy} \code{htmlwidget} object.
+#' @noRd
 .bb_proxy <- function(proxy, name, ...) {
   
   proxy$session$sendCustomMessage(
@@ -97,5 +105,131 @@ bb_click <- function(bb, inputId) {
   )
   
   proxy
+}
+.bb_proxy2 <- function(proxy, name, l) {
+  
+  proxy$session$sendCustomMessage(
+    type = sprintf("update-billboard-%s", name),
+    message = list(id = proxy$id, data = l)
+  )
+  
+  proxy
+}
+
+
+
+#' Load data to the chart with proxy
+#'
+#' @param proxy A \code{billboardProxy} \code{htmlwidget} object.
+#' @param data A \code{data.frame} with updated data.
+#' @param unload Ids (names) to data to unload.
+#' @param ... Arguments passed to method.
+#'
+#' @return A \code{billboardProxy} \code{htmlwidget} object.
+#' @export
+bb_load <- function(proxy, data = NULL, unload = NULL, ...) {
+  
+  if (!"billboarder_Proxy" %in% class(proxy)) 
+    stop("This function must be used with a billboarderProxy object")
+  
+  if (!is.null(data)) {
+    if (nrow(data) == 1) {
+      json <- lapply(X = as.list(data), FUN = list)
+    } else {
+      json <- as.list(data)
+    }
+  } else {
+    json <- NULL
+  }
+  
+  if (!is.null(unload)) {
+    if (length(unload) == 1) {
+      unload <- list(unload)
+    }
+  }
+  
+  .bb_proxy2(proxy, "load", dropNulls(c(list(json = json, unload = unload), list(...))))
+  
+}
+
+
+
+#' Unload data to the chart with proxy
+#'
+#' @param proxy A \code{billboardProxy} \code{htmlwidget} object.
+#' @param ids Data ids to unload.
+#'
+#' @return A \code{billboardProxy} \code{htmlwidget} object.
+#' @export
+bb_unload <- function(proxy, ids = NULL) {
+  
+  if (!"billboarder_Proxy" %in% class(proxy)) 
+    stop("This function must be used with a billboarderProxy object")
+  
+  .bb_proxy2(proxy, "unload", dropNulls(list(ids = ids)))
+  
+}
+
+
+
+#' Highlights specified targets and fade out the others.
+#'
+#' @param proxy A \code{billboardProxy} \code{htmlwidget} object.
+#' @param ids Data ids (names) to be highlighted, if \code{NULL} all datas will be highlighted.
+#'
+#' @return A \code{billboardProxy} \code{htmlwidget} object.
+#' @export
+#' 
+#' @examples 
+#' \dontrun{
+#' if (interactive()) {
+#' library("shiny")
+#' library("billboarder")
+#' library("magrittr")
+#' 
+#' ui <- fluidPage(
+#'   tags$h1("Proxy method to highlight data"),
+#'   checkboxGroupInput(
+#'     inputId = "focus", 
+#'     label = "Focus", 
+#'     choices = c("setosa", "versicolor", "virginica"), 
+#'     inline = TRUE
+#'   ),
+#'   billboarderOutput(outputId = "bb")
+#' )
+#' 
+#' server <- function(input, output, session) {
+#'   
+#'   output$bb <- renderBillboarder({
+#'     billboarder() %>% 
+#'       bb_scatter(
+#'         data = iris, 
+#'         x = "Sepal.Length", 
+#'         y = "Sepal.Width", 
+#'         group = "Species"
+#'       ) %>% 
+#'       bb_axis(x = list(tick = list(fit = FALSE))) %>% 
+#'       bb_point(r = 8)
+#'   })
+#'   
+#'   observeEvent(input$focus, {
+#'     billboarderProxy("bb") %>% 
+#'       bb_focus(input$focus)
+#'   }, ignoreNULL = FALSE)
+#' }
+#' 
+#' shinyApp(ui = ui, server = server)
+#' }
+#' }
+bb_focus <- function(proxy, ids = NULL) {
+  
+  if (!"billboarder_Proxy" %in% class(proxy)) 
+    stop("This function must be used with a billboarderProxy object")
+  
+  if (is.null(ids)) 
+    ids <- character(0)
+  
+  .bb_proxy2(proxy, "focus", list(ids = ids))
+  
 }
 

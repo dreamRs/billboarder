@@ -20,6 +20,29 @@ HTMLWidgets.widget({
         bb_opts = x.bb_opts;
         // bindto element
         bb_opts.bindto = '#' + el.id;
+        
+        
+        if (HTMLWidgets.shinyMode) {
+          bb_opts.data.onclick = function(d, element) {
+            Shiny.onInputChange(el.id + '_click', d);
+          };
+          bb_opts.data.onover = function(d, element) {
+            Shiny.onInputChange(el.id + '_over', d);
+          };
+          bb_opts.data.onselected = function(d) {
+            Shiny.onInputChange(el.id + '_selected', d);
+          };
+          bb_opts.data.onunselected = function(d) {
+            Shiny.onInputChange(el.id + '_selected', d);
+          };
+          
+          if (typeof bb_opts.zoom != 'undefined') {
+            bb_opts.zoom.onzoom = function(domain) {
+              Shiny.onInputChange(el.id + '_zoom', domain);
+            };
+          }
+        }
+        
 
         // Sizing
         var elpar = document.getElementById(el.id); //.parentElement
@@ -68,7 +91,11 @@ function get_billboard(id){
   var htmlWidgetsObj = HTMLWidgets.find("#" + id);
   
   // Use the getChart method we created to get the underlying C3 chart
-  var bbObj = htmlWidgetsObj.getChart();
+  var bbObj ;
+  
+  if (typeof htmlWidgetsObj != 'undefined') {
+    bbObj = htmlWidgetsObj.getChart();
+  }
 
   return(bbObj);
 }
@@ -79,7 +106,7 @@ function get_billboard(id){
 
 if (HTMLWidgets.shinyMode) {
   
-  // load
+  // data = load
   Shiny.addCustomMessageHandler('update-billboard-data',
     function(data) {
       var chart = get_billboard(data.id);
@@ -87,6 +114,30 @@ if (HTMLWidgets.shinyMode) {
       chart.load(data.data);
   });
   
+  // load
+  Shiny.addCustomMessageHandler('update-billboard-load',
+    function(data) {
+      var chart = get_billboard(data.id);
+      chart.load(data.data);
+  });
+  
+  // unload
+  Shiny.addCustomMessageHandler('update-billboard-unload',
+    function(data) {
+      var chart = get_billboard(data.id);
+      chart.unload(data.data);
+  });
+  
+  // focus
+  Shiny.addCustomMessageHandler('update-billboard-focus',
+    function(data) {
+      var chart = get_billboard(data.id);
+      if (data.data.ids.length > 0) {
+        chart.focus(data.data.ids);
+      } else {
+        chart.focus();
+      }
+  });
 }
 
 

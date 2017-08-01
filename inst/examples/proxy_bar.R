@@ -37,6 +37,11 @@ ui <- fluidPage(
         min = 9, 
         max = 35, 
         value = 9
+      ),
+      checkboxInput(
+        inputId = "keepallx", 
+        label = "Keep all x", 
+        value = FALSE
       )
     ),
     column(
@@ -61,15 +66,43 @@ server <- function(input, output, session) {
       bb_title(text = "Number of models by manufacturer", position = "left-top")
   })
   
-  observeEvent(list(input$cty, input$year), {
+  
+  observe({
     
     dat <- copy(mpg)
     dat <- dat[cty >= input$cty, list(count = .N), by = list(manufacturer, year)]
+    
+    if (input$keepallx) {
+      dat <- merge(x = unique(mpg[, list(manufacturer)]), y = dat, by = "manufacturer", all.x = TRUE)
+    }
+    
     dat <- dcast(data = dat, formula = manufacturer~year, value.var = "count")
     
     billboarderProxy("bb") %>% 
-      bb_data(data = dat[, .SD, .SDcols = c("manufacturer", input$year)])
-  }, ignoreInit = TRUE)
+      bb_load(
+        data = dat[, .SD, .SDcols = c("manufacturer", input$year)],
+        unload = setdiff(c("1999", "2008"), input$year)
+      )
+  })
+  
+  
+  # observeEvent(input$year, {
+  #   
+  #   dat <- copy(mpg)
+  #   dat <- dat[cty >= input$cty, list(count = .N), by = list(manufacturer, year)]
+  #   
+  #   if (input$keepallx) {
+  #     dat <- merge(x = unique(mpg[, list(manufacturer)]), y = dat, by = "manufacturer", all.x = TRUE)
+  #   }
+  #   
+  #   dat <- dcast(data = dat, formula = manufacturer~year, value.var = "count")
+  #   
+  #   billboarderProxy("bb") %>% 
+  #     bb_load(
+  #       data = dat[, .SD, .SDcols = c("manufacturer", input$year)],
+  #       unload = setdiff(c("1999", "2008"), input$year)
+  #     )
+  # }, ignoreInit = TRUE)
   
 }
 
