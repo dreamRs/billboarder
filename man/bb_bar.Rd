@@ -15,7 +15,7 @@ specified otherwise in \code{...}}
 \item{stacked}{Logical, if several columns provided, produce a stacked bar chart, else
 a dodge bar chart.}
 
-\item{...}{Arguments for slot data and bar}
+\item{...}{Arguments for slot bar, see \url{https://naver.github.io/billboard.js/release/latest/doc/Options.html#.bar}.}
 }
 \value{
 A \code{billboard} \code{htmlwidget} object.
@@ -24,16 +24,18 @@ A \code{billboard} \code{htmlwidget} object.
 Helper for creating a bar chart
 }
 \examples{
-\dontrun{
+library("billboarder")
+
 stars <- data.frame(
   package = c("billboarder", "ggiraph", "officer", "shinyWidgets", "visNetwork"),
   stars = c(1, 176, 42, 40, 166)
 )
+
 billboarder() \%>\%
   bb_bar(data = stars)
 
 billboarder() \%>\%
-  bb_bar(data = stars, labels = TRUE, names = list(stars = "Number of stars")) \%>\%
+  bb_bar(data = stars, labels = TRUE) \%>\%
+  bb_data(names = list(stars = "Number of stars")) \%>\% 
   bb_axis(rotated = TRUE)
-}
 }

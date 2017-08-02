@@ -5,24 +5,26 @@
 #' specified otherwise in \code{...}
 #' @param stacked Logical, if several columns provided, produce a stacked bar chart, else
 #' a dodge bar chart.
-#' @param ... Arguments for slot data and bar
+#' @param ... Arguments for slot bar, see \url{https://naver.github.io/billboard.js/release/latest/doc/Options.html#.bar}.
 #'
 #' @return A \code{billboard} \code{htmlwidget} object.
 #' @export
 #'
 #' @examples
-#' \dontrun{
+#' library("billboarder")
+#' 
 #' stars <- data.frame(
 #'   package = c("billboarder", "ggiraph", "officer", "shinyWidgets", "visNetwork"),
 #'   stars = c(1, 176, 42, 40, 166)
 #' )
+#' 
 #' billboarder() %>%
 #'   bb_bar(data = stars)
 #' 
 #' billboarder() %>%
-#'   bb_bar(data = stars, labels = TRUE, names = list(stars = "Number of stars")) %>%
+#'   bb_bar(data = stars, labels = TRUE) %>%
+#'   bb_data(names = list(stars = "Number of stars")) %>% 
 #'   bb_axis(rotated = TRUE)
-#' }
 bb_bar <- function(bb, data, stacked = FALSE, ...) {
   
   if (missing(data))
@@ -49,17 +51,17 @@ bb_bar <- function(bb, data, stacked = FALSE, ...) {
     json <- as.list(data)
   }
   
-  data_names <- base::setdiff(names(args), c("width", "zerobased"))
+  # data_names <- base::setdiff(names(args), c("width", "zerobased"))
   data_opt <- list(
     x = x,
     json = json,
     type = "bar",
     groups = stacked
   )
-  data_opt <- c(data_opt, args[names(args) %in% data_names])
+  # data_opt <- c(data_opt, args[names(args) %in% data_names])
   bb <- .bb_opt2(bb, "data", data_opt)
   
-  bb <- .bb_opt2(bb, "bar", args[names(args) %in% c("width", "zerobased")])
+  bb <- .bb_opt(bb, "bar", ...)
   
   bb <- .bb_opt(bb, "axis", x = list(type = "category"))
   

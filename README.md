@@ -97,7 +97,8 @@ mpg %>%
   summarise(n = n()) %>% 
   spread(year, n) %>% 
   billboarder(data = .) %>%
-  bb_bar(stacked = TRUE)
+  bb_bar(stacked = TRUE) %>% 
+  bb_data(labels = TRUE)
 
 ```
 

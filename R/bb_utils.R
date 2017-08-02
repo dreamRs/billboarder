@@ -112,6 +112,30 @@ bb_y_axis <- function(bb, ...) {
 #' @return A \code{billboard} \code{htmlwidget} object.
 #' @export
 #'
+#' @examples
+#' library("billboarder")
+#' 
+#' stars <- data.frame(
+#'   package = c("billboarder", "ggiraph", "officer", "shinyWidgets", "visNetwork"),
+#'   stars = c(1, 176, 42, 40, 166)
+#' )
+#' 
+#' # Hide legend
+#' billboarder() %>%
+#'   bb_bar(data = stars) %>% 
+#'   bb_legend(show = FALSE)
+#' 
+#' # Right legend
+#' billboarder() %>%
+#'   bb_pie(data = stars) %>% 
+#'   bb_legend(position = "right")
+#' 
+#' # Inset legend
+#' billboarder() %>%
+#'   bb_scatter(data = iris, x = "Sepal.Length", y = "Sepal.Width", group = "Species") %>% 
+#'   bb_axis(x = list(tick = list(fit = FALSE))) %>% 
+#'   bb_legend(position = "inset", inset = list(anchor = "top-right"))
+#' 
 bb_legend <- function(bb, ...) {
 
   .bb_opt(bb, "legend", ...)
