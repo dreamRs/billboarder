@@ -1,0 +1,20 @@
+#' French electricity generation by year and branch.
+#'
+#' Annual French electricity production (TWh) by branch. Last update : 2017-02-15.
+#'
+#' @format A data frame with 5 rows and 11 variables:
+#' \describe{
+#'   \item{annee}{Year}
+#'   \item{prod_total}{Total production in TWh (thermal + hydro + nuclear + solar + wind + bioenergy)}
+#'   \item{prod_therm}{Thermal production in TWh (oil + gas + coal)}
+#'   \item{prod_hydraulique}{Hydraulic production in TWh}
+#'   \item{prod_bioenergies}{Bioenergy production in TWh}
+#'   \item{prod_eolien}{Wind production in TWh}
+#'   \item{prod_therm_charbon}{Coal thermal production in TWh}
+#'   \item{prod_solaire}{Solar production in TWh}
+#'   \item{prod_therm_gaz}{Gaz thermal production in TWh}
+#'   \item{prod_nucleaire}{Nuclear production in TWh}
+#'   \item{prod_therm_fioul}{Oil thermal production in TWh}
+#' }
+#' @source RTE (\url{https://opendata.rte-france.com/explore/dataset/prod_par_filiere})
+"prod_par_filiere"
