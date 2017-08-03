@@ -22,6 +22,7 @@ HTMLWidgets.widget({
         bb_opts.bindto = '#' + el.id;
         
         
+        // Shiny interaction
         if (HTMLWidgets.shinyMode) {
           bb_opts.data.onclick = function(d, element) {
             Shiny.onInputChange(el.id + '_click', d);
@@ -55,6 +56,27 @@ HTMLWidgets.widget({
         // Generate billboard chart
         chart = bb.generate(bb_opts);
         
+        
+        // Caption
+        if (typeof bb_opts.caption != 'undefined') {
+          //var caption = document.createElement("DIV"); 
+          //caption.style['text-align'] = 'right';
+          //var captiontext = document.createTextNode(bb_opts.caption.text);  
+          //caption.appendChild(captiontext);
+          //document.getElementById(el.id).appendChild(caption); 
+          
+          d3.select('#' + el.id + ' svg').selectAll(".bb-caption").remove();
+          
+          d3.select('#' + el.id + ' svg')
+          .append("text")
+          .attr("class", "bb-caption")
+          .attr("x", w)
+          .attr("y", h)
+          .attr("startOffset", "100%")
+          .attr("text-anchor", "end")
+          .text(bb_opts.caption.text);
+        }
+        
         // bold title
         var sheet = window.document.styleSheets[0];
         sheet.insertRule('.bb-title { font-weight: bold; }', sheet.cssRules.length);
@@ -74,8 +96,21 @@ HTMLWidgets.widget({
         var elpar = document.getElementById(el.id);  //.parentElement
         var w = elpar.clientWidth;
         var h = elpar.clientHeight;
-        console.log(h);
+        //console.log(h);
         chart.resize({width: w, height: h});
+        
+        // Caption
+        if (typeof bb_opts.caption != 'undefined') {
+          d3.select('#' + el.id + ' svg').selectAll(".bb-caption").remove();
+          d3.select('#' + el.id + ' svg')
+          .append("text")
+          .attr("class", "bb-caption")
+          .attr("x", w)
+          .attr("y", h)
+          .attr("startOffset", "100%")
+          .attr("text-anchor", "end")
+          .text(bb_opts.caption.text);
+        }
 
       }
 

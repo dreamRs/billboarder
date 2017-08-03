@@ -1,12 +1,12 @@
 
 
-
 # Production nationale annuelle par filiere (2012 a 2016) -----------------
 
 
-# source RTE -  https://opendata.rte-france.com/explore/dataset/prod_par_filiere/information/?sort=-annee
+# source : RTE -  https://opendata.rte-france.com/explore/dataset/prod_par_filiere
 
 # date extraction : 02/08/2017
+
 
 library("jsonlite")
 

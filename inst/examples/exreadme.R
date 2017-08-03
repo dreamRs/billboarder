@@ -61,6 +61,28 @@ mpg %>%
 
 
 
+data("prod_par_filiere")
+
+billboarder() %>%
+  bb_bar(data = prod_par_filiere[, c("annee", "prod_hydraulique")]) %>%
+  bb_color("#102246") %>% 
+  bb_y_grid(show = TRUE) %>%
+  bb_y_axis(tick = list(format = htmlwidgets::JS("function(x) {return x + 'TWh';}"))) %>% 
+  bb_legend(show = FALSE) %>% 
+  bb_title(text = "French hydraulic production", position = "right-top")
+
+billboarder() %>%
+  bb_bar(data = prod_par_filiere[, c("annee", "prod_hydraulique")]) %>%
+  bb_color("#102246") %>% 
+  bb_y_grid(show = TRUE) %>%
+  bb_y_axis(tick = list(format = htmlwidgets::JS("function(x) {return x + 'TWh';}"))) %>% 
+  bb_legend(show = FALSE) %>% 
+  bb_labs(title = "French hydraulic production",
+          caption = "Data source: RTE (https://opendata.rte-france.com)")
+
+
+
+
 ### Stacked and dodge
 
 billboarder() %>%
