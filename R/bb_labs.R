@@ -8,12 +8,15 @@
 #'
 #' @return A \code{billboard} \code{htmlwidget} object.
 #' @export
+#' 
+#' @note \code{caption} is not part of the billboard.js library, it is added by the \code{billboarder} package.
 #'
 # @examples
 bb_labs <- function(bb, title = NULL, x = NULL, y = NULL, caption = NULL) {
   
   if (!is.null(title)) {
-    bb <- bb_title(bb, text = title, position = "left-top")
+    bb <- bb_title(bb, text = title, position = "left-top", 
+                   padding = list(top = 0, right = 0, left = 0, bottom = 20))
   }
   
   if (!is.null(x)) {
@@ -26,6 +29,7 @@ bb_labs <- function(bb, title = NULL, x = NULL, y = NULL, caption = NULL) {
   
   if (!is.null(caption)) {
     bb <- .bb_opt(bb, "caption", text = caption)
+    bb <- .bb_opt(bb, "padding", bottom = 20)
   }
   
   return(bb)

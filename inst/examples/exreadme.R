@@ -81,6 +81,28 @@ billboarder() %>%
           caption = "Data source: RTE (https://opendata.rte-france.com)")
 
 
+library("data.table")
+data(prod_par_filiere)
+setDT(prod_par_filiere)
+prod_par_filiere <- melt(prod_par_filiere)
+prod_par_filiere2016 <- prod_par_filiere[annee == "2016" & variable != "prod_total"]
+prod_par_filiere2016 <- prod_par_filiere2016[, percent := round(value/sum(value)*100, 1)]
+prod_par_filiere2016 <- prod_par_filiere2016[order(percent, decreasing = TRUE)]
+prod_par_filiere2016 <- prod_par_filiere2016[, variable := gsub("prod_", "", variable)]
+prod_par_filiere2016
+
+
+billboarder() %>%
+  bb_bar(data = prod_par_filiere2016[, c("variable", "percent")]) %>%
+  bb_color("#102246") %>% 
+  # bb_axis(rotated = TRUE) %>% 
+  bb_data(labels = TRUE) %>% 
+  bb_y_grid(show = TRUE) %>%
+  bb_legend(show = FALSE) %>% 
+  bb_labs(title = "French electricity production in 2016 by sources",
+          y = "% of production",
+          caption = "Data source: RTE (https://opendata.rte-france.com)")
+
 
 
 ### Stacked and dodge

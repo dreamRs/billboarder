@@ -59,20 +59,13 @@ HTMLWidgets.widget({
         
         // Caption
         if (typeof bb_opts.caption != 'undefined') {
-          //var caption = document.createElement("DIV"); 
-          //caption.style['text-align'] = 'right';
-          //var captiontext = document.createTextNode(bb_opts.caption.text);  
-          //caption.appendChild(captiontext);
-          //document.getElementById(el.id).appendChild(caption); 
-          
           d3.select('#' + el.id + ' svg').selectAll(".bb-caption").remove();
-          
           d3.select('#' + el.id + ' svg')
           .append("text")
           .attr("class", "bb-caption")
           .attr("x", w)
           .attr("y", h)
-          .attr("startOffset", "100%")
+          //.attr("startOffset", "100%")
           .attr("text-anchor", "end")
           .text(bb_opts.caption.text);
         }

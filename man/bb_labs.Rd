@@ -23,3 +23,6 @@ A \code{billboard} \code{htmlwidget} object.
 \description{
 Quickly set title, axis labels and caption
 }
+\note{
+\code{caption} is not part of the billboard.js library, it is added by the \code{billboarder} package.
+}
