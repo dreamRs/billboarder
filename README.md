@@ -41,7 +41,7 @@ setDT(mpg)
 
 # a bar chart !
 billboarder() %>%
-  bb_bar(data = mpg[, list(count = .N), by = manufacturer][order(count, decreasing = TRUE)]) %>%
+  bb_barchart(data = mpg[, list(count = .N), by = manufacturer][order(count, decreasing = TRUE)]) %>%
   bb_y_grid(show = TRUE) %>%
   bb_legend(show = FALSE) %>% 
   bb_y_axis(label = list(text = "# of models", position = "outer-top")) %>% 
@@ -62,7 +62,7 @@ mpg %>%
   count(manufacturer) %>% 
   arrange(n) %>% 
   billboarder(data = .) %>% 
-  bb_bar() %>%
+  bb_barchart() %>%
   bb_axis(rotated = TRUE) %>%
   bb_title(text = "Number of models by manufacturer", position = "left-top")
 ```
@@ -76,7 +76,7 @@ You have to reshape the data in a "wide" format :
 
 ```r
 billboarder() %>%
-  bb_bar(
+  bb_barchart(
     data = dcast(
       data = mpg[, list(count = .N), by = list(manufacturer, year)],
       formula = manufacturer~year,
@@ -97,7 +97,7 @@ mpg %>%
   summarise(n = n()) %>% 
   spread(year, n) %>% 
   billboarder(data = .) %>%
-  bb_bar(stacked = TRUE) %>% 
+  bb_barchart(stacked = TRUE) %>% 
   bb_data(labels = TRUE)
 
 ```
@@ -112,7 +112,7 @@ Classic :
 
 ```r
 billboarder() %>% 
- bb_scatter(data = iris, x = "Sepal.Length", y = "Sepal.Width", group = "Species") %>% 
+ bb_scatterplot(data = iris, x = "Sepal.Length", y = "Sepal.Width", group = "Species") %>% 
  bb_axis(x = list(tick = list(fit = FALSE))) %>% 
  bb_point(r = 8)
 

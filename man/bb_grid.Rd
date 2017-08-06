@@ -27,7 +27,6 @@ Grid property for a Billboard.js chart
 \code{bb_x_grid} and \code{bb_y_grid} are shortcut for modifying the x-axis and the y-axis respectively.
 }
 \examples{
-\dontrun{
 
 stars <- data.frame(
   package = c("billboarder", "ggiraph", "officer", "shinyWidgets", "visNetwork"),
@@ -35,12 +34,11 @@ stars <- data.frame(
 )
 
 billboarder() \%>\%
-  bb_bar(data = stars) \%>\% 
+  bb_barchart(data = stars) \%>\% 
   bb_y_grid(show = TRUE)
 
 billboarder() \%>\%
-  bb_bar(data = stars) \%>\% 
+  bb_barchart(data = stars) \%>\% 
   bb_y_grid(lines = list(list(value = mean(stars$stars), text = "Horizontal line")))
 
-}
 }

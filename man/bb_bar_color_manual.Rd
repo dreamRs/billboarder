@@ -21,7 +21,6 @@ Manual color for barchart
 }
 \note{
 Must be called after \code{bb_bar}.
-#'
 }
 \examples{
 \dontrun{
@@ -41,7 +40,7 @@ names(cols) <- manufa
 cols[["nissan"]] <- "#DF0101"#' 
 
 billboarder() \%>\%
-  bb_bar(data = mpg[, list(count = .N), by = manufacturer][order(count)]) \%>\%
+  bb_barchart(data = mpg[, list(count = .N), by = manufacturer][order(count)]) \%>\%
   bb_bar_color_manual(values = cols)
 }
 }

@@ -27,17 +27,17 @@ stars <- data.frame(
 
 # Hide legend
 billboarder() \%>\%
-  bb_bar(data = stars) \%>\% 
+  bb_barchart(data = stars) \%>\% 
   bb_legend(show = FALSE)
 
 # Right legend
 billboarder() \%>\%
-  bb_pie(data = stars) \%>\% 
+  bb_piechart(data = stars) \%>\% 
   bb_legend(position = "right")
 
 # Inset legend
 billboarder() \%>\%
-  bb_scatter(data = iris, x = "Sepal.Length", y = "Sepal.Width", group = "Species") \%>\% 
+  bb_scatterplot(data = iris, x = "Sepal.Length", y = "Sepal.Width", group = "Species") \%>\% 
   bb_axis(x = list(tick = list(fit = FALSE))) \%>\% 
   bb_legend(position = "inset", inset = list(anchor = "top-right"))
 

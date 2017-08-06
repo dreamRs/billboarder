@@ -18,11 +18,9 @@ A \code{billboard} \code{htmlwidget} object.
 Point property for a Billboard.js chart
 }
 \examples{
-\dontrun{
 # Set point size
 billboarder() \%>\% 
-  bb_scatter(data = iris, x = "Sepal.Length", y = "Sepal.Width", group = "Species") \%>\% 
+  bb_scatterplot(data = iris, x = "Sepal.Length", y = "Sepal.Width", group = "Species") \%>\% 
   bb_axis(x = list(tick = list(fit = FALSE))) \%>\% 
   bb_point(r = 10)
-}
 }

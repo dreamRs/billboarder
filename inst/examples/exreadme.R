@@ -93,7 +93,7 @@ prod_par_filiere2016
 
 
 billboarder() %>%
-  bb_bar(data = prod_par_filiere2016[, c("variable", "percent")]) %>%
+  bb_barchart(data = prod_par_filiere2016[, c("variable", "percent")], rotated = TRUE) %>%
   bb_color("#102246") %>% 
   # bb_axis(rotated = TRUE) %>% 
   bb_data(labels = TRUE) %>% 

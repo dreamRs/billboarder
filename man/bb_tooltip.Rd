@@ -18,10 +18,9 @@ A \code{billboard} \code{htmlwidget} object.
 Tooltip property for a Billboard.js chart
 }
 \examples{
-\dontrun{
 # Format tooltip
 billboarder() \%>\% 
-  bb_scatter(data = iris, x = "Sepal.Length", y = "Sepal.Width", group = "Species") \%>\% 
+  bb_scatterplot(data = iris, x = "Sepal.Length", y = "Sepal.Width", group = "Species") \%>\% 
   bb_tooltip(
     format = list(
       # skip the title in tooltip
@@ -30,5 +29,4 @@ billboarder() \%>\%
       value = htmlwidgets::JS("function(value, ratio, id, index) {return id;}")
     )
   )
-}
 }

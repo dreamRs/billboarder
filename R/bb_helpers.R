@@ -5,6 +5,8 @@
 #' specified otherwise in \code{...}
 #' @param stacked Logical, if several columns provided, produce a stacked bar chart, else
 #' a dodge bar chart.
+#' @param rotated Switch x and y axis position.
+#' @param color Bar's color.
 #' @param ... Arguments for slot bar, see \url{https://naver.github.io/billboard.js/release/latest/doc/Options.html#.bar}.
 #'
 #' @return A \code{billboard} \code{htmlwidget} object.
@@ -19,13 +21,13 @@
 #' )
 #' 
 #' billboarder() %>%
-#'   bb_bar(data = stars)
+#'   bb_barchart(data = stars)
 #' 
 #' billboarder() %>%
-#'   bb_bar(data = stars, labels = TRUE) %>%
+#'   bb_barchart(data = stars, labels = TRUE) %>%
 #'   bb_data(names = list(stars = "Number of stars")) %>% 
 #'   bb_axis(rotated = TRUE)
-bb_bar <- function(bb, data, stacked = FALSE, ...) {
+bb_barchart <- function(bb, data, stacked = FALSE, rotated = FALSE, color = NULL, ...) {
   
   if (missing(data))
     data <- bb$x$data
@@ -63,7 +65,10 @@ bb_bar <- function(bb, data, stacked = FALSE, ...) {
   
   bb <- .bb_opt(bb, "bar", ...)
   
-  bb <- .bb_opt(bb, "axis", x = list(type = "category"))
+  if (!is.null(color))
+    bb <- bb_color(bb, color)
+  
+  bb <- .bb_opt(bb, "axis", x = list(type = "category"), rotated = rotated)
   
   return(bb)
 }
@@ -78,7 +83,7 @@ bb_bar <- function(bb, data, stacked = FALSE, ...) {
 #' the same order of the chart.
 #' 
 #' @note Must be called after \code{bb_bar}.
-#' #' 
+#'  
 #' @return A \code{billboard} \code{htmlwidget} object.
 #' @export
 #' 
@@ -103,7 +108,7 @@ bb_bar <- function(bb, data, stacked = FALSE, ...) {
 #' cols[["nissan"]] <- "#DF0101"#' 
 #' 
 #' billboarder() %>%
-#'   bb_bar(data = mpg[, list(count = .N), by = manufacturer][order(count)]) %>%
+#'   bb_barchart(data = mpg[, list(count = .N), by = manufacturer][order(count)]) %>%
 #'   bb_bar_color_manual(values = cols)
 #' }
 bb_bar_color_manual <- function(bb, values) {
@@ -112,7 +117,7 @@ bb_bar_color_manual <- function(bb, values) {
   categories <- bb$x$bb_opts$data$json[[x]]
   
   if (is.null(categories))
-    stop("This function must be called after 'bb_bar'")
+    stop("This function must be called after 'bb_barchart'")
   
   colorjs <- htmlwidgets::JS(
     paste(
@@ -158,9 +163,9 @@ bb_bar_color_manual <- function(bb, values) {
 #' @examples
 #' \dontrun{
 #' billboarder() %>% 
-#'   bb_scatter(data = iris, x = "Sepal.Length", y = "Sepal.Width")
+#'   bb_scatterplot(data = iris, x = "Sepal.Length", y = "Sepal.Width")
 #' }
-bb_scatter <- function(bb, data, x = NULL, y = NULL, group = NULL, ...) {
+bb_scatterplot <- function(bb, data, x = NULL, y = NULL, group = NULL, ...) {
   
   if (missing(data))
     data <- bb$x$data
@@ -232,9 +237,9 @@ bb_scatter <- function(bb, data, x = NULL, y = NULL, group = NULL, ...) {
 #' @examples
 #' \dontrun{
 #' billboarder() %>% 
-#'  bb_gauge(value = 50)
+#'  bb_gaugechart(value = 50)
 #' }
-bb_gauge <- function(bb, value, name = "Value", 
+bb_gaugechart <- function(bb, value, name = "Value", 
                      steps = c(30, 60, 90, 100),
                      steps_color = c("#FF0000", "#F97600", "#F6C600", "#60B044"),
                      ...) {
@@ -294,9 +299,9 @@ bb_gauge <- function(bb, value, name = "Value",
 #' )
 #' 
 #' billboarder() %>% 
-#'   bb_pie(data = stars)
+#'   bb_piechart(data = stars)
 #' }
-bb_pie <- function(bb, data, ...) {
+bb_piechart <- function(bb, data, ...) {
   
   if (missing(data))
     data <- bb$x$data
@@ -337,9 +342,9 @@ bb_pie <- function(bb, data, ...) {
 #' )
 #' 
 #' billboarder() %>% 
-#'   bb_donut(data = stars, title = "Stars")
+#'   bb_donutchart(data = stars, title = "Stars")
 #' }
-bb_donut <- function(bb, data, ...) {
+bb_donutchart <- function(bb, data, ...) {
   
   if (missing(data))
     data <- bb$x$data
@@ -378,7 +383,7 @@ bb_donut <- function(bb, data, ...) {
 #' 
 #' @importFrom graphics hist
 #' 
-bb_hist <- function(bb, x, breaks = "Sturges", ...) {
+bb_histogram <- function(bb, x, breaks = "Sturges", ...) {
   
   
   h <- graphics::hist(x = x, breaks = breaks, plot = FALSE)
@@ -403,4 +408,67 @@ bb_hist <- function(bb, x, breaks = "Sturges", ...) {
   
   return(bb)
 }
+
+
+
+
+
+
+
+
+#' Helper for creating a line chart
+#'
+#' @param bb A \code{billboard} \code{htmlwidget} object.
+#' @param data A \code{data.frame} or a \code{vector}.
+#' @param type Type of chart : line, spline, step, area, area-spline, area-step.
+#' @param show_point Whether to show each point in line.
+#' @param ... Not used
+#'
+#' @return A \code{billboard} \code{htmlwidget} object.
+#' @export
+#'
+# @examples
+bb_linechart <- function(bb, data, type = "line", show_point = FALSE, ...) {
+  
+  type <- match.arg(
+    arg = type, 
+    choices = c("line", "spline", "step", "area", "area-spline", "area-step"),
+    several.ok = TRUE
+  )
+  
+  if (missing(data))
+    data <- bb$x$data
+  
+  args <- list(...)
+  
+  if (is.vector(data)) {
+    data_opt = list(
+      json = list(
+        x = data
+      ),
+      type = type
+    )
+  } else {
+    if (inherits(x = data[[1]], what = c("Date", "POSIXct"))) {
+      data_opt = list(
+        x = names(data)[1],
+        json = as.list(data),
+        type = type
+      )
+      bb <- bb_x_axis(bb, type = "timeseries")
+    } else {
+      data_opt = list(
+        json = as.list(data),
+        type = type
+      )
+    }
+  }
+  
+  bb <- .bb_opt2(bb, "data", data_opt)
+  
+  bb <- bb_point(bb, show = show_point)
+  
+  return(bb)
+}
+
 
