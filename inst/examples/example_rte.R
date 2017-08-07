@@ -21,7 +21,7 @@ library( billboarder )
 
 data("prod_par_filiere")
 data("cdc_prod_filiere")
-
+data("equilibre_mensuel")
 
 
 
@@ -155,8 +155,12 @@ billboarder() %>%
     groups = list(list("prod_eolien", "prod_hydraulique", "prod_solaire")),
     names = list("prod_eolien" = "Wind", "prod_hydraulique" = "Hydraulic", "prod_solaire" = "Solar")
   ) %>% 
+  bb_legend(position = "inset", inset = list(anchor = "top-right")) %>% 
   bb_colors_manual("prod_eolien" = "#238443", "prod_hydraulique" = "#225EA8", "prod_solaire" = "#FEB24C", opacity = 0.8) %>% 
-  bb_y_axis(min = 0, padding = 0)
+  bb_y_axis(min = 0, padding = 0) %>% 
+  bb_labs(title = "Renewable energy production (2017-06-12)",
+          y = "In megawatt (MW)",
+          caption = "Data source: RTE (https://opendata.rte-france.com)")
 
 # vs
 billboarder() %>% 
@@ -170,4 +174,29 @@ billboarder() %>%
     names = list("prod_eolien" = "Wind", "prod_hydraulique" = "Hydraulic", "prod_solaire" = "Solar")
   ) %>% 
   bb_y_axis(min = 0, padding = 0)
+
+
+
+
+
+
+billboarder() %>% 
+  bb_linechart(
+    data = equilibre_mensuel[, c("date", "consommation", "production")], 
+    type = "spline"
+  ) %>% 
+  bb_x_axis(tick = list(format = "%Y-%m", fit = FALSE)) %>% 
+  bb_x_grid(show = TRUE) %>% 
+  bb_y_grid(show = TRUE) %>% 
+  bb_colors_manual("consommation" = "firebrick", "production" = "forestgreen") %>% 
+  bb_legend(position = "right") %>% 
+  bb_subchart(show = TRUE, size = list(height = 30)) %>% 
+  bb_labs(title = "Monthly electricity consumption and production in France (2007 - 2017)",
+          y = "In megawatt (MW)",
+          caption = "Data source: RTE (https://opendata.rte-france.com)")
+
+
+
+
+
 

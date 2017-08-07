@@ -307,6 +307,8 @@ bb_piechart <- function(bb, data, ...) {
   if (missing(data))
     data <- bb$x$data
   
+  data <- as.data.frame(data)
+  
   json <- as.list(data[[2]])
   json <- lapply(X = json, FUN = list)
   names(json) <- data[[1]]
@@ -349,6 +351,8 @@ bb_donutchart <- function(bb, data, ...) {
   
   if (missing(data))
     data <- bb$x$data
+  
+  data <- as.data.frame(data)
   
   json <- as.list(data[[2]])
   json <- lapply(X = json, FUN = list)

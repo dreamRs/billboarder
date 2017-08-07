@@ -68,6 +68,11 @@ dropNulls <- function (x)
 #' @return A \code{billboard} \code{htmlwidget} object.
 #' @export
 #'
+#' @examples 
+#' billboarder() %>%
+#'  bb_barchart(data = table(mtcars$cyl)) %>%
+#'  bb_data(names = list(Freq = "Number of cylinders"), labels = TRUE)
+#'  
 bb_data <- function(bb, data = NULL, ...) {
 
   if ("billboarder" %in% class(bb)) {
@@ -468,7 +473,15 @@ bb_line <- function(bb, ...) {
 #' @return A \code{billboard} \code{htmlwidget} object.
 #' @export
 #'
-# @examples
+#' @examples
+#' billboarder() %>%
+#'   bb_piechart(data = table(mtcars$cyl)) %>% 
+#'   bb_pie(label = list(
+#'     ratio = 0.5, 
+#'     format = htmlwidgets::JS("function(value) {return d3.format('$')(value);}")
+#'   ), 
+#'   expand = FALSE)
+#'   
 bb_pie <- function(bb, ...) {
   
   .bb_opt(bb, "pie", ...)
@@ -483,7 +496,11 @@ bb_pie <- function(bb, ...) {
 #' @return A \code{billboard} \code{htmlwidget} object.
 #' @export
 #'
-# @examples
+#' @examples
+#' billboarder() %>%
+#'   bb_donutchart(data = table(mtcars$cyl)) %>%
+#'   bb_donut(title = "Donut Title", width = 10)
+#'   
 bb_donut <- function(bb, ...) {
   
   .bb_opt(bb, "donut", ...)
@@ -499,7 +516,12 @@ bb_donut <- function(bb, ...) {
 #' @return A \code{billboard} \code{htmlwidget} object.
 #' @export
 #'
-# @examples
+#' @examples
+#' billboarder() %>% 
+#'   bb_gaugechart(value = 50) %>% 
+#'   bb_gauge(min = 0, max = 200, units = "km/h", width = 10,
+#'            label = list(format = htmlwidgets::JS("function(value) {return value;}")))
+#'            
 bb_gauge <- function(bb, ...) {
   
   .bb_opt(bb, "gauge", ...)
@@ -516,7 +538,11 @@ bb_gauge <- function(bb, ...) {
 #' @return A \code{billboard} \code{htmlwidget} object.
 #' @export
 #'
-# @examples
+#' @examples
+#' billboarder() %>%
+#'   bb_barchart(data = data.frame(v1 = c("a", "b", "c"), value = c(5, 6, 3))) %>% 
+#'   bb_bar(width = list(ratio = 0.95))
+#'   
 bb_bar <- function(bb, ...) {
   
   .bb_opt(bb, "bar", ...)

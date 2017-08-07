@@ -17,3 +17,9 @@ A \code{billboard} \code{htmlwidget} object.
 \description{
 Donut property for a Billboard.js chart
 }
+\examples{
+billboarder() \%>\%
+  bb_donutchart(data = table(mtcars$cyl)) \%>\%
+  bb_donut(title = "Donut Title", width = 10)
+  
+}
