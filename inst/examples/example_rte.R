@@ -98,5 +98,46 @@ billboarder() %>%
 
 
 
+# Linecharts --------------------------------------------------------------
 
+
+
+billboarder() %>% 
+  bb_linechart(data = cdc_prod_filiere[, c("date_heure", "prod_eolien")])
+
+billboarder() %>% 
+  bb_linechart(data = cdc_prod_filiere[, c("date_heure", "prod_eolien")]) %>% 
+  bb_x_axis(tick = list(format = "%H:%M", fit = FALSE))
+
+
+
+billboarder() %>% 
+  bb_linechart(data = cdc_prod_filiere[, c("date_heure", "prod_eolien", "prod_hydraulique", "prod_solaire")], type = "spline") %>% 
+  bb_y_axis(min = 0, padding = 0)
+
+
+billboarder() %>% 
+  bb_linechart(
+    data = cdc_prod_filiere[, c("date_heure", "prod_eolien", "prod_hydraulique", "prod_solaire")], 
+    type = "area"
+  ) %>% 
+  bb_data(
+    groups = list(list("prod_eolien", "prod_hydraulique", "prod_solaire")),
+    names = list("prod_eolien" = "Wind", "prod_hydraulique" = "Hydraulic", "prod_solaire" = "Solar")
+  ) %>% 
+  bb_colors_manual("prod_eolien" = "#238443", "prod_hydraulique" = "#225EA8", "prod_solaire" = "#FEB24C", opacity = 1) %>% 
+  bb_y_axis(min = 0, padding = 0)
+
+# vs
+billboarder() %>% 
+  bb_linechart(
+    data = cdc_prod_filiere[, c("date_heure", "prod_eolien", "prod_hydraulique", "prod_solaire")], 
+    type = "area"
+  ) %>% 
+  bb_data(
+    groups = list(list("prod_eolien", "prod_hydraulique", "prod_solaire")),
+    colors = list("prod_eolien" = "#238443", "prod_hydraulique" = "#225EA8", "prod_solaire" = "#FEB24C"),
+    names = list("prod_eolien" = "Wind", "prod_hydraulique" = "Hydraulic", "prod_solaire" = "Solar")
+  ) %>% 
+  bb_y_axis(min = 0, padding = 0)
 

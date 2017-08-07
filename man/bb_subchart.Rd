@@ -17,3 +17,12 @@ A \code{billboard} \code{htmlwidget} object.
 \description{
 Subchart property for a Billboard.js chart
 }
+\examples{
+
+data("equilibre_mensuel")
+
+billboarder() \%>\% 
+  bb_linechart(data = equilibre_mensuel[, c("date", "production")], type = "spline") \%>\% 
+  bb_subchart(show = TRUE)
+
+}

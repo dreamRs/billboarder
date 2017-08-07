@@ -23,3 +23,42 @@ A \code{billboard} \code{htmlwidget} object.
 \description{
 Helper for creating a line chart
 }
+\examples{
+
+# Different types
+x <- round(rnorm(20), 2)
+
+billboarder() \%>\% 
+  bb_linechart(data = x)
+
+billboarder() \%>\% 
+  bb_linechart(data = x, type = "spline")
+
+billboarder() \%>\% 
+  bb_linechart(data = x, type = "area")
+
+billboarder() \%>\% 
+  bb_linechart(data = x, type = "area-spline")
+  
+  
+# Timeserie with date (Date)
+data("economics", package = "ggplot2")
+
+billboarder() \%>\%
+  bb_linechart(data = economics[, c("date", "psavert")]) \%>\% 
+  bb_x_axis(tick = list(format = "\%Y-\%m", fit = FALSE)) \%>\%
+  bb_y_axis(tick = list(format = suffix("\%")), 
+            label = list(text = "Personal savings rate")) \%>\% 
+  bb_legend(show = FALSE) \%>\% 
+  bb_x_grid(show = TRUE) \%>\% 
+  bb_y_grid(show = TRUE) \%>\% 
+  bb_subchart(show = TRUE)
+  
+
+# Timeserie with datetime (POSIXct)
+data("cdc_prod_filiere")
+
+billboarder() \%>\% 
+  bb_linechart(data = cdc_prod_filiere[, c("date_heure", "prod_eolien")])
+  
+}

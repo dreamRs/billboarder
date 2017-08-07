@@ -21,3 +21,12 @@ A \code{billboard} \code{htmlwidget} object.
 \description{
 Add title to Billboard.js chart
 }
+\examples{
+billboarder() \%>\% 
+  bb_barchart(data = table(sample(letters, 100, TRUE))) \%>\% 
+  bb_title(text = "Random letters", position = "center")
+
+}
+\seealso{
+bb_labs
+}

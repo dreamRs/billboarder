@@ -184,7 +184,14 @@ bb_legend <- function(bb, ...) {
 #'
 #' @return A \code{billboard} \code{htmlwidget} object.
 #' @export
-#'
+#' 
+#' @seealso bb_labs
+#' 
+#' @examples 
+#' billboarder() %>% 
+#'   bb_barchart(data = table(sample(letters, 100, TRUE))) %>% 
+#'   bb_title(text = "Random letters", position = "center")
+#' 
 bb_title <- function(bb, text = NULL, padding = NULL, position = "top-center") {
 
   .bb_opt2(bb, "title", dropNulls(list(text = text, padding = padding, position = position)))
@@ -290,6 +297,7 @@ bb_color <- function(bb, palette = NULL, ...) {
 #' @param bb A \code{billboard} \code{htmlwidget} object.
 #' @param ... A named list, where names correspond to the data, and values
 #' to color associate with it.
+#' @param opacity Color opacity (for area charts).
 #'
 #' @return A \code{billboard} \code{htmlwidget} object.
 #' @export
@@ -318,11 +326,12 @@ bb_color <- function(bb, palette = NULL, ...) {
 #'    setNames(as.list(cols), stars$package) # this is a named list
 #'   )
 #'   
-bb_colors_manual <- function(bb, ...) {
+bb_colors_manual <- function(bb, ..., opacity = 1) {
   
   args <- list(...)
   args <- as.list(unlist(args))
-  .bb_opt(bb, "data", colors = args)
+  bb <- .bb_opt(bb, "data", colors = args)
+  .bb_opt(bb, "billboarderspecials", opacity = opacity)
 }
 
 
@@ -377,24 +386,6 @@ bb_y_grid <- function(bb, ...) {
   
 }
 
-
-
-
-
-#' Subchart property for a Billboard.js chart
-#'
-#' @param bb A \code{billboard} \code{htmlwidget} object.
-#' @param ... See \url{https://naver.github.io/billboard.js/release/latest/doc/Options.html#.subchart}
-#'
-#' @return A \code{billboard} \code{htmlwidget} object.
-#' @export
-#'
-# @examples
-bb_subchart <- function(bb, ...) {
-  
-  .bb_opt(bb, "subchart", ...)
-  
-}
 
 
 
@@ -529,5 +520,65 @@ bb_gauge <- function(bb, ...) {
 bb_bar <- function(bb, ...) {
   
   .bb_opt(bb, "bar", ...)
+  
+}
+
+
+
+#' Area property for a Billboard.js chart
+#'
+#' @param bb A \code{billboard} \code{htmlwidget} object.
+#' @param ... See \url{https://naver.github.io/billboard.js/release/latest/doc/Options.html#.area}
+#'
+#' @return A \code{billboard} \code{htmlwidget} object.
+#' @export
+#'
+# @examples
+bb_area <- function(bb, ...) {
+  
+  .bb_opt(bb, "area", ...)
+  
+}
+
+
+
+
+
+#' Subchart property for a Billboard.js chart
+#'
+#' @param bb A \code{billboard} \code{htmlwidget} object.
+#' @param ... See \url{https://naver.github.io/billboard.js/release/latest/doc/Options.html#.subchart}
+#'
+#' @return A \code{billboard} \code{htmlwidget} object.
+#' @export
+#'
+#' @examples
+#' 
+#' data("equilibre_mensuel")
+#' 
+#' billboarder() %>% 
+#'   bb_linechart(data = equilibre_mensuel[, c("date", "production")], type = "spline") %>% 
+#'   bb_subchart(show = TRUE)
+#'
+bb_subchart <- function(bb, ...) {
+  
+  .bb_opt(bb, "subchart", ...)
+  
+}
+
+
+
+#' Regions property for a Billboard.js chart
+#'
+#' @param bb A \code{billboard} \code{htmlwidget} object.
+#' @param ... See \url{https://naver.github.io/billboard.js/release/latest/doc/Options.html#.regions}
+#'
+#' @return A \code{billboard} \code{htmlwidget} object.
+#' @export
+#'
+# @examples
+bb_regions <- function(bb, ...) {
+  
+  .bb_opt(bb, "regions", ...)
   
 }

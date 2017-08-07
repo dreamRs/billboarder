@@ -71,8 +71,32 @@ HTMLWidgets.widget({
         }
         
         // bold title
-        var sheet = window.document.styleSheets[0];
-        sheet.insertRule('.bb-title { font-weight: bold; }', sheet.cssRules.length);
+        //var sheet = window.document.styleSheets[0];
+        //sheet.insertRule('.bb-title { font-weight: bold; }', sheet.cssRules.length);
+        var css = '.bb-title { font-weight: bold; }',
+          head = document.head || document.getElementsByTagName('head')[0],
+          style = document.createElement('style');
+        style.type = 'text/css';
+        if (style.styleSheet){
+          style.styleSheet.cssText = css;
+        } else {
+          style.appendChild(document.createTextNode(css));
+        }
+        head.appendChild(style);
+        
+        if (typeof bb_opts.billboarderspecials != 'undefined') {
+          if (typeof bb_opts.billboarderspecials.opacity != 'undefined') {
+            var cssopacity = '.bb-area { opacity: ' + bb_opts.billboarderspecials.opacity + ' !important; }',
+              styleopacity = document.createElement('style');
+            styleopacity.type = 'text/css';
+            if (styleopacity.styleSheet){
+              styleopacity.styleSheet.cssText = cssopacity;
+            } else {
+              styleopacity.appendChild(document.createTextNode(cssopacity));
+            }
+            head.appendChild(styleopacity);
+          }
+        }
         
         
         //console.log(chart.data());

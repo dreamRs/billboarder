@@ -11,7 +11,16 @@
 #' 
 #' @note \code{caption} is not part of the billboard.js library, it is added by the \code{billboarder} package.
 #'
-# @examples
+#' @examples
+#' data("prod_par_filiere")
+#' 
+#' billboarder() %>%
+#'   bb_barchart(data = prod_par_filiere[, c("annee", "prod_hydraulique")], color = "#102246") %>%
+#'   bb_legend(show = FALSE) %>% 
+#'   bb_labs(title = "French hydraulic production", 
+#'           y = "production (in terawatt-hours)",
+#'           caption = "Data source: RTE (https://opendata.rte-france.com)")
+#' 
 bb_labs <- function(bb, title = NULL, x = NULL, y = NULL, caption = NULL) {
   
   if (!is.null(title)) {

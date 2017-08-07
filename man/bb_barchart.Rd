@@ -10,7 +10,7 @@ bb_barchart(bb, data, stacked = FALSE, rotated = FALSE, color = NULL, ...)
 \item{bb}{A \code{billboard} \code{htmlwidget} object.}
 
 \item{data}{A \code{data.frame}, the first column will be used for x axis unless
-specified otherwise in \code{...}}
+specified otherwise in \code{...}. If not a \code{data.frame}, an object coercible to \code{data.frame}.}
 
 \item{stacked}{Logical, if several columns provided, produce a stacked bar chart, else
 a dodge bar chart.}

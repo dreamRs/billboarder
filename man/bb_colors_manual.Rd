@@ -4,13 +4,15 @@
 \alias{bb_colors_manual}
 \title{Set colors for each datas}
 \usage{
-bb_colors_manual(bb, ...)
+bb_colors_manual(bb, ..., opacity = 1)
 }
 \arguments{
 \item{bb}{A \code{billboard} \code{htmlwidget} object.}
 
 \item{...}{A named list, where names correspond to the data, and values
 to color associate with it.}
+
+\item{opacity}{Color opacity (for area charts).}
 }
 \value{
 A \code{billboard} \code{htmlwidget} object.

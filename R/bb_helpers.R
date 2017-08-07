@@ -2,7 +2,7 @@
 #'
 #' @param bb A \code{billboard} \code{htmlwidget} object.
 #' @param data A \code{data.frame}, the first column will be used for x axis unless
-#' specified otherwise in \code{...}
+#' specified otherwise in \code{...}. If not a \code{data.frame}, an object coercible to \code{data.frame}.
 #' @param stacked Logical, if several columns provided, produce a stacked bar chart, else
 #' a dodge bar chart.
 #' @param rotated Switch x and y axis position.
@@ -32,6 +32,7 @@ bb_barchart <- function(bb, data, stacked = FALSE, rotated = FALSE, color = NULL
   if (missing(data))
     data <- bb$x$data
   
+  data <- as.data.frame(data)
   args <- list(...)
   
   if (is.null(data)) {
@@ -427,12 +428,49 @@ bb_histogram <- function(bb, x, breaks = "Sturges", ...) {
 #' @return A \code{billboard} \code{htmlwidget} object.
 #' @export
 #'
-# @examples
+#' @examples
+#' 
+#' # Different types
+#' x <- round(rnorm(20), 2)
+#' 
+#' billboarder() %>% 
+#'   bb_linechart(data = x)
+#' 
+#' billboarder() %>% 
+#'   bb_linechart(data = x, type = "spline")
+#' 
+#' billboarder() %>% 
+#'   bb_linechart(data = x, type = "area")
+#' 
+#' billboarder() %>% 
+#'   bb_linechart(data = x, type = "area-spline")
+#'   
+#'   
+#' # Timeserie with date (Date)
+#' data("economics", package = "ggplot2")
+#' 
+#' billboarder() %>%
+#'   bb_linechart(data = economics[, c("date", "psavert")]) %>% 
+#'   bb_x_axis(tick = list(format = "%Y-%m", fit = FALSE)) %>%
+#'   bb_y_axis(tick = list(format = suffix("%")), 
+#'             label = list(text = "Personal savings rate")) %>% 
+#'   bb_legend(show = FALSE) %>% 
+#'   bb_x_grid(show = TRUE) %>% 
+#'   bb_y_grid(show = TRUE) %>% 
+#'   bb_subchart(show = TRUE)
+#'   
+#'
+#' # Timeserie with datetime (POSIXct)
+#' data("cdc_prod_filiere")
+#' 
+#' billboarder() %>% 
+#'   bb_linechart(data = cdc_prod_filiere[, c("date_heure", "prod_eolien")])
+#'   
 bb_linechart <- function(bb, data, type = "line", show_point = FALSE, ...) {
   
   type <- match.arg(
     arg = type, 
-    choices = c("line", "spline", "step", "area", "area-spline", "area-step"),
+    choices = c("line", "spline", "step", "area", "area-spline", "area-step", "bar"),
     several.ok = TRUE
   )
   
@@ -450,6 +488,10 @@ bb_linechart <- function(bb, data, type = "line", show_point = FALSE, ...) {
     )
   } else {
     if (inherits(x = data[[1]], what = c("Date", "POSIXct"))) {
+      if (inherits(x = data[[1]], what = c("POSIXct"))) {
+        bb <- bb_data(bb, xFormat = "%Y-%m-%d %H:%M:%S")
+      }
+      data[[1]] <- as.character(data[[1]])
       data_opt = list(
         x = names(data)[1],
         json = as.list(data),
