@@ -7,16 +7,16 @@
 \format{A data frame with 48 rows and 11 variables:
 \describe{
   \item{date_heure}{Timestamp (POSIXct)}
-  \item{prod_total}{Total production in TWh (thermal + hydro + nuclear + solar + wind + bioenergy)}
-  \item{prod_gaz}{Gas production in TWh}
-  \item{prod_bioenergies}{Bioenergy production in TWh}
-  \item{prod_hydraulique}{Hydraulic production in TWh}
-  \item{prod_thermique_fossile}{Fossil thermal production in TWh}
-  \item{prod_charbon}{Coal production in TWh}
-  \item{prod_eolien}{Wind production in TWh}#'   
-  \item{prod_solaire}{Solar production in TWh}   
-  \item{prod_nucleaire}{Nuclear production in TWh}
-  \item{prod_fioul}{Oil production in TWh}
+  \item{prod_total}{Total production in MW (thermal + hydro + nuclear + solar + wind + bioenergy)}
+  \item{prod_gaz}{Gas production in MW}
+  \item{prod_bioenergies}{Bioenergy production in MW}
+  \item{prod_hydraulique}{Hydraulic production in MW}
+  \item{prod_thermique_fossile}{Fossil thermal production in MW}
+  \item{prod_charbon}{Coal production in MW}
+  \item{prod_eolien}{Wind production in MW}  
+  \item{prod_solaire}{Solar production in MW}   
+  \item{prod_nucleaire}{Nuclear production in MW}
+  \item{prod_fioul}{Oil production in MW}
 }}
 \source{
 RTE (\url{https://opendata.rte-france.com/explore/dataset/cdc_prod_par_filiere})

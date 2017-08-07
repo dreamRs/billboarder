@@ -55,7 +55,7 @@ server <- function(input, output, session) {
   
   output$bb <- renderBillboarder({
     billboarder() %>%
-      bb_bar(
+      bb_barchart(
         data = dcast(
           data = mpg[, list(count = .N), by = list(manufacturer, year)],
           formula = manufacturer~year,

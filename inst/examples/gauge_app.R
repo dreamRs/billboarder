@@ -33,30 +33,30 @@ server <- function(input, output, session) {
   
   output$gauge1 <- renderBillboarder({
     billboarder() %>% 
-      bb_gauge(value = round(sample.int(100, 1)))
+      bb_gaugechart(value = round(sample.int(100, 1)))
   })
   
   output$gauge2 <- renderBillboarder({
     billboarder() %>% 
-      bb_gauge(value = round(sample.int(100, 1)))
+      bb_gaugechart(value = round(sample.int(100, 1)))
   })
   
   output$gauge3 <- renderBillboarder({
     billboarder() %>% 
-      bb_gauge(value = round(sample.int(100, 1)))
+      bb_gaugechart(value = round(sample.int(100, 1)))
   })
   
   
   observeEvent(input$update, {
     
     billboarderProxy("gauge1") %>% 
-      bb_gauge(value = round(sample.int(100, 1)))
+      bb_gaugechart(value = round(sample.int(100, 1)))
     
     billboarderProxy("gauge2") %>% 
-      bb_gauge(value = round(sample.int(100, 1)))
+      bb_gaugechart(value = round(sample.int(100, 1)))
     
     billboarderProxy("gauge3") %>% 
-      bb_gauge(value = round(sample.int(100, 1)))
+      bb_gaugechart(value = round(sample.int(100, 1)))
     
   }, ignoreInit = TRUE)
   

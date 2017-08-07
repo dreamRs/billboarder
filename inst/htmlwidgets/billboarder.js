@@ -11,7 +11,8 @@ HTMLWidgets.widget({
 
     // TODO: define shared variables for this instance
 
-    var chart;
+    var chart,
+      bb_opts;
 
     return {
 
@@ -24,23 +25,42 @@ HTMLWidgets.widget({
         
         // Shiny interaction
         if (HTMLWidgets.shinyMode) {
-          bb_opts.data.onclick = function(d, element) {
-            Shiny.onInputChange(el.id + '_click', d);
-          };
-          bb_opts.data.onover = function(d, element) {
-            Shiny.onInputChange(el.id + '_over', d);
-          };
-          bb_opts.data.onselected = function(d) {
-            Shiny.onInputChange(el.id + '_selected', d);
-          };
-          bb_opts.data.onunselected = function(d) {
-            Shiny.onInputChange(el.id + '_selected', d);
-          };
           
-          if (typeof bb_opts.zoom != 'undefined') {
-            bb_opts.zoom.onzoom = function(domain) {
-              Shiny.onInputChange(el.id + '_zoom', domain);
+          // Click
+          if (typeof bb_opts.data.onclick == 'undefined') {
+            bb_opts.data.onclick = function(d, element) {
+              Shiny.onInputChange(el.id + '_click', d);
             };
+          }
+          
+          // Hover
+          if (typeof bb_opts.data.onover == 'undefined') {
+            bb_opts.data.onover = function(d, element) {
+              Shiny.onInputChange(el.id + '_over', d);
+            };
+          }
+          
+          // Selected
+          if (typeof bb_opts.data.onselected == 'undefined') {
+            bb_opts.data.onselected = function(d) {
+              Shiny.onInputChange(el.id + '_selected', d);
+            };
+          }
+          
+          // Unselected
+          if (typeof bb_opts.data.onunselected == 'undefined') {
+            bb_opts.data.onunselected = function(d) {
+              Shiny.onInputChange(el.id + '_selected', d);
+            };
+          }
+          
+          // Zoom
+          if (typeof bb_opts.zoom != 'undefined') {
+            if (typeof bb_opts.zoom.onzoom == 'undefined') {
+              bb_opts.zoom.onzoom = function(domain) {
+                Shiny.onInputChange(el.id + '_zoom', domain);
+              };
+            }
           }
         }
         
