@@ -209,11 +209,17 @@ bb_scatterplot <- function(bb, data, x = NULL, y = NULL, group = NULL, ...) {
     )
   )
   
-  bb <- .bb_opt2(bb, "data", data_opt)
   
-  bb <- .bb_opt(bb, "legend", show = !is.null(group))
+  if ("billboarder_Proxy" %in% class(bb)) {
+    bb <- bb_load(proxy = bb, json = json, xs = xs)
+  } else {
+    bb <- .bb_opt2(bb, "data", data_opt)
+    
+    bb <- .bb_opt(bb, "legend", show = !is.null(group))
+    
+    bb <- .bb_opt2(bb, "axis", data_axis)
+  }
   
-  bb <- .bb_opt2(bb, "axis", data_axis)
   
   return(bb)
 }
