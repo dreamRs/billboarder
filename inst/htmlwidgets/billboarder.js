@@ -190,6 +190,7 @@ if (HTMLWidgets.shinyMode) {
   Shiny.addCustomMessageHandler('update-billboard-load',
     function(data) {
       var chart = get_billboard(data.id);
+      console.log(data.data);
       chart.load(data.data);
   });
   
@@ -219,6 +220,18 @@ if (HTMLWidgets.shinyMode) {
       } else {
         chart.defocus();
       }
+  });
+  // Axis labels
+  Shiny.addCustomMessageHandler('update-billboard-axis_labels',
+    function(data) {
+      var chart = get_billboard(data.id);
+      chart.axis.labels(data.data);
+  });
+  // X values
+  Shiny.addCustomMessageHandler('update-billboard-xs',
+    function(data) {
+      var chart = get_billboard(data.id);
+      chart.xs(data.data);
   });
 }
 

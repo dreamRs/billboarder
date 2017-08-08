@@ -143,7 +143,7 @@ bb_load <- function(proxy, data = NULL, unload = NULL, ...) {
   }
   
   if (!is.null(unload)) {
-    if (length(unload) == 1) {
+    if (length(unload) == 1 && !is.logical(unload)) {
       unload <- list(unload)
     }
   }
@@ -248,5 +248,44 @@ bb_defocus <- function(proxy, ids = NULL) {
     ids <- character(0)
   
   .bb_proxy2(proxy, "defocus", list(ids = ids))
+  
+}
+
+
+
+
+
+
+#' Update axis labels with proxy
+#'
+#' @param proxy A \code{billboardProxy} \code{htmlwidget} object.
+#' @param x X axis label.
+#' @param y Y axis label.
+#'
+#' @return A \code{billboardProxy} \code{htmlwidget} object.
+#' @export
+bb_axis_labels <- function(proxy, x = NULL, y = NULL) {
+  
+  if (!"billboarder_Proxy" %in% class(proxy)) 
+    stop("This function must be used with a billboarderProxy object")
+  
+  .bb_proxy2(proxy, "axis_labels", dropNulls(list(x = x, y = y)))
+  
+}
+
+
+#' Update x values with proxy
+#'
+#' @param proxy A \code{billboardProxy} \code{htmlwidget} object.
+#' @param xs Named list of vector(s) used for x values.
+#'
+#' @return A \code{billboardProxy} \code{htmlwidget} object.
+#' @export
+bb_xs <- function(proxy, xs) {
+  
+  if (!"billboarder_Proxy" %in% class(proxy)) 
+    stop("This function must be used with a billboarderProxy object")
+  
+  .bb_proxy(proxy, "xs", dropNulls(xs))
   
 }

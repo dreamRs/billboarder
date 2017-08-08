@@ -181,11 +181,11 @@ bb_scatterplot <- function(bb, data, x = NULL, y = NULL, group = NULL, ...) {
     json <- as.list(data[, c(x, y)])
   } else {
     xs <- stats::setNames(
-      object = as.list(paste(unique(data[[group]]), x, sep = "_")), 
+      object = as.list(paste(unique(data[[group]]), "x", sep = "_")), 
       nm = unique(data[[group]])
     )
     json <- c(
-      split(x = data[[x]], f = paste(data[[group]], x, sep = "_")),
+      split(x = data[[x]], f = paste(data[[group]], "x", sep = "_")),
       split(x = data[[y]], f = data[[group]])
     )
   }
@@ -211,13 +211,24 @@ bb_scatterplot <- function(bb, data, x = NULL, y = NULL, group = NULL, ...) {
   
   
   if ("billboarder_Proxy" %in% class(bb)) {
-    bb <- bb_load(proxy = bb, json = json, xs = xs)
+    
+    # bb <- bb_load(proxy = bb, json = json[unique(data[[group]])])
+    bb <- bb_load(proxy = bb, json = json, xs = xs, unload = TRUE)
+    
+    xs <- json[unique(paste(data[[group]], "x", sep = "_"))]
+    names(xs) <- unique(data[[group]])
+    bb <- bb_xs(proxy = bb, xs = xs)
+    
+    bb <- bb_axis_labels(proxy = bb, x = x, y = y)
+    
   } else {
+    
     bb <- .bb_opt2(bb, "data", data_opt)
     
     bb <- .bb_opt(bb, "legend", show = !is.null(group))
     
     bb <- .bb_opt2(bb, "axis", data_axis)
+    
   }
   
   
