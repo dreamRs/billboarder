@@ -319,6 +319,8 @@ server <- function(input, output, session) {
 shinyApp(ui = ui, server = server)
 ```
 
+![](inst/img/shiny_click.png)
+
 
 ## Proxy
 
