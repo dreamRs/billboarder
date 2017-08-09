@@ -45,7 +45,7 @@ server <- function(input, output, session) {
   output$mybb1 <- renderBillboarder({
     billboarder() %>%
       bb_barchart(data = mpg[, list(count = .N), by = manufacturer][order(count)]) %>%
-      # bb_data(selection = list(enabled = TRUE, multiple = FALSE)) %>% 
+      # bb_data(selection = list(enabled = TRUE, multiple = TRUE)) %>%
       bb_axis(rotated = TRUE) %>%
       bb_title(text = "Number of models by manufacturer", position = "left-top")
   })

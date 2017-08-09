@@ -29,6 +29,9 @@ HTMLWidgets.widget({
           // Click
           if (typeof bb_opts.data.onclick == 'undefined') {
             bb_opts.data.onclick = function(d, element) {
+              var chartclick = get_billboard(el.id);
+              //console.log(chartclick.categories());
+              d.category = chartclick.categories()[d.index];
               Shiny.onInputChange(el.id + '_click', d);
             };
           }
@@ -75,7 +78,7 @@ HTMLWidgets.widget({
 
         // Generate billboard chart
         chart = bb.generate(bb_opts);
-        
+
         
         // Caption
         if (typeof bb_opts.caption != 'undefined') {

@@ -61,8 +61,12 @@ data("prod_par_filiere")
 
 # dodge bar chart !
 billboarder() %>%
-  bb_barchart(data = prod_par_filiere[, c("annee", "prod_hydraulique", "prod_eolien", "prod_solaire")]) %>%
-  bb_data(names = list(prod_hydraulique = "Hydraulic", prod_eolien = "Wind", prod_solaire = "Solar")) %>% 
+  bb_barchart(
+    data = prod_par_filiere[, c("annee", "prod_hydraulique", "prod_eolien", "prod_solaire")]
+  ) %>%
+  bb_data(
+    names = list(prod_hydraulique = "Hydraulic", prod_eolien = "Wind", prod_solaire = "Solar")
+  ) %>% 
   bb_y_grid(show = TRUE) %>%
   bb_y_axis(tick = list(format = suffix("TWh")),
             label = list(text = "production (in terawatt-hours)", position = "outer-top")) %>% 
@@ -84,9 +88,17 @@ data("prod_par_filiere")
 
 # stacked bar chart !
 billboarder() %>%
-  bb_barchart(data = prod_par_filiere[, c("annee", "prod_hydraulique", "prod_eolien", "prod_solaire")], stacked = TRUE) %>%
-  bb_data(names = list(prod_hydraulique = "Hydraulic", prod_eolien = "Wind", prod_solaire = "Solar"), labels = TRUE) %>% 
-  bb_colors_manual("prod_eolien" = "#41AB5D", "prod_hydraulique" = "#4292C6", "prod_solaire" = "#FEB24C") %>%
+  bb_barchart(
+    data = prod_par_filiere[, c("annee", "prod_hydraulique", "prod_eolien", "prod_solaire")], 
+    stacked = TRUE
+  ) %>%
+  bb_data(
+    names = list(prod_hydraulique = "Hydraulic", prod_eolien = "Wind", prod_solaire = "Solar"), 
+    labels = TRUE
+  ) %>% 
+  bb_colors_manual(
+    "prod_eolien" = "#41AB5D", "prod_hydraulique" = "#4292C6", "prod_solaire" = "#FEB24C"
+  ) %>%
   bb_y_grid(show = TRUE) %>%
   bb_y_axis(tick = list(format = suffix("TWh")),
             label = list(text = "production (in terawatt-hours)", position = "outer-top")) %>% 
@@ -236,7 +248,10 @@ billboarder() %>%
     names = list("prod_eolien" = "Wind", "prod_hydraulique" = "Hydraulic", "prod_solaire" = "Solar")
   ) %>% 
   bb_legend(position = "inset", inset = list(anchor = "top-right")) %>% 
-  bb_colors_manual("prod_eolien" = "#238443", "prod_hydraulique" = "#225EA8", "prod_solaire" = "#FEB24C", opacity = 0.8) %>% 
+  bb_colors_manual(
+    "prod_eolien" = "#238443", "prod_hydraulique" = "#225EA8", "prod_solaire" = "#FEB24C", 
+    opacity = 0.8
+  ) %>% 
   bb_y_axis(min = 0, padding = 0) %>% 
   bb_labs(title = "Renewable energy production (2017-06-12)",
           y = "In megawatt (MW)",
@@ -252,6 +267,57 @@ You can also do step lines.
 
 
 ## Shiny interaction
+
+Some events will trigger Shiny's inputs in application, such as click. Inputs id associated with `billboarder` charts use this pattern :
+
+```r
+input$CHARTID_EVENT
+```
+
+Look at this example, chart id is `mybbchart` so you retrieve click with `input$mybbchart_click` :
+
+```r
+library("shiny")
+library("billboarder")
+
+# data
+data("prod_par_filiere")
+prod_par_filiere_l <- reshape2::melt(data = prod_par_filiere)
+prod_par_filiere_l <- prod_par_filiere_l[
+  with(prod_par_filiere_l, annee == "2016" & variable != "prod_total"), 2:3
+]
+prod_par_filiere_l <- prod_par_filiere_l[order(prod_par_filiere_l$value), ]
+
+
+# app
+ui <- fluidPage(
+  billboarderOutput(outputId = "mybbchart"),
+  br(),
+  verbatimTextOutput(outputId = "click")
+)
+
+server <- function(input, output, session) {
+  
+  output$mybbchart <- renderBillboarder({
+    billboarder() %>%
+      bb_barchart(data = prod_par_filiere_l) %>% 
+      bb_y_grid(show = TRUE) %>% 
+      bb_legend(show = FALSE) %>%
+      bb_x_axis(categories = prod_par_filiere_l$variable, fit = FALSE) %>% 
+      bb_labs(title = "French electricity generation by branch in 2016",
+              y = "production (in terawatt-hours)",
+              caption = "Data source: RTE (https://opendata.rte-france.com)")
+  })
+  
+  output$click <- renderPrint({
+    cat("# input$mybbchart_click$category", "\n")
+    input$mybbchart_click$category
+  })
+  
+}
+
+shinyApp(ui = ui, server = server)
+```
 
 
 ## Proxy

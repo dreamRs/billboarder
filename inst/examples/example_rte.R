@@ -73,6 +73,19 @@ billboarder() %>%
 
 
 
+# production sources
+prod_par_filiere_l <- reshape2::melt(data = prod_par_filiere)
+prod_par_filiere_l <- prod_par_filiere_l[with(prod_par_filiere_l, annee == "2016" & variable != "prod_total"), 2:3]
+prod_par_filiere_l <- prod_par_filiere_l[order(prod_par_filiere_l$value), ]
+
+billboarder() %>%
+  bb_barchart(data = prod_par_filiere_l) %>% 
+  bb_y_grid(show = TRUE) %>% 
+  bb_legend(show = FALSE) %>%
+  bb_x_axis(categories = prod_par_filiere_l$variable, fit = FALSE) %>% 
+  bb_labs(title = "French electricity generation by branch in 2016",
+          y = "production (in terawatt-hours)",
+          caption = "Data source: RTE (https://opendata.rte-france.com)")
 
 
 
