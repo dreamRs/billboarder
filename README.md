@@ -324,6 +324,10 @@ shinyApp(ui = ui, server = server)
 
 ## Proxy
 
+You can modify existing charts with function `billboarderProxy` :
+
+![](inst/img/billboarder_proxy.gif)
+
 
 ## Raw API
 
