@@ -9,7 +9,7 @@ bb_piechart(bb, data, ...)
 \arguments{
 \item{bb}{A \code{billboard} \code{htmlwidget} object.}
 
-\item{data}{A \code{data.frame}.}
+\item{data}{A \code{data.frame}, first column must contain labels and second values associated.}
 
 \item{...}{Arguments for slot pie, \url{https://naver.github.io/billboard.js/release/latest/doc/Options.html#.pie}.}
 }

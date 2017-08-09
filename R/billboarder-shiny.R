@@ -166,7 +166,13 @@ bb_unload <- function(proxy, ids = NULL) {
   if (!"billboarder_Proxy" %in% class(proxy)) 
     stop("This function must be used with a billboarderProxy object")
   
-  .bb_proxy2(proxy, "unload", dropNulls(list(ids = ids)))
+  # .bb_proxy2(proxy, "unload", dropNulls(list(ids = ids)))
+  if (!is.null(ids)) {
+    proxy$unload <- list(ids = ids)
+  } else {
+    proxy$unload <- TRUE
+  }
+  proxy
   
 }
 

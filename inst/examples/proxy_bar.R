@@ -22,30 +22,32 @@ ui <- fluidPage(
   br(),
   fluidRow(
     column(
-      width = 4,
-      selectizeInput(
-        inputId = "year",
-        label = "year :",
-        choices = c("1999", "2008"),
-        selected = "1999",
-        multiple = TRUE, 
-        options = list('plugins' = list('remove_button'))
-      ),
-      sliderInput(
-        inputId = "cty", 
-        label = "cty >= x :",
-        min = 9, 
-        max = 35, 
-        value = 9
-      ),
-      checkboxInput(
-        inputId = "keepallx", 
-        label = "Keep all x", 
-        value = FALSE
+      width = 3,
+      wellPanel(
+        selectizeInput(
+          inputId = "year",
+          label = "year :",
+          choices = c("1999", "2008"),
+          selected = "1999",
+          multiple = TRUE, 
+          options = list('plugins' = list('remove_button'))
+        ),
+        sliderInput(
+          inputId = "cty", 
+          label = "cty >= x :",
+          min = 9, 
+          max = 35, 
+          value = 9
+        ),
+        checkboxInput(
+          inputId = "keepallx", 
+          label = "Keep all x", 
+          value = FALSE
+        )
       )
     ),
     column(
-      width = 8,
+      width = 9,
       billboarderOutput(outputId = "bb")
     )
   )
@@ -63,6 +65,7 @@ server <- function(input, output, session) {
         )[, list(manufacturer, `1999`)]
       ) %>%
       bb_axis(rotated = TRUE) %>%
+      bb_y_grid(show = TRUE) %>% 
       bb_title(text = "Number of models by manufacturer", position = "left-top")
   })
   

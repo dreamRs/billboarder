@@ -54,22 +54,32 @@ bb_barchart <- function(bb, data, stacked = FALSE, rotated = FALSE, color = NULL
     json <- as.list(data)
   }
   
-  # data_names <- base::setdiff(names(args), c("width", "zerobased"))
+  
   data_opt <- list(
     x = x,
     json = json,
     type = "bar",
     groups = stacked
   )
-  # data_opt <- c(data_opt, args[names(args) %in% data_names])
-  bb <- .bb_opt2(bb, "data", data_opt)
   
-  bb <- .bb_opt(bb, "bar", ...)
   
-  if (!is.null(color))
-    bb <- bb_color(bb, color)
   
-  bb <- .bb_opt(bb, "axis", x = list(type = "category"), rotated = rotated)
+  if ("billboarder_Proxy" %in% class(bb)) {
+    
+    bb <- bb_load(proxy = bb, x = x, json = json, groups = stacked, unload = bb$unload) 
+
+  } else {
+    
+    bb <- .bb_opt2(bb, "data", data_opt)
+    
+    bb <- .bb_opt(bb, "bar", ...)
+    
+    if (!is.null(color))
+      bb <- bb_color(bb, color)
+    
+    bb <- .bb_opt(bb, "axis", x = list(type = "category"), rotated = rotated)
+    
+  }
   
   return(bb)
 }
@@ -212,12 +222,7 @@ bb_scatterplot <- function(bb, data, x = NULL, y = NULL, group = NULL, ...) {
   
   if ("billboarder_Proxy" %in% class(bb)) {
     
-    # bb <- bb_load(proxy = bb, json = json[unique(data[[group]])])
-    bb <- bb_load(proxy = bb, json = json, xs = xs, unload = TRUE)
-    
-    xs <- json[unique(paste(data[[group]], "x", sep = "_"))]
-    names(xs) <- unique(data[[group]])
-    bb <- bb_xs(proxy = bb, xs = xs)
+    bb <- bb_load(proxy = bb, json = json, xs = xs, unload = bb$unload) 
     
     bb <- bb_axis_labels(proxy = bb, x = x, y = y)
     
@@ -303,7 +308,7 @@ bb_gaugechart <- function(bb, value, name = "Value",
 #' Helper for creating a pie chart
 #'
 #' @param bb A \code{billboard} \code{htmlwidget} object.
-#' @param data A \code{data.frame}.
+#' @param data A \code{data.frame}, first column must contain labels and second values associated.
 #' @param ... Arguments for slot pie, \url{https://naver.github.io/billboard.js/release/latest/doc/Options.html#.pie}.
 #'
 #' @return A \code{billboard} \code{htmlwidget} object.
@@ -335,9 +340,17 @@ bb_piechart <- function(bb, data, ...) {
     type = "pie"
   )
 
-  bb <- .bb_opt2(bb, "data", data_opt)
-  
-  bb <- .bb_opt(bb, "pie", ...)
+  if ("billboarder_Proxy" %in% class(bb)) {
+    
+    bb <- bb_load(proxy = bb, json = json, unload = bb$unload) 
+    
+  } else {
+    
+    bb <- .bb_opt2(bb, "data", data_opt)
+    
+    bb <- .bb_opt(bb, "pie", ...)
+    
+  }
   
   return(bb)
 }
