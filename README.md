@@ -6,13 +6,13 @@
 [![Travis-CI Build Status](https://travis-ci.org/dreamRs/billboarder.svg?branch=master)](https://travis-ci.org/dreamRs/billboarder)
 
 
-:construction: :warning: **package under developpement !** :warning: :construction:
-
 
 ## Overview
 
 This package allow you to use [billboard.js](https://naver.github.io/billboard.js/),
 a re-usable easy interface JavaScript chart library, based on D3 v4+.
+
+A **proxy** method is implemented to smoothly update charts in shiny applications, see below for details.
 
 Note : developpement is heavily inspired by awesome [highcharter](http://jkunst.com/highcharter/) by [Joshua Kunst](https://github.com/jbkunst).
 
@@ -27,86 +27,79 @@ devtools::install_github("dreamRs/billboarder")
 
 ## Bar chart
 
-For now, you can do barcharts !
+You can do barcharts !
 
 
 ```r
 library("billboarder")
-library("magrittr")
-library("data.table")
 
 # data
-data("mpg", package = "ggplot2")
-setDT(mpg)
+data("prod_par_filiere")
 
 # a bar chart !
 billboarder() %>%
-  bb_barchart(data = mpg[, list(count = .N), by = manufacturer][order(count, decreasing = TRUE)]) %>%
+  bb_barchart(data = prod_par_filiere[, c("annee", "prod_hydraulique")], color = "#102246") %>%
   bb_y_grid(show = TRUE) %>%
+  bb_y_axis(tick = list(format = suffix("TWh")),
+            label = list(text = "production (in terawatt-hours)", position = "outer-top")) %>% 
   bb_legend(show = FALSE) %>% 
-  bb_y_axis(label = list(text = "# of models", position = "outer-top")) %>% 
-  bb_title(text = "Popular models by manufacturer", position = "left-top", 
-           padding = list(top = 0, right = 0, left = 0, bottom = 20))
+  bb_labs(title = "French hydraulic production",
+          caption = "Data source: RTE (https://opendata.rte-france.com)")
 ```
 
-![](inst/img/barchart0.png)
+![](inst/img/rte_barchart0.png)
 
 
 
-Or with `dplyr` :
-
-```r
-library("dplyr")
-
-mpg %>% 
-  count(manufacturer) %>% 
-  arrange(n) %>% 
-  billboarder(data = .) %>% 
-  bb_barchart() %>%
-  bb_axis(rotated = TRUE) %>%
-  bb_title(text = "Number of models by manufacturer", position = "left-top")
-```
-
-
-
-
-### Dodge and stacked bar charts
-
-You have to reshape the data in a "wide" format :
+And dodge bar chart too !
 
 ```r
+library("billboarder")
+
+# data
+data("prod_par_filiere")
+
+# dodge bar chart !
 billboarder() %>%
-  bb_barchart(
-    data = dcast(
-      data = mpg[, list(count = .N), by = list(manufacturer, year)],
-      formula = manufacturer~year,
-      value.var = "count"
-    )
-  )
-
+  bb_barchart(data = prod_par_filiere[, c("annee", "prod_hydraulique", "prod_eolien", "prod_solaire")]) %>%
+  bb_data(names = list(prod_hydraulique = "Hydraulic", prod_eolien = "Wind", prod_solaire = "Solar")) %>% 
+  bb_y_grid(show = TRUE) %>%
+  bb_y_axis(tick = list(format = suffix("TWh")),
+            label = list(text = "production (in terawatt-hours)", position = "outer-top")) %>% 
+  bb_legend(position = "inset", inset = list(anchor = "top-right")) %>% 
+  bb_labs(title = "Renewable energy production",
+          caption = "Data source: RTE (https://opendata.rte-france.com)")
 ```
 
-![](inst/img/barchart_dodge1.png)
+![](inst/img/rte_barchart_dodge.png)
 
 
-With `dplyr` and `tidyr` :
+Even stacked bar charts !
 
 ```r
-mpg %>% 
-  group_by(manufacturer, year) %>% 
-  summarise(n = n()) %>% 
-  spread(year, n) %>% 
-  billboarder(data = .) %>%
-  bb_barchart(stacked = TRUE) %>% 
-  bb_data(labels = TRUE)
+library("billboarder")
 
+# data
+data("prod_par_filiere")
+
+# stacked bar chart !
+billboarder() %>%
+  bb_barchart(data = prod_par_filiere[, c("annee", "prod_hydraulique", "prod_eolien", "prod_solaire")], stacked = TRUE) %>%
+  bb_data(names = list(prod_hydraulique = "Hydraulic", prod_eolien = "Wind", prod_solaire = "Solar"), labels = TRUE) %>% 
+  bb_colors_manual("prod_eolien" = "#41AB5D", "prod_hydraulique" = "#4292C6", "prod_solaire" = "#FEB24C") %>%
+  bb_y_grid(show = TRUE) %>%
+  bb_y_axis(tick = list(format = suffix("TWh")),
+            label = list(text = "production (in terawatt-hours)", position = "outer-top")) %>% 
+  bb_legend(position = "right") %>% 
+  bb_labs(title = "Renewable energy production",
+          caption = "Data source: RTE (https://opendata.rte-france.com)")
 ```
 
-![](inst/img/barchart_stacked1.png)
+![](inst/img/rte_barchart_stacked.png)
 
 
 
-## Scatter chart
+## Scatter plot
 
 Classic :
 
@@ -118,6 +111,150 @@ billboarder() %>%
 
 ```
 ![](inst/img/scatterchart0.png)
+
+
+
+## Pie charts
+
+If you have to, you can do pie charts !
+
+```r
+library("billboarder")
+
+# data
+data("prod_par_filiere")
+nuclear2016 <- data.frame(
+  sources = c("Nuclear", "Other"),
+  production = c(
+    prod_par_filiere$prod_nucleaire[prod_par_filiere$annee == "2016"],
+    prod_par_filiere$prod_total[prod_par_filiere$annee == "2016"] -
+      prod_par_filiere$prod_nucleaire[prod_par_filiere$annee == "2016"]
+  )
+)
+
+# pie chart !
+billboarder() %>% 
+  bb_piechart(data = nuclear2016) %>% 
+  bb_labs(title = "Share of nuclear power in France in 2016",
+          caption = "Data source: RTE (https://opendata.rte-france.com)")
+```
+
+![](inst/img/rte_piechart.png)
+
+
+You can also do donut charts.
+
+
+## Lines charts
+
+A time serie with `Date` ! (subchart is optionnal)
+
+```r
+library("billboarder")
+
+# data
+data("equilibre_mensuel")
+
+# line chart
+billboarder() %>% 
+  bb_linechart(
+    data = equilibre_mensuel[, c("date", "consommation", "production")], 
+    type = "spline"
+  ) %>% 
+  bb_x_axis(tick = list(format = "%Y-%m", fit = FALSE)) %>% 
+  bb_x_grid(show = TRUE) %>% 
+  bb_y_grid(show = TRUE) %>% 
+  bb_colors_manual("consommation" = "firebrick", "production" = "forestgreen") %>% 
+  bb_legend(position = "right") %>% 
+  bb_subchart(show = TRUE, size = list(height = 30)) %>% 
+  bb_labs(title = "Monthly electricity consumption and production in France (2007 - 2017)",
+          y = "In megawatt (MW)",
+          caption = "Data source: RTE (https://opendata.rte-france.com)")
+```
+
+![](inst/img/rte_linechart_subchart.png)
+
+
+A time serie with `POSIXct` ! (and regions)
+
+```r
+library("billboarder")
+
+# data
+data("cdc_prod_filiere")
+
+# Retrieve sunrise and and sunset data with `suncalc`
+library("suncalc")
+sun <- getSunlightTimes(date = as.Date("2017-06-12"), lat = 48.86, lon = 2.34, tz = "CET")
+
+
+# line chart
+billboarder() %>% 
+  bb_linechart(data = cdc_prod_filiere[, c("date_heure", "prod_solaire")]) %>% 
+  bb_x_axis(tick = list(format = "%H:%M", fit = FALSE)) %>% 
+  bb_y_axis(min = 0, padding = 0) %>% 
+  bb_regions(
+    list(
+      start = as.numeric(cdc_prod_filiere$date_heure[1]) * 1000,
+      end = as.numeric(sun$sunrise)*1000
+    ), 
+    list(
+      start = as.numeric(sun$sunset) * 1000, 
+      end = as.numeric(cdc_prod_filiere$date_heure[48]) * 1000
+    )
+  ) %>% 
+  bb_x_grid(
+    lines = list(
+      list(value = as.numeric(sun$sunrise)*1000, text = "sunrise"),
+      list(value = as.numeric(sun$sunset)*1000, text = "sunset")
+    )
+  ) %>% 
+  bb_labs(title = "Solar production (2017-06-12)",
+          y = "In megawatt (MW)",
+          caption = "Data source: RTE (https://opendata.rte-france.com)")
+```
+
+![](inst/img/rte_linechart_regions.png)
+
+
+A stacked area chart !
+
+```r
+library("billboarder")
+
+# data
+data("cdc_prod_filiere")
+
+# area chart !
+billboarder() %>% 
+  bb_linechart(
+    data = cdc_prod_filiere[, c("date_heure", "prod_eolien", "prod_hydraulique", "prod_solaire")], 
+    type = "area"
+  ) %>% 
+  bb_data(
+    groups = list(list("prod_eolien", "prod_hydraulique", "prod_solaire")),
+    names = list("prod_eolien" = "Wind", "prod_hydraulique" = "Hydraulic", "prod_solaire" = "Solar")
+  ) %>% 
+  bb_legend(position = "inset", inset = list(anchor = "top-right")) %>% 
+  bb_colors_manual("prod_eolien" = "#238443", "prod_hydraulique" = "#225EA8", "prod_solaire" = "#FEB24C", opacity = 0.8) %>% 
+  bb_y_axis(min = 0, padding = 0) %>% 
+  bb_labs(title = "Renewable energy production (2017-06-12)",
+          y = "In megawatt (MW)",
+          caption = "Data source: RTE (https://opendata.rte-france.com)")
+```
+
+![](inst/img/rte_linechart_area.png)
+
+
+
+You can also do step lines.
+
+
+
+## Shiny interaction
+
+
+## Proxy
 
 
 ## Raw API

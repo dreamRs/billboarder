@@ -12,7 +12,7 @@
 
 # Packages ----------------------------------------------------------------
 
-library( billboarder )
+library( "billboarder" )
 
 
 
@@ -62,10 +62,11 @@ billboarder() %>%
 billboarder() %>%
   bb_barchart(data = prod_par_filiere[, c("annee", "prod_hydraulique", "prod_eolien", "prod_solaire")], stacked = TRUE) %>%
   bb_data(names = list(prod_hydraulique = "Hydraulic", prod_eolien = "Wind", prod_solaire = "Solar"), labels = TRUE) %>% 
+  bb_colors_manual("prod_eolien" = "#41AB5D", "prod_hydraulique" = "#4292C6", "prod_solaire" = "#FEB24C") %>%
   bb_y_grid(show = TRUE) %>%
   bb_y_axis(tick = list(format = suffix("TWh")),
             label = list(text = "production (in terawatt-hours)", position = "outer-top")) %>% 
-  bb_legend(position = "inset", inset = list(anchor = "top-right")) %>% 
+  bb_legend(position = "right") %>% 
   bb_labs(title = "Renewable energy production",
           caption = "Data source: RTE (https://opendata.rte-france.com)")
 
@@ -103,7 +104,7 @@ billboarder() %>%
 
 
 billboarder() %>% 
-  bb_linechart(data = cdc_prod_filiere[, c("date_heure", "prod_eolien")])
+  bb_linechart(data = rnorm(20))
 
 billboarder() %>% 
   bb_linechart(data = cdc_prod_filiere[, c("date_heure", "prod_eolien")]) %>% 
