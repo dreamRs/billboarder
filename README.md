@@ -329,6 +329,17 @@ You can modify existing charts with function `billboarderProxy` :
 ![](inst/img/billboarder_proxy.gif)
 
 
+To see examples, run : 
+
+```r
+library("billboarder")
+proxy_example("bar")
+proxy_example("line")
+proxy_example("pie")
+proxy_example("gauge")
+```
+
+
 ## Raw API
 
 In fact you can do whatever you want, you just have to pass a list-JSON as parameter :

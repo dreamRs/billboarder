@@ -66,7 +66,10 @@ bb_barchart <- function(bb, data, stacked = FALSE, rotated = FALSE, color = NULL
   
   if ("billboarder_Proxy" %in% class(bb)) {
     
-    bb <- bb_load(proxy = bb, x = x, json = json, groups = stacked, unload = bb$unload) 
+    # bb <- bb_load(proxy = bb, x = x, json = json, groups = stacked, unload = bb$unload) 
+    bb <- bb_load(proxy = bb, json = json[-1], groups = stacked, unload = bb$unload) 
+    
+    bb <- bb_categories(bb = bb, categories = json[[1]])
 
   } else {
     
@@ -153,6 +156,40 @@ bb_bar_color_manual <- function(bb, values) {
   return(bb)
 }
 
+
+
+#' @title Set categories on X axis
+#' 
+#' @description Set or modify x axis labels.
+#'
+#' @param bb A \code{billboard} \code{htmlwidget} object. 
+#' @param categories A character vector to set names on a category axis.
+#' 
+#' @note This function can be used with \code{billboardProxy} to modify labels on axis, e.g. for barcharts.
+#'
+#' @return A \code{billboard} \code{htmlwidget} object.
+#' @export
+#'
+#' @examples
+#' # Simple line with month names as x labels
+#' billboarder() %>% 
+#'   bb_linechart(data = round(rnorm(12))) %>% 
+#'   bb_categories(categories = month.name)
+#'   
+bb_categories <- function(bb, categories) {
+  
+  if ("billboarder_Proxy" %in% class(bb)) {
+    
+    bb <- .bb_proxy(bb, "categories", categories)
+    
+  } else {
+
+    bb <- .bb_opt(bb, "axis", x = list(type = "category", categories = categories))
+    
+  }
+  
+  bb
+}
 
 
 
@@ -393,9 +430,17 @@ bb_donutchart <- function(bb, data, ...) {
     type = "donut"
   )
   
-  bb <- .bb_opt2(bb, "data", data_opt)
-  
-  bb <- .bb_opt(bb, "donut", ...)
+  if ("billboarder_Proxy" %in% class(bb)) {
+    
+    bb <- bb_load(proxy = bb, json = json, unload = bb$unload) 
+    
+  } else {
+    
+    bb <- .bb_opt2(bb, "data", data_opt)
+    
+    bb <- .bb_opt(bb, "donut", ...)
+    
+  }
   
   return(bb)
 }
@@ -414,7 +459,7 @@ bb_donutchart <- function(bb, data, ...) {
 #' @param ... Arguments for slot 
 #'
 #' @return A \code{billboard} \code{htmlwidget} object.
-#' @export
+# @export
 #' 
 #' @importFrom graphics hist
 #' 
@@ -523,7 +568,9 @@ bb_linechart <- function(bb, data, type = "line", show_point = FALSE, ...) {
   } else {
     if (inherits(x = data[[1]], what = c("Date", "POSIXct"))) {
       if (inherits(x = data[[1]], what = c("POSIXct"))) {
-        bb <- bb_data(bb, xFormat = "%Y-%m-%d %H:%M:%S")
+        if (!"billboarder_Proxy" %in% class(bb)) {
+          bb <- bb_data(bb, xFormat = "%Y-%m-%d %H:%M:%S")
+        }
       }
       data[[1]] <- as.character(data[[1]])
       data_opt = list(
@@ -531,7 +578,9 @@ bb_linechart <- function(bb, data, type = "line", show_point = FALSE, ...) {
         json = as.list(data),
         type = type
       )
-      bb <- bb_x_axis(bb, type = "timeseries")
+      if (!"billboarder_Proxy" %in% class(bb)) {
+        bb <- bb_x_axis(bb, type = "timeseries")
+      }
     } else {
       data_opt = list(
         json = as.list(data),
@@ -540,9 +589,17 @@ bb_linechart <- function(bb, data, type = "line", show_point = FALSE, ...) {
     }
   }
   
-  bb <- .bb_opt2(bb, "data", data_opt)
-  
-  bb <- bb_point(bb, show = show_point)
+  if ("billboarder_Proxy" %in% class(bb)) {
+    
+    bb <- bb_load(proxy = bb, json = data_opt$json, unload = bb$unload) 
+    
+  } else {
+    
+    bb <- .bb_opt2(bb, "data", data_opt)
+    
+    bb <- bb_point(bb, show = show_point)
+    
+  }
   
   return(bb)
 }

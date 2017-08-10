@@ -28,5 +28,5 @@ billboarder() \%>\%
 
 }
 \seealso{
-bb_labs
+\link{bb_labs}
 }

@@ -1,21 +1,19 @@
 
 
-# Exemple proxy bar -------------------------------------------------------
+# Example proxy bar -------------------------------------------------------
 
 library("shiny")
 library("billboarder")
-library("magrittr")
 library("data.table")
 
-# data
+# data ----
 data("mpg", package = "ggplot2")
 setDT(mpg)
 
 
 
 
-# app ---------------------------------------------------------------------
-
+# ui ----
 
 ui <- fluidPage(
   tags$h1("Proxy method with billboarder"),
@@ -53,6 +51,9 @@ ui <- fluidPage(
   )
 )
 
+
+# server ----
+
 server <- function(input, output, session) {
   
   output$bb <- renderBillboarder({
@@ -82,31 +83,14 @@ server <- function(input, output, session) {
     dat <- dcast(data = dat, formula = manufacturer~year, value.var = "count")
     
     billboarderProxy("bb") %>% 
-      bb_load(
-        data = dat[, .SD, .SDcols = c("manufacturer", input$year)],
-        unload = setdiff(c("1999", "2008"), input$year)
-      )
+      bb_unload(setdiff(c("1999", "2008"), input$year)) %>% 
+      bb_barchart(data = dat[, .SD, .SDcols = c("manufacturer", input$year)])
   })
   
   
-  # observeEvent(input$year, {
-  #   
-  #   dat <- copy(mpg)
-  #   dat <- dat[cty >= input$cty, list(count = .N), by = list(manufacturer, year)]
-  #   
-  #   if (input$keepallx) {
-  #     dat <- merge(x = unique(mpg[, list(manufacturer)]), y = dat, by = "manufacturer", all.x = TRUE)
-  #   }
-  #   
-  #   dat <- dcast(data = dat, formula = manufacturer~year, value.var = "count")
-  #   
-  #   billboarderProxy("bb") %>% 
-  #     bb_load(
-  #       data = dat[, .SD, .SDcols = c("manufacturer", input$year)],
-  #       unload = setdiff(c("1999", "2008"), input$year)
-  #     )
-  # }, ignoreInit = TRUE)
-  
 }
+
+
+# run app ----
 
 shinyApp(ui = ui, server = server)

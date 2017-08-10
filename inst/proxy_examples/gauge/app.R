@@ -1,17 +1,13 @@
-
-
-
 # App update gauge ---------------------------------------------------------------
-
-
 
 library("shiny")
 library("billboarder")
-library("magrittr")
+
+
+# ui ----
 
 ui <- fluidPage(
   tags$h1("Gauge with billboarder"),
-  br(),
   fluidRow(
     column(
       width = 4,
@@ -29,7 +25,13 @@ ui <- fluidPage(
   actionButton(inputId = "update", label = "Update values")
 )
 
+
+
+# server ----
+
 server <- function(input, output, session) {
+  
+  # define the gauge (not reactive)
   
   output$gauge1 <- renderBillboarder({
     billboarder() %>% 
@@ -47,6 +49,9 @@ server <- function(input, output, session) {
   })
   
   
+  
+  # update them
+  
   observeEvent(input$update, {
     
     billboarderProxy("gauge1") %>% 
@@ -61,5 +66,8 @@ server <- function(input, output, session) {
   }, ignoreInit = TRUE)
   
 }
+
+
+# run ----
 
 shinyApp(ui = ui, server = server)

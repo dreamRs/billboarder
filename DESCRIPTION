@@ -16,4 +16,5 @@ Imports: htmlwidgets,
     magrittr,
     jsonlite
 Suggests: RColorBrewer,
-    ggplot2
+    ggplot2,
+    shiny

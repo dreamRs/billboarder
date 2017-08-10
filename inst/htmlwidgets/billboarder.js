@@ -220,7 +220,7 @@ if (HTMLWidgets.shinyMode) {
         chart.focus();
       }
   });
-  // focus
+  // defocus
   Shiny.addCustomMessageHandler('update-billboard-defocus',
     function(data) {
       var chart = get_billboard(data.id);
@@ -241,6 +241,13 @@ if (HTMLWidgets.shinyMode) {
     function(data) {
       var chart = get_billboard(data.id);
       chart.xs(data.data);
+  });
+  // categories
+  Shiny.addCustomMessageHandler('update-billboard-categories',
+    function(data) {
+      var chart = get_billboard(data.id);
+      //console.log(data.data);
+      chart.categories(data.data[0]);
   });
 }
 

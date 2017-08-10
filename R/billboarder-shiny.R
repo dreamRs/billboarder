@@ -168,7 +168,7 @@ bb_unload <- function(proxy, ids = NULL) {
   
   # .bb_proxy2(proxy, "unload", dropNulls(list(ids = ids)))
   if (!is.null(ids)) {
-    proxy$unload <- list(ids = ids)
+    proxy$unload <- ids
   } else {
     proxy$unload <- TRUE
   }

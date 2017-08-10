@@ -2,7 +2,11 @@
 library("shiny")
 library("billboarder")
 
+# data ----
 Titanic <- as.data.frame(Titanic)
+
+
+# ui ----
 
 ui <- fluidPage(
   
@@ -10,38 +14,52 @@ ui <- fluidPage(
   br(),
   
   fluidRow(
+    
     column(
-      width = 3,
+      width = 4,
       
-      tags$h3("Filter passengers :"),
-      
-      checkboxGroupInput(
-        inputId = "Class", label = "Class", inline = TRUE, 
-        choices = unique(Titanic$Class), selected = unique(Titanic$Class)
-      ),
-      checkboxGroupInput(
-        inputId = "Sex", label = "Sex", inline = TRUE, 
-        choices = unique(Titanic$Sex), selected = unique(Titanic$Sex)
-      ),
-      checkboxGroupInput(
-        inputId = "Age", label = "Age", inline = TRUE, 
-        choices = unique(Titanic$Age), selected = unique(Titanic$Age)
+      wellPanel(
+        tags$h3("Filter passengers :"),
+        
+        checkboxGroupInput(
+          inputId = "Class", label = "Class", inline = TRUE, 
+          choices = unique(Titanic$Class), selected = unique(Titanic$Class)
+        ),
+        checkboxGroupInput(
+          inputId = "Sex", label = "Sex", inline = TRUE, 
+          choices = unique(Titanic$Sex), selected = unique(Titanic$Sex)
+        ),
+        checkboxGroupInput(
+          inputId = "Age", label = "Age", inline = TRUE, 
+          choices = unique(Titanic$Age), selected = unique(Titanic$Age)
+        )
       )
+      
     ),
+    
     column(
       width = 4,
       billboarderOutput(outputId = "camembert")
     )
+    
   )
 )
 
+
+# server ----
+
 server <- function(input, output, session) {
+  
+  # initialize chart
   
   output$camembert <- renderBillboarder({
     billboarder() %>% 
       bb_piechart(data = aggregate(Freq ~ Survived, data = Titanic, FUN = sum)) %>% 
       bb_title(text = "Survival of passengers on the Titanic")
   })
+  
+  
+  # update on filters
   
   observeEvent(list(input$Class, input$Sex, input$Age), {
     
@@ -54,5 +72,8 @@ server <- function(input, output, session) {
     
   }, ignoreInit = TRUE)
 }
+
+
+# run app ----
 
 shinyApp(ui = ui, server = server)
