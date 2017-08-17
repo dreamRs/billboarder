@@ -100,3 +100,42 @@ billboarder() %>%
 
 
 
+
+# Wine --------------------------------------------------------------------
+
+
+library("eurostat")
+library("dplyr")
+library("tidyr")
+library("billboarder")
+library("ggplot2")
+
+
+eu_wine <- get_eurostat(id = "apro_cpb_wine", time_format = "num")
+eu_wine <- label_eurostat(eu_wine)
+
+
+eu_wine %>% 
+  filter(prod_bal == "Wine - Total", bal_item == "Official production (1000 hl)", geo == "France") %>% 
+  arrange(time) %>% 
+  ggplot() + 
+  aes(time, values) + 
+  geom_line()
+
+
+
+eu_wine %>% 
+  filter(prod_bal == "Wine - Total", bal_item == "Official production (1000 hl)", geo == "France") %>% 
+  arrange(time) %>% 
+  select(time, values) %>% 
+  billboarder(data = .) %>% 
+  bb_linechart(type = "spline") %>% 
+  bb_data(x = "time") %>% 
+  bb_y_grid(show = TRUE) %>% 
+  bb_x_grid(show = TRUE) %>% 
+  bb_x_axis(tick = list(fit = FALSE)) %>% 
+  bb_legend(show = FALSE) %>% 
+  bb_labs(title = "Wine production in France", y = "Official production (1000 hl)", caption = "Data source: Eurostats")
+
+
+

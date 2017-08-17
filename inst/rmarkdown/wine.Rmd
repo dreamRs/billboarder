@@ -1,0 +1,131 @@
+---
+title: "Exploring wine data"
+author: "VP"
+date: "2017-08-17"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+```
+
+
+Here are some examples of graphs made with the [`billboarder`](https://github.com/dreamRs/billboarder) package, an htmlwidget interfacing R and the [billboard.js](https://naver.github.io/billboard.js/) library.
+We'll use data about wine in european countries from [Eurostats](http://ec.europa.eu/eurostat), we'll get those with [`eurostat`](https://ropengov.github.io/eurostat/) package.
+
+
+
+## Packages & Data
+
+We'll use these packages :
+
+```{r packages}
+library( "billboarder" )
+library( "eurostat" )
+library( "dplyr" )
+library( "tidyr" )
+```
+
+Get the data :
+
+```{r data}
+eu_wine <- get_eurostat(id = "apro_cpb_wine", time_format = "num")
+eu_wine <- label_eurostat(eu_wine)
+eu_wine
+```
+
+
+
+## Top 10 producer in 2016
+
+We represent the 10 countries that produce the most wine
+
+```{r top10}
+# some data munging
+top_10 <- eu_wine %>% 
+  filter(prod_bal == "Wine - Total",
+         bal_item == "Official production (1000 hl)",
+         time == "2016") %>% 
+  top_n(n = 10, wt = values) %>% 
+  mutate(geo = gsub(" \\(.*", "", geo)) %>% 
+  arrange(desc(values)) %>% 
+  select(geo, values)
+
+# and the chart
+billboarder() %>% 
+  bb_barchart(data = top_10, rotated = TRUE) %>% 
+  bb_data(names = list("values" = "Official production (1000 hl)")) %>%
+  bb_y_grid(show = TRUE) %>%
+  bb_y_axis(tick = list(values = seq(0, 5e4, 1e4))) %>% 
+  bb_labs(title = "Top 10 wine producer in EU for 2016", caption = "Data source: Eurostats")
+```
+
+
+
+
+## Imports and exports
+
+```{r}
+# prepare data
+imports_exports <- eu_wine %>% 
+  filter(prod_bal == "Wine - Total",
+         bal_item == "Total exports (for EUR : Exports to third countries) (1000 hl)" |
+           bal_item == "Total imports (for EUR : imports from third countries) (1000 hl)",
+         time == "2016") %>% 
+  mutate(geo = gsub(" \\(.*", "", geo)) %>% 
+  filter(geo %in% eu_countries$name) %>% 
+  mutate(type = if_else(grepl("imports", bal_item), "imports", "exports"))
+
+# data in long format with tidyr::spread
+imports_exports <- imports_exports %>%
+  select(geo, type, values) %>%
+  spread(type, values) %>% 
+  mutate(bal_com = exports - imports) %>% 
+  arrange(desc(bal_com)) %>% 
+  select(-bal_com)
+
+# chart
+billboarder() %>% 
+  bb_barchart(data = imports_exports) %>% 
+  bb_y_grid(show = TRUE) %>%
+  bb_data(label = TRUE) %>% 
+  bb_labs(title = "Wine imports and exports for EU contries in 2016", 
+          y = "(1000 hl)",
+          caption = "Data source: Eurostats")
+```
+
+
+
+
+
+## Wine production 1965 - 2016
+
+For readibility we kept only France, Italy and Spain (the top 3 producer)
+
+```{r}
+# prep data
+wine_prod <- eu_wine %>% 
+  filter(geo %in% c("France", "Italy", "Spain"),
+         bal_item == "Official production (1000 hl)",
+         prod_bal == "Wine - Total") %>% 
+  select(geo, time, values) %>% 
+  spread(geo, values) %>% 
+  arrange(time)
+  
+
+# line chart
+billboarder() %>% 
+  bb_linechart(data = wine_prod, type = "spline") %>% 
+  bb_data(x = "time") %>% 
+  bb_colors_manual("France" = "#00267F", "Italy" = "#009246", "Spain" = "#C60B1E") %>% 
+  bb_data(color = htmlwidgets::JS("function(color, d) {return d3.rgb(color).brighter().toString();}")) %>% 
+  bb_y_grid(show = TRUE) %>% 
+  bb_x_grid(show = TRUE) %>% 
+  bb_x_axis(tick = list(fit = FALSE)) %>% 
+  bb_legend(position = "inset", inset = list(anchor = "top-right")) %>% 
+  bb_labs(title = "Wine production from 1965 to 2016", 
+          y = "Official production (1000 hl)", 
+          caption = "Data source: Eurostats")
+```
+
+
