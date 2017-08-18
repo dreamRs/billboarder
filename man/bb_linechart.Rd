@@ -60,5 +60,28 @@ data("cdc_prod_filiere")
 
 billboarder() \%>\% 
   bb_linechart(data = cdc_prod_filiere[, c("date_heure", "prod_eolien")])
+ 
+ 
+## Other type for x-axis 
+ 
+# character/factor on x-axis
+AirPassengers1960 <- data.frame(
+  month = month.name, 
+  AirPassengers = tail(AirPassengers, 12)
+)
+# you have to specify that x-axis is of type 'category'
+billboarder() \%>\% 
+  bb_linechart(data = AirPassengers1960, x = "month") \%>\% 
+  bb_x_axis(type = "category")
+
+
+# numeric on x-axis
+lynx.df <- data.frame(
+  year = time(lynx),
+  lynx = lynx
+)
+# just specify which variable must be use n the x-axis
+billboarder() \%>\% 
+  bb_linechart(data = lynx.df, x = "year")
   
 }

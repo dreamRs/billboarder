@@ -4,10 +4,11 @@
 \alias{proxy_example}
 \title{Proxy use example}
 \usage{
-proxy_example(chart = c("gauge", "pie", "bar", "line"))
+proxy_example(chart = "gauge")
 }
 \arguments{
-\item{chart}{Chart type for which to see an example.}
+\item{chart}{Chart type for which to see an example, possible values are \code{gauge}, \code{pie}, \code{bar}, 
+\code{bar2}, \code{line}, \code{line2}.}
 }
 \description{
 Launch an example app to demonstrate how to use proxy method from \code{billboarder}.
@@ -17,7 +18,7 @@ Launch an example app to demonstrate how to use proxy method from \code{billboar
 
 if (interactive()) {
 
-proxy_examples("gauge")
+proxy_examples("line")
 
 }
 

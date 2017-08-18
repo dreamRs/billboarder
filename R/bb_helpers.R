@@ -67,7 +67,18 @@ bb_barchart <- function(bb, data, stacked = FALSE, rotated = FALSE, color = NULL
   if ("billboarder_Proxy" %in% class(bb)) {
     
     # bb <- bb_load(proxy = bb, x = x, json = json, groups = stacked, unload = bb$unload) 
-    bb <- bb_load(proxy = bb, json = json[-1], groups = stacked, unload = bb$unload) 
+    
+    if (!is.null(color)) {
+      colp <- stats::setNames(as.list(color), setdiff(names(json), x))
+    } else {
+      colp <- NULL
+    }
+    
+    bb <- bb_load(proxy = bb,
+                  json = json[-which(names(json)==x)], 
+                  groups = stacked, 
+                  unload = bb$unload, 
+                  colors = colp) 
     
     bb <- bb_categories(bb = bb, categories = json[[1]])
 
@@ -544,6 +555,29 @@ bb_histogram <- function(bb, x, breaks = "Sturges", ...) {
 #' 
 #' billboarder() %>% 
 #'   bb_linechart(data = cdc_prod_filiere[, c("date_heure", "prod_eolien")])
+#'  
+#'  
+#' ## Other type for x-axis 
+#'  
+#' # character/factor on x-axis
+#' AirPassengers1960 <- data.frame(
+#'   month = month.name, 
+#'   AirPassengers = tail(AirPassengers, 12)
+#' )
+#' # you have to specify that x-axis is of type 'category'
+#' billboarder() %>% 
+#'   bb_linechart(data = AirPassengers1960, x = "month") %>% 
+#'   bb_x_axis(type = "category")
+#' 
+#' 
+#' # numeric on x-axis
+#' lynx.df <- data.frame(
+#'   year = time(lynx),
+#'   lynx = lynx
+#' )
+#' # just specify which variable must be use n the x-axis
+#' billboarder() %>% 
+#'   bb_linechart(data = lynx.df, x = "year")
 #'   
 bb_linechart <- function(bb, data, type = "line", show_point = FALSE, ...) {
   
@@ -595,8 +629,8 @@ bb_linechart <- function(bb, data, type = "line", show_point = FALSE, ...) {
     
   } else {
     
-    bb <- .bb_opt2(bb, "data", data_opt)
-    
+    bb <- .bb_opt2(bb, "data", c(data_opt, args))
+
     bb <- bb_point(bb, show = show_point)
     
   }

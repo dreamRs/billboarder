@@ -1,23 +1,6 @@
 
 library("shiny")
 library("billboarder")
-library("RColorBrewer")
-
-# data ----
-data("cdc_prod_filiere")
-
-cols <- brewer.pal(n = 9, name = "Set1")
-vars <- colnames(cdc_prod_filiere)[3:11]
-choices <- mapply(
-  FUN = function(x, y) {
-    tags$span(icon("circle"), style = paste("color:", x), 
-              gsub("prod_", "", y))
-  },
-  x = cols,
-  y = vars, 
-  SIMPLIFY = FALSE, USE.NAMES = FALSE
-)
-
 
 
 # ui ----
@@ -26,51 +9,27 @@ ui <- fluidPage(
   
   tags$h1("Billboarder line chart with proxy"),
   br(),
+  tags$p(
+    "This is the billboarder adaption of example",
+    tags$a(
+      href = "https://github.com/rstudio/shiny-examples/tree/master/054-nvd3-line-chart-output",
+      "054-nvd3-line-chart-output"
+    ),
+    "by Joe Cheng."
+  ),
   
   fluidRow(
-    
-    column(
-      width = 4,
-      
-      wellPanel(
-        
-        radioButtons(
-          inputId = "line", label = "Number of lines",
-          choices = c("One", "Several"), inline = TRUE
-        ),
-        
-        conditionalPanel(
-          condition = "input.line == 'One'",
-          radioButtons(
-            inputId = "onebranch",
-            label = "Branch :",
-            choiceNames = choices, 
-            choiceValues = vars, 
-            selected = colnames(cdc_prod_filiere)[3]
-          )
-        ),
-        
-        conditionalPanel(
-          condition = "input.line == 'Several'",
-          checkboxGroupInput(
-            inputId = "severalbranch",
-            label = "Branch :",
-            choiceNames = choices, 
-            choiceValues = vars, 
-            selected = colnames(cdc_prod_filiere)[3]
-          )
-        )
-
-        
-      )
-      
+    column(width=9,
+           billboarderOutput(outputId = "mychart")
     ),
-    
-    column(
-      width = 4,
-      billboarderOutput(outputId = "courbe")
+    column(width=3,
+           sliderInput(inputId = "sinePhase", label = "Sine phase", 
+                       min = -180, max = 180, value = 0, step = 10,
+                       animate = animationOptions(interval = 100, loop = TRUE)),
+           sliderInput(inputId = "sineAmplitude", label = "Sine amplitude",
+                       min = -2, max = 2, value = 1, step = 0.1,
+                       animate=animationOptions(interval = 100, loop = TRUE))
     )
-    
   )
 )
 
@@ -79,38 +38,27 @@ ui <- fluidPage(
 
 server <- function(input, output, session) {
   
-  # initialize chart
-  
-  output$courbe <- renderBillboarder({
-    billboarder() %>% 
-      bb_linechart(data = cdc_prod_filiere[, c(1, 3)]) %>% 
-      bb_colors_manual(setNames(as.list(cols), vars)) %>% 
-      bb_labs(title = "Electricity production (2017-06-12)",
-              y = "In megawatt (MW)",
-              caption = "Data source: RTE (https://opendata.rte-france.com)")
+  dat <- reactive({
+    data.frame(
+      Sine = sin(1:100/10 + input$sinePhase * pi/180) * input$sineAmplitude,
+      Cosine = 0.5 * cos(1:100/10),
+      "Sine 2" = sin(1:100/10) * 0.25 + 0.5
+    )
   })
   
-
-  observeEvent(input$onebranch, {
-
-    billboarderProxy(shinyId = "courbe") %>%
-      bb_unload() %>%
-      bb_linechart(data = cdc_prod_filiere[, c("date_heure", input$onebranch)])
-    
-  }, ignoreInit = TRUE)
+  output$mychart <- renderBillboarder({
+    billboarder() %>% 
+      bb_linechart(data = isolate(dat()), type = "spline")
+  })
   
-  
-  observeEvent(input$severalbranch, {
-    
-    billboarderProxy(shinyId = "courbe") %>%
-      bb_unload(setdiff(vars, input$severalbranch)) %>%
-      bb_linechart(data = cdc_prod_filiere[, c("date_heure", input$severalbranch)])
-    
-  }, ignoreInit = TRUE)
+  observe({
+    billboarderProxy(shinyId = "mychart") %>% 
+      bb_linechart(data = dat())
+  })
   
 }
 
 
-# run app ----
+# app ----
 
 shinyApp(ui = ui, server = server)

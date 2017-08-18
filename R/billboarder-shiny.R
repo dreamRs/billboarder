@@ -295,3 +295,23 @@ bb_xs <- function(proxy, xs) {
   .bb_proxy(proxy, "xs", dropNulls(xs))
   
 }
+
+
+
+
+#' Update chart type with proxy
+#'
+#' @param proxy A \code{billboardProxy} \code{htmlwidget} object.
+#' @param type Specify the type to be transformed.
+#' @param targetIds Specify targets to be transformed. If not given, all targets will be the candidate.
+#'
+#' @return A \code{billboardProxy} \code{htmlwidget} object.
+#' @export
+bb_transform <- function(proxy, type, targetIds = NULL) {
+  
+  if (!"billboarder_Proxy" %in% class(proxy)) 
+    stop("This function must be used with a billboarderProxy object")
+  
+  .bb_proxy2(proxy, "transform", dropNulls(list(type = type, targetIds = targetIds)))
+  
+}

@@ -185,16 +185,20 @@ if (HTMLWidgets.shinyMode) {
   Shiny.addCustomMessageHandler('update-billboard-data',
     function(data) {
       var chart = get_billboard(data.id);
-      // chart.unload();
-      chart.load(data.data);
+      if (typeof chart != 'undefined') {
+        // chart.unload();
+        chart.load(data.data);
+      }
   });
   
   // load
   Shiny.addCustomMessageHandler('update-billboard-load',
     function(data) {
       var chart = get_billboard(data.id);
-      //console.log(data.data);
-      chart.load(data.data);
+      if (typeof chart != 'undefined') {
+        //console.log(data.data);
+        chart.load(data.data);
+      }
   });
   
   // unload (not used)
@@ -214,40 +218,59 @@ if (HTMLWidgets.shinyMode) {
   Shiny.addCustomMessageHandler('update-billboard-focus',
     function(data) {
       var chart = get_billboard(data.id);
-      if (data.data.ids.length > 0) {
-        chart.focus(data.data.ids);
-      } else {
-        chart.focus();
+      if (typeof chart != 'undefined') {
+        if (data.data.ids.length > 0) {
+          chart.focus(data.data.ids);
+        } else {
+          chart.focus();
+        }
       }
   });
   // defocus
   Shiny.addCustomMessageHandler('update-billboard-defocus',
     function(data) {
       var chart = get_billboard(data.id);
-      if (data.data.ids.length > 0) {
-        chart.defocus(data.data.ids);
-      } else {
-        chart.defocus();
+      if (typeof chart != 'undefined') {
+        if (data.data.ids.length > 0) {
+          chart.defocus(data.data.ids);
+        } else {
+          chart.defocus();
+        }
       }
   });
   // Axis labels
   Shiny.addCustomMessageHandler('update-billboard-axis_labels',
     function(data) {
       var chart = get_billboard(data.id);
-      chart.axis.labels(data.data);
+      if (typeof chart != 'undefined') {
+        chart.axis.labels(data.data);
+      }
   });
   // X values
   Shiny.addCustomMessageHandler('update-billboard-xs',
     function(data) {
       var chart = get_billboard(data.id);
-      chart.xs(data.data);
+      if (typeof chart != 'undefined') {
+        chart.xs(data.data);
+      }
   });
   // categories
   Shiny.addCustomMessageHandler('update-billboard-categories',
     function(data) {
       var chart = get_billboard(data.id);
       //console.log(data.data);
-      chart.categories(data.data[0]);
+      if (typeof chart != 'undefined') {
+        chart.categories(data.data[0]);
+      }
+  });
+  // Transform / change chart type
+  Shiny.addCustomMessageHandler('update-billboard-transform',
+    function(data) {
+      var chart = get_billboard(data.id);
+      // console.log(data.data.type);
+      if (typeof chart != 'undefined') {
+        chart.transform(data.data.type, data.data.targetIds);
+      }
   });
 }
 
