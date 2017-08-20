@@ -340,9 +340,25 @@ proxy_example("gauge")
 ```
 
 
+## Combination charts
+
+For now, you have to specify the type of chart according to the data, this might change in the future :
+
+```r
+# from ?plot
+# require(stats); plot(cars); lines(lowess(cars))
+billboarder() %>% 
+  bb_scatterplot(data = cars) %>% 
+  bb_linechart(data = data.frame(lowess(cars)), x = "x") %>% 
+  bb_data(types = list(dist = "scatter", y = "line"))
+
+```
+![](inst/img/multichart0.png)
+
+
 ## Raw API
 
-In fact you can do whatever you want, you just have to pass a list-JSON as parameter :
+If what you want to do is not possible with higher function in the package, you can anyway do what you want, you just have to pass a list-JSON as parameter :
 
 
 ```r

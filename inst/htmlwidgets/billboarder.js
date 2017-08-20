@@ -107,6 +107,7 @@ HTMLWidgets.widget({
         }
         head.appendChild(style);
         
+        // Billboarder specials
         if (typeof bb_opts.billboarderspecials != 'undefined') {
           if (typeof bb_opts.billboarderspecials.opacity != 'undefined') {
             var cssopacity = '.bb-area { opacity: ' + bb_opts.billboarderspecials.opacity + ' !important; }',
@@ -121,6 +122,20 @@ HTMLWidgets.widget({
           }
         }
         
+        // Custom style
+        if (typeof bb_opts.customstyle != 'undefined') {
+          if (typeof bb_opts.customstyle.custom_style != 'undefined') {
+            var customcss = bb_opts.customstyle.custom_style,
+              stylecustom = document.createElement('style');
+            stylecustom.type = 'text/css';
+            if (stylecustom.styleSheet){
+              stylecustom.styleSheet.cssText = customcss;
+            } else {
+              stylecustom.appendChild(document.createTextNode(customcss));
+            }
+            head.appendChild(stylecustom);
+          }
+        }
         
         //console.log(chart.data());
 

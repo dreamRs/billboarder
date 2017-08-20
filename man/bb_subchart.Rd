@@ -15,7 +15,7 @@ bb_subchart(bb, ...)
 A \code{billboard} \code{htmlwidget} object.
 }
 \description{
-Subchart property for a Billboard.js chart
+Create a subchart allowing to zoom and navigate on the chart.
 }
 \examples{
 

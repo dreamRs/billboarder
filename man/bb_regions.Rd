@@ -15,5 +15,66 @@ bb_regions(bb, ...)
 A \code{billboard} \code{htmlwidget} object.
 }
 \description{
-Regions property for a Billboard.js chart
+Add a shadding effect to the background of the chart, to highlight a period for example.
+}
+\examples{
+#' With a categorical X-axis
+dat <- data.frame(
+  month = month.abb,
+  AirPassengers = tail(AirPassengers, 12)
+)
+# Highlight Jun/Jul/Aug
+billboarder() \%>\% 
+  bb_linechart(data = dat, x = "month") \%>\% 
+  bb_x_axis(type = "category") \%>\% 
+  bb_regions(
+    list(start = 4.5, end = 7.5) #' jan = 0
+  )
+
+# With a barchart
+billboarder() \%>\% 
+  bb_barchart(data = dat) \%>\% 
+  bb_regions(
+    list(start = 1.5, end = 2.5, class = "custom"),
+    list(start = 8, end = 10, class = "foo")
+  ) \%>\% 
+  bb_add_style(region = list(custom = "fill: red;", foo = "fill: #'009246;"))
+
+
+
+
+# With Date X-axis
+library("stats")
+dat <- data.frame(
+  date = seq.Date(from = Sys.Date(), by = "day", length.out = 365),
+  var = density(rexp(n = 1000), n = 365)$y
+)
+
+billboarder() \%>\% 
+  bb_linechart(data = dat) \%>\% 
+  bb_x_axis(tick = list(fit = FALSE)) \%>\% 
+  bb_y_axis(min = 0, padding = 0) \%>\% 
+  bb_regions(
+    list(start = format(Sys.Date() + 30), end = format(Sys.Date() + 120))
+  )
+
+
+
+# With POSIXct X-axis
+dat <- data.frame(
+  time = seq.POSIXt(from = Sys.time(), by = "min", length.out = 60),
+  var = round(sort(rnorm(60)), 2)
+)
+
+billboarder() \%>\% 
+  bb_linechart(data = dat) \%>\% 
+  bb_x_axis(tick = list(format = "\%H:\%M", fit = FALSE)) \%>\%  
+  bb_regions(
+    list(start = format(dat$time[15]), 
+         end = format(dat$time[30]))
+  )
+
+}
+\seealso{
+\code{\link{bb_add_style}}
 }
