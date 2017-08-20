@@ -287,6 +287,15 @@ if (HTMLWidgets.shinyMode) {
         chart.transform(data.data.type, data.data.targetIds);
       }
   });
+  // Regions
+  Shiny.addCustomMessageHandler('update-billboard-region',
+    function(data) {
+      var chart = get_billboard(data.id);
+      // console.log(data.data.type);
+      if (typeof chart != 'undefined') {
+        chart.regions(data.data);
+      }
+  });
 }
 
 

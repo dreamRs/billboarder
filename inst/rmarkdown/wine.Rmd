@@ -10,8 +10,8 @@ knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
 ```
 
 
-Here are some examples of graphs made with the [`billboarder`](https://github.com/dreamRs/billboarder) package, an htmlwidget interfacing R and the [billboard.js](https://naver.github.io/billboard.js/) library.
-We'll use data about wine in european countries from [Eurostats](http://ec.europa.eu/eurostat), we'll get those with [`eurostat`](https://ropengov.github.io/eurostat/) package.
+Here are some examples of charts made with the [`billboarder`](https://github.com/dreamRs/billboarder) package, an htmlwidget interfacing R and the [billboard.js](https://naver.github.io/billboard.js/) library.
+We'll use data about wine in european countries from [Eurostat](http://ec.europa.eu/eurostat), we'll get those with [`eurostat`](https://ropengov.github.io/eurostat/) package.
 
 
 
@@ -20,10 +20,10 @@ We'll use data about wine in european countries from [Eurostats](http://ec.europ
 We'll use these packages :
 
 ```{r packages}
-library( "billboarder" )
-library( "eurostat" )
-library( "dplyr" )
-library( "tidyr" )
+library( "billboarder" ) # for charts
+library( "eurostat" ) # for data
+library( "dplyr" ) # for data manipulation
+library( "tidyr" ) # for spread
 ```
 
 Get the data :
@@ -31,14 +31,14 @@ Get the data :
 ```{r data}
 eu_wine <- get_eurostat(id = "apro_cpb_wine", time_format = "num")
 eu_wine <- label_eurostat(eu_wine)
-eu_wine
+str(eu_wine)
 ```
 
 
 
 ## Top 10 producer in 2016
 
-We represent the 10 countries that produce the most wine
+We represent the 10 countries that produce the most wine for the year 2016 :
 
 ```{r top10}
 # some data munging
@@ -57,43 +57,174 @@ billboarder() %>%
   bb_data(names = list("values" = "Official production (1000 hl)")) %>%
   bb_y_grid(show = TRUE) %>%
   bb_y_axis(tick = list(values = seq(0, 5e4, 1e4))) %>% 
-  bb_labs(title = "Top 10 wine producer in EU for 2016", caption = "Data source: Eurostats")
+  bb_labs(title = "Top 10 wine producer in EU for 2016", caption = "Data source: Eurostat")
 ```
 
 
+## Gross human consumption
 
+Which European countries consume the most P.D.O. wines?
 
-## Imports and exports
+PDO (Protected Designation of Origin) is an European label, in French it's called "AOC (Appellation d'Origine Contrôlée)".
+
 
 ```{r}
-# prepare data
-imports_exports <- eu_wine %>% 
+ghc <- eu_wine %>% 
+  filter(time == 2016) %>% 
+  filter(prod_bal %in% c("P.D.O. - Red and rose wine", "P.D.O. -  white wine")) %>% 
+  filter(bal_item == "Gross human consumption (1000 hl)") %>% 
+  mutate(geo = gsub(" \\(.*", "", geo)) %>% 
+  mutate(type = if_else(grepl("white", prod_bal), "White wine", "Red and rose wine")) %>% 
+  select(geo, type, values) %>% 
+  spread(type, values) %>% 
+  mutate(total = `Red and rose wine` + `White wine`) %>% 
+  arrange(total) %>% 
+  select(-total)
+
+
+billboarder() %>% 
+  bb_barchart(data = ghc, stacked = TRUE, rotated = TRUE) %>% 
+  bb_color(palette = c("#A74947", "#D1C659")) %>% 
+  bb_y_grid(show = TRUE) %>% 
+  bb_labs(title = "Gross human consumption of P.D.O. wines",
+          y = "In 1000hl",
+          caption = "Data source: Eurostat")
+```
+
+So you we drink a lot in France, but is it ?
+
+
+
+## Gross human consumption per capita
+
+In which country do you drink most?
+
+In 2015 because there's no data for data, and for any wine (with label or not)
+
+```{r}
+ghcpc <- eu_wine %>% 
+  filter(time == 2015) %>%
+  filter(prod_bal %in% c("Red and rose wine", "White wine")) %>%
+  filter(bal_item == "Gross human consumption per capita (lt/head)") %>% 
+  mutate(geo = gsub(" \\(.*", "", geo)) %>% 
+  select(geo, prod_bal, values) %>% 
+  spread(prod_bal, values) %>% 
+  mutate(total = `Red and rose wine` + `White wine`) %>% 
+  arrange(total) %>% 
+  select(-total)
+
+billboarder() %>% 
+  bb_barchart(data = ghcpc, stacked = TRUE, rotated = FALSE) %>% 
+  bb_colors_manual("Red and rose wine" = "#A74947", "White wine" = "#D1C659") %>% 
+  bb_y_grid(show = TRUE) %>% 
+  bb_labs(title = "Gross human consumption per capita",
+          y = "In lt/head",
+          caption = "Data source: Eurostat")
+```
+
+
+Yeah Luxembourg ! And lol UK ;)
+
+
+
+## Imports and exports for France
+
+From 1965 to 2016 :
+
+```{r}
+balance_fr <- eu_wine %>% 
   filter(prod_bal == "Wine - Total",
          bal_item == "Total exports (for EUR : Exports to third countries) (1000 hl)" |
            bal_item == "Total imports (for EUR : imports from third countries) (1000 hl)",
-         time == "2016") %>% 
-  mutate(geo = gsub(" \\(.*", "", geo)) %>% 
-  filter(geo %in% eu_countries$name) %>% 
-  mutate(type = if_else(grepl("imports", bal_item), "imports", "exports"))
-
-# data in long format with tidyr::spread
-imports_exports <- imports_exports %>%
-  select(geo, type, values) %>%
+         geo == "France") %>% 
+  mutate(type = if_else(grepl("imports", bal_item), "imports", "exports")) %>% 
+  select(time, type, values) %>% 
   spread(type, values) %>% 
-  mutate(bal_com = exports - imports) %>% 
-  arrange(desc(bal_com)) %>% 
-  select(-bal_com)
+  arrange(time) %>% 
+  mutate(balance = exports - imports)
 
-# chart
 billboarder() %>% 
-  bb_barchart(data = imports_exports) %>% 
-  bb_y_grid(show = TRUE) %>%
-  bb_data(label = TRUE) %>% 
-  bb_labs(title = "Wine imports and exports for EU contries in 2016", 
-          y = "(1000 hl)",
-          caption = "Data source: Eurostats")
+  bb_barchart(data = balance_fr %>% select(time, balance)) %>% 
+  bb_y_grid(show = TRUE) %>% 
+  bb_x_axis(tick = list(fit = FALSE)) %>% 
+  bb_legend(show = FALSE) %>% 
+  bb_labs(title = "Wine imports and exports in France", 
+          y = "Exports minus Imports",
+          caption = "Data source: Eurostat")
 ```
 
+
+
+## PDO wine production for top 3 producers
+
+In Italy, Spain and France :
+
+```{r}
+pdo_frspit <- eu_wine %>% 
+  filter(geo %in% c("France", "Spain", "Italy")) %>% 
+  filter(prod_bal %in% c("P.D.O. Total wine")) %>% 
+  filter(bal_item == "Official production (1000 hl)") %>% 
+  select(time, geo, values) %>% 
+  spread(geo, values)
+
+billboarder() %>% 
+  bb_barchart(data = pdo_frspit) %>% 
+  bb_colors_manual("France" = "#00267F", "Italy" = "#009246", "Spain" = "#C60B1E") %>% 
+  bb_data(labels = TRUE) %>% 
+  bb_y_grid(show = TRUE) %>% 
+  bb_legend(position = "right") %>% 
+  bb_labs(title = "PDO (AOC) production in France, Spain and Italy", 
+          y = "Official production (1000 hl)", 
+          caption = "Data source: Eurostat")
+```
+
+
+
+
+## Wine with EU label in Italy
+
+
+<div class="row">
+<style>.bb-chart-arcs-title{font-size: 180%; font-weight: bold;}</style>
+<div class="col-sm-6">
+```{r}
+labeled2010_it <- eu_wine %>% 
+  filter(
+    bal_item=="Official production (1000 hl)",
+    prod_bal %in% c("P.G.I. Total wine", "P.D.O. Total wine", "Varietal wine - Total", "Other wine - Total"),
+    geo == "Italy", time == 2010
+  ) %>% 
+  mutate(label = if_else(grepl("P\\.D\\.O\\.|P\\.G\\.I\\.", prod_bal), "With EU label", "No label")) %>% 
+  group_by(label) %>% 
+  summarise(values = sum(values))
+
+
+billboarder() %>% 
+  bb_donutchart(data = labeled2010_it) %>% 
+  bb_donut(title = "2010")
+```
+</div>
+
+<div class="col-sm-6">
+```{r}
+labeled2016_it <- eu_wine %>% 
+  filter(
+    bal_item=="Official production (1000 hl)",
+    prod_bal %in% c("P.G.I. Total wine", "P.D.O. Total wine", "Varietal wine - Total", "Other wine - Total"),
+    geo == "Italy", time == 2016
+  ) %>% 
+  mutate(label = if_else(grepl("P\\.D\\.O\\.|P\\.G\\.I\\.", prod_bal), "With EU label", "No label")) %>% 
+  group_by(label) %>% 
+  summarise(values = sum(values))
+
+
+billboarder() %>% 
+  bb_donutchart(data = labeled2016_it) %>% 
+  bb_donut(title = "2016")
+```
+</div>
+
+</div>
 
 
 
@@ -125,7 +256,7 @@ billboarder() %>%
   bb_legend(position = "inset", inset = list(anchor = "top-right")) %>% 
   bb_labs(title = "Wine production from 1965 to 2016", 
           y = "Official production (1000 hl)", 
-          caption = "Data source: Eurostats")
+          caption = "Data source: Eurostat")
 ```
 
 

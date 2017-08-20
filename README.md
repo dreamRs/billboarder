@@ -24,6 +24,8 @@ Installation :
 devtools::install_github("dreamRs/billboarder")
 ```
 
+A markdown document with some examples is available here : http://rpubs.com/Victorp/billboarder_examples
+
 
 ## Bar chart
 

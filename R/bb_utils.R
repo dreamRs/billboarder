@@ -467,7 +467,13 @@ bb_spline <- function(bb, ...) {
 #' @return A \code{billboard} \code{htmlwidget} object.
 #' @export
 #'
-# @examples
+#' @examples
+#' # Set if null data point will be connected or not.
+#' b <- billboarder() %>% 
+#'   bb_linechart(data = c(1, 2, NA, 4, 5))
+#' b
+#' b %>%  bb_line(connectNull = TRUE)
+#' 
 bb_line <- function(bb, ...) {
   
   .bb_opt(bb, "line", ...)
@@ -677,7 +683,11 @@ bb_subchart <- function(bb, ...) {
 #'
 bb_regions <- function(bb, ...) {
   
-  .bb_opt(bb, "regions", ...)
+  if ("billboarder_Proxy" %in% class(bb)) {
+    .bb_proxy(bb, "regions",  ...)
+  } else {
+    .bb_opt(bb, "regions", ...)
+  }
   
 }
 
