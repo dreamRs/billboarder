@@ -9,14 +9,16 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
+
 This package allow you to use [billboard.js](https://naver.github.io/billboard.js/),
 a re-usable easy interface JavaScript chart library, based on D3 v4+.
 
 Supported chart types:
- * line
- * bar
- * pie / donut
- * scatter
+
+* line
+* bar
+* pie / donut
+* scatter
 
 The main function is `billboarder`, all charts begin with. You can add layer to your charts with function `bb_*`, these functions
 correspond to a billboard option define in the [API docs](https://naver.github.io/billboard.js/release/latest/doc/).
@@ -29,6 +31,8 @@ There are helpers functions to quickly create a type of chart (`bb_barchart`, `b
 You can create a simple bar chart by passing a `data.frame` to `bb_barchart`, the first column will be used as the x-axis, and the second one as the y-axis :
 
 ```{r}
+library("billboarder")
+
 df <- as.data.frame(table(sample(letters[1:5], 50, TRUE)))
 df
 
