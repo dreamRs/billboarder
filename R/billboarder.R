@@ -15,9 +15,18 @@
 #' @export
 billboarder <- function(bb_opts = list(), data = NULL, width = NULL, height = NULL, elementId = NULL) {
 
+  # disabling touch events for Rstudio
+  # https://github.com/naver/billboard.js/issues/92
+  if (is.null(bb_opts$interaction$inputType$touch))
+    bb_opts$interaction$inputType$touch <- FALSE
 
+  bb_empty <- getOption(x = "bb.empty")
+  if (is.function(bb_empty))
+    bb_empty <- bb_empty()
+  
   x <- list(
     bb_opts = bb_opts,
+    bb_empty = bb_empty,
     data = data
   )
 

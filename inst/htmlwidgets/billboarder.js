@@ -18,7 +18,13 @@ HTMLWidgets.widget({
 
       renderValue: function(x) {
 
-        bb_opts = x.bb_opts;
+        //console.log(x.bb_opts);
+        if (typeof x.bb_opts.data == 'undefined') {
+          bb_opts = x.bb_empty;
+        } else {
+          bb_opts = x.bb_opts;
+        }
+        
         // bindto element
         bb_opts.bindto = '#' + el.id;
         
