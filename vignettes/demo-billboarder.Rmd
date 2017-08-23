@@ -1,0 +1,134 @@
+---
+title: "billboarder demo"
+author: "Victor Perrier"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{billboarder demo}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+This package allow you to use [billboard.js](https://naver.github.io/billboard.js/),
+a re-usable easy interface JavaScript chart library, based on D3 v4+.
+
+Supported chart types:
+ * line
+ * bar
+ * pie / donut
+ * scatter
+
+The main function is `billboarder`, all charts begin with. You can add layer to your charts with function `bb_*`, these functions
+correspond to a billboard option define in the [API docs](https://naver.github.io/billboard.js/release/latest/doc/).
+There are helpers functions to quickly create a type of chart (`bb_barchart`, `bb_linechart`, `bb_piechart`, `bb_donutchart`, `bb_gauge`,
+`bb_scatterplot`), they have to be called after `billboarder`.
+
+
+## Bar chart
+
+You can create a simple bar chart by passing a `data.frame` to `bb_barchart`, the first column will be used as the x-axis, and the second one as the y-axis :
+
+```{r}
+df <- as.data.frame(table(sample(letters[1:5], 50, TRUE)))
+df
+
+billboarder() %>% 
+  bb_barchart(data = df)
+```
+
+If you want to create a grouped bar chart, you'll have to put your data in a "wide" format. You can use `tidyr::spread` or `data.table::dcast`.
+
+```{r}
+df <- as.data.frame(table(
+  sample(letters[1:5], 50, TRUE),
+  sample(LETTERS[1:5], 50, TRUE)
+))
+df <- reshape(data = df, idvar = "Var1", timevar = "Var2", direction = "wide")
+df
+
+billboarder() %>% 
+  bb_barchart(data = df)
+```
+
+
+## Line chart
+
+You can pass to the function `bb_linechart` a vector, in that case x-axis will be the index of that vector :
+
+```{r}
+billboarder() %>% 
+  bb_linechart(data = sin(seq(-pi, pi, length.out = 10)))
+```
+
+
+
+You can change the type of line with argument `type`, for example an `area-step` :
+
+
+```{r}
+billboarder() %>% 
+  bb_linechart(data = sin(seq(-pi, pi, length.out = 10)), type = "area-step")
+```
+
+
+If want to specify a variable to map to the x-axis, you had to pass a `data.frame` to the function :
+
+```{r}
+df <- data.frame(
+  var_x = seq(-pi, pi, length.out = 10),
+  sin = sin(seq(-pi, pi, length.out = 10))
+)
+df
+
+billboarder() %>% 
+  bb_linechart(data = df, x = "var_x")
+```
+
+
+
+If the first variable of the `data.frame` is a `Date` or a `POSIX`, it will be automatically mapped to the x-axis :
+
+```{r}
+df <- data.frame(
+  date = seq.Date(from = as.Date("2017-06-12"), by = "day", length.out = 10),
+  var = rnorm(10)
+)
+df
+
+billboarder() %>% 
+  bb_linechart(data = df)
+```
+
+
+
+
+
+## Pie chart
+
+For pie chart, use `bb_piechart` with a two column `data.frame` :
+
+```{r}
+df <- data.frame(
+  var = c("A", "B"),
+  count = c(457, 987)
+)
+
+billboarder() %>% 
+  bb_piechart(data = df)
+```
+
+
+
+
+## Gauge chart
+
+Gauge only need one value :
+
+```{r}
+billboarder() %>% 
+  bb_gaugechart(value = 64)
+```
+
+
+
+

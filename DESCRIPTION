@@ -1,6 +1,6 @@
 Package: billboarder
 Title: Htmlwidget for Billboard.js
-Version: 0.0.2
+Version: 0.0.2.900
 Authors@R: c(
   person("Victor", "Perrier", email = "victor.perrier@dreamrs.fr", role = c("aut", "cre")),
   person("Fanny", "Meyer", email = "fanny.meyer@dreamrs.fr", role = c("aut")))
@@ -18,4 +18,7 @@ Imports: htmlwidgets,
 Suggests: RColorBrewer,
     ggplot2,
     shiny,
-    testthat
+    testthat,
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
