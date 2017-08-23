@@ -4,17 +4,16 @@
 \alias{bb_add_style}
 \title{Add custom style for regions and grid lines}
 \usage{
-bb_add_style(bb, region = NULL, x_grid_line = NULL, y_grid_line = NULL,
-  ...)
+bb_add_style(bb, region = NULL, x_grid = NULL, y_grid = NULL, ...)
 }
 \arguments{
 \item{bb}{A \code{billboard} \code{htmlwidget} object.}
 
 \item{region}{A named list with style associated with region.}
 
-\item{x_grid_line}{A named list with style associated with grid line on the X-axis.}
+\item{x_grid}{A named list with style associated with grid line on the X-axis.}
 
-\item{y_grid_line}{A named list with style associated with grid line on the Y-axis.}
+\item{y_grid}{A named list with style associated with grid line on the Y-axis.}
 
 \item{...}{Not used}
 }
@@ -33,5 +32,15 @@ billboarder() \%>\%
     list(start = 19, end = 29, class = "foo")
   ) \%>\% 
   bb_add_style(region = list(custom = "fill: red;", foo = "fill: #009246;"))
+
+# Customize grid line and text
+billboarder() \%>\% 
+  bb_linechart(data = sin(seq(-pi, pi, length.out = 30))) \%>\% 
+  bb_y_grid(lines = list(list(
+    value = 0, text = "Zero", position  = "middle", class = "zero"
+  ))) \%>\% 
+  bb_add_style(y_grid = list(
+    zero = list(line = "stroke: red", text = "font-size: 240\%; fill: black"
+  )))
 
 }
