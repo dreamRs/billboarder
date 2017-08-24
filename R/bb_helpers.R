@@ -8,6 +8,8 @@
 #' @param rotated Switch x and y axis position.
 #' @param color Bar's color.
 #' @param ... Arguments for slot bar, see \url{https://naver.github.io/billboard.js/release/latest/doc/Options.html#.bar}.
+#' 
+#' @note This function can be used with \code{\link{billboarderProxy}} in shiny application.
 #'
 #' @return A \code{billboard} \code{htmlwidget} object.
 #' @export
@@ -176,7 +178,7 @@ bb_bar_color_manual <- function(bb, values) {
 #' @param bb A \code{billboard} \code{htmlwidget} object. 
 #' @param categories A character vector to set names on a category axis.
 #' 
-#' @note This function can be used with \code{billboardProxy} to modify labels on axis, e.g. for barcharts.
+#' @note This function can be used with \code{\link{billboarder-shiny}} to modify labels on axis, e.g. for barcharts.
 #'
 #' @return A \code{billboard} \code{htmlwidget} object.
 #' @export
@@ -213,6 +215,8 @@ bb_categories <- function(bb, categories) {
 #' @param y Variable to map to the y-axis, if \code{NULL} second variable is used.
 #' @param group Variable to use to plot data by group.
 #' @param ... unused
+#' 
+#' @note This function can be used with \code{\link{billboarderProxy}} in shiny application.
 #'
 #' @return A \code{billboard} \code{htmlwidget} object.
 #' @export
@@ -298,7 +302,9 @@ bb_scatterplot <- function(bb, data, x = NULL, y = NULL, group = NULL, ...) {
 #' @param name Name for the value, appear in  tooltip.
 #' @param steps Upper bound for changing colors
 #' @param steps_color Colors corresponding to steps
-#' @param ... Arguments for slot gauge
+#' @param ... Arguments for slot gauge.
+#' 
+#' @note This function can be used with \code{\link{billboarderProxy}} in shiny application.
 #'
 #' @return A \code{billboard} \code{htmlwidget} object.
 #' @export
@@ -358,6 +364,8 @@ bb_gaugechart <- function(bb, value, name = "Value",
 #' @param bb A \code{billboard} \code{htmlwidget} object.
 #' @param data A \code{data.frame}, first column must contain labels and second values associated.
 #' @param ... Arguments for slot pie, \url{https://naver.github.io/billboard.js/release/latest/doc/Options.html#.pie}.
+#' 
+#' @note This function can be used with \code{\link{billboarderProxy}} in shiny application.
 #'
 #' @return A \code{billboard} \code{htmlwidget} object.
 #' @export
@@ -411,6 +419,8 @@ bb_piechart <- function(bb, data, ...) {
 #' @param bb A \code{billboard} \code{htmlwidget} object.
 #' @param data A \code{data.frame}.
 #' @param ... Arguments for slot donut, \url{https://naver.github.io/billboard.js/release/latest/doc/Options.html#.donut}.
+#' 
+#' @note This function can be used with \code{\link{billboarderProxy}} in shiny application.
 #'
 #' @return A \code{billboard} \code{htmlwidget} object.
 #' @export
@@ -513,7 +523,9 @@ bb_histogram <- function(bb, x, breaks = "Sturges", ...) {
 #' @param data A \code{data.frame} or a \code{vector}.
 #' @param type Type of chart : line, spline, step, area, area-spline, area-step.
 #' @param show_point Whether to show each point in line.
-#' @param ... Not used
+#' @param ... Not used.
+#' 
+#' @note This function can be used with \code{\link{billboarderProxy}} in shiny application.
 #'
 #' @return A \code{billboard} \code{htmlwidget} object.
 #' @export
@@ -593,7 +605,7 @@ bb_linechart <- function(bb, data, type = "line", show_point = FALSE, ...) {
   args <- list(...)
   
   if (is.vector(data)) {
-    data_opt = list(
+    data_opt <- list(
       json = list(
         x = data
       ),
@@ -607,7 +619,7 @@ bb_linechart <- function(bb, data, type = "line", show_point = FALSE, ...) {
         }
       }
       data[[1]] <- as.character(data[[1]])
-      data_opt = list(
+      data_opt <- list(
         x = names(data)[1],
         json = as.list(data),
         type = type
@@ -616,7 +628,7 @@ bb_linechart <- function(bb, data, type = "line", show_point = FALSE, ...) {
         bb <- bb_x_axis(bb, type = "timeseries")
       }
     } else {
-      data_opt = list(
+      data_opt <- list(
         json = as.list(data),
         type = type
       )

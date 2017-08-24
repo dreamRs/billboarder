@@ -38,3 +38,6 @@ default value will suffice}
 Output and render functions for using billboarder within Shiny
 applications and interactive Rmd documents.
 }
+\seealso{
+\code{\link{proxy_example}}
+}

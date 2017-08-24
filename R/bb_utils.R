@@ -64,6 +64,8 @@ dropNulls <- function (x)
 #' @param bb A \code{billboard} \code{htmlwidget} object.
 #' @param data A \code{data.frame}
 #' @param ... Arguments defined in \url{https://naver.github.io/billboard.js/demo/}.
+#' 
+#' @note This function can be used with \code{\link{billboarderProxy}} in shiny application.
 #'
 #' @return A \code{billboard} \code{htmlwidget} object.
 #' @export
@@ -185,7 +187,7 @@ bb_legend <- function(bb, ...) {
 #' @param bb A \code{billboard} \code{htmlwidget} object.
 #' @param text The chart title.
 #' @param padding A named list with \code{top}, \code{right}, \code{bottom}, \code{left} values.
-#' @param position A string speciefing the position of the title.
+#' @param position A string specifying the position of the title.
 #'
 #' @return A \code{billboard} \code{htmlwidget} object.
 #' @export
@@ -614,12 +616,14 @@ bb_subchart <- function(bb, ...) {
 
 #' @title Regions property for a Billboard.js chart
 #' 
-#' @description Add a shadding effect to the background of the chart, to highlight a period for example.
+#' @description Add a shading effect to the background of the chart, to highlight a period for example.
 #'
 #' @param bb A \code{billboard} \code{htmlwidget} object.
 #' @param ... See \url{https://naver.github.io/billboard.js/release/latest/doc/Options.html#.regions}
 #'
 #' @seealso \code{\link{bb_add_style}}
+#' 
+#' @note This function can be used with \code{\link{billboarderProxy}} in shiny application.
 #'
 #' @return A \code{billboard} \code{htmlwidget} object.
 #' @export

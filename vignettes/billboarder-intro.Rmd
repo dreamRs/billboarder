@@ -1,10 +1,10 @@
 ---
-title: "billboarder demo"
+title: "Introduction - basic use"
 author: "Victor Perrier"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{billboarder demo}
+  %\VignetteIndexEntry{Introduction - basic use}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -39,6 +39,7 @@ df
 billboarder() %>% 
   bb_barchart(data = df)
 ```
+
 
 If you want to create a grouped bar chart, you'll have to put your data in a "wide" format. You can use `tidyr::spread` or `data.table::dcast`.
 
@@ -102,6 +103,22 @@ df
 billboarder() %>% 
   bb_linechart(data = df)
 ```
+
+
+
+## Scatter plot
+
+For scatter plot, use a two column `data.frame` with function `bb_scatterplot`, or specify the x variable and the y variable (you can also specify a grouping variable) :
+
+
+```{r}
+billboarder() %>% 
+  bb_scatterplot(data = iris[, 1:2])
+
+billboarder() %>% 
+  bb_scatterplot(data = iris, x = "Petal.Length", y = "Petal.Width", group = "Species")
+```
+
 
 
 

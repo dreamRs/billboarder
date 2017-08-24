@@ -18,6 +18,8 @@
 #'   default value will suffice
 #'
 #' @name billboarder-shiny
+#' 
+#' @seealso \code{\link{proxy_example}}
 #'
 #' @export
 billboarderOutput <- function(outputId, width = '100%', height = '400px'){

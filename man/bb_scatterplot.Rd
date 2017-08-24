@@ -25,6 +25,9 @@ A \code{billboard} \code{htmlwidget} object.
 \description{
 Helper for creating a scatter chart
 }
+\note{
+This function can be used with \code{\link{billboarderProxy}} in shiny application.
+}
 \examples{
 \dontrun{
 billboarder() \%>\% 

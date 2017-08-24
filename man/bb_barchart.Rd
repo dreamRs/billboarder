@@ -27,6 +27,9 @@ A \code{billboard} \code{htmlwidget} object.
 \description{
 Helper for creating a bar chart
 }
+\note{
+This function can be used with \code{\link{billboarderProxy}} in shiny application.
+}
 \examples{
 library("billboarder")
 

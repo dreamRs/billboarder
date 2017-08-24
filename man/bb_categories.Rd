@@ -18,7 +18,7 @@ A \code{billboard} \code{htmlwidget} object.
 Set or modify x axis labels.
 }
 \note{
-This function can be used with \code{billboardProxy} to modify labels on axis, e.g. for barcharts.
+This function can be used with \code{\link{billboarder-shiny}} to modify labels on axis, e.g. for barcharts.
 }
 \examples{
 # Simple line with month names as x labels

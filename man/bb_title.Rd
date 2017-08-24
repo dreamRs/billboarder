@@ -13,7 +13,7 @@ bb_title(bb, text = NULL, padding = NULL, position = "top-center")
 
 \item{padding}{A named list with \code{top}, \code{right}, \code{bottom}, \code{left} values.}
 
-\item{position}{A string speciefing the position of the title.}
+\item{position}{A string specifying the position of the title.}
 }
 \value{
 A \code{billboard} \code{htmlwidget} object.

@@ -19,6 +19,9 @@ A \code{billboard} \code{htmlwidget} object.
 \description{
 Add data to Billboard chart
 }
+\note{
+This function can be used with \code{\link{billboarderProxy}} in shiny application.
+}
 \examples{
 billboarder() \%>\%
  bb_barchart(data = table(mtcars$cyl)) \%>\%

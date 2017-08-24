@@ -56,7 +56,13 @@ bb_add_style <- function(bb, region = NULL, x_grid = NULL, y_grid = NULL, ...) {
     y_grid <- paste(y_grid_tmp, collapse = " ")
   }
   
-  custom_style <- paste(region, x_grid, y_grid, collapse = "")
+  args <- list(...)
+  if (length(args) > 0) {
+    args <- paste0(names(args), "{", unlist(args, use.names = FALSE), "}")
+    args <- paste(args, collapse = "")
+  }
+  
+  custom_style <- paste(region, x_grid, y_grid, args, collapse = "")
   
   .bb_opt(bb, "customstyle", custom_style = custom_style)
 }

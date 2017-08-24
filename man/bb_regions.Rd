@@ -15,7 +15,10 @@ bb_regions(bb, ...)
 A \code{billboard} \code{htmlwidget} object.
 }
 \description{
-Add a shadding effect to the background of the chart, to highlight a period for example.
+Add a shading effect to the background of the chart, to highlight a period for example.
+}
+\note{
+This function can be used with \code{\link{billboarderProxy}} in shiny application.
 }
 \examples{
 #' With a categorical X-axis

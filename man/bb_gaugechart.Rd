@@ -18,13 +18,16 @@ bb_gaugechart(bb, value, name = "Value", steps = c(30, 60, 90, 100),
 
 \item{steps_color}{Colors corresponding to steps}
 
-\item{...}{Arguments for slot gauge}
+\item{...}{Arguments for slot gauge.}
 }
 \value{
 A \code{billboard} \code{htmlwidget} object.
 }
 \description{
 Helper for creating a gauge
+}
+\note{
+This function can be used with \code{\link{billboarderProxy}} in shiny application.
 }
 \examples{
 \dontrun{

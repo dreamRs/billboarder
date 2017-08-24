@@ -15,13 +15,16 @@ bb_linechart(bb, data, type = "line", show_point = FALSE, ...)
 
 \item{show_point}{Whether to show each point in line.}
 
-\item{...}{Not used}
+\item{...}{Not used.}
 }
 \value{
 A \code{billboard} \code{htmlwidget} object.
 }
 \description{
 Helper for creating a line chart
+}
+\note{
+This function can be used with \code{\link{billboarderProxy}} in shiny application.
 }
 \examples{
 
