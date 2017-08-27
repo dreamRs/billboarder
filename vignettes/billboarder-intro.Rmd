@@ -2,7 +2,10 @@
 title: "Introduction - basic use"
 author: "Victor Perrier"
 date: "`r Sys.Date()`"
-output: rmarkdown::html_vignette
+output:
+  prettydoc::html_pretty:
+    theme: architect
+    highlight: github
 vignette: >
   %\VignetteIndexEntry{Introduction - basic use}
   %\VignetteEngine{knitr::rmarkdown}
@@ -41,7 +44,7 @@ billboarder() %>%
 ```
 
 
-If you want to create a grouped bar chart, you'll have to put your data in a "wide" format. You can use `tidyr::spread` or `data.table::dcast`.
+If you want to create a grouped bar chart, you'll have to put your data in a "wide" format. Here we use `stats::reshape`, but I recommend to use `tidyr::spread` or `data.table::dcast`.
 
 ```{r}
 df <- as.data.frame(table(
@@ -139,6 +142,23 @@ billboarder() %>%
 ```
 
 
+
+## Donut chart
+
+Donut charts works the same as pie charts :
+
+```{r}
+df <- data.frame(
+  var = c("A", "B"),
+  count = c(687, 246)
+)
+
+billboarder() %>% 
+  bb_donutchart(data = df)
+```
+
+
+Note : pie and donut are automatically sorted, you can change that with `bb_data(order = NULL)`.
 
 
 ## Gauge chart

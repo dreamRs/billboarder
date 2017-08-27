@@ -2,7 +2,10 @@
 title: "Options - styling charts"
 author: "Victor Perrier"
 date: "`r Sys.Date()`"
-output: rmarkdown::html_vignette
+output:
+  prettydoc::html_pretty:
+    theme: architect
+    highlight: github
 vignette: >
   %\VignetteIndexEntry{Options - styling charts}
   %\VignetteEngine{knitr::rmarkdown}
@@ -12,7 +15,7 @@ vignette: >
 
 ## Title
 
-Add a title to your chart with `bb_title` or `bb_labs` :
+Add a title to your chart with `bb_title` or `bb_labs` (`bb_labs` is a shortcut to set title and axis labels at the same time, but with no options for placement) :
 
 ```{r}
 billboarder() %>% 
@@ -43,7 +46,7 @@ billboarder() %>%
   bb_color(palette = brewer.pal(n = 5, name = "Dark2"))
 ```
 
-
+<br/>
 Or you can specify each color associated with data with `bb_colors_manual` :
 
 ```{r}
@@ -58,7 +61,9 @@ billboarder() %>%
   )
 ```
 
+Note : be careful when using named colors, CSS don't recognize color variant such as `royalblue2`, `firebrick3`, ... Use HEX code instead.
 
+<br/>
 For bar charts, you can highlight a value in a simple barchart with :
 
 ```{r}
@@ -77,9 +82,10 @@ Add a label to an axis :
 ```{r}
 # data source : wikipedia
 sw <- data.frame(
-  film = c("The Force Awakens", "The Phantom Menace", "Revenge of the Sith",
-           "A New Hope", "Attack of the Clones", "The Empire Strikes Back", "Return of the Jedi"
-  ),
+  film = c("The Force Awakens", "The Phantom Menace",
+           "Revenge of the Sith", "A New Hope", 
+           "Attack of the Clones", "The Empire Strikes Back", 
+           "Return of the Jedi"),
   worldwide_gross = c(2068178225, 1027044677, 848754768,
                       775398007, 649398328, 538375067, 475106177)
 )
@@ -90,7 +96,8 @@ billboarder() %>%
 
 ```
 
-You can format values on an axis with JavaScript :
+<br/>
+You can format values on an axis with JavaScript (use `htmlwidgets::JS` to mark your character string as literal JavaScript) :
 
 ```{r}
 billboarder() %>% 
@@ -102,6 +109,7 @@ billboarder() %>%
   ))
 ```
 
+<br/>
 If you just want to add a suffix or prefix to the value, use the functions with the same name :
 
 
@@ -120,8 +128,8 @@ billboarder() %>%
 
 
 
-
-You can apply a format to x axis as well (especially useful with time), and `fit = FALSE` to don't show ticks :
+<br/>
+You can apply a format to x axis as well (especially useful with time), and `fit = FALSE` to don't show all ticks :
 
 ```{r}
 data("cdc_prod_filiere")
@@ -130,8 +138,8 @@ billboarder() %>%
   bb_x_axis(tick = list(format = "%H:%M", fit = FALSE))
 ```
 
-
-Set a minimum on an axis (and look at the difference between above x-axis and below) :
+<br/>
+Set a minimum on an axis (and look at the difference between above x-axis and below, without `fit = FALSE`) :
 
 ```{r}
 billboarder() %>% 
@@ -157,8 +165,8 @@ billboarder() %>%
   bb_legend(show = FALSE)
 ```
 
-
-You can change the name appearing in the legend with `bb_data` :
+<br/>
+You can change the name appearing in the legend with `bb_data`, by giving an alias to the variable in the data. Here we have a column named `cos` in our `data.frame`, we renamed it `Cosine`.
 
 ```{r}
 billboarder() %>% 
@@ -166,8 +174,8 @@ billboarder() %>%
   bb_data(names = list(cos = "Cosine"))
 ```
 
-
-Tou can choose legend position like this :
+<br/>
+Legend can be postionned with argument `position`, three values are possible : `"bottom"` (the default), `"right"` and `"inset"`. For the last one, you must specify in which area of the chart the legend must be placed.
 
 ```{r}
 df$sin <- sin(seq(-pi, pi, length.out = 30))
@@ -194,7 +202,7 @@ billboarder() %>%
   bb_x_grid(show = TRUE)
 ```
 
-
+<br/>
 This option also allows you to add vertical and horizontal lines :
 
 ```{r}
@@ -218,8 +226,8 @@ billboarder() %>%
   bb_tooltip(grouped = FALSE)
 ```
 
-
-You can change the format of the tooltip with a JavaScript function, for example `d3.format` :
+<br/>
+You can change the format of the tooltip with a JavaScript function, for example `d3.format`. Write the function as a character vector, and use `htmlwidgets::JS` to mark it as literal JavaScript code.
 
 ```{r}
 billboarder() %>% 
@@ -245,7 +253,6 @@ billboarder() %>%
   bb_bar_color_manual(values = c("A New Hope" = "#112446")) %>% 
   bb_legend(show = FALSE) %>% 
   bb_y_grid(show = TRUE) %>% 
-  bb_y_axis(label = list(text = "Worldwide grosses", position = "outer-middle")) %>% 
   bb_y_axis(tick = list(
     values = c(0, 5e+08, 1e+09, 1.5e+09, 2e+09),
     outer = FALSE,
@@ -256,7 +263,8 @@ billboarder() %>%
     value = htmlwidgets::JS("d3.format('$,')")
   )) %>% 
   bb_labs(
-    title = "Star Wars - Total Lifetime Grosses",
+    title = "Star Wars - Total Lifetime Grosses", 
+    y = "Worldwide grosses",
     caption = "Data source : wikipedia"
   )
 ```
