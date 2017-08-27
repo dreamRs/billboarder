@@ -21,5 +21,6 @@ Suggests: RColorBrewer,
     shiny,
     testthat,
     knitr,
-    rmarkdown
+    rmarkdown,
+    prettydoc
 VignetteBuilder: knitr
