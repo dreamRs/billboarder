@@ -4,3 +4,5 @@
 ^data-raw$
 ^examples$
 ^cran-comments\.md$
+inst/dev
+inst/examples
