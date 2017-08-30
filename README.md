@@ -4,7 +4,8 @@
 > Htmlwidget for billboard.js
 
 [![Travis-CI Build Status](https://travis-ci.org/dreamRs/billboarder.svg?branch=master)](https://travis-ci.org/dreamRs/billboarder)
-
+[![version](http://www.r-pkg.org/badges/version/billboarder)](https://CRAN.R-project.org/package=billboarder)
+[![cranlogs](http://cranlogs.r-pkg.org/badges/billboarder)](http://cran.rstudio.com/web/packages/billboarder/index.html)
 
 
 ## Overview
@@ -19,6 +20,9 @@ Note : developpement is heavily inspired by awesome [highcharter](http://jkunst.
 
 Installation :
 ```r
+# From CRAN
+install.packages("billboarder")
+
 # From Github
 # install.packages("devtools")
 devtools::install_github("dreamRs/billboarder")
