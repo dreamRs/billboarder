@@ -21,7 +21,7 @@ be used to calculate density if \code{x} is \code{NULL}.}
 
 \item{stat}{Stat to compute : \code{density} or \code{count}.}
 
-\item{...}{Not used.}
+\item{...}{Arguments passed to \code{\link[stats]{density}}.}
 }
 \value{
 A \code{billboard} \code{htmlwidget} object.

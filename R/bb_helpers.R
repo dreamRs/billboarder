@@ -662,12 +662,12 @@ bb_linechart <- function(bb, data, type = "line", show_point = FALSE, ...) {
 #' @param group Variable to use to plot data by group.
 #' @param stacked Logical, create a stacked density plot.
 #' @param stat Stat to compute : \code{density} or \code{count}.
-#' @param ... Not used.
+#' @param ... Arguments passed to \code{\link[stats]{density}}.
 #'
 #' @return A \code{billboard} \code{htmlwidget} object.
 #' @export
 #' 
-#' @importFrom stats setNames density
+#' @importFrom stats setNames density density.default
 #'
 #' @examples
 #' data("diamonds", package = "ggplot2")
@@ -697,6 +697,12 @@ bb_densityplot <- function(bb, data, x = NULL, group = NULL, stacked = FALSE, st
     data <- bb$x$data
   
   args <- list(...)
+  argsdensity <- formals(density.default)
+  bw <- args$bw %||% argsdensity$bw
+  adjust <- args$adjust %||% argsdensity$adjust
+  kernel <- args$kernel %||% "gaussian"
+  weights <- args$weights %||% argsdensity$weights
+  n <- args$n %||% argsdensity$n
   
   if (is.vector(data)) {
     data <- data.frame(x = data)
@@ -713,7 +719,10 @@ bb_densityplot <- function(bb, data, x = NULL, group = NULL, stacked = FALSE, st
   
   if (is.null(group)) {
     xs <- stats::setNames(list("x"), "y")
-    json <- stats::density(x = data[[x]])[c("x", "y")]
+    json <- stats::density(
+      x = data[[x]], bw = bw, adjust = adjust,
+      kernel = kernel, weights = weights, n = n
+    )[c("x", "y")]
     if (stat == "count") {
       nx <- length(data[[x]])
       json$y <- json$y * nx
@@ -728,7 +737,10 @@ bb_densityplot <- function(bb, data, x = NULL, group = NULL, stacked = FALSE, st
       X = groups,
       FUN = function(g) {
         tmp <- data[[x]][data[[group]] %in% g]
-        l <- stats::density(x = tmp, from = range_x[1], to = range_x[2])[c("x", "y")]
+        l <- stats::density(
+          x = tmp, from = range_x[1], to = range_x[2], bw = bw, 
+          adjust = adjust, kernel = kernel, weights = weights, n = n
+        )[c("x", "y")]
         if (stat == "count") {
           nx <- length(tmp)
           l$y <- l$y * nx
@@ -773,9 +785,9 @@ bb_densityplot <- function(bb, data, x = NULL, group = NULL, stacked = FALSE, st
   
   if ("billboarder_Proxy" %in% class(bb)) {
     
-    bb <- bb_load(proxy = bb, json = json, xs = xs, unload = bb$unload) 
+    bb <- bb_axis_labels(proxy = bb, x = x, y = stat)
     
-    bb <- bb_axis_labels(proxy = bb, x = x)
+    bb <- bb_load(proxy = bb, json = json, xs = xs, unload = bb$unload) 
     
   } else {
     

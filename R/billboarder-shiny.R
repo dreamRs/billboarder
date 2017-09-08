@@ -317,3 +317,22 @@ bb_transform <- function(proxy, type, targetIds = NULL) {
   .bb_proxy2(proxy, "transform", dropNulls(list(type = type, targetIds = targetIds)))
   
 }
+
+
+#' Update chart groups with proxy
+#'
+#' @param proxy A \code{billboardProxy} \code{htmlwidget} object.
+#' @param ... Vector(s) with id of the series, e.g. the name of variables.
+#'
+#' @return A \code{billboardProxy} \code{htmlwidget} object.
+#' @export
+bb_groups <- function(proxy, ...) {
+  if (!"billboarder_Proxy" %in% class(proxy)) 
+    stop("This function must be used with a billboarderProxy object")
+  
+  .bb_proxy2(proxy, "groups", list(...))
+}
+
+
+
+

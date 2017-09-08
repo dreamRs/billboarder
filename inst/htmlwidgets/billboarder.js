@@ -302,6 +302,15 @@ if (HTMLWidgets.shinyMode) {
         chart.regions(data.data);
       }
   });
+  // Groups
+  Shiny.addCustomMessageHandler('update-billboard-groups',
+    function(data) {
+      var chart = get_billboard(data.id);
+      // console.log(data.data.type);
+      if (typeof chart != 'undefined') {
+        chart.groups(data.data);
+      }
+  });
 }
 
 
