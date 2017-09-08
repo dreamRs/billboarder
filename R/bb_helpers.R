@@ -651,3 +651,142 @@ bb_linechart <- function(bb, data, type = "line", show_point = FALSE, ...) {
 }
 
 
+
+
+#' Helper for creating a density plot
+#'
+#' @param bb A \code{billboard} \code{htmlwidget} object.
+#' @param data A \code{data.frame} or a \code{vector}, the first column will
+#'  be used to calculate density if \code{x} is \code{NULL}.
+#' @param x The name of the variable to use in \code{data}.
+#' @param group Variable to use to plot data by group.
+#' @param stacked Logical, create a stacked density plot.
+#' @param stat Stat to compute : \code{density} or \code{count}.
+#' @param ... Not used.
+#'
+#' @return A \code{billboard} \code{htmlwidget} object.
+#' @export
+#' 
+#' @importFrom stats setNames density
+#'
+#' @examples
+#' data("diamonds", package = "ggplot2")
+#' 
+#' # density plot with one variable
+#' billboarder() %>% 
+#'   bb_densityplot(data = diamonds, x = "carat")
+#' 
+#' # With a grouping variable
+#' billboarder() %>% 
+#'   bb_densityplot(data = diamonds, x = "depth", group = "cut") %>% 
+#'   bb_x_axis(min = 55, max = 70)
+#' 
+#' # a stacked density plot using count as statistic
+#' bb <- billboarder() %>%
+#'   bb_densityplot(data = diamonds, x = "depth", group = "cut", stacked = TRUE, stat = "count") %>%
+#'   bb_x_axis(min = 55, max = 70)
+#' bb
+#' 
+#' # changing order
+#' bb %>% bb_data(order = "asc")
+bb_densityplot <- function(bb, data, x = NULL, group = NULL, stacked = FALSE, stat = "density", ...) {
+  
+  stat <- match.arg(arg = stat, choices = c("density", "count"))
+  
+  if (missing(data))
+    data <- bb$x$data
+  
+  args <- list(...)
+  
+  if (is.vector(data)) {
+    data <- data.frame(x = data)
+    x <- "x"
+    if (!is.null(group) && is.vector(group)) {
+      data$group <- group
+      group <- "group"
+    } else {
+      stop("If 'data' is a vector, 'group' must be a vector of the same length if specified.")
+    }
+  }
+  
+  x <- x %||% names(data)[1]
+  
+  if (is.null(group)) {
+    xs <- stats::setNames(list("x"), "y")
+    json <- stats::density(x = data[[x]])[c("x", "y")]
+    if (stat == "count") {
+      nx <- length(data[[x]])
+      json$y <- json$y * nx
+    }
+    groups <- NULL
+  } else {
+    data[[group]] <- as.character(data[[group]])
+    groups <- unique(data[[group]])
+    xs <- stats::setNames(as.list(paste0(groups, "_x")), groups)
+    range_x <- range(data[[x]], na.rm = TRUE)
+    json <- lapply(
+      X = groups,
+      FUN = function(g) {
+        tmp <- data[[x]][data[[group]] %in% g]
+        l <- stats::density(x = tmp, from = range_x[1], to = range_x[2])[c("x", "y")]
+        if (stat == "count") {
+          nx <- length(tmp)
+          l$y <- l$y * nx
+        }
+        stats::setNames(l, c(paste0(g, "_x"), g))
+      }
+    )
+    json <- unlist(json, recursive = FALSE)
+    if (stacked) {
+      groups <- list(groups)
+    } else {
+      groups <- NULL
+    }
+  }
+  
+  data_opt <- list(
+    xs = xs,
+    json = json,
+    type = "area-spline",
+    groups = groups
+  )
+  
+  if (is.null(data_opt$groups)) {
+    data_opt$groups <- NULL
+  }
+  
+  data_axis <- list(
+    x = list(
+      label = list(
+        text = x
+      ),
+      tick = list(
+        fit = FALSE
+      )
+    ),
+    y = list(
+      label = list(
+        text = stat
+      )
+    )
+  )
+  
+  if ("billboarder_Proxy" %in% class(bb)) {
+    
+    bb <- bb_load(proxy = bb, json = json, xs = xs, unload = bb$unload) 
+    
+    bb <- bb_axis_labels(proxy = bb, x = x)
+    
+  } else {
+    
+    bb <- .bb_opt2(bb, "data", data_opt)
+    
+    bb <- .bb_opt(bb, "legend", show = !is.null(group))
+    
+    bb <- .bb_opt2(bb, "axis", data_axis)
+    
+    bb <- bb_point(bb, show = FALSE)
+  }
+  
+  return(bb)
+}
