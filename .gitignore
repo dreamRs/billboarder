@@ -4,5 +4,5 @@
 .Ruserdata
 inst/dev/
 inst/rmarkdown/rsconnect/
-examples/
+/*examples/
 inst/doc
