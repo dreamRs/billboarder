@@ -4,20 +4,83 @@
 \alias{bb_histogram}
 \title{Helper for creating an histogram}
 \usage{
-bb_histogram(bb, x, breaks = "Sturges", ...)
+bb_histogram(bb, data, x = NULL, group = NULL, stacked = FALSE,
+  bins = 30, binwidth = NULL, ...)
 }
 \arguments{
 \item{bb}{A \code{billboard} \code{htmlwidget} object.}
 
-\item{x}{A numeric \code{vector}.}
+\item{data}{A \code{data.frame} or a \code{vector}, the first column will
+be used to calculate density if \code{x} is \code{NULL}.}
 
-\item{breaks}{Arguments passed to \code{hist}.}
+\item{x}{The name of the variable to use in \code{data}.}
 
-\item{...}{Arguments for slot}
+\item{group}{Variable to use to plot data by group.}
+
+\item{stacked}{Logical, create a stacked density plot.}
+
+\item{bins}{Number of bins. Overridden by \code{binwidth}. Defaults to 30.}
+
+\item{binwidth}{The width of the bins. See \code{\link[ggplot2]{geom_histogram}}}
+
+\item{...}{Not used.}
 }
 \value{
 A \code{billboard} \code{htmlwidget} object.
 }
 \description{
 Helper for creating an histogram
+}
+\examples{
+data("diamonds", package = "ggplot2")
+
+# one variable
+billboarder() \%>\% 
+  bb_histogram(data = diamonds, x = "price")
+
+# equivalent to
+billboarder() \%>\% 
+  bb_histogram(data = diamonds$price)
+  
+# prettier with 'binwidth'
+# (but you need to know your data)
+billboarder() \%>\% 
+  bb_histogram(data = diamonds, x = "price", binwidth = 500) \%>\% 
+  bb_colors_manual()
+
+# with a grouping variable
+billboarder() \%>\%
+  bb_histogram(data = diamonds, x = "price",
+               group = "cut", binwidth = 500)
+
+# stacked histogram
+billboarder() \%>\%
+  bb_histogram(data = diamonds, x = "price", group = "cut",
+               stacked = TRUE, binwidth = 500)
+
+
+# another example
+dat <- data.frame(
+  sample = c(rnorm(n = 500, mean = 1), rnorm(n = 500, mean = 2)),
+  group = rep(c("A", "B"), each = 500)
+)
+
+billboarder() \%>\% 
+  bb_histogram(data = dat, x = "sample", binwidth = 0.25)
+
+samples_mean <- tapply(dat$sample, dat$group, mean)
+billboarder() \%>\% 
+  bb_histogram(data = dat, x = "sample", group = "group",
+               binwidth = 0.25) \%>\% 
+  bb_x_grid(
+    lines = list(
+      list(value = unname(samples_mean['A']),
+           text = "mean of sample A"),
+      list(value = unname(samples_mean['B']), 
+           text = "mean of sample B")
+    )
+  )
+}
+\seealso{
+\code{\link{bb_densityplot}}
 }

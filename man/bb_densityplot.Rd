@@ -43,10 +43,14 @@ billboarder() \%>\%
 
 # a stacked density plot using count as statistic
 bb <- billboarder() \%>\%
-  bb_densityplot(data = diamonds, x = "depth", group = "cut", stacked = TRUE, stat = "count") \%>\%
+  bb_densityplot(data = diamonds, x = "depth", group = "cut",
+                 stacked = TRUE, stat = "count") \%>\%
   bb_x_axis(min = 55, max = 70)
 bb
 
 # changing order
 bb \%>\% bb_data(order = "asc")
+}
+\seealso{
+\code{\link{bb_histogram}}
 }

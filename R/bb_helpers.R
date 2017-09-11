@@ -472,18 +472,18 @@ bb_donutchart <- function(bb, data, ...) {
 
 
 
-#' Helper for creating an histogram
-#'
-#' @param bb A \code{billboard} \code{htmlwidget} object.
-#' @param x A numeric \code{vector}.
-#' @param breaks Arguments passed to \code{hist}.
-#' @param ... Arguments for slot 
-#'
-#' @return A \code{billboard} \code{htmlwidget} object.
+# Helper for creating an histogram
+#
+# @param bb A \code{billboard} \code{htmlwidget} object.
+# @param x A numeric \code{vector}.
+# @param breaks Arguments passed to \code{hist}.
+# @param ... Arguments for slot 
+#
+# @return A \code{billboard} \code{htmlwidget} object.
 # @export
-#' 
-#' @importFrom graphics hist
-#' 
+# 
+# @importFrom graphics hist
+#
 bb_histogram <- function(bb, x, breaks = "Sturges", ...) {
   
   
@@ -667,6 +667,8 @@ bb_linechart <- function(bb, data, type = "line", show_point = FALSE, ...) {
 #' @return A \code{billboard} \code{htmlwidget} object.
 #' @export
 #' 
+#' @seealso \code{\link{bb_histogram}}
+#' 
 #' @importFrom stats setNames density density.default
 #'
 #' @examples
@@ -683,7 +685,8 @@ bb_linechart <- function(bb, data, type = "line", show_point = FALSE, ...) {
 #' 
 #' # a stacked density plot using count as statistic
 #' bb <- billboarder() %>%
-#'   bb_densityplot(data = diamonds, x = "depth", group = "cut", stacked = TRUE, stat = "count") %>%
+#'   bb_densityplot(data = diamonds, x = "depth", group = "cut",
+#'                  stacked = TRUE, stat = "count") %>%
 #'   bb_x_axis(min = 55, max = 70)
 #' bb
 #' 
@@ -707,11 +710,12 @@ bb_densityplot <- function(bb, data, x = NULL, group = NULL, stacked = FALSE, st
   if (is.vector(data)) {
     data <- data.frame(x = data)
     x <- "x"
-    if (!is.null(group) && is.vector(group)) {
+    if (!is.null(group)) {
+      if (!(is.vector(group) | is.factor(group))) {
+        stop("If 'data' is a vector, 'group' must be a vector of the same length if specified.")
+      }
       data$group <- group
       group <- "group"
-    } else {
-      stop("If 'data' is a vector, 'group' must be a vector of the same length if specified.")
     }
   }
   
@@ -798,6 +802,199 @@ bb_densityplot <- function(bb, data, x = NULL, group = NULL, stacked = FALSE, st
     bb <- .bb_opt2(bb, "axis", data_axis)
     
     bb <- bb_point(bb, show = FALSE)
+  }
+  
+  return(bb)
+}
+
+
+
+#' Helper for creating an histogram
+#'
+#' @param bb A \code{billboard} \code{htmlwidget} object.
+#' @param data A \code{data.frame} or a \code{vector}, the first column will
+#'  be used to calculate density if \code{x} is \code{NULL}.
+#' @param x The name of the variable to use in \code{data}.
+#' @param group Variable to use to plot data by group.
+#' @param stacked Logical, create a stacked density plot.
+#' @param bins Number of bins. Overridden by \code{binwidth}. Defaults to 30.
+#' @param binwidth The width of the bins. See \code{\link[ggplot2]{geom_histogram}}
+#' @param ... Not used.
+#'
+#' @return A \code{billboard} \code{htmlwidget} object.
+#' @export
+#' 
+#' @seealso \code{\link{bb_densityplot}}
+#' 
+#' @importFrom stats reshape
+#' @importFrom ggplot2 ggplot aes_string geom_histogram layer_data
+#' @importFrom htmlwidgets JS
+#'
+#' @examples
+#' data("diamonds", package = "ggplot2")
+#' 
+#' # one variable
+#' billboarder() %>% 
+#'   bb_histogram(data = diamonds, x = "price")
+#' 
+#' # equivalent to
+#' billboarder() %>% 
+#'   bb_histogram(data = diamonds$price)
+#'   
+#' # prettier with 'binwidth'
+#' # (but you need to know your data)
+#' billboarder() %>% 
+#'   bb_histogram(data = diamonds, x = "price", binwidth = 500) %>% 
+#'   bb_colors_manual()
+#' 
+#' # with a grouping variable
+#' billboarder() %>%
+#'   bb_histogram(data = diamonds, x = "price",
+#'                group = "cut", binwidth = 500)
+#' 
+#' # stacked histogram
+#' billboarder() %>%
+#'   bb_histogram(data = diamonds, x = "price", group = "cut",
+#'                stacked = TRUE, binwidth = 500)
+#' 
+#' 
+#' # another example
+#' dat <- data.frame(
+#'   sample = c(rnorm(n = 500, mean = 1), rnorm(n = 500, mean = 2)),
+#'   group = rep(c("A", "B"), each = 500)
+#' )
+#' 
+#' billboarder() %>% 
+#'   bb_histogram(data = dat, x = "sample", binwidth = 0.25)
+#' 
+#' samples_mean <- tapply(dat$sample, dat$group, mean)
+#' billboarder() %>% 
+#'   bb_histogram(data = dat, x = "sample", group = "group",
+#'                binwidth = 0.25) %>% 
+#'   bb_x_grid(
+#'     lines = list(
+#'       list(value = unname(samples_mean['A']),
+#'            text = "mean of sample A"),
+#'       list(value = unname(samples_mean['B']), 
+#'            text = "mean of sample B")
+#'     )
+#'   )
+
+bb_histogram <- function(bb, data, x = NULL, group = NULL, stacked = FALSE, bins = 30, binwidth = NULL, ...) {
+  
+  if (!requireNamespace(package = "ggplot2"))
+    message("Package 'ggplot2' is required to run this function")
+  
+  if (missing(data))
+    data <- bb$x$data
+  
+  args <- list(...)
+  
+  if (is.vector(data)) {
+    data <- data.frame(x = data)
+    x <- "x"
+    if (!is.null(group)) {
+      if (!(is.vector(group) | is.factor(group))) {
+        stop("If 'data' is a vector, 'group' must be a vector of the same length if specified.")
+      }
+      data$group <- group
+      group <- "group"
+    }
+  }
+  
+  x <- x %||% names(data)[1]
+  
+  if (is.null(group)) {
+    # compute data with ggplot
+    p <- ggplot2::ggplot(data = data)
+    p <- p + ggplot2::aes_string(x = x)
+    p <- p + ggplot2::geom_histogram(bins = bins, binwidth = binwidth)
+    
+    # create json data
+    dat <- ggplot2::layer_data(p, i = 1L)
+    # dat$x <- round(dat$x)
+    json <- as.list(dat[c("x", "y")])
+    
+    # grouping disabled
+    groups <- NULL
+  } else {
+    # compute data with ggplot
+    p <- ggplot2::ggplot(data = data)
+    p <- p + ggplot2::aes_string(x = x, fill = group, text = group)
+    p <- p + ggplot2::geom_histogram(bins = bins, binwidth = binwidth)
+    
+    # create json data
+    dat <- ggplot2::layer_data(p, i = 1L)
+    datr <- stats::reshape(data = dat[, c("x", "count", "text")], idvar = "x", timevar = "text", direction = "wide")
+    names(datr) <- gsub(pattern = "count\\.", replacement = "", x = names(datr))
+    datr$x <- round(datr$x, 3)
+    json <- as.list(datr)
+    
+    if (stacked) {
+      groups <- list(as.character(unique(data[[group]])))
+    } else {
+      groups <- NULL
+    }
+  }
+  
+  data_opt <- list(
+    x = "x",
+    json = json,
+    type = "area-step",
+    groups = groups
+  )
+  
+  if (is.null(data_opt$groups)) {
+    data_opt$groups <- NULL
+  }
+  
+  axis_opt <- list(
+    x = list(
+      label = list(
+        text = x
+      ),
+      tick = list(
+        fit = FALSE,
+        outer = FALSE, 
+        centered = TRUE
+      )
+    ),
+    y = list(
+      label = list(
+        text = "count"
+      )
+    )
+  )
+  
+  
+  
+  # tooltip
+  if (is.null(binwidth)) {
+    binwidth <- dat$xmax[1] - dat$xmin[1]
+    binwidth <- round(binwidth, 3)
+  }
+  tooltip_title <- paste0("var x = (i-", binwidth/2, ") + ' ; ' + (i+", binwidth/2, ");")
+  tooltip_title <- paste("function(i) {", tooltip_title, "return x;", "}", collapse = "\n")
+  tooltip_opt <- list(
+    format = list(title = htmlwidgets::JS(tooltip_title))
+  )
+  
+  if ("billboarder_Proxy" %in% class(bb)) {
+    
+    bb <- bb_axis_labels(proxy = bb, x = x, y = "count")
+    
+    bb <- bb_load(proxy = bb, json = json, x = x, unload = bb$unload) 
+    
+  } else {
+    
+    bb <- .bb_opt2(bb, "data", data_opt)
+    
+    bb <- .bb_opt(bb, "legend", show = !is.null(group))
+    
+    bb <- .bb_opt2(bb, "axis", axis_opt)
+    
+    bb <- .bb_opt2(bb, "tooltip", tooltip_opt)
+    
   }
   
   return(bb)
