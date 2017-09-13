@@ -927,6 +927,7 @@ bb_histogram <- function(bb, data, x = NULL, group = NULL, stacked = FALSE, bins
     dat <- ggplot2::layer_data(p, i = 1L)
     datr <- stats::reshape(data = dat[, c("x", "count", "text")], idvar = "x", timevar = "text", direction = "wide")
     names(datr) <- gsub(pattern = "count\\.", replacement = "", x = names(datr))
+    datr <- datr[, sort(names(datr))]
     datr$x <- round(datr$x, 3)
     json <- as.list(datr)
     
