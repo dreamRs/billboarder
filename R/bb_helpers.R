@@ -948,7 +948,6 @@ bb_histogram <- function(bb, data, x = NULL, group = NULL, stacked = FALSE, fill
     dat <- ggplot2::layer_data(p, i = 1L)
     datr <- stats::reshape(data = dat[, c("x", "count", "text")], idvar = "x", timevar = "text", direction = "wide")
     names(datr) <- gsub(pattern = "count\\.", replacement = "", x = names(datr))
-<<<<<<< HEAD
     if (fill) {
       vars <- names(datr)[-1]
       maxvars <- apply(datr[vars], 1, sum, na.rm = TRUE)
@@ -960,13 +959,10 @@ bb_histogram <- function(bb, data, x = NULL, group = NULL, stacked = FALSE, fill
     }
     # sorting legend
     if (is.null(levels(data[[group]]))) {
-      datr <- datr[match(x = names(datr), table = levels(data[[group]]))]
-    } else {
       datr <- datr[sort(names(datr))]
+    } else {
+      datr <- datr[match(x = names(datr), table = c("x", levels(data[[group]])))]
     }
-=======
-    datr <- datr[, sort(names(datr))]
->>>>>>> bf10e98077736986a72a98d4532c363d80c1bbf7
     datr$x <- round(datr$x, 3)
     json <- as.list(datr)
     
