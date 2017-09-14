@@ -5,7 +5,7 @@
 \title{Helper for creating an histogram}
 \usage{
 bb_histogram(bb, data, x = NULL, group = NULL, stacked = FALSE,
-  bins = 30, binwidth = NULL, ...)
+  fill = FALSE, bins = 30, binwidth = NULL, ...)
 }
 \arguments{
 \item{bb}{A \code{billboard} \code{htmlwidget} object.}
@@ -17,7 +17,9 @@ be used to calculate density if \code{x} is \code{NULL}.}
 
 \item{group}{Variable to use to plot data by group.}
 
-\item{stacked}{Logical, create a stacked density plot.}
+\item{stacked}{Logical, create a stacked histogram.}
+
+\item{fill}{Logical, create a stacked percentage histogram.}
 
 \item{bins}{Number of bins. Overridden by \code{binwidth}. Defaults to 30.}
 

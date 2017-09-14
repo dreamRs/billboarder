@@ -5,7 +5,7 @@
 \title{Helper for creating a density plot}
 \usage{
 bb_densityplot(bb, data, x = NULL, group = NULL, stacked = FALSE,
-  stat = "density", ...)
+  stat = "density", fill = FALSE, ...)
 }
 \arguments{
 \item{bb}{A \code{billboard} \code{htmlwidget} object.}
@@ -20,6 +20,8 @@ be used to calculate density if \code{x} is \code{NULL}.}
 \item{stacked}{Logical, create a stacked density plot.}
 
 \item{stat}{Stat to compute : \code{density} or \code{count}.}
+
+\item{fill}{Produce a conditional density estimate, this option force \code{stacked = TRUE}.}
 
 \item{...}{Arguments passed to \code{\link[stats]{density}}.}
 }

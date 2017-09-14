@@ -662,6 +662,7 @@ bb_linechart <- function(bb, data, type = "line", show_point = FALSE, ...) {
 #' @param group Variable to use to plot data by group.
 #' @param stacked Logical, create a stacked density plot.
 #' @param stat Stat to compute : \code{density} or \code{count}.
+#' @param fill Produce a conditional density estimate, this option force \code{stacked = TRUE}.
 #' @param ... Arguments passed to \code{\link[stats]{density}}.
 #'
 #' @return A \code{billboard} \code{htmlwidget} object.
@@ -692,7 +693,7 @@ bb_linechart <- function(bb, data, type = "line", show_point = FALSE, ...) {
 #' 
 #' # changing order
 #' bb %>% bb_data(order = "asc")
-bb_densityplot <- function(bb, data, x = NULL, group = NULL, stacked = FALSE, stat = "density", ...) {
+bb_densityplot <- function(bb, data, x = NULL, group = NULL, stacked = FALSE, stat = "density", fill = FALSE, ...) {
   
   stat <- match.arg(arg = stat, choices = c("density", "count"))
   
@@ -720,6 +721,10 @@ bb_densityplot <- function(bb, data, x = NULL, group = NULL, stacked = FALSE, st
   }
   
   x <- x %||% names(data)[1]
+  
+  # fill options
+  ymax <- NULL
+  ypadding <- NULL
   
   if (is.null(group)) {
     xs <- stats::setNames(list("x"), "y")
@@ -752,8 +757,15 @@ bb_densityplot <- function(bb, data, x = NULL, group = NULL, stacked = FALSE, st
         stats::setNames(l, c(paste0(g, "_x"), g))
       }
     )
+    if (fill) {
+      max_y <- do.call(cbind, lapply(json, `[[`, 2))
+      max_y <- apply(max_y, 1, sum, na.rm = TRUE)
+      json <- lapply(json, function(x) {x[[2]] <- x[[2]] / max_y; x})
+      ymax <- 1
+      ypadding <- 0
+    }
     json <- unlist(json, recursive = FALSE)
-    if (stacked) {
+    if (stacked | fill) {
       groups <- list(groups)
     } else {
       groups <- NULL
@@ -781,6 +793,8 @@ bb_densityplot <- function(bb, data, x = NULL, group = NULL, stacked = FALSE, st
       )
     ),
     y = list(
+      max = ymax,
+      padding = ypadding,
       label = list(
         text = stat
       )
@@ -816,7 +830,8 @@ bb_densityplot <- function(bb, data, x = NULL, group = NULL, stacked = FALSE, st
 #'  be used to calculate density if \code{x} is \code{NULL}.
 #' @param x The name of the variable to use in \code{data}.
 #' @param group Variable to use to plot data by group.
-#' @param stacked Logical, create a stacked density plot.
+#' @param stacked Logical, create a stacked histogram.
+#' @param fill Logical, create a stacked percentage histogram.
 #' @param bins Number of bins. Overridden by \code{binwidth}. Defaults to 30.
 #' @param binwidth The width of the bins. See \code{\link[ggplot2]{geom_histogram}}
 #' @param ... Not used.
@@ -880,7 +895,7 @@ bb_densityplot <- function(bb, data, x = NULL, group = NULL, stacked = FALSE, st
 #'     )
 #'   )
 
-bb_histogram <- function(bb, data, x = NULL, group = NULL, stacked = FALSE, bins = 30, binwidth = NULL, ...) {
+bb_histogram <- function(bb, data, x = NULL, group = NULL, stacked = FALSE, fill = FALSE, bins = 30, binwidth = NULL, ...) {
   
   if (!requireNamespace(package = "ggplot2"))
     message("Package 'ggplot2' is required to run this function")
@@ -904,6 +919,11 @@ bb_histogram <- function(bb, data, x = NULL, group = NULL, stacked = FALSE, bins
   
   x <- x %||% names(data)[1]
   
+  # fill options
+  ymax <- NULL
+  ypadding <- NULL
+  yticklabel <- NULL
+  
   if (is.null(group)) {
     # compute data with ggplot
     p <- ggplot2::ggplot(data = data)
@@ -917,6 +937,7 @@ bb_histogram <- function(bb, data, x = NULL, group = NULL, stacked = FALSE, bins
     
     # grouping disabled
     groups <- NULL
+    
   } else {
     # compute data with ggplot
     p <- ggplot2::ggplot(data = data)
@@ -927,10 +948,25 @@ bb_histogram <- function(bb, data, x = NULL, group = NULL, stacked = FALSE, bins
     dat <- ggplot2::layer_data(p, i = 1L)
     datr <- stats::reshape(data = dat[, c("x", "count", "text")], idvar = "x", timevar = "text", direction = "wide")
     names(datr) <- gsub(pattern = "count\\.", replacement = "", x = names(datr))
+    if (fill) {
+      vars <- names(datr)[-1]
+      maxvars <- apply(datr[vars], 1, sum, na.rm = TRUE)
+      datr[vars] <- lapply(datr[vars], function(x) round((x / maxvars) * 100, 2))
+      # fill options
+      ymax <- 100
+      ypadding <- 0
+      yticklabel <- suffix("%")
+    }
+    # sorting legend
+    if (is.null(levels(data[[group]]))) {
+      datr <- datr[match(x = names(datr), table = levels(data[[group]]))]
+    } else {
+      datr <- datr[sort(names(datr))]
+    }
     datr$x <- round(datr$x, 3)
     json <- as.list(datr)
     
-    if (stacked) {
+    if (stacked | fill) {
       groups <- list(as.character(unique(data[[group]])))
     } else {
       groups <- NULL
@@ -960,6 +996,9 @@ bb_histogram <- function(bb, data, x = NULL, group = NULL, stacked = FALSE, bins
       )
     ),
     y = list(
+      max = ymax,
+      padding = ypadding,
+      tick = list(format = yticklabel),
       label = list(
         text = "count"
       )
