@@ -3,7 +3,7 @@
 #' @description Launch an example app to demonstrate how to use proxy method from \code{billboarder}.
 #'
 #' @param chart Chart type for which to see an example, possible values are \code{gauge}, \code{pie}, \code{bar}, 
-#' \code{bar2}, \code{line}, \code{line2}, \code{density}.
+#' \code{bar2}, \code{line}, \code{line2}, \code{density}, \code{histogram} or , \code{transform} (for changing type of chart).
 #'
 #' @export
 #'
@@ -19,7 +19,7 @@
 #' }
 proxy_example <- function(chart = "gauge") {
   chart <- match.arg(arg = chart,
-                     choices = c("gauge", "pie", "bar", "bar2", "line", "line2", "density"), 
+                     choices = c("gauge", "pie", "bar", "bar2", "line", "line2", "density", "histogram", "transform"), 
                      several.ok = FALSE)
   if (!requireNamespace(package = "shiny"))
     message("Package 'shiny' is required to run this function")

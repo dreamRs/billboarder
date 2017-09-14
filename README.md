@@ -271,6 +271,56 @@ billboarder() %>%
 You can also do step lines.
 
 
+## Histogram & density
+
+You can do histograms !
+
+```r
+billboarder() %>%
+  bb_histogram(data = rnorm(1e5), binwidth = 0.25) %>%
+  bb_colors_manual()
+```
+![](inst/img/histogram.png)
+
+
+With a grouping variable :
+
+```r
+# Generate some data
+dat <- data.frame(
+  sample = c(rnorm(n = 1e4, mean = 1), rnorm(n = 1e4, mean = 2)),
+  group = rep(c("A", "B"), each = 1e4), stringsAsFactors = FALSE
+)
+# Mean by groups
+samples_mean <- tapply(dat$sample, dat$group, mean)
+# histogram !
+billboarder() %>%
+  bb_histogram(data = dat, x = "sample", group = "group", binwidth = 0.25) %>%
+  bb_x_grid(
+    lines = list(
+      list(value = unname(samples_mean['A']), text = "mean of sample A"),
+      list(value = unname(samples_mean['B']), text = "mean of sample B")
+    )
+  )
+```
+![](inst/img/histogram2.png)
+
+
+Density plot with the same data :
+
+```r
+billboarder() %>%
+  bb_densityplot(data = dat, x = "sample", group = "group") %>%
+  bb_x_grid(
+    lines = list(
+      list(value = unname(samples_mean['A']), text = "mean of sample A"),
+      list(value = unname(samples_mean['B']), text = "mean of sample B")
+    )
+  )
+```
+![](inst/img/density.png)
+
+
 
 ## Shiny interaction
 

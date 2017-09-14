@@ -8,7 +8,7 @@ proxy_example(chart = "gauge")
 }
 \arguments{
 \item{chart}{Chart type for which to see an example, possible values are \code{gauge}, \code{pie}, \code{bar}, 
-\code{bar2}, \code{line}, \code{line2}, \code{density}.}
+\code{bar2}, \code{line}, \code{line2}, \code{density}, \code{histogram} or , \code{transform} (for changing type of chart).}
 }
 \description{
 Launch an example app to demonstrate how to use proxy method from \code{billboarder}.
