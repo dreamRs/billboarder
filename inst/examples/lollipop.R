@@ -37,11 +37,16 @@ lll <- billboarder() %>%
   bb_barchart(data = cbind(sw, lollipop = sw$worldwide_gross), rotated = TRUE) %>% 
   bb_bar(width = list(ratio = 0.01)) %>% 
   bb_x_axis(tick = list(centered = TRUE)) %>% 
-  bb_data(types = list(lollipop = "scatter", worldwide_gross = "bar")) %>% 
-  bb_colors_manual(lollipop = "steelblue", worldwide_gross = "#000") %>%
+  bb_data(types = list(lollipop = "bar", worldwide_gross = "line")) %>% 
+  bb_colors_manual(lollipop = "#000", worldwide_gross = "steelblue") %>%
   bb_point(r = 8) %>% 
-  bb_add_style(".bb-circle" = "opacity: 1 !important;") %>% 
-  bb_legend(hide = TRUE) 
+  bb_add_style(".bb-circle" = "opacity: 1;", ".bb-lines" = "opacity: 0;") %>% 
+  bb_legend(hide = TRUE) %>% 
+  bb_tooltip(
+    format = list(
+      value = htmlwidgets::JS("function(value, ratio, id, index) {if (id !== 'lollipop') return value; }")
+    )
+  )
 
 lll
 
