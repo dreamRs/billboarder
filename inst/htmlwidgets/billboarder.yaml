@@ -4,7 +4,7 @@ dependencies:
     src: htmlwidgets/lib/D3-4.10.0
     script: d3.v4.min.js
   - name: billboard
-    version: 1.0.1
-    src: htmlwidgets/lib/billboard-1.0.1
+    version: 1.1.0
+    src: htmlwidgets/lib/billboard-1.1.0
     script: billboard.min.js
     stylesheet: billboard.min.css
