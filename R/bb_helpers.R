@@ -1059,13 +1059,41 @@ bb_histogram <- function(bb, data, x = NULL, group = NULL, stacked = FALSE, fill
 #' @param point_color Color of the lollipop.
 #' @param point_size Size of the lollipop.
 #' @param line_color Color of the lines between the axis and the lollipop.
-#' @param ... 
+#' @param ... Not used.
 #'
 #' @return A \code{billboard} \code{htmlwidget} object.
 #' @export
 #'
 #' @examples
-#' # TODO
+#' # From wikipedia
+#' sw <- data.frame(
+#'   film = c("The Force Awakens", "The Phantom Menace", 
+#'            "Revenge of the Sith", "A New Hope",
+#'            "Attack of the Clones", "The Empire Strikes Back",
+#'            "Return of the Jedi"
+#'   ),
+#'   worldwide_gross = c(2068178225, 1027044677, 848754768,
+#'                       775398007, 649398328, 538375067,
+#'                       475106177)
+#' )
+#' 
+#' # Simple example
+#' billboarder() %>% 
+#'   bb_lollipop(data = sw)
+#' 
+#' # Fancy example
+#' billboarder() %>% 
+#'   bb_lollipop(data = sw, rotated = TRUE)%>% 
+#'   bb_y_grid(show = TRUE) %>% 
+#'   bb_y_axis(tick = list(
+#'     values = c(0, 5e+08, 1e+09, 1.5e+09, 2e+09),
+#'     outer = FALSE,
+#'     format = htmlwidgets::JS("d3.formatPrefix('$,.0', 1e6)")
+#'   )) %>% 
+#'   bb_labs(
+#'     title = "Star Wars - Total Lifetime Grosses",
+#'     caption = "Data source : wikipedia"
+#'   )
 bb_lollipop <- function(bb, data, x = NULL, y = NULL, rotated = FALSE, point_color = "#112446", point_size = 8, line_color = "#000", ...) {
   
   if (missing(data))
@@ -1106,7 +1134,12 @@ bb_lollipop <- function(bb, data, x = NULL, y = NULL, rotated = FALSE, point_col
   
   bb <- .bb_opt(bb, "point", r = point_size)
   
-  bb <- .bb_opt(bb, "legend", hide = "lollipop")
+  # bb <- .bb_opt(bb, "legend", hide = "lollipop")
+  if (rotated) {
+    bb <- .bb_opt(bb, "legend", hide = TRUE)
+  } else {
+    bb <- .bb_opt(bb, "legend", show = FALSE)
+  }
   
   bb <- bb_add_style(
     bb = bb, 
