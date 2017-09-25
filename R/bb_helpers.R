@@ -77,8 +77,9 @@ bb_barchart <- function(bb, data, stacked = FALSE, rotated = FALSE, color = NULL
     }
     
     bb <- bb_load(proxy = bb,
-                  json = json[-which(names(json)==x)], 
+                  json = json, 
                   groups = stacked, 
+                  x = x,
                   unload = bb$unload, 
                   colors = colp) 
     
@@ -1035,6 +1036,87 @@ bb_histogram <- function(bb, data, x = NULL, group = NULL, stacked = FALSE, fill
     bb <- .bb_opt2(bb, "tooltip", tooltip_opt)
     
   }
+  
+  return(bb)
+}
+
+
+
+
+
+
+
+
+#' Helper for creating a lollipop chart
+#'
+#' @param bb A \code{billboard} \code{htmlwidget} object.
+#' @param data A \code{data.frame}, the first column will be used for x axis unless
+#' argument \code{x} is speciefied, the second one will be use as y values.
+#'  If not a \code{data.frame}, an object coercible to \code{data.frame}. 
+#' @param x Character, the variable to use for the x axis.
+#' @param y Character, the variable containing the values to map on the chart.
+#' @param rotated Switch x and y axis position.
+#' @param point_color Color of the lollipop.
+#' @param point_size Size of the lollipop.
+#' @param line_color Color of the lines between the axis and the lollipop.
+#' @param ... 
+#'
+#' @return A \code{billboard} \code{htmlwidget} object.
+#' @export
+#'
+#' @examples
+#' # TODO
+bb_lollipop <- function(bb, data, x = NULL, y = NULL, rotated = FALSE, point_color = "#112446", point_size = 8, line_color = "#000", ...) {
+  
+  if (missing(data))
+    data <- bb$x$data
+  
+  data <- as.data.frame(data)
+  args <- list(...)
+  
+  if (is.null(x))
+    x <- names(data)[1]
+  
+  if (is.null(y))
+    y <- names(data)[2]
+  
+  data <- data[c(x, y)]
+  data <- cbind(data, lollipop = data[[y]])
+  
+  if (nrow(data) == 1) {
+    json <- lapply(X = as.list(data), FUN = list)
+  } else {
+    json <- as.list(data)
+  }
+  
+  data_opt <- list(
+    x = x,
+    json = json,
+    type = "bar",
+    classes = stats::setNames(list("lollipop-lines"), y),
+    types = stats::setNames(c(list("bar", "line")), c("lollipop", y)),
+    colors = stats::setNames(c(list(line_color, point_color)), c("lollipop", y))
+  )
+  
+  bb <- .bb_opt2(bb, "data", data_opt)
+  
+  bb <- .bb_opt(bb, "axis", x = list(type = "category"), rotated = rotated)
+  
+  bb <- .bb_opt(bb, "bar", width = 0.05)
+  
+  bb <- .bb_opt(bb, "point", r = point_size)
+  
+  bb <- .bb_opt(bb, "legend", hide = "lollipop")
+  
+  bb <- bb_add_style(
+    bb = bb, 
+    ".bb-target-lollipop-lines > .bb-circle" = "opacity: 1;", 
+    ".bb-target-lollipop-lines > .bb-lines" = "opacity: 0;"
+  )
+  
+  bb <- .bb_opt(bb, "tooltip", format = list(
+    value = htmlwidgets::JS("function(value, ratio, id, index) {if (id !== 'lollipop') return value; }")
+  ))
   
   return(bb)
 }
