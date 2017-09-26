@@ -311,6 +311,52 @@ if (HTMLWidgets.shinyMode) {
         chart.groups(data.data);
       }
   });
+  // Show legend
+  Shiny.addCustomMessageHandler('update-billboard-legend-show',
+    function(data) {
+      var chart = get_billboard(data.id);
+      // console.log(data.data.type);
+      if (typeof chart != 'undefined') {
+        console.log(data.data);
+        if (data.data.targetIds !== null) {
+          chart.legend.show(data.data.targetIds);
+        } else {
+          chart.legend.show();
+        }
+      }
+  });
+  // Hide legend
+  Shiny.addCustomMessageHandler('update-billboard-legend-hide',
+    function(data) {
+      var chart = get_billboard(data.id);
+      // console.log(data.data.type);
+      if (typeof chart != 'undefined') {
+        console.log(data.data);
+        if (data.data.targetIds !== null) {
+          chart.legend.hide(data.data.targetIds);
+        } else {
+          chart.legend.hide();
+        }
+      }
+  });
+  // Hide
+  Shiny.addCustomMessageHandler('update-billboard-hide',
+    function(data) {
+      var chart = get_billboard(data.id);
+      // console.log(data.data.type);
+      if (typeof chart != 'undefined') {
+        chart.hide(data.data.targetIdsValue, data.data.options);
+      }
+  });
+  // Show
+  Shiny.addCustomMessageHandler('update-billboard-show',
+    function(data) {
+      var chart = get_billboard(data.id);
+      // console.log(data.data.type);
+      if (typeof chart != 'undefined') {
+        chart.show(data.data.targetIdsValue, data.data.options);
+      }
+  });
 }
 
 

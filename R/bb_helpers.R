@@ -277,7 +277,7 @@ bb_scatterplot <- function(bb, data, x = NULL, y = NULL, group = NULL, ...) {
     
     bb <- bb_load(proxy = bb, json = json, xs = xs, unload = bb$unload) 
     
-    bb <- bb_axis_labels(proxy = bb, x = x, y = y)
+    bb <- bb_proxy_axis_labels(proxy = bb, x = x, y = y)
     
   } else {
     
@@ -804,7 +804,7 @@ bb_densityplot <- function(bb, data, x = NULL, group = NULL, stacked = FALSE, st
   
   if ("billboarder_Proxy" %in% class(bb)) {
     
-    bb <- bb_axis_labels(proxy = bb, x = x, y = stat)
+    bb <- bb_proxy_axis_labels(proxy = bb, x = x, y = stat)
     
     bb <- bb_load(proxy = bb, json = json, xs = xs, unload = bb$unload) 
     
@@ -1021,7 +1021,7 @@ bb_histogram <- function(bb, data, x = NULL, group = NULL, stacked = FALSE, fill
   
   if ("billboarder_Proxy" %in% class(bb)) {
     
-    bb <- bb_axis_labels(proxy = bb, x = x, y = "count")
+    bb <- bb_proxy_axis_labels(proxy = bb, x = x, y = "count")
     
     bb <- bb_load(proxy = bb, json = json, x = x, unload = bb$unload) 
     

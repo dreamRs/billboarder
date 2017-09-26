@@ -190,7 +190,7 @@ bb_unload <- function(proxy, ids = NULL) {
 #' @return A \code{billboardProxy} \code{htmlwidget} object.
 #' @export
 #' 
-#' @name bb_focus
+#' @name bb_proxy_focus
 #' 
 #' @examples 
 #' \dontrun{
@@ -226,14 +226,14 @@ bb_unload <- function(proxy, ids = NULL) {
 #'   
 #'   observeEvent(input$focus, {
 #'     billboarderProxy("bb") %>% 
-#'       bb_focus(input$focus)
+#'       bb_proxy_focus(input$focus)
 #'   }, ignoreNULL = FALSE)
 #' }
 #' 
 #' shinyApp(ui = ui, server = server)
 #' }
 #' }
-bb_focus <- function(proxy, ids = NULL) {
+bb_proxy_focus <- function(proxy, ids = NULL) {
   
   if (!"billboarder_Proxy" %in% class(proxy)) 
     stop("This function must be used with a billboarderProxy object")
@@ -245,9 +245,9 @@ bb_focus <- function(proxy, ids = NULL) {
   
 }
 
-#' @rdname bb_focus
+#' @rdname bb_proxy_focus
 #' @export
-bb_defocus <- function(proxy, ids = NULL) {
+bb_proxy_defocus <- function(proxy, ids = NULL) {
   
   if (!"billboarder_Proxy" %in% class(proxy)) 
     stop("This function must be used with a billboarderProxy object")
@@ -272,7 +272,7 @@ bb_defocus <- function(proxy, ids = NULL) {
 #'
 #' @return A \code{billboardProxy} \code{htmlwidget} object.
 #' @export
-bb_axis_labels <- function(proxy, x = NULL, y = NULL) {
+bb_proxy_axis_labels <- function(proxy, x = NULL, y = NULL) {
   
   if (!"billboarder_Proxy" %in% class(proxy)) 
     stop("This function must be used with a billboarderProxy object")
@@ -289,7 +289,7 @@ bb_axis_labels <- function(proxy, x = NULL, y = NULL) {
 #'
 #' @return A \code{billboardProxy} \code{htmlwidget} object.
 #' @export
-bb_xs <- function(proxy, xs) {
+bb_proxy_xs <- function(proxy, xs) {
   
   if (!"billboarder_Proxy" %in% class(proxy)) 
     stop("This function must be used with a billboarderProxy object")
@@ -309,7 +309,7 @@ bb_xs <- function(proxy, xs) {
 #'
 #' @return A \code{billboardProxy} \code{htmlwidget} object.
 #' @export
-bb_transform <- function(proxy, type, targetIds = NULL) {
+bb_proxy_transform <- function(proxy, type, targetIds = NULL) {
   
   if (!"billboarder_Proxy" %in% class(proxy)) 
     stop("This function must be used with a billboarderProxy object")
@@ -326,12 +326,69 @@ bb_transform <- function(proxy, type, targetIds = NULL) {
 #'
 #' @return A \code{billboardProxy} \code{htmlwidget} object.
 #' @export
-bb_groups <- function(proxy, ...) {
+bb_proxy_groups <- function(proxy, ...) {
   if (!"billboarder_Proxy" %in% class(proxy)) 
     stop("This function must be used with a billboarderProxy object")
   
   .bb_proxy2(proxy, "groups", list(...))
 }
+
+#' Hide method with proxy
+#'
+#' @param proxy A \code{billboardProxy} \code{htmlwidget} object.
+#' @param targetIdsValue Name of series to hide.
+#' @param options Additional options.
+#' 
+#' @seealso \code{\link{bb_proxy_show}}
+#'
+#' @return A \code{billboardProxy} \code{htmlwidget} object.
+#' @export
+bb_proxy_hide <- function(proxy, targetIdsValue, options = NULL) {
+  if (!"billboarder_Proxy" %in% class(proxy)) 
+    stop("This function must be used with a billboarderProxy object")
+  
+  .bb_proxy(proxy, "hide", targetIdsValue = targetIdsValue, options = options)
+}
+
+#' Show method with proxy
+#'
+#' @param proxy A \code{billboardProxy} \code{htmlwidget} object.
+#' @param targetIdsValue Name of series to hide.
+#' @param options Additional options.
+#' 
+#' @seealso \code{\link{bb_proxy_hide}}
+#'
+#' @return A \code{billboardProxy} \code{htmlwidget} object.
+#' @export
+bb_proxy_show <- function(proxy, targetIdsValue, options = NULL) {
+  if (!"billboarder_Proxy" %in% class(proxy)) 
+    stop("This function must be used with a billboarderProxy object")
+  
+  .bb_proxy(proxy, "show", targetIdsValue = targetIdsValue, options = options)
+}
+
+
+
+#' Show or hide legend with proxy
+#'
+#' @param proxy A \code{billboardProxy} \code{htmlwidget} object.
+#' @param what \code{show} or \code{hide} the legend.
+#' @param targetIds Series ids to show/hide, if \code{NULL} show/hide all legend.
+#' 
+#' @return A \code{billboardProxy} \code{htmlwidget} object.
+#' @export
+bb_proxy_legend <- function(proxy, what = c("show", "hide"), targetIds = NULL) {
+  if (!"billboarder_Proxy" %in% class(proxy)) 
+    stop("This function must be used with a billboarderProxy object")
+  what <- match.arg(what)
+  if (what == "show") {
+    .bb_proxy(proxy, "legend-show", targetIds = targetIds)
+  } else {
+    .bb_proxy(proxy, "legend-hide", targetIds = targetIds)
+  }
+}
+
+
 
 
 

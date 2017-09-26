@@ -48,7 +48,7 @@ server <- function(input, output, session) {
   
   observe({
     billboarderProxy(shinyId = "mychart") %>% 
-      bb_transform(type = input$type)
+      bb_proxy_transform(type = input$type)
   })
   
 }
