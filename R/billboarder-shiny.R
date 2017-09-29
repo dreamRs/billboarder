@@ -377,6 +377,89 @@ bb_proxy_show <- function(proxy, targetIdsValue, options = NULL) {
 #' 
 #' @return A \code{billboardProxy} \code{htmlwidget} object.
 #' @export
+#' 
+#' @examples 
+#' \dontrun{
+#' 
+#' library("shiny")
+#' 
+#' data("prod_par_filiere")
+#' 
+#' ui <- fluidPage(
+#'   tags$h2("Show or hide legend with Proxy"),
+#'   fluidRow(
+#'     column(
+#'       width = 3,
+#'       checkboxInput(
+#'         inputId = "show_legend", 
+#'         label = "Show legend", 
+#'         value = TRUE
+#'       ),
+#'       checkboxGroupInput(
+#'         inputId = "item_show",
+#'         label = "Item to show in legend", 
+#'         choices = c("Hydraulic" = "prod_hydraulique", 
+#'                     "Wind" = "prod_eolien", 
+#'                     "Solar" = "prod_solaire"), 
+#'         selected = c("prod_hydraulique", "prod_eolien", "prod_solaire")
+#'       )
+#'     ),
+#'     column(
+#'       width = 9,
+#'       billboarderOutput(outputId = "mybb")
+#'     )
+#'   )
+#' )
+#' 
+#' server <- function(input, output, session) {
+#'   
+#'   output$mybb <- renderBillboarder({
+#'     billboarder() %>%
+#'       bb_barchart(
+#'         data = prod_par_filiere[, c("annee", "prod_hydraulique", "prod_eolien", "prod_solaire")], 
+#'         stacked = TRUE
+#'       ) %>%
+#'       bb_data(
+#'         names = list(prod_hydraulique = "Hydraulic", prod_eolien = "Wind", prod_solaire = "Solar"), 
+#'         labels = TRUE
+#'       ) %>% 
+#'       bb_colors_manual(
+#'         "prod_eolien" = "#41AB5D", "prod_hydraulique" = "#4292C6", "prod_solaire" = "#FEB24C"
+#'       ) %>%
+#'       bb_y_grid(show = TRUE) %>%
+#'       bb_y_axis(tick = list(format = suffix("TWh")),
+#'                 label = list(text = "production (in terawatt-hours)", position = "outer-top")) %>% 
+#'       bb_legend(position = "right") %>% 
+#'       bb_labs(title = "Renewable energy production",
+#'               caption = "Data source: RTE (https://opendata.rte-france.com)")
+#'   })
+#'   
+#'   observe({
+#'     if (input$show_legend) {
+#'       billboarderProxy("mybb") %>% bb_proxy_legend(what = "show")
+#'     } else {
+#'       billboarderProxy("mybb") %>% bb_proxy_legend(what = "hide")
+#'     }
+#'   })
+#'   
+#'   observe({
+#'     lapply(
+#'       X = c("prod_hydraulique", "prod_eolien", "prod_solaire"),
+#'       FUN = function(x) {
+#'         if (x %in% input$item_show) {
+#'           billboarderProxy("mybb") %>% bb_proxy_legend(what = "show", targetIds = x)
+#'         } else {
+#'           billboarderProxy("mybb") %>% bb_proxy_legend(what = "hide", targetIds = x)
+#'         }
+#'       }
+#'     )
+#'   })
+#'   
+#' }
+#' 
+#' shinyApp(ui = ui, server = server)
+#' 
+#' }
 bb_proxy_legend <- function(proxy, what = c("show", "hide"), targetIds = NULL) {
   if (!"billboarder_Proxy" %in% class(proxy)) 
     stop("This function must be used with a billboarderProxy object")
@@ -391,5 +474,26 @@ bb_proxy_legend <- function(proxy, what = c("show", "hide"), targetIds = NULL) {
 
 
 
-
+#' Show or hide tooltip with proxy
+#'
+#' @param proxy A \code{billboardProxy} \code{htmlwidget} object.
+#' @param what \code{show} or \code{hide} the legend.
+#' @param x x value on which the tooltip must appear.
+#' @param index Index on the x-axis on which the tooltip must appear.
+#' @param ... Additional arguments passed to method.
+#' 
+#' @return A \code{billboardProxy} \code{htmlwidget} object.
+#' @export
+bb_proxy_tooltip <- function(proxy, what = c("show", "hide"), x = NULL, index = NULL, ...) {
+  if (!"billboarder_Proxy" %in% class(proxy)) 
+    stop("This function must be used with a billboarderProxy object")
+  what <- match.arg(what)
+  data <- list(x = x, index = index, ...)
+  data <- dropNulls(data)
+  if (what == "show") {
+    .bb_proxy(proxy, "tooltip-show", data = data)
+  } else {
+    .bb_proxy(proxy, "tooltip-hide", data = list())
+  }
+}
 

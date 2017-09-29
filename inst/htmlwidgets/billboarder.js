@@ -331,12 +331,31 @@ if (HTMLWidgets.shinyMode) {
       var chart = get_billboard(data.id);
       // console.log(data.data.type);
       if (typeof chart != 'undefined') {
-        console.log(data.data);
+        //console.log(data.data);
         if (data.data.targetIds !== null) {
           chart.legend.hide(data.data.targetIds);
         } else {
           chart.legend.hide();
         }
+      }
+  });
+  // Show tooltip
+  Shiny.addCustomMessageHandler('update-billboard-tooltip-show',
+    function(data) {
+      var chart = get_billboard(data.id);
+      // console.log(data.data.type);
+      if (typeof chart != 'undefined') {
+        console.log(data.data);
+        chart.tooltip.show(data.data);
+      }
+  });
+  // Hide tooltip
+  Shiny.addCustomMessageHandler('update-billboard-tooltip-hide',
+    function(data) {
+      var chart = get_billboard(data.id);
+      // console.log(data.data.type);
+      if (typeof chart != 'undefined') {
+        chart.tooltip.hide();
       }
   });
   // Hide
