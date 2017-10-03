@@ -1,3 +1,41 @@
+#' Map variables to the chart
+#'
+#' @param bb A \code{billboard} \code{htmlwidget} object.
+#' @param x Name of the variable to map on the x-axis
+#' @param y Name of the variable to map on the y-axis
+#' @param group Name of the grouping variable.
+#'
+#' @return A \code{billboard} \code{htmlwidget} object.
+# @export
+#' @noRd
+#'
+#' @examples
+#' \dontrun{
+#' dat <- as.data.frame(table(sample(letters[1:5], 100, TRUE)))
+#' 
+#' billboarder(data = dat) %>% 
+#'   bbaes(x = Var1, y = Freq) %>% 
+#'   bb_barchart()
+#' 
+#' 
+#' tab <- table(sample(letters[1:5], 100, TRUE), sample(LETTERS[1:5], 100, TRUE))
+#' dat_group <- as.data.frame(tab)
+#' 
+#' billboarder(data = dat_group) %>% 
+#'   bbaes(x = Var1, y = Freq, group = "Var2") %>% 
+#'   bb_barchart()
+#' }
+bbaes <- function(bb, x, y, group = NULL) {
+  x <- deparse(substitute(x))
+  y <- deparse(substitute(y))
+  group <- deparse(substitute(group))
+  if (identical(group, "NULL"))
+    group <- NULL
+  bb$x$aes <- list(x = x, y = y, group = group)
+  bb
+}
+
+
 #' Helper for creating a bar chart
 #'
 #' @param bb A \code{billboard} \code{htmlwidget} object.
@@ -6,7 +44,7 @@
 #' @param x Name of the variable to map on the x-axis, shouldn't contain duplicate except if \code{group} is provided.
 #' @param y Name of the variable to map on the y-axis, if length one produce a simple barchart except if \code{group} is provided,
 #'  if length two or higher each variable will be a sub-category of the x value.
-#' @param group Name of th grouping variable if one, for ploting stacked or dodge bar charts.
+#' @param group Name of the grouping variable if one, for ploting stacked or dodge bar charts.
 #' @param stacked Logical, if several columns provided, produce a stacked bar chart, else
 #' a dodge bar chart.
 #' @param rotated Switch x and y axis position.
@@ -111,10 +149,10 @@ bb_barchart <- function(bb, data, x = NULL, y = NULL, group = NULL, stacked = FA
       stop("If you provide 'group', you must supply 'x' and 'y' too.")
     }
   }
-    
   
-  x <- x %||% names(data)[1]
-  y <- y %||% names(data)[-1]
+  x <- x %||% bb$x$aes$x %||% names(data)[1]
+  y <- y %||% bb$x$aes$y %||% names(data)[-1]
+  group <- group %||% bb$x$aes$group
   
   if (stacked) {
     if (is.null(group)) {

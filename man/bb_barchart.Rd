@@ -18,7 +18,7 @@ specified otherwise in \code{...}. If not a \code{data.frame}, an object coercib
 \item{y}{Name of the variable to map on the y-axis, if length one produce a simple barchart except if \code{group} is provided,
 if length two or higher each variable will be a sub-category of the x value.}
 
-\item{group}{Name of th grouping variable if one, for ploting stacked or dodge bar charts.}
+\item{group}{Name of the grouping variable if one, for ploting stacked or dodge bar charts.}
 
 \item{stacked}{Logical, if several columns provided, produce a stacked bar chart, else
 a dodge bar chart.}
