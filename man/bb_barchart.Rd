@@ -4,13 +4,21 @@
 \alias{bb_barchart}
 \title{Helper for creating a bar chart}
 \usage{
-bb_barchart(bb, data, stacked = FALSE, rotated = FALSE, color = NULL, ...)
+bb_barchart(bb, data, x = NULL, y = NULL, group = NULL, stacked = FALSE,
+  rotated = FALSE, color = NULL, ...)
 }
 \arguments{
 \item{bb}{A \code{billboard} \code{htmlwidget} object.}
 
 \item{data}{A \code{data.frame}, the first column will be used for x axis unless
 specified otherwise in \code{...}. If not a \code{data.frame}, an object coercible to \code{data.frame}.}
+
+\item{x}{Name of the variable to map on the x-axis, shouldn't contain duplicate except if \code{group} is provided.}
+
+\item{y}{Name of the variable to map on the y-axis, if length one produce a simple barchart except if \code{group} is provided,
+if length two or higher each variable will be a sub-category of the x value.}
+
+\item{group}{Name of th grouping variable if one, for ploting stacked or dodge bar charts.}
 
 \item{stacked}{Logical, if several columns provided, produce a stacked bar chart, else
 a dodge bar chart.}
@@ -31,18 +39,77 @@ Helper for creating a bar chart
 This function can be used with \code{\link{billboarderProxy}} in shiny application.
 }
 \examples{
-library("billboarder")
 
 stars <- data.frame(
-  package = c("billboarder", "ggiraph", "officer", "shinyWidgets", "visNetwork"),
-  stars = c(1, 176, 42, 40, 166)
+  package = c("billboarder", "ggiraph", "officer",
+              "shinyWidgets", "visNetwork", "rAmCharts", 
+              "D3partitionR"),
+  stars = c(36, 194, 72, 61, 183, 25, 18)
 )
 
+# By default, first column is mapped on the x-axis
+# second one on the y axis
 billboarder() \%>\%
   bb_barchart(data = stars)
 
+
+# Specify explicitly the columns to use
 billboarder() \%>\%
-  bb_barchart(data = stars, labels = TRUE) \%>\%
+  bb_barchart(data = stars, x = "package", y = "stars", rotated = TRUE)
+
+
+# Add some options
+billboarder() \%>\%
+  bb_barchart(data = stars[order(stars$stars), ], x = "package", y = "stars", rotated = TRUE) \%>\% 
   bb_data(names = list(stars = "Number of stars")) \%>\% 
-  bb_axis(rotated = TRUE)
+  bb_y_grid(show = TRUE)
+
+
+
+# Hack stacked barcharts (to color bar)
+stars_wide <- data.frame(
+  author = c("dreamRs", "davidgohel", "davidgohel", "dreamRs",
+             "datastorm-open", "datastorm-open", "AntoineGuillot2"),
+  package = c("billboarder", "ggiraph", "officer",
+              "shinyWidgets", "visNetwork", "rAmCharts", 
+              "D3partitionR"),
+  stars = c(36, 194, 72, 61, 183, 25, 18)
+)
+
+billboarder() \%>\%
+  bb_barchart(data = stars_wide, 
+              x = "package", y = "stars", group = "author",
+              stacked = TRUE)
+
+billboarder() \%>\%
+  bb_barchart(data = stars_wide,
+              x = "author", y = "stars", group = "package",
+              stacked = TRUE)
+
+
+
+# Grouping variable
+tab <- table(sample(letters[1:5], 100, TRUE), sample(LETTERS[1:5], 100, TRUE))
+dat <- as.data.frame(tab)
+
+billboarder() \%>\%
+  bb_barchart(data = dat, x = "Var1", y = "Freq", group = "Var2", rotated = TRUE)
+
+# You can also pass data in a 'wide' format
+dat2 <- data.frame(
+  x = letters[1:5],
+  A = sample.int(n = 100, size = 5),
+  B = sample.int(n = 100, size = 5),
+  C = sample.int(n = 100, size = 5),
+  D = sample.int(n = 100, size = 5),
+  E = sample.int(n = 100, size = 5)
+)
+
+billboarder() \%>\%
+  bb_barchart(data = dat2, x = "x", y = c("A", "B", "C", "D", "E"), stacked = TRUE)
+
+# Same as (with order of stacked series)
+billboarder() \%>\%
+  bb_barchart(data = dat2, stacked = TRUE) \%>\% 
+  bb_data(order = NULL, labels = TRUE)
 }

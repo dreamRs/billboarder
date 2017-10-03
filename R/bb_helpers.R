@@ -3,6 +3,10 @@
 #' @param bb A \code{billboard} \code{htmlwidget} object.
 #' @param data A \code{data.frame}, the first column will be used for x axis unless
 #' specified otherwise in \code{...}. If not a \code{data.frame}, an object coercible to \code{data.frame}.
+#' @param x Name of the variable to map on the x-axis, shouldn't contain duplicate except if \code{group} is provided.
+#' @param y Name of the variable to map on the y-axis, if length one produce a simple barchart except if \code{group} is provided,
+#'  if length two or higher each variable will be a sub-category of the x value.
+#' @param group Name of th grouping variable if one, for ploting stacked or dodge bar charts.
 #' @param stacked Logical, if several columns provided, produce a stacked bar chart, else
 #' a dodge bar chart.
 #' @param rotated Switch x and y axis position.
@@ -15,21 +19,81 @@
 #' @export
 #'
 #' @examples
-#' library("billboarder")
 #' 
 #' stars <- data.frame(
-#'   package = c("billboarder", "ggiraph", "officer", "shinyWidgets", "visNetwork"),
-#'   stars = c(1, 176, 42, 40, 166)
+#'   package = c("billboarder", "ggiraph", "officer",
+#'               "shinyWidgets", "visNetwork", "rAmCharts", 
+#'               "D3partitionR"),
+#'   stars = c(36, 194, 72, 61, 183, 25, 18)
 #' )
 #' 
+#' # By default, first column is mapped on the x-axis
+#' # second one on the y axis
 #' billboarder() %>%
 #'   bb_barchart(data = stars)
 #' 
+#' 
+#' # Specify explicitly the columns to use
 #' billboarder() %>%
-#'   bb_barchart(data = stars, labels = TRUE) %>%
+#'   bb_barchart(data = stars, x = "package", y = "stars", rotated = TRUE)
+#' 
+#' 
+#' # Add some options
+#' billboarder() %>%
+#'   bb_barchart(data = stars[order(stars$stars), ], x = "package", y = "stars", rotated = TRUE) %>% 
 #'   bb_data(names = list(stars = "Number of stars")) %>% 
-#'   bb_axis(rotated = TRUE)
-bb_barchart <- function(bb, data, stacked = FALSE, rotated = FALSE, color = NULL, ...) {
+#'   bb_y_grid(show = TRUE)
+#' 
+#' 
+#' 
+#' # Hack stacked barcharts (to color bar)
+#' stars_wide <- data.frame(
+#'   author = c("dreamRs", "davidgohel", "davidgohel", "dreamRs",
+#'              "datastorm-open", "datastorm-open", "AntoineGuillot2"),
+#'   package = c("billboarder", "ggiraph", "officer",
+#'               "shinyWidgets", "visNetwork", "rAmCharts", 
+#'               "D3partitionR"),
+#'   stars = c(36, 194, 72, 61, 183, 25, 18)
+#' )
+#' 
+#' billboarder() %>%
+#'   bb_barchart(data = stars_wide, 
+#'               x = "package", y = "stars", group = "author",
+#'               stacked = TRUE)
+#' 
+#' billboarder() %>%
+#'   bb_barchart(data = stars_wide,
+#'               x = "author", y = "stars", group = "package",
+#'               stacked = TRUE)
+#' 
+#' 
+#' 
+#' # Grouping variable
+#' tab <- table(sample(letters[1:5], 100, TRUE), sample(LETTERS[1:5], 100, TRUE))
+#' dat <- as.data.frame(tab)
+#' 
+#' billboarder() %>%
+#'   bb_barchart(data = dat, x = "Var1", y = "Freq", group = "Var2", rotated = TRUE)
+#' 
+#' # You can also pass data in a 'wide' format
+#' dat2 <- data.frame(
+#'   x = letters[1:5],
+#'   A = sample.int(n = 100, size = 5),
+#'   B = sample.int(n = 100, size = 5),
+#'   C = sample.int(n = 100, size = 5),
+#'   D = sample.int(n = 100, size = 5),
+#'   E = sample.int(n = 100, size = 5)
+#' )
+#' 
+#' billboarder() %>%
+#'   bb_barchart(data = dat2, x = "x", y = c("A", "B", "C", "D", "E"), stacked = TRUE)
+#' 
+#' # Same as (with order of stacked series)
+#' billboarder() %>%
+#'   bb_barchart(data = dat2, stacked = TRUE) %>% 
+#'   bb_data(order = NULL, labels = TRUE)
+
+bb_barchart <- function(bb, data, x = NULL, y = NULL, group = NULL, stacked = FALSE, rotated = FALSE, color = NULL, ...) {
   
   if (missing(data))
     data <- bb$x$data
@@ -42,18 +106,45 @@ bb_barchart <- function(bb, data, stacked = FALSE, rotated = FALSE, color = NULL
     return(bb)
   }
   
-  x <- args$x %||% names(data)[1]
+  if (!is.null(group)) {
+    if (is.null(x) | is.null(y)) {
+      stop("If you provide 'group', you must supply 'x' and 'y' too.")
+    }
+  }
+    
+  
+  x <- x %||% names(data)[1]
+  y <- y %||% names(data)[-1]
   
   if (stacked) {
-    stacked <- list(as.list(base::setdiff(names(data), x)))
+    if (is.null(group)) {
+      stacked <- list(as.list(y))
+    } else {
+      stacked <- list(as.list(unique(data[[group]])))
+    }
   } else {
     stacked <- list()
   }
   
-  if (nrow(data) == 1) {
-    json <- lapply(X = as.list(data), FUN = list)
+  if (is.null(group)) {
+    if (nrow(data) == 1) {
+      json <- lapply(X = as.list(data[c(x, y)]), FUN = list)
+    } else {
+      json <- as.list(data[c(x, y)])
+    }
   } else {
-    json <- as.list(data)
+    # y <- setdiff(y, group)
+    data <- data[order(data[[group]], data[[x]]), ]
+    json <- lapply(
+      X = unique(data[[group]]),
+      FUN = function(group_value) {
+        tmp <- data[data[[group]] %in% group_value, ]
+        idx <- match(x = unique(data[[x]]), table = tmp[[x]], nomatch = nrow(tmp)+1)
+        tmp[[y]][idx]
+      }
+    )
+    names(json) <- unique(data[[group]])
+    json[[x]] <- unique(data[[x]])
   }
   
   
