@@ -4,12 +4,14 @@
 \alias{bb_piechart}
 \title{Helper for creating a pie chart}
 \usage{
-bb_piechart(bb, data, ...)
+bb_piechart(bb, data, mapping = NULL, ...)
 }
 \arguments{
 \item{bb}{A \code{billboard} \code{htmlwidget} object.}
 
 \item{data}{A \code{data.frame}, first column must contain labels and second values associated.}
+
+\item{mapping}{Mapping of variables on the chart, see \code{\link{bbaes}}.}
 
 \item{...}{Arguments for slot pie, \url{https://naver.github.io/billboard.js/release/latest/doc/Options.html#.pie}.}
 }
@@ -23,13 +25,23 @@ Helper for creating a pie chart
 This function can be used with \code{\link{billboarderProxy}} in shiny application.
 }
 \examples{
-\dontrun{
+
 stars <- data.frame(
   package = c("billboarder", "ggiraph", "officer", "shinyWidgets", "visNetwork"),
   stars = c(9, 177, 43, 44, 169)
 )
 
+# Default
 billboarder() \%>\% 
   bb_piechart(data = stars)
-}
+
+# Explicit mapping
+billboarder() \%>\% 
+  bb_piechart(data = stars, bbaes(package, stars))
+
+# Other way to specify mapping
+billboarder(data = stars) \%>\% 
+  bb_aes(package, stars) \%>\% 
+  bb_piechart()
+
 }

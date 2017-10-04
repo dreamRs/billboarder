@@ -1,51 +1,10 @@
-#' Map variables to the chart
-#'
-#' @param bb A \code{billboard} \code{htmlwidget} object.
-#' @param x Name of the variable to map on the x-axis
-#' @param y Name of the variable to map on the y-axis
-#' @param group Name of the grouping variable.
-#'
-#' @return A \code{billboard} \code{htmlwidget} object.
-# @export
-#' @noRd
-#'
-#' @examples
-#' \dontrun{
-#' dat <- as.data.frame(table(sample(letters[1:5], 100, TRUE)))
-#' 
-#' billboarder(data = dat) %>% 
-#'   bbaes(x = Var1, y = Freq) %>% 
-#'   bb_barchart()
-#' 
-#' 
-#' tab <- table(sample(letters[1:5], 100, TRUE), sample(LETTERS[1:5], 100, TRUE))
-#' dat_group <- as.data.frame(tab)
-#' 
-#' billboarder(data = dat_group) %>% 
-#'   bbaes(x = Var1, y = Freq, group = "Var2") %>% 
-#'   bb_barchart()
-#' }
-bbaes <- function(bb, x, y, group = NULL) {
-  x <- deparse(substitute(x))
-  y <- deparse(substitute(y))
-  group <- deparse(substitute(group))
-  if (identical(group, "NULL"))
-    group <- NULL
-  bb$x$aes <- list(x = x, y = y, group = group)
-  bb
-}
-
-
 #' Helper for creating a bar chart
 #'
 #' @param bb A \code{billboard} \code{htmlwidget} object.
 #' @param data A \code{data.frame}, the first column will be used for x axis unless
-#' specified otherwise in \code{...}. If not a \code{data.frame}, an object coercible to \code{data.frame}.
-#' @param x Name of the variable to map on the x-axis, shouldn't contain duplicate except if \code{group} is provided.
-#' @param y Name of the variable to map on the y-axis, if length one produce a simple barchart except if \code{group} is provided,
-#'  if length two or higher each variable will be a sub-category of the x value.
-#' @param group Name of the grouping variable if one, for ploting stacked or dodge bar charts.
-#' @param stacked Logical, if several columns provided, produce a stacked bar chart, else
+#' specified otherwise in \code{mapping}. If not a \code{data.frame}, an object coercible to \code{data.frame}.
+#' @param mapping Mapping of variables on the chart, see \code{\link{bbaes}}.
+#' @param stacked Logical, if several columns are provided, produce a stacked bar chart, else
 #' a dodge bar chart.
 #' @param rotated Switch x and y axis position.
 #' @param color Bar's color.
@@ -73,7 +32,7 @@ bbaes <- function(bb, x, y, group = NULL) {
 #' 
 #' # Specify explicitly the columns to use
 #' billboarder() %>%
-#'   bb_barchart(data = stars, x = "package", y = "stars", rotated = TRUE)
+#'   bb_barchart(data = stars, mapping = bbaes(package, stars), rotated = TRUE)
 #' 
 #' 
 #' # Add some options
@@ -96,12 +55,12 @@ bbaes <- function(bb, x, y, group = NULL) {
 #' 
 #' billboarder() %>%
 #'   bb_barchart(data = stars_wide, 
-#'               x = "package", y = "stars", group = "author",
+#'               mapping = bbaes(package, stars, group = author),
 #'               stacked = TRUE)
 #' 
 #' billboarder() %>%
 #'   bb_barchart(data = stars_wide,
-#'               x = "author", y = "stars", group = "package",
+#'               mapping = bbaes(author, stars, group = package),
 #'               stacked = TRUE)
 #' 
 #' 
@@ -111,7 +70,8 @@ bbaes <- function(bb, x, y, group = NULL) {
 #' dat <- as.data.frame(tab)
 #' 
 #' billboarder() %>%
-#'   bb_barchart(data = dat, x = "Var1", y = "Freq", group = "Var2", rotated = TRUE)
+#'   bb_barchart(data = dat, bbaes(x = Var1, y = Freq, group = Var2), rotated = TRUE)
+#' 
 #' 
 #' # You can also pass data in a 'wide' format
 #' dat2 <- data.frame(
@@ -123,15 +83,12 @@ bbaes <- function(bb, x, y, group = NULL) {
 #'   E = sample.int(n = 100, size = 5)
 #' )
 #' 
-#' billboarder() %>%
-#'   bb_barchart(data = dat2, x = "x", y = c("A", "B", "C", "D", "E"), stacked = TRUE)
-#' 
-#' # Same as (with order of stacked series)
+#' # But cannot use mapping
 #' billboarder() %>%
 #'   bb_barchart(data = dat2, stacked = TRUE) %>% 
 #'   bb_data(order = NULL, labels = TRUE)
 
-bb_barchart <- function(bb, data, x = NULL, y = NULL, group = NULL, stacked = FALSE, rotated = FALSE, color = NULL, ...) {
+bb_barchart <- function(bb, data, mapping = NULL, stacked = FALSE, rotated = FALSE, color = NULL, ...) {
   
   if (missing(data))
     data <- bb$x$data
@@ -139,61 +96,52 @@ bb_barchart <- function(bb, data, x = NULL, y = NULL, group = NULL, stacked = FA
   data <- as.data.frame(data)
   args <- list(...)
   
-  if (is.null(data)) {
-    bb <- .bb_opt(bb, "bar", ...)
-    return(bb)
-  }
+  mapping <- mapping %||% bb$x$mapping
   
-  if (!is.null(group)) {
-    if (is.null(x) | is.null(y)) {
-      stop("If you provide 'group', you must supply 'x' and 'y' too.")
-    }
-  }
   
-  x <- x %||% bb$x$aes$x %||% names(data)[1]
-  y <- y %||% bb$x$aes$y %||% names(data)[-1]
-  group <- group %||% bb$x$aes$group
-  
-  if (stacked) {
-    if (is.null(group)) {
+  if (is.null(mapping)) {
+    
+    x <- names(data)[1]
+    y <- names(data)[-1]
+    
+    if (stacked) {
       stacked <- list(as.list(y))
     } else {
-      stacked <- list(as.list(unique(data[[group]])))
+      stacked <- NULL
     }
-  } else {
-    stacked <- list()
-  }
-  
-  if (is.null(group)) {
+    
     if (nrow(data) == 1) {
       json <- lapply(X = as.list(data[c(x, y)]), FUN = list)
     } else {
       json <- as.list(data[c(x, y)])
     }
-  } else {
-    # y <- setdiff(y, group)
-    data <- data[order(data[[group]], data[[x]]), ]
-    json <- lapply(
-      X = unique(data[[group]]),
-      FUN = function(group_value) {
-        tmp <- data[data[[group]] %in% group_value, ]
-        idx <- match(x = unique(data[[x]]), table = tmp[[x]], nomatch = nrow(tmp)+1)
-        tmp[[y]][idx]
-      }
+    
+    data_opt <- list(
+      x = x,
+      json = json,
+      type = "bar",
+      groups = stacked
     )
-    names(json) <- unique(data[[group]])
-    json[[x]] <- unique(data[[x]])
+    
+  } else {
+    
+    data_mapped <- bbmapping(data = data, mapping = mapping)
+    x <- as.character(mapping$x)
+    
+    if (is.null(mapping$group)) {
+      stacked <- NULL
+    } else {
+      stacked <- list(setdiff(names(data_mapped), x))
+    }
+    
+    data_opt <- list(
+      x = x,
+      json = data_mapped,
+      type = "bar",
+      groups = stacked
+    )
+    
   }
-  
-  
-  data_opt <- list(
-    x = x,
-    json = json,
-    type = "bar",
-    groups = stacked
-  )
-  
-  
   
   if ("billboarder_Proxy" %in% class(bb)) {
     
@@ -216,7 +164,7 @@ bb_barchart <- function(bb, data, x = NULL, y = NULL, group = NULL, stacked = FA
 
   } else {
     
-    bb <- .bb_opt2(bb, "data", data_opt)
+    bb <- .bb_opt2(bb, "data", dropNulls(data_opt))
     
     bb <- .bb_opt(bb, "bar", ...)
     
@@ -341,9 +289,7 @@ bb_categories <- function(bb, categories) {
 #'
 #' @param bb A \code{billboard} \code{htmlwidget} object.
 #' @param data A \code{data.frame}
-#' @param x Variable to map to the x-axis, if \code{NULL} first variable is used.
-#' @param y Variable to map to the y-axis, if \code{NULL} second variable is used.
-#' @param group Variable to use to plot data by group.
+#' @param mapping Mapping of variables on the chart, see \code{\link{bbaes}}.
 #' @param ... unused
 #' 
 #' @note This function can be used with \code{\link{billboarderProxy}} in shiny application.
@@ -354,19 +300,49 @@ bb_categories <- function(bb, categories) {
 #' @importFrom stats setNames
 #'
 #' @examples
-#' \dontrun{
+#' # Use first and second variable by default
 #' billboarder() %>% 
-#'   bb_scatterplot(data = iris, x = "Sepal.Length", y = "Sepal.Width")
-#' }
-bb_scatterplot <- function(bb, data, x = NULL, y = NULL, group = NULL, ...) {
+#'   bb_scatterplot(data = iris)
+#' 
+#' 
+#' # Explicit mapping
+#' billboarder() %>% 
+#'   bb_scatterplot(
+#'     data = iris, 
+#'     mapping = bbaes(Petal.Length, Petal.Width)
+#'   ) %>% 
+#'   bb_x_axis(tick = list(fit = FALSE))
+#' 
+#' 
+#' # Grouping variable
+#' billboarder() %>% 
+#'   bb_scatterplot(
+#'     data = iris, 
+#'     mapping = bbaes(Sepal.Length, Sepal.Width, group = Species)
+#'   )
+#'
+bb_scatterplot <- function(bb, data, mapping = NULL, ...) {
   
   if (missing(data))
     data <- bb$x$data
   
   args <- list(...)
   
-  x <- x %||% names(data)[1]
-  y <- y %||% names(data)[2]
+  mapping <- mapping %||% bb$x$mapping
+  
+  if (is.null(mapping)) {
+    x <- args$x %||% names(data)[1]
+    y <- args$y %||% names(data)[2]
+    group <- args$group
+  } else {
+    x <- as.character(mapping$x)
+    y <- as.character(mapping$y)
+    if (!is.null(mapping$group)) {
+      group <- as.character(mapping$group)
+    } else {
+      group <- NULL
+    }
+  }
   
   if (is.null(group)) {
     xs <- stats::setNames(list(x), y)
@@ -442,10 +418,20 @@ bb_scatterplot <- function(bb, data, x = NULL, y = NULL, group = NULL, ...) {
 #' @importFrom stats setNames
 #'
 #' @examples
-#' \dontrun{
 #' billboarder() %>% 
-#'  bb_gaugechart(value = 50)
-#' }
+#'   bb_gaugechart(value = 50)
+#' 
+#' # With some options
+#' billboarder() %>% 
+#'   bb_gaugechart(
+#'     value = 160,
+#'     steps_color = rev(c("#FF0000", "#F97600", "#F6C600", "#60B044"))
+#'   ) %>% 
+#'   bb_gauge(
+#'     label = list(format = suffix("km/h")),
+#'     min = 10, max = 200, width = 20
+#'   )
+#'
 bb_gaugechart <- function(bb, value, name = "Value", 
                      steps = c(30, 60, 90, 100),
                      steps_color = c("#FF0000", "#F97600", "#F6C600", "#60B044"),
@@ -493,6 +479,7 @@ bb_gaugechart <- function(bb, value, name = "Value",
 #'
 #' @param bb A \code{billboard} \code{htmlwidget} object.
 #' @param data A \code{data.frame}, first column must contain labels and second values associated.
+#' @param mapping Mapping of variables on the chart, see \code{\link{bbaes}}.
 #' @param ... Arguments for slot pie, \url{https://naver.github.io/billboard.js/release/latest/doc/Options.html#.pie}.
 #' 
 #' @note This function can be used with \code{\link{billboarderProxy}} in shiny application.
@@ -500,26 +487,56 @@ bb_gaugechart <- function(bb, value, name = "Value",
 #' @return A \code{billboard} \code{htmlwidget} object.
 #' @export
 #' 
+#' @importFrom stats setNames
+#' 
 #' @examples
-#' \dontrun{
+#' 
 #' stars <- data.frame(
 #'   package = c("billboarder", "ggiraph", "officer", "shinyWidgets", "visNetwork"),
 #'   stars = c(9, 177, 43, 44, 169)
 #' )
 #' 
+#' # Default
 #' billboarder() %>% 
 #'   bb_piechart(data = stars)
-#' }
-bb_piechart <- function(bb, data, ...) {
+#' 
+#' # Explicit mapping
+#' billboarder() %>% 
+#'   bb_piechart(data = stars, bbaes(package, stars))
+#' 
+#' # Other way to specify mapping
+#' billboarder(data = stars) %>% 
+#'   bb_aes(package, stars) %>% 
+#'   bb_piechart()
+#'
+bb_piechart <- function(bb, data, mapping = NULL, ...) {
   
   if (missing(data))
     data <- bb$x$data
   
   data <- as.data.frame(data)
   
-  json <- as.list(data[[2]])
-  json <- lapply(X = json, FUN = list)
-  names(json) <- data[[1]]
+  mapping <- mapping %||% bb$x$mapping
+  
+  if (is.null(mapping)) {
+    
+    json <- as.list(data[[2]])
+    json <- lapply(X = json, FUN = list)
+    names(json) <- data[[1]]
+    
+  } else {
+    
+    if (!is.null(mapping$group))
+      message("'group' isn't used for pie charts.")
+    
+    data_mapped <- bbmapping(data = data, mapping = mapping)
+    
+    json <- mapply(
+      FUN = function(name, value) {stats::setNames(list(list(value)), name)}, 
+      name = data_mapped[[1]], value = data_mapped[[2]]
+    )
+    
+  }
   
   data_opt <- list(
     json = json,

@@ -4,18 +4,14 @@
 \alias{bb_scatterplot}
 \title{Helper for creating a scatter chart}
 \usage{
-bb_scatterplot(bb, data, x = NULL, y = NULL, group = NULL, ...)
+bb_scatterplot(bb, data, mapping = NULL, ...)
 }
 \arguments{
 \item{bb}{A \code{billboard} \code{htmlwidget} object.}
 
 \item{data}{A \code{data.frame}}
 
-\item{x}{Variable to map to the x-axis, if \code{NULL} first variable is used.}
-
-\item{y}{Variable to map to the y-axis, if \code{NULL} second variable is used.}
-
-\item{group}{Variable to use to plot data by group.}
+\item{mapping}{Mapping of variables on the chart, see \code{\link{bbaes}}.}
 
 \item{...}{unused}
 }
@@ -29,8 +25,25 @@ Helper for creating a scatter chart
 This function can be used with \code{\link{billboarderProxy}} in shiny application.
 }
 \examples{
-\dontrun{
+# Use first and second variable by default
 billboarder() \%>\% 
-  bb_scatterplot(data = iris, x = "Sepal.Length", y = "Sepal.Width")
-}
+  bb_scatterplot(data = iris)
+
+
+# Explicit mapping
+billboarder() \%>\% 
+  bb_scatterplot(
+    data = iris, 
+    mapping = bbaes(Petal.Length, Petal.Width)
+  ) \%>\% 
+  bb_x_axis(tick = list(fit = FALSE))
+
+
+# Grouping variable
+billboarder() \%>\% 
+  bb_scatterplot(
+    data = iris, 
+    mapping = bbaes(Sepal.Length, Sepal.Width, group = Species)
+  )
+
 }

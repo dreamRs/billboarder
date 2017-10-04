@@ -62,7 +62,6 @@ dropNulls <- function (x)
 #' Add data to Billboard chart
 #'
 #' @param bb A \code{billboard} \code{htmlwidget} object.
-#' @param data A \code{data.frame}
 #' @param ... Arguments defined in \url{https://naver.github.io/billboard.js/demo/}.
 #' 
 #' @note This function can be used with \code{\link{billboarderProxy}} in shiny application.
@@ -75,19 +74,39 @@ dropNulls <- function (x)
 #'  bb_barchart(data = table(mtcars$cyl)) %>%
 #'  bb_data(names = list(Freq = "Number of cylinders"), labels = TRUE)
 #'  
-bb_data <- function(bb, data = NULL, ...) {
+bb_data <- function(bb, ...) {
+  
+  args <- list(...)
 
   if ("billboarder" %in% class(bb)) {
-    .bb_opt(bb, "data", json = as.list(data), ...)
-  } else if ("billboarder_Proxy" %in% class(bb)) {
     
-    if (nrow(data) == 1) {
-      json <- lapply(X = as.list(data), FUN = list)
+    if (is.null(bb$x$mapping)) {
+      
+      .bb_opt(bb, "data", ...)
+      
     } else {
-      json <- as.list(data)
+      
+      data <- args$data %||% bb$x$data
+
+      .bb_opt(bb, "data", json = bbmapping(data = data, mapping = bb$x$mapping), x = "x", ...)
+      
     }
     
-    .bb_proxy(bb, "data", json = json, ...)
+  } else if ("billboarder_Proxy" %in% class(bb)) {
+    
+    if (!is.null(args$data)) {
+      data <- args$data
+      if (nrow(data) == 1) {
+        json <- lapply(X = as.list(data), FUN = list)
+      } else {
+        json <- as.list(data)
+      }
+      
+      .bb_proxy(bb, "data", json = json, ...)
+    } else {
+      .bb_proxy(bb, "data", ...)
+    }
+    
   }
 
 }

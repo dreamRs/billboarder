@@ -4,23 +4,18 @@
 \alias{bb_barchart}
 \title{Helper for creating a bar chart}
 \usage{
-bb_barchart(bb, data, x = NULL, y = NULL, group = NULL, stacked = FALSE,
-  rotated = FALSE, color = NULL, ...)
+bb_barchart(bb, data, mapping = NULL, stacked = FALSE, rotated = FALSE,
+  color = NULL, ...)
 }
 \arguments{
 \item{bb}{A \code{billboard} \code{htmlwidget} object.}
 
 \item{data}{A \code{data.frame}, the first column will be used for x axis unless
-specified otherwise in \code{...}. If not a \code{data.frame}, an object coercible to \code{data.frame}.}
+specified otherwise in \code{mapping}. If not a \code{data.frame}, an object coercible to \code{data.frame}.}
 
-\item{x}{Name of the variable to map on the x-axis, shouldn't contain duplicate except if \code{group} is provided.}
+\item{mapping}{Mapping of variables on the chart, see \code{\link{bbaes}}.}
 
-\item{y}{Name of the variable to map on the y-axis, if length one produce a simple barchart except if \code{group} is provided,
-if length two or higher each variable will be a sub-category of the x value.}
-
-\item{group}{Name of the grouping variable if one, for ploting stacked or dodge bar charts.}
-
-\item{stacked}{Logical, if several columns provided, produce a stacked bar chart, else
+\item{stacked}{Logical, if several columns are provided, produce a stacked bar chart, else
 a dodge bar chart.}
 
 \item{rotated}{Switch x and y axis position.}
@@ -55,7 +50,7 @@ billboarder() \%>\%
 
 # Specify explicitly the columns to use
 billboarder() \%>\%
-  bb_barchart(data = stars, x = "package", y = "stars", rotated = TRUE)
+  bb_barchart(data = stars, mapping = bbaes(package, stars), rotated = TRUE)
 
 
 # Add some options
@@ -78,12 +73,12 @@ stars_wide <- data.frame(
 
 billboarder() \%>\%
   bb_barchart(data = stars_wide, 
-              x = "package", y = "stars", group = "author",
+              mapping = bbaes(package, stars, group = author),
               stacked = TRUE)
 
 billboarder() \%>\%
   bb_barchart(data = stars_wide,
-              x = "author", y = "stars", group = "package",
+              mapping = bbaes(author, stars, group = package),
               stacked = TRUE)
 
 
@@ -93,7 +88,8 @@ tab <- table(sample(letters[1:5], 100, TRUE), sample(LETTERS[1:5], 100, TRUE))
 dat <- as.data.frame(tab)
 
 billboarder() \%>\%
-  bb_barchart(data = dat, x = "Var1", y = "Freq", group = "Var2", rotated = TRUE)
+  bb_barchart(data = dat, bbaes(x = Var1, y = Freq, group = Var2), rotated = TRUE)
+
 
 # You can also pass data in a 'wide' format
 dat2 <- data.frame(
@@ -105,10 +101,7 @@ dat2 <- data.frame(
   E = sample.int(n = 100, size = 5)
 )
 
-billboarder() \%>\%
-  bb_barchart(data = dat2, x = "x", y = c("A", "B", "C", "D", "E"), stacked = TRUE)
-
-# Same as (with order of stacked series)
+# But cannot use mapping
 billboarder() \%>\%
   bb_barchart(data = dat2, stacked = TRUE) \%>\% 
   bb_data(order = NULL, labels = TRUE)
