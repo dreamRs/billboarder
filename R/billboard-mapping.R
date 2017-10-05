@@ -1,15 +1,16 @@
 #' Map variables on the chart
 #'
 #' @param bb A \code{billboard} \code{htmlwidget} object.
-#' @param x Name of the variable to map on the x-axis
-#' @param y Name of the variable to map on the y-axis
+#' @param x Name of the variable to map on the x-axis.
+#' @param y Name of the variable to map on the y-axis.
 #' @param group Name of the grouping variable.
 #'
 #' @return A \code{billboard} \code{htmlwidget} object.
 #' @export
 #' 
 #' @note \code{bb_aes} is intended to use in a "piping" way. 
-#' \code{bbaes} is the equivalent to use inside a helper function such as \code{bb_barchart}, \code{bb_scatterplot}...
+#' \code{bbaes} is the equivalent to use inside a helper function
+#'  such as \code{bb_barchart}, \code{bb_scatterplot}...
 #' 
 #' @name billboard-aes
 #'
