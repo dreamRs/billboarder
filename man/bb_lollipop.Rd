@@ -4,7 +4,7 @@
 \alias{bb_lollipop}
 \title{Helper for creating a lollipop chart}
 \usage{
-bb_lollipop(bb, data, x = NULL, y = NULL, rotated = FALSE,
+bb_lollipop(bb, data, mapping = NULL, rotated = FALSE,
   point_color = "#112446", point_size = 8, line_color = "#000", ...)
 }
 \arguments{
@@ -14,9 +14,7 @@ bb_lollipop(bb, data, x = NULL, y = NULL, rotated = FALSE,
 argument \code{x} is speciefied, the second one will be use as y values.
  If not a \code{data.frame}, an object coercible to \code{data.frame}.}
 
-\item{x}{Character, the variable to use for the x axis.}
-
-\item{y}{Character, the variable containing the values to map on the chart.}
+\item{mapping}{Mapping of variables on the chart, see \code{\link{bbaes}}.}
 
 \item{rotated}{Switch x and y axis position.}
 
