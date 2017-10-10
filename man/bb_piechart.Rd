@@ -9,7 +9,7 @@ bb_piechart(bb, data, mapping = NULL, ...)
 \arguments{
 \item{bb}{A \code{billboard} \code{htmlwidget} object.}
 
-\item{data}{A \code{data.frame}, first column must contain labels and second values associated.}
+\item{data}{A \code{data.frame}, first column should contain labels, second column values associated, except if mapping is provided.}
 
 \item{mapping}{Mapping of variables on the chart, see \code{\link{bbaes}}.}
 

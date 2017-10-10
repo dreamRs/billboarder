@@ -478,7 +478,7 @@ bb_gaugechart <- function(bb, value, name = "Value",
 #' Helper for creating a pie chart
 #'
 #' @param bb A \code{billboard} \code{htmlwidget} object.
-#' @param data A \code{data.frame}, first column must contain labels and second values associated.
+#' @param data A \code{data.frame}, first column should contain labels, second column values associated, except if mapping is provided.
 #' @param mapping Mapping of variables on the chart, see \code{\link{bbaes}}.
 #' @param ... Arguments for slot pie, \url{https://naver.github.io/billboard.js/release/latest/doc/Options.html#.pie}.
 #' 
@@ -526,14 +526,17 @@ bb_piechart <- function(bb, data, mapping = NULL, ...) {
     
   } else {
     
-    if (!is.null(mapping$group))
+    if (!is.null(mapping$group)) {
       message("'group' isn't used for pie charts.")
+      mapping$group <- NULL
+    }
+      
     
     data_mapped <- bbmapping(data = data, mapping = mapping)
     
     json <- mapply(
       FUN = function(name, value) {stats::setNames(list(list(value)), name)}, 
-      name = data_mapped[[1]], value = data_mapped[[2]]
+      name = as.factor(data_mapped[[1]]), value = data_mapped[[2]]
     )
     
   }
@@ -565,6 +568,7 @@ bb_piechart <- function(bb, data, mapping = NULL, ...) {
 #'
 #' @param bb A \code{billboard} \code{htmlwidget} object.
 #' @param data A \code{data.frame}.
+#' @param mapping Mapping of variables on the chart, see \code{\link{bbaes}}.
 #' @param ... Arguments for slot donut, \url{https://naver.github.io/billboard.js/release/latest/doc/Options.html#.donut}.
 #' 
 #' @note This function can be used with \code{\link{billboarderProxy}} in shiny application.
@@ -582,16 +586,36 @@ bb_piechart <- function(bb, data, mapping = NULL, ...) {
 #' billboarder() %>% 
 #'   bb_donutchart(data = stars, title = "Stars")
 #' }
-bb_donutchart <- function(bb, data, ...) {
+bb_donutchart <- function(bb, data, mapping = NULL, ...) {
   
   if (missing(data))
     data <- bb$x$data
   
   data <- as.data.frame(data)
+  mapping <- mapping %||% bb$x$mapping
   
-  json <- as.list(data[[2]])
-  json <- lapply(X = json, FUN = list)
-  names(json) <- data[[1]]
+  if (is.null(mapping)) {
+    
+    json <- as.list(data[[2]])
+    json <- lapply(X = json, FUN = list)
+    names(json) <- data[[1]]
+    
+  } else {
+    
+    if (!is.null(mapping$group)) {
+      message("'group' isn't used for donut charts.")
+      mapping$group <- NULL
+    }
+      
+    
+    data_mapped <- bbmapping(data = data, mapping = mapping)
+    
+    json <- mapply(
+      FUN = function(name, value) {stats::setNames(list(list(value)), name)}, 
+      name = as.factor(data_mapped[[1]]), value = data_mapped[[2]]
+    )
+    
+  }
   
   data_opt <- list(
     json = json,
@@ -668,6 +692,7 @@ bb_histogram <- function(bb, x, breaks = "Sturges", ...) {
 #'
 #' @param bb A \code{billboard} \code{htmlwidget} object.
 #' @param data A \code{data.frame} or a \code{vector}.
+#' @param mapping Mapping of variables on the chart, see \code{\link{bbaes}}.
 #' @param type Type of chart : line, spline, step, area, area-spline, area-step.
 #' @param show_point Whether to show each point in line.
 #' @param ... Not used.
@@ -679,7 +704,7 @@ bb_histogram <- function(bb, x, breaks = "Sturges", ...) {
 #'
 #' @examples
 #' 
-#' # Different types
+#' ## Different types
 #' x <- round(rnorm(20), 2)
 #' 
 #' billboarder() %>% 
@@ -695,7 +720,7 @@ bb_histogram <- function(bb, x, breaks = "Sturges", ...) {
 #'   bb_linechart(data = x, type = "area-spline")
 #'   
 #'   
-#' # Timeserie with date (Date)
+#' ## Timeserie with date (Date)
 #' data("economics", package = "ggplot2")
 #' 
 #' billboarder() %>%
@@ -708,28 +733,45 @@ bb_histogram <- function(bb, x, breaks = "Sturges", ...) {
 #'   bb_y_grid(show = TRUE) %>% 
 #'   bb_subchart(show = TRUE)
 #'   
+#'   
+#' # With multiple lines :
+#' 
+#' data("economics_long", package = "ggplot2")
+#' 
+#' billboarder() %>%
+#'   bb_linechart(economics_long, bbaes(date, value, variable)) %>% 
+#'   bb_data(hide = "pop") %>% 
+#'   bb_x_axis(tick = list(format = "%Y-%m", fit = FALSE))
+#'   
+#'   
 #'
-#' # Timeserie with datetime (POSIXct)
+#' ## Timeserie with datetime (POSIXct)
 #' data("cdc_prod_filiere")
 #' 
 #' billboarder() %>% 
 #'   bb_linechart(data = cdc_prod_filiere[, c("date_heure", "prod_eolien")])
+#' 
+#' # or with mapping :
+#' billboarder() %>% 
+#'   bb_linechart(cdc_prod_filiere, bbaes(date_heure, prod_bioenergies))
+#'   
+#'   
 #'  
+#' ### Other type for x-axis 
 #'  
-#' ## Other type for x-axis 
-#'  
-#' # character/factor on x-axis
+#' ## character/factor on x-axis
 #' AirPassengers1960 <- data.frame(
 #'   month = month.name, 
 #'   AirPassengers = tail(AirPassengers, 12)
 #' )
 #' # you have to specify that x-axis is of type 'category'
+#' # and that column 'month' must be used for x-axis values
 #' billboarder() %>% 
 #'   bb_linechart(data = AirPassengers1960, x = "month") %>% 
 #'   bb_x_axis(type = "category")
 #' 
 #' 
-#' # numeric on x-axis
+#' ## numeric on x-axis
 #' lynx.df <- data.frame(
 #'   year = time(lynx),
 #'   lynx = lynx
@@ -738,7 +780,7 @@ bb_histogram <- function(bb, x, breaks = "Sturges", ...) {
 #' billboarder() %>% 
 #'   bb_linechart(data = lynx.df, x = "year")
 #'   
-bb_linechart <- function(bb, data, type = "line", show_point = FALSE, ...) {
+bb_linechart <- function(bb, data, mapping = NULL, type = "line", show_point = FALSE, ...) {
   
   type <- match.arg(
     arg = type, 
@@ -749,9 +791,13 @@ bb_linechart <- function(bb, data, type = "line", show_point = FALSE, ...) {
   if (missing(data))
     data <- bb$x$data
   
+  mapping <- mapping %||% bb$x$mapping
+  
   args <- list(...)
   
   if (is.vector(data)) {
+    if (!is.null(mapping))
+      warning("'mapping' is ignored when 'data' is a vector.")
     data_opt <- list(
       json = list(
         x = data
@@ -759,6 +805,9 @@ bb_linechart <- function(bb, data, type = "line", show_point = FALSE, ...) {
       type = type
     )
   } else {
+    if (!is.null(mapping)) {
+      data <- bbmapping(data = data, mapping = mapping)
+    } 
     if (inherits(x = data[[1]], what = c("Date", "POSIXct"))) {
       if (inherits(x = data[[1]], what = c("POSIXct"))) {
         if (!"billboarder_Proxy" %in% class(bb)) {
@@ -805,8 +854,7 @@ bb_linechart <- function(bb, data, type = "line", show_point = FALSE, ...) {
 #' @param bb A \code{billboard} \code{htmlwidget} object.
 #' @param data A \code{data.frame} or a \code{vector}, the first column will
 #'  be used to calculate density if \code{x} is \code{NULL}.
-#' @param x The name of the variable to use in \code{data}.
-#' @param group Variable to use to plot data by group.
+#' @param mapping Mapping of variables on the chart, see \code{\link{bbaes}}.
 #' @param stacked Logical, create a stacked density plot.
 #' @param stat Stat to compute : \code{density} or \code{count}.
 #' @param fill Produce a conditional density estimate, this option force \code{stacked = TRUE}.
@@ -820,32 +868,50 @@ bb_linechart <- function(bb, data, type = "line", show_point = FALSE, ...) {
 #' @importFrom stats setNames density density.default
 #'
 #' @examples
+#' 
+#' # With a vector
+#' billboarder() %>%
+#'   bb_densityplot(data = rnorm(1e4))
+#' 
 #' data("diamonds", package = "ggplot2")
 #' 
 #' # density plot with one variable
 #' billboarder() %>% 
 #'   bb_densityplot(data = diamonds, x = "carat")
 #' 
+#' # Same with mapping
+#' billboarder() %>% 
+#'   bb_densityplot(diamonds, bbaes(carat))
+#' 
 #' # With a grouping variable
 #' billboarder() %>% 
 #'   bb_densityplot(data = diamonds, x = "depth", group = "cut") %>% 
 #'   bb_x_axis(min = 55, max = 70)
 #' 
+#' # Same with mapping
+#' billboarder() %>% 
+#'   bb_densityplot(diamonds, bbaes(depth, group = cut)) %>% 
+#'   bb_x_axis(min = 55, max = 70)
+#' 
+#' 
 #' # a stacked density plot using count as statistic
 #' bb <- billboarder() %>%
-#'   bb_densityplot(data = diamonds, x = "depth", group = "cut",
+#'   bb_densityplot(diamonds, bbaes(depth, group = cut),
 #'                  stacked = TRUE, stat = "count") %>%
 #'   bb_x_axis(min = 55, max = 70)
 #' bb
 #' 
 #' # changing order
 #' bb %>% bb_data(order = "asc")
-bb_densityplot <- function(bb, data, x = NULL, group = NULL, stacked = FALSE, stat = "density", fill = FALSE, ...) {
+#' 
+bb_densityplot <- function(bb, data, mapping = NULL, stacked = FALSE, stat = "density", fill = FALSE, ...) {
   
   stat <- match.arg(arg = stat, choices = c("density", "count"))
   
   if (missing(data))
     data <- bb$x$data
+  
+  mapping <- mapping %||% bb$x$mapping
   
   args <- list(...)
   argsdensity <- formals(density.default)
@@ -855,7 +921,11 @@ bb_densityplot <- function(bb, data, x = NULL, group = NULL, stacked = FALSE, st
   weights <- args$weights %||% argsdensity$weights
   n <- args$n %||% argsdensity$n
   
+  group <- args$group
+  
   if (is.vector(data)) {
+    if (!is.null(mapping))
+      warning("'mapping' is ignored when 'data' is a vector.")
     data <- data.frame(x = data)
     x <- "x"
     if (!is.null(group)) {
@@ -865,9 +935,23 @@ bb_densityplot <- function(bb, data, x = NULL, group = NULL, stacked = FALSE, st
       data$group <- group
       group <- "group"
     }
+  } else {
+    if (!is.null(mapping)) {
+      if (!is.null(mapping$group))
+        group <- as.character(mapping$group)
+      else
+        group <- NULL
+      mapping$group <- NULL
+      data_mapped <- bbmapping(data = data, mapping = mapping)
+      data_mapped <- data.frame(unlist(data_mapped))
+      names(data_mapped) <- as.character(mapping$x)
+      if (!is.null(group))
+        data_mapped[[group]] <- data[[group]]
+      data <- data_mapped
+    }
   }
   
-  x <- x %||% names(data)[1]
+  x <- args$x %||% names(data)[1]
   
   # fill options
   ymax <- NULL
@@ -975,8 +1059,7 @@ bb_densityplot <- function(bb, data, x = NULL, group = NULL, stacked = FALSE, st
 #' @param bb A \code{billboard} \code{htmlwidget} object.
 #' @param data A \code{data.frame} or a \code{vector}, the first column will
 #'  be used to calculate density if \code{x} is \code{NULL}.
-#' @param x The name of the variable to use in \code{data}.
-#' @param group Variable to use to plot data by group.
+#' @param mapping Mapping of variables on the chart, see \code{\link{bbaes}}.
 #' @param stacked Logical, create a stacked histogram.
 #' @param fill Logical, create a stacked percentage histogram.
 #' @param bins Number of bins. Overridden by \code{binwidth}. Defaults to 30.
@@ -993,16 +1076,21 @@ bb_densityplot <- function(bb, data, x = NULL, group = NULL, stacked = FALSE, st
 #' @importFrom htmlwidgets JS
 #'
 #' @examples
+#' 
 #' data("diamonds", package = "ggplot2")
 #' 
 #' # one variable
 #' billboarder() %>% 
 #'   bb_histogram(data = diamonds, x = "price")
 #' 
+#' # with mapping
+#' billboarder() %>% 
+#'   bb_histogram(diamonds, bbaes(price))
+#' 
 #' # equivalent to
 #' billboarder() %>% 
 #'   bb_histogram(data = diamonds$price)
-#'   
+#' 
 #' # prettier with 'binwidth'
 #' # (but you need to know your data)
 #' billboarder() %>% 
@@ -1014,9 +1102,14 @@ bb_densityplot <- function(bb, data, x = NULL, group = NULL, stacked = FALSE, st
 #'   bb_histogram(data = diamonds, x = "price",
 #'                group = "cut", binwidth = 500)
 #' 
+#' # and with mapping
+#' billboarder() %>%
+#'   bb_histogram(diamonds, bbaes(price, group = cut),
+#'                binwidth = 500)
+#' 
 #' # stacked histogram
 #' billboarder() %>%
-#'   bb_histogram(data = diamonds, x = "price", group = "cut",
+#'   bb_histogram(diamonds, bbaes(price, group = cut),
 #'                stacked = TRUE, binwidth = 500)
 #' 
 #' 
@@ -1041,8 +1134,8 @@ bb_densityplot <- function(bb, data, x = NULL, group = NULL, stacked = FALSE, st
 #'            text = "mean of sample B")
 #'     )
 #'   )
-
-bb_histogram <- function(bb, data, x = NULL, group = NULL, stacked = FALSE, fill = FALSE, bins = 30, binwidth = NULL, ...) {
+#' 
+bb_histogram <- function(bb, data, mapping = NULL, stacked = FALSE, fill = FALSE, bins = 30, binwidth = NULL, ...) {
   
   if (!requireNamespace(package = "ggplot2"))
     message("Package 'ggplot2' is required to run this function")
@@ -1050,9 +1143,14 @@ bb_histogram <- function(bb, data, x = NULL, group = NULL, stacked = FALSE, fill
   if (missing(data))
     data <- bb$x$data
   
+  mapping <- mapping %||% bb$x$mapping
+  
   args <- list(...)
+  group <- args$group
   
   if (is.vector(data)) {
+    if (!is.null(mapping))
+      warning("'mapping' is ignored when 'data' is a vector.")
     data <- data.frame(x = data)
     x <- "x"
     if (!is.null(group)) {
@@ -1062,9 +1160,23 @@ bb_histogram <- function(bb, data, x = NULL, group = NULL, stacked = FALSE, fill
       data$group <- group
       group <- "group"
     }
+  } else {
+    if (!is.null(mapping)) {
+      if (!is.null(mapping$group))
+        group <- as.character(mapping$group)
+      else
+        group <- NULL
+      mapping$group <- NULL
+      data_mapped <- bbmapping(data = data, mapping = mapping)
+      data_mapped <- data.frame(unlist(data_mapped))
+      names(data_mapped) <- as.character(mapping$x)
+      if (!is.null(group))
+        data_mapped[[group]] <- data[[group]]
+      data <- data_mapped
+    }
   }
   
-  x <- x %||% names(data)[1]
+  x <- args$x %||% names(data)[1]
   
   # fill options
   ymax <- NULL
@@ -1199,8 +1311,7 @@ bb_histogram <- function(bb, data, x = NULL, group = NULL, stacked = FALSE, fill
 #' @param data A \code{data.frame}, the first column will be used for x axis unless
 #' argument \code{x} is speciefied, the second one will be use as y values.
 #'  If not a \code{data.frame}, an object coercible to \code{data.frame}. 
-#' @param x Character, the variable to use for the x axis.
-#' @param y Character, the variable containing the values to map on the chart.
+#' @param mapping Mapping of variables on the chart, see \code{\link{bbaes}}.
 #' @param rotated Switch x and y axis position.
 #' @param point_color Color of the lollipop.
 #' @param point_size Size of the lollipop.
@@ -1240,28 +1351,25 @@ bb_histogram <- function(bb, data, x = NULL, group = NULL, stacked = FALSE, fill
 #'     title = "Star Wars - Total Lifetime Grosses",
 #'     caption = "Data source : wikipedia"
 #'   )
-bb_lollipop <- function(bb, data, x = NULL, y = NULL, rotated = FALSE, point_color = "#112446", point_size = 8, line_color = "#000", ...) {
+bb_lollipop <- function(bb, data, mapping = NULL, rotated = FALSE, point_color = "#112446", point_size = 8, line_color = "#000", ...) {
   
   if (missing(data))
     data <- bb$x$data
-  
   data <- as.data.frame(data)
+  mapping <- mapping %||% bb$x$mapping
   args <- list(...)
   
-  if (is.null(x))
-    x <- names(data)[1]
   
-  if (is.null(y))
-    y <- names(data)[2]
-  
-  data <- data[c(x, y)]
-  data <- cbind(data, lollipop = data[[y]])
-  
-  if (nrow(data) == 1) {
-    json <- lapply(X = as.list(data), FUN = list)
+  if (!is.null(mapping)) {
+    x <- as.character(mapping$x)
+    y <- as.character(mapping$y)
+    json <- bbmapping(data = data, mapping = mapping)
   } else {
-    json <- as.list(data)
+    x <- names(data)[1]
+    y <- names(data)[2]
+    json <- bbmapping(data = data, mapping = bbaes_string(x = x, y = y))
   }
+  json[["lollipop"]] <- json[[2]]
   
   data_opt <- list(
     x = x,

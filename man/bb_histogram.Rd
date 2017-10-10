@@ -4,8 +4,8 @@
 \alias{bb_histogram}
 \title{Helper for creating an histogram}
 \usage{
-bb_histogram(bb, data, x = NULL, group = NULL, stacked = FALSE,
-  fill = FALSE, bins = 30, binwidth = NULL, ...)
+bb_histogram(bb, data, mapping = NULL, stacked = FALSE, fill = FALSE,
+  bins = 30, binwidth = NULL, ...)
 }
 \arguments{
 \item{bb}{A \code{billboard} \code{htmlwidget} object.}
@@ -13,9 +13,7 @@ bb_histogram(bb, data, x = NULL, group = NULL, stacked = FALSE,
 \item{data}{A \code{data.frame} or a \code{vector}, the first column will
 be used to calculate density if \code{x} is \code{NULL}.}
 
-\item{x}{The name of the variable to use in \code{data}.}
-
-\item{group}{Variable to use to plot data by group.}
+\item{mapping}{Mapping of variables on the chart, see \code{\link{bbaes}}.}
 
 \item{stacked}{Logical, create a stacked histogram.}
 
@@ -34,16 +32,21 @@ A \code{billboard} \code{htmlwidget} object.
 Helper for creating an histogram
 }
 \examples{
+
 data("diamonds", package = "ggplot2")
 
 # one variable
 billboarder() \%>\% 
   bb_histogram(data = diamonds, x = "price")
 
+# with mapping
+billboarder() \%>\% 
+  bb_histogram(diamonds, bbaes(price))
+
 # equivalent to
 billboarder() \%>\% 
   bb_histogram(data = diamonds$price)
-  
+
 # prettier with 'binwidth'
 # (but you need to know your data)
 billboarder() \%>\% 
@@ -55,9 +58,14 @@ billboarder() \%>\%
   bb_histogram(data = diamonds, x = "price",
                group = "cut", binwidth = 500)
 
+# and with mapping
+billboarder() \%>\%
+  bb_histogram(diamonds, bbaes(price, group = cut),
+               binwidth = 500)
+
 # stacked histogram
 billboarder() \%>\%
-  bb_histogram(data = diamonds, x = "price", group = "cut",
+  bb_histogram(diamonds, bbaes(price, group = cut),
                stacked = TRUE, binwidth = 500)
 
 
@@ -82,6 +90,7 @@ billboarder() \%>\%
            text = "mean of sample B")
     )
   )
+
 }
 \seealso{
 \code{\link{bb_densityplot}}

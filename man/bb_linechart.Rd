@@ -4,12 +4,15 @@
 \alias{bb_linechart}
 \title{Helper for creating a line chart}
 \usage{
-bb_linechart(bb, data, type = "line", show_point = FALSE, ...)
+bb_linechart(bb, data, mapping = NULL, type = "line", show_point = FALSE,
+  ...)
 }
 \arguments{
 \item{bb}{A \code{billboard} \code{htmlwidget} object.}
 
 \item{data}{A \code{data.frame} or a \code{vector}.}
+
+\item{mapping}{Mapping of variables on the chart, see \code{\link{bbaes}}.}
 
 \item{type}{Type of chart : line, spline, step, area, area-spline, area-step.}
 
@@ -28,7 +31,7 @@ This function can be used with \code{\link{billboarderProxy}} in shiny applicati
 }
 \examples{
 
-# Different types
+## Different types
 x <- round(rnorm(20), 2)
 
 billboarder() \%>\% 
@@ -44,7 +47,7 @@ billboarder() \%>\%
   bb_linechart(data = x, type = "area-spline")
   
   
-# Timeserie with date (Date)
+## Timeserie with date (Date)
 data("economics", package = "ggplot2")
 
 billboarder() \%>\%
@@ -57,28 +60,45 @@ billboarder() \%>\%
   bb_y_grid(show = TRUE) \%>\% 
   bb_subchart(show = TRUE)
   
+  
+# With multiple lines :
 
-# Timeserie with datetime (POSIXct)
+data("economics_long", package = "ggplot2")
+
+billboarder() \%>\%
+  bb_linechart(economics_long, bbaes(date, value, variable)) \%>\% 
+  bb_data(hide = "pop") \%>\% 
+  bb_x_axis(tick = list(format = "\%Y-\%m", fit = FALSE))
+  
+  
+
+## Timeserie with datetime (POSIXct)
 data("cdc_prod_filiere")
 
 billboarder() \%>\% 
   bb_linechart(data = cdc_prod_filiere[, c("date_heure", "prod_eolien")])
+
+# or with mapping :
+billboarder() \%>\% 
+  bb_linechart(cdc_prod_filiere, bbaes(date_heure, prod_bioenergies))
+  
+  
  
+### Other type for x-axis 
  
-## Other type for x-axis 
- 
-# character/factor on x-axis
+## character/factor on x-axis
 AirPassengers1960 <- data.frame(
   month = month.name, 
   AirPassengers = tail(AirPassengers, 12)
 )
 # you have to specify that x-axis is of type 'category'
+# and that column 'month' must be used for x-axis values
 billboarder() \%>\% 
   bb_linechart(data = AirPassengers1960, x = "month") \%>\% 
   bb_x_axis(type = "category")
 
 
-# numeric on x-axis
+## numeric on x-axis
 lynx.df <- data.frame(
   year = time(lynx),
   lynx = lynx

@@ -4,12 +4,14 @@
 \alias{bb_donutchart}
 \title{Helper for creating a donut chart}
 \usage{
-bb_donutchart(bb, data, ...)
+bb_donutchart(bb, data, mapping = NULL, ...)
 }
 \arguments{
 \item{bb}{A \code{billboard} \code{htmlwidget} object.}
 
 \item{data}{A \code{data.frame}.}
+
+\item{mapping}{Mapping of variables on the chart, see \code{\link{bbaes}}.}
 
 \item{...}{Arguments for slot donut, \url{https://naver.github.io/billboard.js/release/latest/doc/Options.html#.donut}.}
 }
