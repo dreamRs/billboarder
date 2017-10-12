@@ -131,7 +131,11 @@ bb_barchart <- function(bb, data, mapping = NULL, stacked = FALSE, rotated = FAL
     if (is.null(mapping$group)) {
       stacked <- NULL
     } else {
-      stacked <- list(setdiff(names(data_mapped), x))
+      if (stacked) {
+        stacked <- list(setdiff(names(data_mapped), x))
+      } else {
+        stacked <- NULL
+      }
     }
     
     data_opt <- list(
@@ -825,6 +829,7 @@ bb_linechart <- function(bb, data, mapping = NULL, type = "line", show_point = F
       }
     } else {
       data_opt <- list(
+        x = names(data)[1],
         json = as.list(data),
         type = type
       )

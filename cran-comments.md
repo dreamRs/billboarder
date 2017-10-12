@@ -7,7 +7,7 @@
 
 0 errors | 0 warnings | 1 note
 
-* Hello, this is a new release. This package is an htmlwidget for a D3 charting library : billboard.js
+* Hello, this is an update.
 
 ## Reverse dependencies
 

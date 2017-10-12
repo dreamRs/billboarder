@@ -1,0 +1,132 @@
+---
+title: "Mapping - map variables to the chart"
+author: "Victor Perrier"
+date: "`r Sys.Date()`"
+output:
+  prettydoc::html_pretty:
+    theme: architect
+    highlight: github
+vignette: >
+  %\VignetteIndexEntry{Options - styling charts}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+
+## Introduction
+
+There's 3 ways with `billboarder` to pass data to construct a chart :
+
+* Use a `data.frame` with only variable that need to be used, typically for a barchart, the first column is used for x-axis, the second for y-axis.
+* Pass your data to `billboarder` and use function `bb_aes` in a "pipe" flow.
+* Use function `bbaes` inside chart builder helper such as `bb_barchart`, `bb_linechart`, ...
+
+
+## Data
+
+We'll use data about the french electricity production between 2012 and 2016 :
+
+```{r}
+data("prod_par_filiere")
+str(prod_par_filiere)
+```
+
+
+## First method : use a `data.frame`
+
+For creating this simple barchart, we need to use two columns of our `data.frame`
+
+```{r}
+billboarder() %>% 
+  bb_barchart(data = prod_par_filiere[, c("annee", "prod_bioenergies")])
+```
+
+Variable `annee` is used on the x-axis, and `prod_bioenergies` as y values.
+
+
+This is similar for line chart :
+
+```{r}
+billboarder() %>% 
+  bb_linechart(data = prod_par_filiere[, c("annee", "prod_bioenergies")])
+```
+
+
+## Second method : with mapping
+
+We can pass our data to function `billboarder` and then call `bb_aes` to specify which variable to use :
+
+```{r}
+billboarder(data = prod_par_filiere) %>% 
+  bb_aes(x = annee, y = prod_bioenergies) %>% 
+  bb_barchart()
+```
+
+You don't have to pass arguments to `bb_barchart`.
+
+
+This is the same for line chart :
+
+```{r}
+billboarder(data = prod_par_filiere) %>% 
+  bb_aes(x = annee, y = prod_bioenergies) %>% 
+  bb_linechart()
+```
+
+
+
+## Third method : mapping inside function
+
+Mapping can be specified inside the function which specify the type of chart :
+
+```{r}
+billboarder(data = prod_par_filiere) %>% 
+  bb_barchart(mapping = bbaes(x = annee, y = prod_bioenergies))
+```
+
+The function to map variables is `bbaes` without underscore.
+
+For line chart :
+
+```{r}
+billboarder(data = prod_par_filiere) %>% 
+  bb_linechart(mapping = bbaes(x = annee, y = prod_bioenergies))
+```
+
+
+
+## Grouping variable
+
+Construct a chart with groups differ between the first method and the others. For the first one, data need to be in 'wide' format, the other need data in 'long' format with a grouping variable.
+
+
+
+With 'wide' data :
+
+```{r}
+billboarder() %>% 
+  bb_barchart(
+    data = prod_par_filiere[, c("annee", "prod_bioenergies", "prod_eolien", "prod_solaire", "prod_hydraulique")]
+  )
+```
+
+
+with 'long' data :
+
+```{r}
+# prepare data
+data("prod_filiere_long")
+prod_filiere_long <- prod_filiere_long[
+  prod_filiere_long$branche %in% c("bioenergies", "eolien", "solaire", "hydraulique"), 
+]
+head(prod_filiere_long)
+
+
+billboarder(data = prod_filiere_long) %>% 
+  bb_barchart(mapping = bbaes(x = annee, y = prod, group = branche))
+```
+
+
+
+
+

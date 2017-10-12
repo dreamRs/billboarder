@@ -39,6 +39,21 @@
 "prod_par_filiere"
 
 
+#' French electricity generation by year and branch.
+#'
+#' Annual French electricity production (TWh) by branch. Last update : 2017-02-15.
+#'
+#' @format A data frame with 45 rows and 3 variables:
+#' \describe{
+#'   \item{annee}{Year}
+#'   \item{branche}{Source of production}
+#'   \item{prod}{Production in TWh}
+#' }
+#' @source RTE (\url{https://opendata.rte-france.com/explore/dataset/prod_par_filiere})
+"prod_filiere_long"
+
+
+
 
 #' French electricity generation by power source for the day of 2017-06-12.
 #'
