@@ -108,6 +108,7 @@ server <- function(input, output, session) {
     
   }, ignoreInit = TRUE)
   
+  shiny::onStop(shiny::stopApp)
 }
 
 

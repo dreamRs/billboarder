@@ -44,19 +44,33 @@ billboarder() %>%
 ```
 
 
-If you want to create a grouped bar chart, you'll have to put your data in a "wide" format. Here we use `stats::reshape`, but I recommend to use `tidyr::spread` or `data.table::dcast`.
+
+If you want to create a grouped bar chart, first option is to put your data in a "wide" format. Here we use `stats::reshape`, but I recommend to use `tidyr::spread` or `data.table::dcast`.
 
 ```{r stacked_bar}
 df <- as.data.frame(table(
   sample(letters[1:5], 50, TRUE),
   sample(LETTERS[1:5], 50, TRUE)
 ))
-df <- reshape(data = df, idvar = "Var1", timevar = "Var2", direction = "wide")
-df
+df.r <- reshape(data = df, idvar = "Var1", timevar = "Var2", direction = "wide")
+df.r
 
 billboarder() %>% 
-  bb_barchart(data = df)
+  bb_barchart(data = df.r)
 ```
+
+
+Second option is to define a mapping of your variable with function `bbaes` (for more example of mapping, see vignette *billboarder-mapping*).
+
+```{r}
+billboarder() %>% 
+  bb_barchart(
+    data = df,
+    mapping = bbaes(x = Var1, y = Freq, group = Var2)
+  )
+```
+
+
 
 
 ## Line chart

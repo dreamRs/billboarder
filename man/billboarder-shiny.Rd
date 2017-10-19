@@ -11,7 +11,8 @@ billboarderOutput(outputId, width = "100\%", height = "400px")
 
 renderBillboarder(expr, env = parent.frame(), quoted = FALSE)
 
-billboarderProxy(shinyId, session = shiny::getDefaultReactiveDomain())
+billboarderProxy(shinyId, data = NULL,
+  session = shiny::getDefaultReactiveDomain())
 }
 \arguments{
 \item{outputId}{output variable to read from}
@@ -30,6 +31,8 @@ is useful if you want to save an expression in a variable.}
 \item{shinyId}{single-element character vector indicating the output ID of the
 chart to modify (if invoked from a Shiny module, the namespace will be added
 automatically)}
+
+\item{data}{A \code{data.frame}.}
 
 \item{session}{the Shiny session object to which the chart belongs; usually the
 default value will suffice}

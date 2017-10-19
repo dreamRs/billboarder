@@ -71,6 +71,8 @@ server <- function(input, output, session) {
       bb_piechart(data = aggregate(Freq ~ Survived, data = Titanic_f, FUN = sum))
     
   }, ignoreInit = TRUE)
+  
+  shiny::onStop(shiny::stopApp)
 }
 
 

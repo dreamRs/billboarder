@@ -51,6 +51,7 @@ server <- function(input, output, session) {
       bb_proxy_transform(type = input$type)
   })
   
+  shiny::onStop(shiny::stopApp)
 }
 
 shinyApp(ui = ui, server = server)

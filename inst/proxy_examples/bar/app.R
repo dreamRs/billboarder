@@ -22,7 +22,7 @@ ui <- fluidPage(
         
         radioButtons(
           inputId = "var1", 
-          label = "Choose a variable", 
+          label = "Choose a variable:", 
           choices = colnames(Titanic)[-5],
           selected = "Class"
         )
@@ -32,7 +32,7 @@ ui <- fluidPage(
     ),
     
     column(
-      width = 6,
+      width = 9,
       billboarderOutput(outputId = "barres")
     )
     
@@ -45,20 +45,22 @@ ui <- fluidPage(
 server <- function(input, output, session) {
   
   output$barres <- renderBillboarder({
+    dat <- aggregate(Freq ~ Class, data = Titanic, FUN = sum)
     billboarder() %>% 
-      bb_barchart(data = aggregate(Freq ~ Class, data = Titanic, FUN = sum))
+      bb_barchart(data = dat)
   })
   
   observeEvent(input$var1, {
     
     dat <- aggregate(as.formula(paste("Freq", input$var1, sep = "~")), data = Titanic, FUN = sum)
-    
     billboarderProxy(shinyId = "barres") %>% 
       bb_unload() %>%
       bb_barchart(data = dat)
     
   }, ignoreInit = TRUE)
   
+  
+  shiny::onStop(shiny::stopApp)
 }
 
 

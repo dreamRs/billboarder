@@ -79,6 +79,7 @@ server <- function(input, output, session) {
       bb_barchart(data = dat(), color = r_cols$x)
   })
   
+  shiny::onStop(shiny::stopApp)
 }
 
 

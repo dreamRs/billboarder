@@ -14,6 +14,7 @@
 #' @param shinyId single-element character vector indicating the output ID of the
 #'   chart to modify (if invoked from a Shiny module, the namespace will be added
 #'   automatically)
+#' @param data A \code{data.frame}.
 #' @param session the Shiny session object to which the chart belongs; usually the
 #'   default value will suffice
 #'
@@ -36,7 +37,7 @@ renderBillboarder <- function(expr, env = parent.frame(), quoted = FALSE) {
 
 #' @rdname billboarder-shiny
 #' @export
-billboarderProxy <- function(shinyId, session = shiny::getDefaultReactiveDomain()) {
+billboarderProxy <- function(shinyId, data = NULL, session = shiny::getDefaultReactiveDomain()) {
   
   if (is.null(session)) {
     stop("billboarderProxy must be called from the server function of a Shiny app")
@@ -51,7 +52,7 @@ billboarderProxy <- function(shinyId, session = shiny::getDefaultReactiveDomain(
       session = session,
       id = shinyId,
       x = structure(
-        list()
+        list(data = data)
       )
     ),
     class = "billboarder_Proxy"

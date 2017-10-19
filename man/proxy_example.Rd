@@ -8,17 +8,42 @@ proxy_example(chart = "gauge")
 }
 \arguments{
 \item{chart}{Chart type for which to see an example, possible values are \code{gauge}, \code{pie}, \code{bar}, 
-\code{bar2}, \code{line}, \code{line2}, \code{density}, \code{histogram} or , \code{transform} (for changing type of chart).}
+\code{bar2}, \code{line}, \code{line2}, \code{density}, \code{histogram}, \code{stacked_bar} or \code{transform} (for changing type of chart).}
 }
 \description{
-Launch an example app to demonstrate how to use proxy method from \code{billboarder}.
+Launch an example to demonstrate how to use proxy method from \code{billboarder} in Shiny app.
 }
 \examples{
 \dontrun{
 
 if (interactive()) {
 
-proxy_examples("line")
+# Titanic passenger
+proxy_example("bar")
+
+# Electricity production by sources and year
+proxy_example("bar2")
+
+# Update a stacked bar chart
+proxy_example("stacked_bar")
+
+# Moving sine and cosine
+proxy_example("line")
+
+# Changing lines and adding ones
+proxy_example("line2")
+
+# Update pie chart
+proxy_example("pie")
+
+# Density with ggplot2 diamonds
+proxy_example("density")
+
+# Histogram with ggplot2 diamonds
+proxy_example("histogram")
+
+# Update chart type
+proxy_example("transform")
 
 }
 

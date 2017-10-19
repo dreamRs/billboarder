@@ -40,6 +40,7 @@ server <- function(input, output, session) {
   
   dat <- reactive({
     data.frame(
+      index = seq_len(100),
       Sine = sin(1:100/10 + input$sinePhase * pi/180) * input$sineAmplitude,
       Cosine = 0.5 * cos(1:100/10),
       "Sine 2" = sin(1:100/10) * 0.25 + 0.5
@@ -56,6 +57,7 @@ server <- function(input, output, session) {
       bb_linechart(data = dat())
   })
   
+  shiny::onStop(shiny::stopApp)
 }
 
 

@@ -115,9 +115,9 @@ bb_barchart <- function(bb, data, mapping = NULL, stacked = FALSE, rotated = FAL
     } else {
       json <- as.list(data[c(x, y)])
     }
-    
+    names(json)[which(names(json) == x)] <- getOption("billboarder-x", default = "bb-x")
     data_opt <- list(
-      x = x,
+      x = getOption("billboarder-x", default = "bb-x"),
       json = json,
       type = "bar",
       groups = stacked
@@ -125,22 +125,23 @@ bb_barchart <- function(bb, data, mapping = NULL, stacked = FALSE, rotated = FAL
     
   } else {
     
-    data_mapped <- bbmapping(data = data, mapping = mapping)
+    json <- bbmapping(data = data, mapping = mapping)
     x <- as.character(mapping$x)
+    names(json)[which(names(json) == x)] <- getOption("billboarder-x", default = "bb-x")
     
     if (is.null(mapping$group)) {
       stacked <- NULL
     } else {
       if (stacked) {
-        stacked <- list(setdiff(names(data_mapped), x))
+        stacked <- list(setdiff(names(json), getOption("billboarder-x", default = "bb-x")))
       } else {
         stacked <- NULL
       }
     }
     
     data_opt <- list(
-      x = x,
-      json = data_mapped,
+      x = getOption("billboarder-x", default = "bb-x"),
+      json = json,
       type = "bar",
       groups = stacked
     )
@@ -152,7 +153,7 @@ bb_barchart <- function(bb, data, mapping = NULL, stacked = FALSE, rotated = FAL
     # bb <- bb_load(proxy = bb, x = x, json = json, groups = stacked, unload = bb$unload) 
     
     if (!is.null(color)) {
-      colp <- stats::setNames(as.list(color), setdiff(names(json), x))
+      colp <- stats::setNames(as.list(color), setdiff(names(json), getOption("billboarder-x", default = "bb-x")))
     } else {
       colp <- NULL
     }
@@ -160,7 +161,7 @@ bb_barchart <- function(bb, data, mapping = NULL, stacked = FALSE, rotated = FAL
     bb <- bb_load(proxy = bb,
                   json = json, 
                   groups = stacked, 
-                  x = x,
+                  x = getOption("billboarder-x", default = "bb-x"),
                   unload = bb$unload, 
                   colors = colp) 
     

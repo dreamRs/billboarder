@@ -39,7 +39,7 @@ ui <- fluidPage(
     ),
     
     column(
-      width = 6,
+      width = 9,
       billboarderOutput(outputId = "histo")
     )
     
@@ -64,6 +64,7 @@ server <- function(input, output, session) {
     
   }, ignoreInit = TRUE)
   
+  shiny::onStop(shiny::stopApp)
 }
 
 
