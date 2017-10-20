@@ -67,6 +67,8 @@ server <- function(input, output, session) {
       bb_lollipop(data = mpg, mapping = bbaes(x = class, y = weight))
     
   }, ignoreInit = TRUE)
+  
+  shiny::onStop(shiny::stopApp)
 }
 
 # app ----
