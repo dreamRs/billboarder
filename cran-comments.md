@@ -5,13 +5,12 @@
 
 ## R CMD check results
 
-0 errors | 0 warnings | 1 note
+0 errors | 0 warnings | 0 notes
 
-* Hello, this is an update.
+* Hello, this is an update. Same warning on local check than for first release.
 
 ## Reverse dependencies
 
-This is a new release, so there are no reverse dependencies.
 
 ---
 
