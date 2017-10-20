@@ -3,7 +3,8 @@
 #' @description Launch an example to demonstrate how to use proxy method from \code{billboarder} in Shiny app.
 #'
 #' @param chart Chart type for which to see an example, possible values are \code{gauge}, \code{pie}, \code{bar}, 
-#' \code{bar2}, \code{line}, \code{line2}, \code{density}, \code{histogram}, \code{stacked_bar} or \code{transform} (for changing type of chart).
+#' \code{bar2}, \code{line}, \code{line2}, \code{density}, \code{histogram}, \code{lollipop}, \code{stacked_bar}
+#'  or \code{transform} (for changing type of chart).
 #'
 #' @export
 #'
@@ -17,6 +18,9 @@
 #' 
 #' # Electricity production by sources and year
 #' proxy_example("bar2")
+#' 
+#' # Moving lollipop with mpg dataset from ggplot2
+#' proxy_example("lollipop")
 #' 
 #' # Update a stacked bar chart
 #' proxy_example("stacked_bar")
@@ -45,7 +49,8 @@
 proxy_example <- function(chart = "gauge") {
   chart <- match.arg(
     arg = chart,
-    choices = c("gauge", "pie", "bar", "bar2", "line", "line2", "density", "histogram", "transform", "stacked_bar"), 
+    choices = c("gauge", "pie", "bar", "bar2", "line", "line2",
+                "density", "histogram", "transform", "stacked_bar", "lollipop"), 
     several.ok = FALSE
   )
   if (!requireNamespace(package = "shiny"))

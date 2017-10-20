@@ -11,7 +11,7 @@ bb_lollipop(bb, data, mapping = NULL, rotated = FALSE,
 \item{bb}{A \code{billboard} \code{htmlwidget} object.}
 
 \item{data}{A \code{data.frame}, the first column will be used for x axis unless
-argument \code{x} is speciefied, the second one will be use as y values.
+argument \code{x} is specified, the second one will be use as y values.
  If not a \code{data.frame}, an object coercible to \code{data.frame}.}
 
 \item{mapping}{Mapping of variables on the chart, see \code{\link{bbaes}}.}
@@ -33,6 +33,7 @@ A \code{billboard} \code{htmlwidget} object.
 Helper for creating a lollipop chart
 }
 \examples{
+
 # From wikipedia
 sw <- data.frame(
   film = c("The Force Awakens", "The Phantom Menace", 
@@ -58,8 +59,15 @@ billboarder() \%>\%
     outer = FALSE,
     format = htmlwidgets::JS("d3.formatPrefix('$,.0', 1e6)")
   )) \%>\% 
+  bb_x_axis(tick = list(centered = TRUE)) \%>\% 
   bb_labs(
     title = "Star Wars - Total Lifetime Grosses",
     caption = "Data source : wikipedia"
   )
+
+
+# With mapping
+billboarder(data = sw) \%>\% 
+  bb_lollipop(mapping = bbaes(x = film, y = worldwide_gross))
+  
 }

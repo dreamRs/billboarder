@@ -1315,7 +1315,7 @@ bb_histogram <- function(bb, data, mapping = NULL, stacked = FALSE, fill = FALSE
 #'
 #' @param bb A \code{billboard} \code{htmlwidget} object.
 #' @param data A \code{data.frame}, the first column will be used for x axis unless
-#' argument \code{x} is speciefied, the second one will be use as y values.
+#' argument \code{x} is specified, the second one will be use as y values.
 #'  If not a \code{data.frame}, an object coercible to \code{data.frame}. 
 #' @param mapping Mapping of variables on the chart, see \code{\link{bbaes}}.
 #' @param rotated Switch x and y axis position.
@@ -1328,6 +1328,7 @@ bb_histogram <- function(bb, data, mapping = NULL, stacked = FALSE, fill = FALSE
 #' @export
 #'
 #' @examples
+#' 
 #' # From wikipedia
 #' sw <- data.frame(
 #'   film = c("The Force Awakens", "The Phantom Menace", 
@@ -1353,10 +1354,17 @@ bb_histogram <- function(bb, data, mapping = NULL, stacked = FALSE, fill = FALSE
 #'     outer = FALSE,
 #'     format = htmlwidgets::JS("d3.formatPrefix('$,.0', 1e6)")
 #'   )) %>% 
+#'   bb_x_axis(tick = list(centered = TRUE)) %>% 
 #'   bb_labs(
 #'     title = "Star Wars - Total Lifetime Grosses",
 #'     caption = "Data source : wikipedia"
 #'   )
+#' 
+#' 
+#' # With mapping
+#' billboarder(data = sw) %>% 
+#'   bb_lollipop(mapping = bbaes(x = film, y = worldwide_gross))
+#'   
 bb_lollipop <- function(bb, data, mapping = NULL, rotated = FALSE, point_color = "#112446", point_size = 8, line_color = "#000", ...) {
   
   if (missing(data))
@@ -1386,30 +1394,38 @@ bb_lollipop <- function(bb, data, mapping = NULL, rotated = FALSE, point_color =
     colors = stats::setNames(c(list(line_color, point_color)), c("lollipop", y))
   )
   
-  bb <- .bb_opt2(bb, "data", data_opt)
-  
-  bb <- .bb_opt(bb, "axis", x = list(type = "category"), rotated = rotated)
-  
-  bb <- .bb_opt(bb, "bar", width = 0.05)
-  
-  bb <- .bb_opt(bb, "point", r = point_size)
-  
-  # bb <- .bb_opt(bb, "legend", hide = "lollipop")
-  if (rotated) {
-    bb <- .bb_opt(bb, "legend", hide = TRUE)
+  if ("billboarder_Proxy" %in% class(bb)) {
+    
+    bb <- bb_load(proxy = bb, json = data_opt$json, unload = bb$unload) 
+    
   } else {
-    bb <- .bb_opt(bb, "legend", show = FALSE)
+    
+    bb <- .bb_opt2(bb, "data", data_opt)
+    
+    bb <- .bb_opt(bb, "axis", x = list(type = "category"), rotated = rotated)
+    
+    bb <- .bb_opt(bb, "bar", width = 0.05)
+    
+    bb <- .bb_opt(bb, "point", r = point_size)
+    
+    # bb <- .bb_opt(bb, "legend", hide = "lollipop")
+    if (rotated) {
+      bb <- .bb_opt(bb, "legend", hide = TRUE)
+    } else {
+      bb <- .bb_opt(bb, "legend", show = FALSE)
+    }
+    
+    bb <- bb_add_style(
+      bb = bb, 
+      ".bb-target-lollipop-lines > .bb-circle" = "opacity: 1;", 
+      ".bb-target-lollipop-lines > .bb-lines" = "opacity: 0;"
+    )
+    
+    bb <- .bb_opt(bb, "tooltip", format = list(
+      value = htmlwidgets::JS("function(value, ratio, id, index) {if (id !== 'lollipop') return value; }")
+    ))
+    
   }
-  
-  bb <- bb_add_style(
-    bb = bb, 
-    ".bb-target-lollipop-lines > .bb-circle" = "opacity: 1;", 
-    ".bb-target-lollipop-lines > .bb-lines" = "opacity: 0;"
-  )
-  
-  bb <- .bb_opt(bb, "tooltip", format = list(
-    value = htmlwidgets::JS("function(value, ratio, id, index) {if (id !== 'lollipop') return value; }")
-  ))
   
   return(bb)
 }
