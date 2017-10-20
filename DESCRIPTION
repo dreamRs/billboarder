@@ -7,7 +7,7 @@ Authors@R: c(
   person("NAVER Corp", role = c("cph"), comment = "billboard library"))
 Description: Provides an 'htmlwidgets' interface to 'billboard.js', 
     a re-usable easy interface JavaScript chart library, based on D3 v4+.
-    Chart types include line charts, scatterplots, bar charts, pie/donut charts and gauge charts.
+    Chart types include line charts, scatterplots, bar/lollipop charts, histogram/density plots, pie/donut charts and gauge charts.
     All charts are interactive, and a proxy method is implemented to smoothly update a chart without rendering it again in 'shiny' apps. 
 URL: https://github.com/dreamRs/billboarder
 BugReports: https://github.com/dreamRs/billboarder/issues
