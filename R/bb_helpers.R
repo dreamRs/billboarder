@@ -819,7 +819,14 @@ bb_linechart <- function(bb, data, mapping = NULL, type = "line", show_point = F
           bb <- bb_data(bb, xFormat = "%Y-%m-%d %H:%M:%S")
         }
       }
-      data[[1]] <- as.character(data[[1]])
+      if (inherits(x = data[[1]], what = c("POSIXct"))) {
+        data[[1]] <- format(data[[1]], format = "%Y-%m-%d %H:%M:%S")
+      } else if (inherits(x = data[[1]], what = c("Date"))) {
+        data[[1]] <- format(data[[1]], format = "%Y-%m-%d")
+      } else {
+        data[[1]] <- as.character(data[[1]])
+      }
+      
       data_opt <- list(
         x = names(data)[1],
         json = as.list(data),
