@@ -1411,7 +1411,7 @@ bb_lollipop <- function(bb, data, mapping = NULL, rotated = FALSE, point_color =
     
     bb <- .bb_opt(bb, "axis", x = list(type = "category"), rotated = rotated)
     
-    bb <- .bb_opt(bb, "bar", width = 0.05)
+    bb <- .bb_opt(bb, "bar", width = 1)
     
     bb <- .bb_opt(bb, "point", r = point_size)
     
