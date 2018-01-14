@@ -1,3 +1,10 @@
+billboarder 0.2.0.900
+==================
+
+* Upgrade billboard library to 1.2.0, and D3V4 to 4.12.2
+
+
+
 billboarder 0.1.0
 ==================
 

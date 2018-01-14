@@ -4,6 +4,7 @@
 #' @param x Name of the variable to map on the x-axis.
 #' @param y Name of the variable to map on the y-axis.
 #' @param group Name of the grouping variable.
+#' @param ... Additional mapping parameters, for now only 'size' for scatter plot is used.
 #'
 #' @return A \code{billboard} \code{htmlwidget} object.
 #' @export
@@ -39,7 +40,7 @@
 #   bb$x$aes <- list(x = x, y = y, group = group)
 #   bb
 # }
-bb_aes <- function(bb, x, y, group = NULL) {
+bb_aes <- function(bb, x, y, group = NULL, ...) {
   mapping <- structure(as.list(match.call()[-1]), class = "uneval")
   mapping$bb <- NULL
   bb$x$mapping <- mapping
@@ -48,7 +49,7 @@ bb_aes <- function(bb, x, y, group = NULL) {
 
 #' @rdname billboard-aes
 #' @export
-bb_aes_string <- function(bb, x, y, group = NULL) {
+bb_aes_string <- function(bb, x, y, group = NULL, ...) {
   mapping <- list()
   if (!missing(x)) 
     mapping["x"] <- list(x)
@@ -56,6 +57,9 @@ bb_aes_string <- function(bb, x, y, group = NULL) {
     mapping["y"] <- list(y)
   if (!is.null(group)) 
     mapping["group"] <- list(group)
+  args <- list(...)
+  if (!is.null(args$size)) 
+    mapping["size"] <- list(args$size)
   mapping <- lapply(
     X = mapping,
     FUN = function(x) {
@@ -73,14 +77,14 @@ bb_aes_string <- function(bb, x, y, group = NULL) {
 
 #' @rdname billboard-aes
 #' @export
-bbaes <- function(x, y, group = NULL) {
+bbaes <- function(x, y, group = NULL, ...) {
   mapping <- structure(as.list(match.call()[-1]), class = "uneval")
   mapping
 }
 
 #' @rdname billboard-aes
 #' @export
-bbaes_string <- function(x, y, group = NULL) {
+bbaes_string <- function(x, y, group = NULL, ...) {
   mapping <- list()
   if (!missing(x)) 
     mapping["x"] <- list(x)
@@ -88,6 +92,9 @@ bbaes_string <- function(x, y, group = NULL) {
     mapping["y"] <- list(y)
   if (!is.null(group)) 
     mapping["group"] <- list(group)
+  args <- list(...)
+  if (!is.null(args$size)) 
+    mapping["size"] <- list(args$size)
   mapping <- lapply(
     X = mapping,
     FUN = function(x) {

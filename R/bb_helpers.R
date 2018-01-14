@@ -303,6 +303,7 @@ bb_categories <- function(bb, categories) {
 #' @export
 #' 
 #' @importFrom stats setNames
+#' @importFrom scales rescale
 #'
 #' @examples
 #' # Use first and second variable by default
@@ -338,6 +339,7 @@ bb_scatterplot <- function(bb, data, mapping = NULL, ...) {
   if (is.null(mapping)) {
     x <- args$x %||% names(data)[1]
     y <- args$y %||% names(data)[2]
+    z <- args$z
     group <- args$group
   } else {
     x <- as.character(mapping$x)
@@ -346,6 +348,11 @@ bb_scatterplot <- function(bb, data, mapping = NULL, ...) {
       group <- as.character(mapping$group)
     } else {
       group <- NULL
+    }
+    if (!is.null(mapping$size)) {
+      z <- as.character(mapping$size)
+    } else {
+      z <- NULL
     }
   }
   
@@ -363,11 +370,37 @@ bb_scatterplot <- function(bb, data, mapping = NULL, ...) {
     )
   }
   
+  if (is.null(args$range)) {
+    args$range <- c(10, 60)
+  }
+  if (!is.null(z)) {
+    if (is.null(group)) {
+      to_hide <- paste0("z_", y)
+      json[[to_hide]] <- scales::rescale(data[[z]], to = args$range)/data[[y]]
+    } else {
+      zz <- scales::rescale(data[[z]], to = args$range)/data[[y]]
+      zz <- split(x = zz, f = paste0("z_", data[[group]]))
+      to_hide <- names(zz)
+      json <- c(json, zz)
+    }
+    to_show <- setdiff(names(json), to_hide)
+    json <- lapply(
+      X = seq_along(json[[1]]),
+      FUN = function(x) {
+        as.list(sapply(X = json, FUN = `[[`, x))
+      }
+    )
+  }
+  
   data_opt <- list(
     xs = xs,
     json = json,
-    type = "scatter"
+    type = if (is.null(z)) "scatter" else "bubble"
   )
+  if (!is.null(z)) {
+    data_opt$keys <- list(value = to_show)
+    # data_opt$hide <- to_hide
+  }
   
   data_axis <- list(
     x = list(
@@ -396,6 +429,35 @@ bb_scatterplot <- function(bb, data, mapping = NULL, ...) {
     bb <- .bb_opt(bb, "legend", show = !is.null(group))
     
     bb <- .bb_opt2(bb, "axis", data_axis)
+    
+    if (!is.null(z)) {
+    #   # rescale <- function(x, max = 35) {
+    #   #   rng <- range(x, na.rm = TRUE)
+    #   #   (x - rng[1]) / (rng[2] - rng[1]) * 34.5 + 0.5
+    #   # }
+    #   if (is.null(args$range)) {
+    #     args$range <- c(10, 40)
+    #   }
+    #   if (is.null(group)) {
+    #     funjs <- paste0(
+    #       "function(d) {",
+    #       "console.log(d);",
+    #       "var z = ", jsonlite::toJSON(x = scales::rescale(data[[z]], to = args$range)), ";",
+    #       "return Math.sqrt(z[d.index] * 2);", 
+    #       "}"
+    #     )
+    #   } else {
+    #     funjs <- paste0(
+    #       "function(d) {",
+    #       "var z = ", jsonlite::toJSON(x = split(x = scales::rescale(data[[z]], to = args$range), f = data[[group]])), ";",
+    #       "return Math.sqrt(z[d.id][d.index] * 2);", 
+    #       "}"
+    #     )
+    #   }
+    #   
+    #   bb <- .bb_opt2(bb, "bubble", list(maxR = htmlwidgets::JS(funjs)))
+      bb <- .bb_opt2(bb, "axis", list(x = list(padding = list(right = 0.1))))
+    }
     
   }
   

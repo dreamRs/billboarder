@@ -81,6 +81,23 @@ HTMLWidgets.widget({
         bb_opts.size = {};
         bb_opts.size.width = w;
         bb_opts.size.height = h;
+        
+        
+        // Bubble
+        if (bb_opts.data.type == 'bubble') {
+          //if (typeof bb_opts.bubble == 'undefined') {
+            bb_opts.bubble = {};
+            bb_opts.bubble.maxR = function(d) {
+              //var chart = get_billboard(el.id);
+              //var z = chart.data('z_' + d.id);
+              var z = bb_opts.data.json[d.index]['z_' + d.id];
+              console.log(d);
+              console.log(z);
+              return Math.sqrt(z * 10);
+            };
+            bb_opts.data.xSort = false;
+          //}
+        }
 
         // Generate billboard chart
         chart = bb.generate(bb_opts);
@@ -186,7 +203,7 @@ function get_billboard(id){
   // Get the HTMLWidgets object
   var htmlWidgetsObj = HTMLWidgets.find("#" + id);
   
-  // Use the getChart method we created to get the underlying C3 chart
+  // Use the getChart method we created to get the underlying billboard chart
   var bbObj ;
   
   if (typeof htmlWidgetsObj != 'undefined') {
@@ -376,8 +393,43 @@ if (HTMLWidgets.shinyMode) {
         chart.show(data.data.targetIdsValue, data.data.options);
       }
   });
+  // Export
+  Shiny.addCustomMessageHandler('update-billboard-export',
+    function(data) {
+      var chart = get_billboard(data.id);
+      console.log(data.id);
+      if (typeof chart != 'undefined') {
+        //var exemple = chart.export('image/png');//.toString();
+        //console.log(exemple);
+        //var bbexport = document.createElement('a');
+        //bbexport.download = 'billboard.png';
+        //bbexport.href = exemple;
+        //document.body.appendChild(bbexport);
+        //bbexport.click();
+        
+        //var img = document.createElement("img");
+        //img.src = exemple;
+        //var exported = document.getElementById("Export");
+		    //exported.appendChild(img);
+		    console.log(chart.export);
+		    chart.export("image/png", function(dataUrl) {
+							// append an image element
+							var img = document.createElement("img");
+
+							img.src = dataUrl;
+							var exported = document.getElementById("Export");
+							exported.appendChild(img);
+        });
+      }
+  });
 }
 
+
+
+function bubblez(d) {
+  console.log(d); 
+  return Math.sqrt(d.value * 2);
+}
 
 
 

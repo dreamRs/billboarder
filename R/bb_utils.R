@@ -743,3 +743,28 @@ bb_zoom <- function(bb, ...) {
   .bb_opt(bb, "zoom", ...)
   
 }
+
+
+
+
+
+
+
+#' Bubble property for a Billboard.js chart
+#'
+#' @param bb A \code{billboard} \code{htmlwidget} object.
+#' @param ... See \url{https://naver.github.io/billboard.js/release/latest/doc/Options.html#.bubble}
+#'
+#' @return A \code{billboard} \code{htmlwidget} object.
+#' @export
+#'
+#' @examples
+#' #
+bb_bubble <- function(bb, ...) {
+  
+  .bb_opt(bb, "bubble", ...)
+  
+}
+
+
+
