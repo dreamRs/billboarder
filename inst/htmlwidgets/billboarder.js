@@ -402,6 +402,15 @@ if (HTMLWidgets.shinyMode) {
         chart.data.names(data.data.names);
       }
   });
+  // Data colors
+  Shiny.addCustomMessageHandler('update-billboard-data-colors',
+    function(data) {
+      var chart = get_billboard(data.id);
+      // console.log(data.data.type);
+      if (typeof chart != 'undefined') {
+        chart.data.colors(data.data.colors);
+      }
+  });
   // Export
   Shiny.addCustomMessageHandler('update-billboard-export',
     function(data) {
