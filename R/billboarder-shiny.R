@@ -499,6 +499,73 @@ bb_proxy_tooltip <- function(proxy, what = c("show", "hide"), x = NULL, index = 
 }
 
 
+#' Change names of the data with proxy
+#'
+#' @param proxy A \code{billboardProxy} \code{htmlwidget} object.
+#' @param old Old names
+#' @param new New names
+#'
+#' @return A \code{billboardProxy} \code{htmlwidget} object.
+#' @export
+#' 
+#' @examples 
+#' \dontrun{
+#' 
+#' if (interactive()) {
+#' 
+#' library(shiny)
+#' library(billboarder)
+#' 
+#' ui <- fluidPage(
+#'   tags$h2("Update axis title & data name (tooltip & legend)"),
+#'   billboarderOutput(outputId = "my_bb"),
+#'   textInput(
+#'     inputId = "new_name",
+#'     label = "New name :",
+#'     value = "this is a new name",
+#'     width = "100%"
+#'   ),
+#'   actionButton(
+#'     inputId = "update",
+#'     label = "Update chart",
+#'     width = "100%"
+#'   )
+#' )
+#' 
+#' server <- function(input, output, session) {
+#'   
+#'   output$my_bb <- renderBillboarder({
+#'     dat <- sample(letters[1:5], 100, TRUE)
+#'     billboarder() %>%
+#'       bb_barchart(data = table(dat)) %>% 
+#'       bb_y_axis(label = list(text = "Freq"))
+#'   })
+#'   
+#'   observeEvent(input$update, {
+#'     dat <- sample(letters[1:5], 100, TRUE)
+#'     billboarderProxy(shinyId = "my_bb") %>% 
+#'       bb_proxy_axis_labels(y = input$new_name) %>% 
+#'       bb_proxy_data_names(old = "Freq", 
+#'                           new = input$new_name) %>% 
+#'       bb_barchart(data = table(dat))
+#'   }, ignoreInit = TRUE)
+#'   
+#' }
+#' 
+#' shinyApp(ui, server)
+#' 
+#' }
+#' 
+#' }
+bb_proxy_data_names <- function(proxy, old = NULL, new = NULL) {
+  if (!"billboarder_Proxy" %in% class(proxy)) 
+    stop("This function must be used with a billboarderProxy object")
+  data_names <- as.list(new)
+  names(data_names) <- old
+  .bb_proxy(proxy, "data-names", names = data_names)
+}
+
+
 
 
 

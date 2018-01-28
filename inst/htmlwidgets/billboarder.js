@@ -393,33 +393,35 @@ if (HTMLWidgets.shinyMode) {
         chart.show(data.data.targetIdsValue, data.data.options);
       }
   });
+  // Data names
+  Shiny.addCustomMessageHandler('update-billboard-data-names',
+    function(data) {
+      var chart = get_billboard(data.id);
+      // console.log(data.data.type);
+      if (typeof chart != 'undefined') {
+        chart.data.names(data.data.names);
+      }
+  });
   // Export
   Shiny.addCustomMessageHandler('update-billboard-export',
     function(data) {
       var chart = get_billboard(data.id);
       console.log(data.id);
       if (typeof chart != 'undefined') {
-        //var exemple = chart.export('image/png');//.toString();
+        var exemple = chart.export('image/png');//.toString();
         //console.log(exemple);
-        //var bbexport = document.createElement('a');
-        //bbexport.download = 'billboard.png';
-        //bbexport.href = exemple;
-        //document.body.appendChild(bbexport);
-        //bbexport.click();
+        var bbexport = document.createElement('a');
+        bbexport.download = 'billboard.png';
+        bbexport.href = exemple;
+        document.body.appendChild(bbexport);
+        bbexport.click();
         
         //var img = document.createElement("img");
         //img.src = exemple;
         //var exported = document.getElementById("Export");
 		    //exported.appendChild(img);
-		    console.log(chart.export);
-		    chart.export("image/png", function(dataUrl) {
-							// append an image element
-							var img = document.createElement("img");
-
-							img.src = dataUrl;
-							var exported = document.getElementById("Export");
-							exported.appendChild(img);
-        });
+		    //console.log(chart.export);
+		    
       }
   });
 }
