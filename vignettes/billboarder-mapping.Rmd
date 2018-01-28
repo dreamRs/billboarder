@@ -7,7 +7,7 @@ output:
     theme: architect
     highlight: github
 vignette: >
-  %\VignetteIndexEntry{Options - styling charts}
+  %\VignetteIndexEntry{Mapping - map variables to the chart}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

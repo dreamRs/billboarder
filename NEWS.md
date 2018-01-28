@@ -1,7 +1,9 @@
-billboarder 0.2.0.900
+billboarder 0.2.1
 ==================
 
 * Upgrade billboard library to 1.2.0, and D3V4 to 4.12.2
+* New proxy methods : `bb_proxy_data_colors` and `bb_proxy_data_names`.
+* New aesthetic for scatterplots : `size`, to make bubble clouds.
 
 
 
