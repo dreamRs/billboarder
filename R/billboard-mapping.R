@@ -132,6 +132,16 @@ bbmapping <- function(data, mapping) {
       json[[y]] <- as.vector(unname(json[[y]]))
       message("Non unique values in '", x, "' : calculating sum of '", y, "'")
     }
+    if (!is.null(mapping$ymin) & !is.null(mapping$ymax)) {
+      json[[mapping$y]] <- lapply(
+        X = seq_along(json[[mapping$y]]),
+        FUN = function(i) {
+          lapply(X = list(low = json[[mapping$ymin]], mid = json[[mapping$y]], high = json[[mapping$ymax]]), FUN = `[[`, i)
+        }
+      )
+      json[[mapping$ymin]] <- NULL
+      json[[mapping$ymax]] <- NULL
+    }
   } else {
     grouping <- eval(mapping$group, envir = data, enclos = parent.frame())
     mapping$group <- NULL
@@ -143,10 +153,25 @@ bbmapping <- function(data, mapping) {
       X = stats::setNames(n_, n_),
       FUN = function(iii) {
         if (!is.null(mapping$y)) {
-          y_ <- eval(mapping$y, envir = data_split[[iii]], enclos = parent.frame())
-          x_ <- eval(mapping$x, envir = data_split[[iii]], enclos = parent.frame())
-          idx <- match(x = x_un, table = x_, nomatch = nrow(data_split[[iii]])+1)
-          y_[idx]
+          if (!is.null(mapping$ymin) & !is.null(mapping$ymax)) {
+            ymin_ <- eval(mapping$ymin, envir = data_split[[iii]], enclos = parent.frame())
+            ymax_ <- eval(mapping$ymax, envir = data_split[[iii]], enclos = parent.frame())
+            y_ <- eval(mapping$y, envir = data_split[[iii]], enclos = parent.frame())
+            x_ <- eval(mapping$x, envir = data_split[[iii]], enclos = parent.frame())
+            idx <- match(x = x_un, table = x_, nomatch = nrow(data_split[[iii]])+1)
+            res <- lapply(
+              X = seq_along(y_),
+              FUN = function(i) {
+                lapply(X = list(low = ymin_, mid = y_, high = ymax_), FUN = `[[`, i)
+              }
+            )
+            res[idx]
+          } else {
+            y_ <- eval(mapping$y, envir = data_split[[iii]], enclos = parent.frame())
+            x_ <- eval(mapping$x, envir = data_split[[iii]], enclos = parent.frame())
+            idx <- match(x = x_un, table = x_, nomatch = nrow(data_split[[iii]])+1)
+            y_[idx]
+          }
         } else {
           eval(mapping$x, envir = data_split[[iii]], enclos = parent.frame())
         }

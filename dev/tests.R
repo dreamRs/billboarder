@@ -390,6 +390,28 @@ billboarder() %>%
   bb_linechart(data = lynx.df, x = "year")
 
 
+
+
+df <- data.frame(
+  cos = cos(seq(-pi, pi, length.out = 30))
+)
+
+# No legend
+billboarder() %>% 
+  bb_linechart(data = df) %>% 
+  bb_legend(show = FALSE)
+
+
+df2 <- data.frame(
+  sin = sin(seq(-pi, pi, length.out = 30))
+)
+
+# No legend
+billboarder() %>% 
+  bb_linechart(data = df) %>% 
+  bb_linechart(data = df2, type = "step")
+
+
 # densityplot -------------------------------------------------------------
 
 # With a vector
