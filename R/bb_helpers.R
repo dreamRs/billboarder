@@ -851,7 +851,9 @@ bb_linechart <- function(bb, data, mapping = NULL, type = "line", show_point = F
   
   type <- match.arg(
     arg = type, 
-    choices = c("line", "spline", "step", "area", "area-spline", "area-step", "bar"),
+    choices = c("line", "spline", "step", "area", 
+                "area-spline", "area-step", "bar",
+                "area-line-range", "area-spline-range"),
     several.ok = TRUE
   )
   
@@ -888,22 +890,31 @@ bb_linechart <- function(bb, data, mapping = NULL, type = "line", show_point = F
       } else {
         data[[1]] <- as.character(data[[1]])
       }
-      
-      data_opt <- list(
-        x = names(data)[1],
-        json = as.list(data),
-        type = type
-      )
       if (!"billboarder_Proxy" %in% class(bb)) {
         bb <- bb_x_axis(bb, type = "timeseries")
       }
-    } else {
-      data_opt <- list(
-        x = names(data)[1],
-        json = as.list(data),
-        type = type
-      )
     }
+    if (type %in% c("area-line-range", "area-spline-range")) {
+      if ("ymin" %in% names(data) & "ymax" %in% names(data)) {
+        data$y <- lapply(
+          X = seq_along(data$y),
+          FUN = function(i) {
+            res <- lapply(X = data[c("ymin", "y", "ymax")], FUN = `[[`, i)
+            names(res) <- c("low", "mid", "high")
+            res
+          }
+        )
+        data$ymin <- NULL
+        data$ymax <- NULL
+      } else {
+        warning("For 'area-(sp)line-range', 'ymin' and 'ymax' must be specified in `bbaes`.")
+      }
+    }
+    data_opt <- list(
+      x = names(data)[1],
+      json = as.list(data),
+      type = type
+    )
   }
   
   if ("billboarder_Proxy" %in% class(bb)) {
