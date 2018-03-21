@@ -284,6 +284,21 @@ billboarder() %>%
 
 
 
+bb <- billboarder() %>% 
+  bb_scatterplot(data = cars) %>% 
+  bb_linechart(data = data.frame(lowess(cars)), x = "x") %>% 
+  bb_data(types = list(dist = "scatter", y = "line"))
+
+bb
+bb$x$bb_opts
+
+
+billboarder() %>% 
+  bb_linechart(data = data.frame(lowess(cars)), x = "x") %>% 
+  bb_scatterplot(data = cars) %>% 
+  bb_data(types = list(dist = "scatter", y = "line"))
+
+
 
 
 

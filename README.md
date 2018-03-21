@@ -165,7 +165,7 @@ You can also do donut charts.
 
 ## Lines charts
 
-A time serie with `Date` ! (subchart is optionnal)
+### Time serie with `Date` (and a subchart)
 
 ```r
 library("billboarder")
@@ -193,7 +193,7 @@ billboarder() %>%
 ![](inst/img/rte_linechart_subchart.png)
 
 
-A time serie with `POSIXct` ! (and regions)
+### Time serie with `POSIXct` (and regions)
 
 ```r
 library("billboarder")
@@ -235,7 +235,7 @@ billboarder() %>%
 ![](inst/img/rte_linechart_regions.png)
 
 
-A stacked area chart !
+### Stacked area chart
 
 ```r
 library("billboarder")
@@ -268,7 +268,38 @@ billboarder() %>%
 
 
 
-You can also do step lines.
+### Line range
+
+```r
+# Generate data
+dat <- data.frame(
+  date = seq.Date(Sys.Date(), length.out = 20, by = "day"),
+  y1 = round(rnorm(20, 100, 15)),
+  y2 = round(rnorm(20, 100, 15))
+)
+dat$ymin1 <- dat$y1 - 5
+dat$ymax1 <- dat$y1 + 5
+
+dat$ymin2 <- dat$y2 - sample(3:15, 20, TRUE)
+dat$ymax2 <- dat$y2 + sample(3:15, 20, TRUE)
+
+
+# Make chart : use ymin & ymax aes for range
+billboarder() %>% 
+  bb_linechart(
+    data = dat, 
+    mapping = bbaes(x = date, y = y1, ymin = ymin1, ymax = ymax1),
+    type = "area-line-range"
+  ) %>% 
+  bb_linechart(
+    data = dat, 
+    mapping = bbaes(x = date, y = y2, ymin = ymin2, ymax = ymax2), 
+    type = "area-spline-range"
+  ) %>% 
+  bb_y_axis(min = 50)
+```
+
+![](inst/img/linechart_range.png)
 
 
 ## Histogram & density
@@ -396,20 +427,7 @@ proxy_example("gauge")
 ```
 
 
-## Combination charts
 
-For now, you have to specify the type of chart according to the data, this might change in the future :
-
-```r
-# from ?plot
-# require(stats); plot(cars); lines(lowess(cars))
-billboarder() %>% 
-  bb_scatterplot(data = cars) %>% 
-  bb_linechart(data = data.frame(lowess(cars)), x = "x") %>% 
-  bb_data(types = list(dist = "scatter", y = "line"))
-
-```
-![](inst/img/multichart0.png)
 
 
 ## Raw API
