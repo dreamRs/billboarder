@@ -133,7 +133,7 @@ billboarder() %>%
 
 You can make a bubble chart using `size` aes : 
 
-````r
+```r
 billboarder() %>% 
   bb_scatterplot(
     data = iris, 
