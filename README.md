@@ -131,6 +131,20 @@ billboarder() %>%
 ![](inst/img/scatterchart0.png)
 
 
+You can make a bubble chart using `size` aes : 
+
+````r
+billboarder() %>% 
+  bb_scatterplot(
+    data = iris, 
+    mapping = bbaes(Sepal.Length, Sepal.Width, group = Species, size = Petal.Width),
+    range = c(0.5, 120)
+  ) %>% 
+  bb_x_axis(tick = list(fit = FALSE))
+```
+
+![](inst/img/scatter_bubble.png)
+
 
 ## Pie charts
 
@@ -270,6 +284,8 @@ billboarder() %>%
 
 ### Line range
 
+Don't work in RStudio viewer... Open in browser.
+
 ```r
 # Generate data
 dat <- data.frame(
@@ -285,14 +301,12 @@ dat$ymax2 <- dat$y2 + sample(3:15, 20, TRUE)
 
 
 # Make chart : use ymin & ymax aes for range
-billboarder() %>% 
+billboarder(data = dat) %>% 
   bb_linechart(
-    data = dat, 
     mapping = bbaes(x = date, y = y1, ymin = ymin1, ymax = ymax1),
     type = "area-line-range"
   ) %>% 
   bb_linechart(
-    data = dat, 
     mapping = bbaes(x = date, y = y2, ymin = ymin2, ymax = ymax2), 
     type = "area-spline-range"
   ) %>% 
