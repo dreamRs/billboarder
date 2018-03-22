@@ -14,7 +14,8 @@ bb_linechart(bb, data, mapping = NULL, type = "line", show_point = FALSE,
 
 \item{mapping}{Mapping of variables on the chart, see \code{\link{bbaes}}.}
 
-\item{type}{Type of chart : line, spline, step, area, area-spline, area-step.}
+\item{type}{Type of chart : line, spline, step, area, area-spline, area-step, 
+area-line-range, area-spline-range.}
 
 \item{show_point}{Whether to show each point in line.}
 
@@ -27,7 +28,8 @@ A \code{billboard} \code{htmlwidget} object.
 Helper for creating a line chart
 }
 \note{
-This function can be used with \code{\link{billboarderProxy}} in shiny application.
+Types area-line-range and area-spline-range don't work in RStudio viewer, open chart in a browser. 
+ This function can be used with \code{\link{billboarderProxy}} in shiny application.
 }
 \examples{
 
@@ -106,5 +108,33 @@ lynx.df <- data.frame(
 # just specify which variable must be use n the x-axis
 billboarder() \%>\% 
   bb_linechart(data = lynx.df, x = "year")
+  
+  
+### Area range charts
+
+# Generate data
+dat <- data.frame(
+  date = seq.Date(Sys.Date(), length.out = 20, by = "day"),
+  y1 = round(rnorm(20, 100, 15)),
+  y2 = round(rnorm(20, 100, 15))
+)
+dat$ymin1 <- dat$y1 - 5
+dat$ymax1 <- dat$y1 + 5
+
+dat$ymin2 <- dat$y2 - sample(3:15, 20, TRUE)
+dat$ymax2 <- dat$y2 + sample(3:15, 20, TRUE)
+
+
+# Make chart : use ymin & ymax aes for range
+billboarder(data = dat) \%>\% 
+  bb_linechart(
+    mapping = bbaes(x = date, y = y1, ymin = ymin1, ymax = ymax1),
+    type = "area-line-range"
+  ) \%>\% 
+  bb_linechart(
+    mapping = bbaes(x = date, y = y2, ymin = ymin2, ymax = ymax2), 
+    type = "area-spline-range"
+  ) \%>\% 
+  bb_y_axis(min = 50)
   
 }

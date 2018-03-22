@@ -45,5 +45,15 @@ billboarder() \%>\%
     data = iris, 
     mapping = bbaes(Sepal.Length, Sepal.Width, group = Species)
   )
+  
+# Size variable
+billboarder() \%>\% 
+  bb_scatterplot(
+    data = iris, 
+    mapping = bbaes(Sepal.Length, Sepal.Width,
+                    group = Species, size = Petal.Width),
+    range = c(0.5, 120)
+  ) \%>\% 
+  bb_x_axis(tick = list(fit = FALSE))
 
 }
