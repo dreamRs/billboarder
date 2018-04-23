@@ -1,8 +1,8 @@
 dependencies:
   - name: D3
-    version: 4.12.2
-    src: htmlwidgets/lib/D3-4.12.2
-    script: d3.v4.min.js
+    version: 5.1.0
+    src: htmlwidgets/lib/D3-5.1.0
+    script: d3.v5.min.js
   - name: billboard
     version: 1.4.1
     src: htmlwidgets/lib/billboard-1.4.1

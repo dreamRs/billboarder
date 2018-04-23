@@ -596,3 +596,63 @@ billboarder() %>%
 billboarder(data = sw) %>% 
   bb_lollipop(mapping = bbaes(x = film, y = worldwide_gross))
 
+
+
+
+
+
+
+# area range --------------------------------------------------------------
+
+# Generate data
+dat <- data.frame(
+  date = seq.Date(Sys.Date(), length.out = 20, by = "day"),
+  y1 = round(rnorm(20, 100, 15)),
+  y2 = round(rnorm(20, 100, 15))
+)
+dat$ymin1 <- dat$y1 - 5
+dat$ymax1 <- dat$y1 + 5
+
+dat$ymin2 <- dat$y2 - sample(3:15, 20, TRUE)
+dat$ymax2 <- dat$y2 + sample(3:15, 20, TRUE)
+
+
+# Make chart : use ymin & ymax aes for range
+billboarder(data = dat) %>% 
+  bb_linechart(
+    mapping = bbaes(x = date, y = y1, ymin = ymin1, ymax = ymax1),
+    type = "area-line-range"
+  ) %>% 
+  bb_linechart(
+    mapping = bbaes(x = date, y = y2, ymin = ymin2, ymax = ymax2), 
+    type = "area-spline-range"
+  ) %>% 
+  bb_y_axis(min = 50)
+
+
+
+
+
+cossin <- data.frame(
+  index = rep(1:50, times = 2),
+  value = c(cos(x = seq(from = -pi, to = pi, length.out = 50)),
+            sin(x = seq(from = -pi, to = pi, length.out = 50))),
+  group = rep(c("cosinus", "sinus"), each = 50)
+)
+
+billboarder(data = cossin) %>% 
+  bb_linechart(
+    mapping = bbaes(x = index, y = value, group = group),
+    type = "spline"
+  )
+
+
+
+
+
+
+
+
+
+
+
