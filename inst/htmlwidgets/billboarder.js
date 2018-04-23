@@ -422,6 +422,7 @@ if (HTMLWidgets.shinyMode) {
         console.log(dataUrl);
         link.download = "export.png";
         link.href = dataUrl;
+        link.target = "_blank";
         link.innerHTML = "Download chart as image";
       
         document.body.appendChild(link);

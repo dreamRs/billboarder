@@ -939,7 +939,7 @@ bb_linechart <- function(bb, data, mapping = NULL, type = "line", show_point = F
       data_opt <- list(
         x = names(data)[1],
         json = as.list(data),
-        types = setNames(list(type), nm = names(data)[2])
+        types = setNames(as.list(rep_len(type, length(data) - 1)), nm = names(data)[-1])
       )
     } else {
       data_opt <- list(

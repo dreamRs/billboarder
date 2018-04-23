@@ -245,7 +245,17 @@ billboarder() %>%
           y = "In megawatt (MW)",
           caption = "Data source: RTE (https://opendata.rte-france.com)")
 
-
+billboarder() %>% 
+  bb_linechart(
+    # data = cdc_prod_filiere[, c("date_heure", "prod_eolien", "prod_hydraulique", "prod_solaire")],
+    data = data.table::melt(
+      data = cdc_prod_filiere, 
+      id.vars = "date_heure",
+      measure.vars = c("prod_eolien", "prod_hydraulique", "prod_solaire")
+    ), 
+    mapping = bbaes(x = date_heure, group = variable, y = value),
+    type = "area"
+  )
 
 
 billboarder() %>%
