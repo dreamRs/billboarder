@@ -747,9 +747,6 @@ bb_zoom <- function(bb, ...) {
 
 
 
-
-
-
 #' Bubble property for a Billboard.js chart
 #'
 #' @param bb A \code{billboard} \code{htmlwidget} object.
@@ -768,3 +765,16 @@ bb_bubble <- function(bb, ...) {
 
 
 
+#' SVG property for a Billboard.js chart
+#'
+#' @param bb A \code{billboard} \code{htmlwidget} object.
+#' @param ... See \url{https://naver.github.io/billboard.js/release/latest/doc/Options.html#.svg}
+#'
+#' @return A \code{billboard} \code{htmlwidget} object.
+#' @export
+#'
+bb_svg <- function(bb, ...) {
+  
+  .bb_opt(bb, "svg", ...)
+  
+}

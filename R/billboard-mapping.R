@@ -144,6 +144,7 @@ bbmapping <- function(data, mapping) {
     }
   } else {
     grouping <- eval(mapping$group, envir = data, enclos = parent.frame())
+    grouping_order <- unique(grouping)
     mapping$group <- NULL
     x_un <- eval(mapping$x, envir = data, enclos = parent.frame())
     x_un <- unique(x_un)
@@ -177,7 +178,8 @@ bbmapping <- function(data, mapping) {
         }
       }
     )
-    if (!is.null(mapping$y)) {
+    json <- json[grouping_order]
+    if (!is.null(mapping$x)) {
       x <- as.character(mapping$x)
       json[[x]] <- x_un
       json <- json[c(x, setdiff(names(json), x))]
