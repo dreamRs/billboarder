@@ -143,7 +143,7 @@ bbmapping <- function(data, mapping) {
       json[[mapping$ymax]] <- NULL
     }
   } else {
-    grouping <- eval(mapping$group, envir = data, enclos = parent.frame())
+    grouping <- as.character(eval(mapping$group, envir = data, enclos = parent.frame()))
     grouping_order <- unique(grouping)
     mapping$group <- NULL
     x_un <- eval(mapping$x, envir = data, enclos = parent.frame())
