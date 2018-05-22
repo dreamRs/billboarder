@@ -1,7 +1,7 @@
 billboarder 0.2.1.900
 ==================
 
-* Upgrade billboard library to 1.3.0
+* Upgrade billboard library to 1.4.1
 * Support for `area-line-range` and `area-spline-range` in `bb_linechart`
 
 

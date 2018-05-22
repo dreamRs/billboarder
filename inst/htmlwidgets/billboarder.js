@@ -98,9 +98,24 @@ HTMLWidgets.widget({
             bb_opts.data.xSort = false;
           //}
         }
+        
+        // Custom legend .contents.templat
+        if (typeof bb_opts.legend !== 'undefined') {
+          if (typeof bb_opts.legend.contents !== 'undefined') {
+            if (typeof bb_opts.legend.contents.template !== 'undefined') {
+              //var custom_legend = document.createElement("div");
+              //custom_legend.setAttribute("id", el.id + "_custom_legend");
+              //document.getElementById(el.id)
+    		      //  .insertAdjacentElement("beforeend", custom_legend);
+    		      //bb_opts.legend.contents.bindto = "#" + el.id + "_custom_legend";
+            }
+          }
+        }
 
         // Generate billboard chart
         chart = bb.generate(bb_opts);
+        
+        // 
 
         
         // Caption

@@ -39,7 +39,7 @@ stars <- data.frame(
   package = c("billboarder", "ggiraph", "officer",
               "shinyWidgets", "visNetwork", "rAmCharts", 
               "D3partitionR"),
-  stars = c(36, 194, 72, 61, 183, 25, 18)
+  stars = c(67, 252, 160, 144, 224, 32, 25)
 )
 
 # By default, first column is mapped on the x-axis
@@ -68,7 +68,7 @@ stars_wide <- data.frame(
   package = c("billboarder", "ggiraph", "officer",
               "shinyWidgets", "visNetwork", "rAmCharts", 
               "D3partitionR"),
-  stars = c(36, 194, 72, 61, 183, 25, 18)
+  stars = c(67, 252, 160, 144, 224, 32, 25)
 )
 
 billboarder() \%>\%

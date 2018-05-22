@@ -41,7 +41,7 @@
 #   bb
 # }
 bb_aes <- function(bb, x, y, group = NULL, ...) {
-  mapping <- structure(as.list(match.call()[-1]), class = "uneval")
+  mapping <- structure(as.list(match.call()[-1]), class = "bb.uneval")
   mapping$bb <- NULL
   bb$x$mapping <- mapping
   bb
@@ -71,14 +71,14 @@ bb_aes_string <- function(bb, x, y, group = NULL, ...) {
       }
     }
   )
-  bb$x$mapping <- structure(mapping, class = "uneval")
+  bb$x$mapping <- structure(mapping, class = "bb.uneval")
   bb
 }
 
 #' @rdname billboard-aes
 #' @export
 bbaes <- function(x, y, group = NULL, ...) {
-  mapping <- structure(as.list(match.call()[-1]), class = "uneval")
+  mapping <- structure(as.list(match.call()[-1]), class = "bb.uneval")
   mapping
 }
 
@@ -106,7 +106,7 @@ bbaes_string <- function(x, y, group = NULL, ...) {
       }
     }
   )
-  aes <- structure(mapping, class = "uneval")
+  aes <- structure(mapping, class = "bb.uneval")
   aes
 }
 
