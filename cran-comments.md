@@ -7,12 +7,8 @@
 
 0 errors | 0 warnings | 0 notes
 
-* Hello, this is an update. Same warning on local check than for previous release. OK on win-builder.
+* This is an update to work with the new version of ggplot2 to come.
 
 
 ---
 
-* I have run R CMD check and have one warning that does not appear in R CMD check results :
-  * checking data for ASCII and uncompressed saves ... OK
-  WARNING
-  'qpdf' is needed for checks on size reduction of PDFs
