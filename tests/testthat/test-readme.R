@@ -15,7 +15,7 @@ test_that("Bar chart", {
   data("prod_par_filiere")
   
   # a bar chart !
-  billboarder() %>%
+  bb <- billboarder() %>%
     bb_barchart(data = prod_par_filiere[, c("annee", "prod_hydraulique")], color = "#102246") %>%
     bb_y_grid(show = TRUE) %>%
     bb_y_axis(tick = list(format = suffix("TWh")),
@@ -24,6 +24,8 @@ test_that("Bar chart", {
     bb_labs(title = "French hydraulic production",
             caption = "Data source: RTE (https://opendata.rte-france.com)")
   
+  expect_silent(bb)
+  expect_is(bb, "billboarder")
 })
 
 
@@ -33,7 +35,7 @@ test_that("dodge bar chart", {
   data("prod_par_filiere")
   
   # dodge bar chart !
-  billboarder() %>%
+  bb <- billboarder() %>%
     bb_barchart(
       data = prod_par_filiere[, c("annee", "prod_hydraulique", "prod_eolien", "prod_solaire")]
     ) %>%
@@ -47,6 +49,8 @@ test_that("dodge bar chart", {
     bb_labs(title = "Renewable energy production",
             caption = "Data source: RTE (https://opendata.rte-france.com)")
   
+  expect_silent(bb)
+  expect_is(bb, "billboarder")
 })
 
 
@@ -57,7 +61,7 @@ test_that("stacked bar chart", {
   data("prod_par_filiere")
   
   # stacked bar chart !
-  billboarder() %>%
+  bb <- billboarder() %>%
     bb_barchart(
       data = prod_par_filiere[, c("annee", "prod_hydraulique", "prod_eolien", "prod_solaire")], 
       stacked = TRUE
@@ -76,16 +80,20 @@ test_that("stacked bar chart", {
     bb_labs(title = "Renewable energy production",
             caption = "Data source: RTE (https://opendata.rte-france.com)")
   
+  expect_silent(bb)
+  expect_is(bb, "billboarder")
 })
 
 
 test_that("Scatter plot", {
   
-  billboarder() %>% 
+  bb <- billboarder() %>% 
     bb_scatterplot(data = iris, x = "Sepal.Length", y = "Sepal.Width", group = "Species") %>% 
     bb_axis(x = list(tick = list(fit = FALSE))) %>% 
     bb_point(r = 8)
   
+  expect_silent(bb)
+  expect_is(bb, "billboarder")
 })
 
 
@@ -103,11 +111,13 @@ test_that("Pie chart", {
   )
   
   # pie chart !
-  billboarder() %>% 
+  bb <- billboarder() %>% 
     bb_piechart(data = nuclear2016) %>% 
     bb_labs(title = "Share of nuclear power in France in 2016",
             caption = "Data source: RTE (https://opendata.rte-france.com)")
   
+  expect_silent(bb)
+  expect_is(bb, "billboarder")
 })
 
 
@@ -117,7 +127,7 @@ test_that("Line chart Date", {
   data("equilibre_mensuel")
   
   # line chart
-  billboarder() %>% 
+  bb <- billboarder() %>% 
     bb_linechart(
       data = equilibre_mensuel[, c("date", "consommation", "production")], 
       type = "spline"
@@ -132,6 +142,8 @@ test_that("Line chart Date", {
             y = "In megawatt (MW)",
             caption = "Data source: RTE (https://opendata.rte-france.com)")
   
+  expect_silent(bb)
+  expect_is(bb, "billboarder")
 })
 
 
@@ -153,7 +165,7 @@ test_that("Line chart POSIXct", {
   
   
   # line chart
-  billboarder() %>% 
+  bb <- billboarder() %>% 
     bb_linechart(data = cdc_prod_filiere[, c("date_heure", "prod_solaire")]) %>% 
     bb_x_axis(tick = list(format = "%H:%M", fit = FALSE)) %>% 
     bb_y_axis(min = 0, padding = 0) %>% 
@@ -177,6 +189,8 @@ test_that("Line chart POSIXct", {
             y = "In megawatt (MW)",
             caption = "Data source: RTE (https://opendata.rte-france.com)")
   
+  expect_silent(bb)
+  expect_is(bb, "billboarder")
 })
 
 
@@ -186,7 +200,7 @@ test_that("Stacked area chart", {
   data("cdc_prod_filiere")
   
   # area chart !
-  billboarder() %>% 
+  bb <- billboarder() %>% 
     bb_linechart(
       data = cdc_prod_filiere[, c("date_heure", "prod_eolien", "prod_hydraulique", "prod_solaire")], 
       type = "area"
@@ -205,6 +219,8 @@ test_that("Stacked area chart", {
             y = "In megawatt (MW)",
             caption = "Data source: RTE (https://opendata.rte-france.com)")
   
+  expect_silent(bb)
+  expect_is(bb, "billboarder")
 })
 
 
@@ -245,10 +261,91 @@ test_that("RAW", {
   )
   
   # Pass the list as parameter
-  billboarder(params)
-  
+  bb <- billboarder(params)
+  expect_silent(bb)
+  expect_is(bb, "billboarder")
 })
 
+
+
+
+
+# Histogram & density -----------------------------------------------------
+
+
+
+test_that("Histogram", {
+  bb <- billboarder() %>%
+    bb_histogram(data = rnorm(1e5), binwidth = 0.25) %>%
+    bb_colors_manual()
+  expect_silent(bb)
+  expect_is(bb, "billboarder")
+})
+
+test_that("Histogram & density - grouped", {
+  dat <- data.frame(
+    sample = c(rnorm(n = 1e4, mean = 1), rnorm(n = 1e4, mean = 2)),
+    group = rep(c("A", "B"), each = 1e4), stringsAsFactors = FALSE
+  )
+  # Mean by groups
+  samples_mean <- tapply(dat$sample, dat$group, mean)
+  # histogram !
+  bb <- billboarder() %>%
+    bb_histogram(data = dat, x = "sample", group = "group", binwidth = 0.25) %>%
+    bb_x_grid(
+      lines = list(
+        list(value = unname(samples_mean['A']), text = "mean of sample A"),
+        list(value = unname(samples_mean['B']), text = "mean of sample B")
+      )
+    )
+  expect_silent(bb)
+  expect_is(bb, "billboarder")
+  
+  bbd <- billboarder() %>%
+    bb_densityplot(data = dat, x = "sample", group = "group") %>%
+    bb_x_grid(
+      lines = list(
+        list(value = unname(samples_mean['A']), text = "mean of sample A"),
+        list(value = unname(samples_mean['B']), text = "mean of sample B")
+      )
+    )
+  expect_silent(bbd)
+  expect_is(bbd, "billboarder")
+})
+
+
+
+
+
+# Lollipop ----------------------------------------------------------------
+
+test_that("Lollipop", {
+  sw <- data.frame(
+    film = c("The Force Awakens", "The Phantom Menace", 
+             "Revenge of the Sith", "A New Hope",
+             "Attack of the Clones", "The Empire Strikes Back",
+             "Return of the Jedi"
+    ),
+    worldwide_gross = c(2068178225, 1027044677, 848754768,
+                        775398007, 649398328, 538375067,
+                        475106177)
+  )
+  bb <- billboarder() %>% 
+    bb_lollipop(data = sw, rotated = TRUE)%>% 
+    bb_y_grid(show = TRUE) %>% 
+    bb_y_axis(tick = list(
+      values = c(0, 5e+08, 1e+09, 1.5e+09, 2e+09),
+      outer = FALSE,
+      format = htmlwidgets::JS("d3.formatPrefix('$,.0', 1e6)")
+    )) %>% 
+    bb_x_axis(tick = list(centered = TRUE)) %>% 
+    bb_labs(
+      title = "Star Wars - Total Lifetime Grosses",
+      caption = "Data source : wikipedia"
+    )
+  expect_silent(bb)
+  expect_is(bb, "billboarder")
+})
 
 
 
