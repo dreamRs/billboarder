@@ -778,3 +778,48 @@ bb_svg <- function(bb, ...) {
   .bb_opt(bb, "svg", ...)
   
 }
+
+
+
+
+#' Radar property for a Billboard.js chart
+#'
+#' @param bb A \code{billboard} \code{htmlwidget} object.
+#' @param ... See \url{https://naver.github.io/billboard.js/release/latest/doc/Options.html#.radar}
+#'
+#' @return A \code{billboard} \code{htmlwidget} object.
+#' @export
+#'
+#' @examples
+#' library("billboarder")
+#' data("avengers")
+#' 
+#' # number of levels
+#' billboarder() %>%
+#'   bb_radarchart(
+#'     data = avengers,
+#'     mapping = bbaes(x = axis, y = value, group = group)
+#'   ) %>% 
+#'   bb_radar(level = list(depth = 4))
+#' 
+#' # hide levels
+#' billboarder() %>%
+#'   bb_radarchart(
+#'     data = avengers,
+#'     mapping = bbaes(x = axis, y = value, group = group)
+#'   ) %>% 
+#'   bb_radar(level = list(show = FALSE))
+#' 
+#' # max value on axis
+#' billboarder() %>%
+#'   bb_radarchart(
+#'     data = avengers,
+#'     mapping = bbaes(x = axis, y = value, group = group)
+#'   ) %>% 
+#'   bb_radar(axis = list(max = 10))
+bb_radar <- function(bb, ...) {
+  
+  .bb_opt(bb, "radar", ...)
+  
+}
+

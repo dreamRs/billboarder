@@ -75,3 +75,26 @@
 #' }
 #' @source RTE (\url{https://opendata.rte-france.com/explore/dataset/cdc_prod_par_filiere})
 "cdc_prod_filiere"
+
+
+
+
+#' Power ratings for The Avengers.
+#' 
+#' Data are available in "long" and "wide" format.
+#'
+#' @format A data frame with 24 rows and 4 variables:
+#' \describe{
+#'   \item{group}{Name of the hero}
+#'   \item{axis}{Power skill}
+#'   \item{value}{Value (1-7)}
+#'   \item{description}{Character description}
+#' }
+#' @source Marvel Wikia (\url{http://marvel.wikia.com}) and Chris Zhou (\url{http://bl.ocks.org/chrisrzhou/2421ac6541b68c1680f8})
+"avengers"
+
+#' @rdname avengers
+"avengers_wide"
+
+
+

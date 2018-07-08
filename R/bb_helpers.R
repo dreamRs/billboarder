@@ -1541,3 +1541,101 @@ bb_lollipop <- function(bb, data, mapping = NULL, rotated = FALSE, point_color =
   
   return(bb)
 }
+
+
+
+
+
+
+
+
+#' Helper for creating a radar chart
+#'
+#' @param bb A \code{billboard} \code{htmlwidget} object.
+#' @param data A \code{data.frame}, the first column will be used for x axis unless
+#' specified otherwise in \code{mapping}. If not a \code{data.frame}, an object coercible to \code{data.frame}.
+#' @param mapping Mapping of variables on the chart, see \code{\link{bbaes}}.
+#' @param ... Arguments passed to \code{\link{bb_radar}}.
+#'
+#' @return A \code{billboard} \code{htmlwidget} object.
+#' @export
+#'
+#' @examples
+#' library("billboarder")
+#' 
+#' # data about Avengers
+#' data("avengers_wide")
+#' 
+#' # if not specified, first column is used as x-axis, 
+#' # all others are used on y-axis
+#' billboarder() %>%
+#'   bb_radarchart(data = avengers_wide)
+#' 
+#' # specify explicitly which column to use with mapping
+#' billboarder() %>%
+#'   bb_radarchart(
+#'     data = avengers_wide,
+#'     mapping = bbaes(x = axis, y = `Captain America`)
+#'   )
+#' 
+#' 
+#' # with data in "long" format you can use "group" aesthetics
+#' data("avengers")
+#' billboarder() %>%
+#'   bb_radarchart(
+#'     data = avengers, 
+#'     mapping = bbaes(x = axis, y = value, group = group)
+#'   )
+bb_radarchart <- function(bb, data, mapping = NULL, ...) {
+  
+  if (missing(data))
+    data <- bb$x$data
+  
+  data <- as.data.frame(data)
+  args <- list(...)
+  
+  mapping <- mapping %||% bb$x$mapping
+  
+  if (is.null(mapping)) {
+    
+    x <- names(data)[1]
+    y <- names(data)[-1]
+    
+    if (nrow(data) == 1) {
+      json <- lapply(X = as.list(data[c(x, y)]), FUN = list)
+    } else {
+      json <- as.list(data[c(x, y)])
+    }
+    names(json)[which(names(json) == x)] <- getOption("billboarder-x", default = "bb-x")
+    data_opt <- list(
+      x = getOption("billboarder-x", default = "bb-x"),
+      json = json,
+      type = "radar"
+    )
+    
+  } else {
+    
+    json <- bbmapping(data = data, mapping = mapping)
+    x <- as.character(mapping$x)
+    names(json)[which(names(json) == x)] <- getOption("billboarder-x", default = "bb-x")
+    
+  }
+  
+  data_opt <- list(
+    x = getOption("billboarder-x", default = "bb-x"),
+    json = json,
+    type = "radar"
+  )
+  
+  bb <- .bb_opt2(bb, "data", dropNulls(data_opt))
+  
+  bb <- .bb_opt(bb, "radar", ...)
+  
+  return(bb)
+}
+
+
+
+
+
+
