@@ -1627,9 +1627,21 @@ bb_radarchart <- function(bb, data, mapping = NULL, ...) {
     type = "radar"
   )
   
-  bb <- .bb_opt2(bb, "data", dropNulls(data_opt))
+  if ("billboarder_Proxy" %in% class(bb)) {
+    
+    bb <- bb_load(proxy = bb,
+                  json = json, 
+                  x = getOption("billboarder-x", default = "bb-x"),
+                  unload = bb$unload) 
+    
+  } else {
+    
+    bb <- .bb_opt2(bb, "data", dropNulls(data_opt))
+    
+    bb <- .bb_opt(bb, "radar", ...)
+    
+  }
   
-  bb <- .bb_opt(bb, "radar", ...)
   
   return(bb)
 }

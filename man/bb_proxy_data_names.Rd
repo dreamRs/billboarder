@@ -56,7 +56,7 @@ server <- function(input, output, session) {
     dat <- sample(letters[1:5], 100, TRUE)
     billboarderProxy(shinyId = "my_bb") \%>\% 
       bb_proxy_axis_labels(y = input$new_name) \%>\% 
-      ?(old = "Freq", 
+      bb_proxy_data_names(old = "Freq", 
                           new = input$new_name) \%>\% 
       bb_barchart(data = table(dat))
   }, ignoreInit = TRUE)
