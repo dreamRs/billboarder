@@ -165,6 +165,12 @@ HTMLWidgets.widget({
           if (typeof bb_opts.customstyle.custom_style != 'undefined') {
             var customcss = bb_opts.customstyle.custom_style,
               stylecustom = document.createElement('style');
+            if (Array.isArray(customcss)) {
+              customcss = customcss.map(function(x) {return '#' + el.id + " " + x}).join(" ");
+            } else {
+              customcss = '#' + el.id + " " + customcss;
+            }
+            //console.log(customcss);
             stylecustom.type = 'text/css';
             if (stylecustom.styleSheet){
               stylecustom.styleSheet.cssText = customcss;
