@@ -4,8 +4,8 @@
 \alias{bb_barchart}
 \title{Helper for creating a bar chart}
 \usage{
-bb_barchart(bb, data, mapping = NULL, stacked = FALSE, rotated = FALSE,
-  color = NULL, ...)
+bb_barchart(bb, data, mapping = NULL, stacked = FALSE,
+  rotated = FALSE, color = NULL, ...)
 }
 \arguments{
 \item{bb}{A \code{billboard} \code{htmlwidget} object.}

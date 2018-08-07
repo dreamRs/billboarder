@@ -4,8 +4,8 @@
 \alias{billboarder}
 \title{Create a Billboard.js widget}
 \usage{
-billboarder(bb_opts = list(), data = NULL, width = NULL, height = NULL,
-  elementId = NULL)
+billboarder(bb_opts = list(), data = NULL, width = NULL,
+  height = NULL, elementId = NULL)
 }
 \arguments{
 \item{bb_opts}{A \code{list} in JSON format with chart parameters,

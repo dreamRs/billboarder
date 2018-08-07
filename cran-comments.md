@@ -8,7 +8,7 @@
 0 errors | 0 warnings | 0 notes
 
 * OK on win-builder.
-* This is a maintenance update to work with the upcoming version of ggplot2.
+* Update JS dependencies.
 
 
 ---
