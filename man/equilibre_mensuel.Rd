@@ -13,7 +13,7 @@
   \item{consommation}{Consumption (in GWh)}
 }}
 \source{
-RTE (\url{https://opendata.rte-france.com/explore/dataset/equilibre_mensuel_prod_conso_brute})
+RTE (\url{https://opendata.reseaux-energies.fr/explore/dataset/equilibre-national-mensuel-prod-conso-brute/})
 }
 \usage{
 equilibre_mensuel

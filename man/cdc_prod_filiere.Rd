@@ -19,7 +19,7 @@
   \item{prod_fioul}{Oil production in MW}
 }}
 \source{
-RTE (\url{https://opendata.rte-france.com/explore/dataset/cdc_prod_par_filiere})
+RTE (\url{https://opendata.reseaux-energies.fr/explore/dataset/production-quotidienne-filiere})
 }
 \usage{
 cdc_prod_filiere
