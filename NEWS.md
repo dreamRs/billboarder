@@ -1,8 +1,9 @@
-billboarder 0.2.2.900
+billboarder 0.2.3
 ==================
 
 * Upgrade billboard library to 1.5.1
 * Support for radar chart: `bb_radarchart`.
+* Linked tooltip, see [this Gist](https://gist.github.com/pvictor/49fdb05d362acca8d6b94d69345a5046) for a demo.
 
 
 
