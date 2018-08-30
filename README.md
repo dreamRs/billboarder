@@ -30,6 +30,18 @@ devtools::install_github("dreamRs/billboarder")
 
 A markdown document with some examples is available here : http://rpubs.com/Victorp/billboarder_examples
 
+Other examples:
+
+  - [Bar chart](#Bar-chart)
+  - [Scatter plot](#scatter-plot)
+  - [Pie charts](#pie-charts)
+  - [Line charts](#lines-charts)
+  - [Histogram & density](#histogram--density)
+  - [Shiny interaction](#shiny-interaction)
+
+
+
+
 
 ## Bar chart
 
@@ -53,7 +65,7 @@ billboarder() %>%
           caption = "Data source: RTE (https://opendata.rte-france.com)")
 ```
 
-![](inst/img/rte_barchart0.png)
+![](img/rte_barchart0.png)
 
 
 
@@ -81,7 +93,7 @@ billboarder() %>%
           caption = "Data source: RTE (https://opendata.rte-france.com)")
 ```
 
-![](inst/img/rte_barchart_dodge.png)
+![](img/rte_barchart_dodge.png)
 
 
 Even stacked bar charts !
@@ -113,7 +125,7 @@ billboarder() %>%
           caption = "Data source: RTE (https://opendata.rte-france.com)")
 ```
 
-![](inst/img/rte_barchart_stacked.png)
+![](img/rte_barchart_stacked.png)
 
 
 
@@ -128,7 +140,7 @@ billboarder() %>%
  bb_point(r = 8)
 
 ```
-![](inst/img/scatterchart0.png)
+![](img/scatterchart0.png)
 
 
 You can make a bubble chart using `size` aes : 
@@ -143,7 +155,7 @@ billboarder() %>%
   bb_x_axis(tick = list(fit = FALSE))
 ```
 
-![](inst/img/scatter_bubble.png)
+![](img/scatter_bubble.png)
 
 
 ## Pie charts
@@ -171,7 +183,7 @@ billboarder() %>%
           caption = "Data source: RTE (https://opendata.rte-france.com)")
 ```
 
-![](inst/img/rte_piechart.png)
+![](img/rte_piechart.png)
 
 
 You can also do donut charts.
@@ -204,7 +216,31 @@ billboarder() %>%
           caption = "Data source: RTE (https://opendata.rte-france.com)")
 ```
 
-![](inst/img/rte_linechart_subchart.png)
+![](img/lines-subchart.gif)
+
+
+### Zoom by dragging
+
+```r
+billboarder() %>% 
+  bb_linechart(
+    data = equilibre_mensuel[, c("date", "consommation", "production")], 
+    type = "spline"
+  ) %>% 
+  bb_x_axis(tick = list(format = "%Y-%m", fit = FALSE)) %>% 
+  bb_x_grid(show = TRUE) %>% 
+  bb_y_grid(show = TRUE) %>% 
+  bb_colors_manual("consommation" = "firebrick", "production" = "forestgreen") %>% 
+  bb_legend(position = "right") %>% 
+  bb_zoom(
+    enabled = list(type = "drag"),
+    resetButton = list(text = "Unzoom")
+  ) %>% 
+  bb_labs(title = "Monthly electricity consumption and production in France (2007 - 2017)",
+          y = "In megawatt (MW)",
+          caption = "Data source: RTE (https://opendata.rte-france.com)")
+```
+![](img/lines-zoom-drag.gif)
 
 
 ### Time serie with `POSIXct` (and regions)
@@ -246,7 +282,7 @@ billboarder() %>%
           caption = "Data source: RTE (https://opendata.rte-france.com)")
 ```
 
-![](inst/img/rte_linechart_regions.png)
+![](img/rte_linechart_regions.png)
 
 
 ### Stacked area chart
@@ -278,7 +314,7 @@ billboarder() %>%
           caption = "Data source: RTE (https://opendata.rte-france.com)")
 ```
 
-![](inst/img/rte_linechart_area.png)
+![](img/rte_linechart_area.png)
 
 
 
@@ -313,7 +349,7 @@ billboarder(data = dat) %>%
   bb_y_axis(min = 50)
 ```
 
-![](inst/img/linechart_range.png)
+![](img/linechart_range.png)
 
 
 ## Histogram & density
@@ -325,7 +361,7 @@ billboarder() %>%
   bb_histogram(data = rnorm(1e5), binwidth = 0.25) %>%
   bb_colors_manual()
 ```
-![](inst/img/histogram.png)
+![](img/histogram.png)
 
 
 With a grouping variable :
@@ -348,7 +384,7 @@ billboarder() %>%
     )
   )
 ```
-![](inst/img/histogram2.png)
+![](img/histogram2.png)
 
 
 Density plot with the same data :
@@ -363,7 +399,7 @@ billboarder() %>%
     )
   )
 ```
-![](inst/img/density.png)
+![](img/density.png)
 
 
 
@@ -420,14 +456,14 @@ server <- function(input, output, session) {
 shinyApp(ui = ui, server = server)
 ```
 
-![](inst/img/shiny_click.png)
+![](img/shiny_click.png)
 
 
 ## Proxy
 
 You can modify existing charts with function `billboarderProxy` :
 
-![](inst/img/billboarder_proxy.gif)
+![](img/billboarder_proxy.gif)
 
 
 To see examples, run : 
@@ -488,5 +524,5 @@ params <- list(
 billboarder(params)
 ```
 
-![](inst/img/linechart0.png)
+![](img/linechart0.png)
 
