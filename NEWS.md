@@ -1,3 +1,10 @@
+billboarder 0.2.3.900
+==================
+
+* Upgrade billboard library to 1.6.0
+
+
+
 billboarder 0.2.3
 ==================
 
