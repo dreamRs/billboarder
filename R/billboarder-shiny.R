@@ -23,6 +23,7 @@
 #' @seealso \code{\link{proxy_example}}
 #'
 #' @export
+#' @importFrom htmlwidgets shinyWidgetOutput shinyRenderWidget
 billboarderOutput <- function(outputId, width = '100%', height = '400px'){
   htmlwidgets::shinyWidgetOutput(outputId, 'billboarder', width, height, package = 'billboarder')
 }

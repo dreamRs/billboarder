@@ -1,7 +1,8 @@
-billboarder 0.2.3.910
+billboarder 0.2.3.920
 ==================
 
 * Upgrade billboard library to 1.6.2
+* New function `set_theme` to choose global theme for charts.
 
 
 

@@ -1,6 +1,6 @@
 Package: billboarder
 Title: Create Interactive Chart with the JavaScript 'Billboard' Library
-Version: 0.2.3.910
+Version: 0.2.3.920
 Authors@R: c(
   person("Victor", "Perrier", email = "victor.perrier@dreamrs.fr", role = c("aut", "cre")),
   person("Fanny", "Meyer", email = "fanny.meyer@dreamrs.fr", role = c("aut")),
@@ -17,6 +17,7 @@ Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.1.0
 Imports: htmlwidgets,
+    htmltools,
     magrittr,
     jsonlite,
     ggplot2,

@@ -7,4 +7,3 @@ dependencies:
     version: 1.6.2
     src: htmlwidgets/lib/billboard-1.6
     script: billboard.min.js
-    stylesheet: billboard.min.css
