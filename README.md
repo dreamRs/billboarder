@@ -65,7 +65,7 @@ billboarder() %>%
           caption = "Data source: RTE (https://opendata.rte-france.com)")
 ```
 
-![](img/rte_barchart0.png)
+![](man/figures/rte_barchart0.png)
 
 
 
@@ -93,7 +93,7 @@ billboarder() %>%
           caption = "Data source: RTE (https://opendata.rte-france.com)")
 ```
 
-![](img/rte_barchart_dodge.png)
+![](man/figures/rte_barchart_dodge.png)
 
 
 Even stacked bar charts !
@@ -125,7 +125,7 @@ billboarder() %>%
           caption = "Data source: RTE (https://opendata.rte-france.com)")
 ```
 
-![](img/rte_barchart_stacked.png)
+![](man/figures/rte_barchart_stacked.png)
 
 
 
@@ -140,7 +140,7 @@ billboarder() %>%
  bb_point(r = 8)
 
 ```
-![](img/scatterchart0.png)
+![](man/figures/scatterchart0.png)
 
 
 You can make a bubble chart using `size` aes : 
@@ -155,7 +155,7 @@ billboarder() %>%
   bb_x_axis(tick = list(fit = FALSE))
 ```
 
-![](img/scatter_bubble.png)
+![](man/figures/scatter_bubble.png)
 
 
 ## Pie charts
@@ -183,7 +183,7 @@ billboarder() %>%
           caption = "Data source: RTE (https://opendata.rte-france.com)")
 ```
 
-![](img/rte_piechart.png)
+![](man/figures/rte_piechart.png)
 
 
 You can also do donut charts.
@@ -216,7 +216,7 @@ billboarder() %>%
           caption = "Data source: RTE (https://opendata.rte-france.com)")
 ```
 
-![](img/lines-subchart.gif)
+![](man/figures/lines-subchart.gif)
 
 
 ### Zoom by dragging
@@ -240,7 +240,7 @@ billboarder() %>%
           y = "In megawatt (MW)",
           caption = "Data source: RTE (https://opendata.rte-france.com)")
 ```
-![](img/lines-zoom-drag.gif)
+![](man/figures/lines-zoom-drag.gif)
 
 
 ### Time serie with `POSIXct` (and regions)
@@ -282,7 +282,7 @@ billboarder() %>%
           caption = "Data source: RTE (https://opendata.rte-france.com)")
 ```
 
-![](img/rte_linechart_regions.png)
+![](man/figures/rte_linechart_regions.png)
 
 
 ### Stacked area chart
@@ -314,7 +314,7 @@ billboarder() %>%
           caption = "Data source: RTE (https://opendata.rte-france.com)")
 ```
 
-![](img/rte_linechart_area.png)
+![](man/figures/rte_linechart_area.png)
 
 
 
@@ -349,7 +349,7 @@ billboarder(data = dat) %>%
   bb_y_axis(min = 50)
 ```
 
-![](img/linechart_range.png)
+![](man/figures/linechart_range.png)
 
 
 ## Histogram & density
@@ -361,7 +361,7 @@ billboarder() %>%
   bb_histogram(data = rnorm(1e5), binwidth = 0.25) %>%
   bb_colors_manual()
 ```
-![](img/histogram.png)
+![](man/figures/histogram.png)
 
 
 With a grouping variable :
@@ -384,7 +384,7 @@ billboarder() %>%
     )
   )
 ```
-![](img/histogram2.png)
+![](man/figures/histogram2.png)
 
 
 Density plot with the same data :
@@ -399,7 +399,7 @@ billboarder() %>%
     )
   )
 ```
-![](img/density.png)
+![](man/figures/density.png)
 
 
 
@@ -456,14 +456,14 @@ server <- function(input, output, session) {
 shinyApp(ui = ui, server = server)
 ```
 
-![](img/shiny_click.png)
+![](man/figures/shiny_click.png)
 
 
 ## Proxy
 
 You can modify existing charts with function `billboarderProxy` :
 
-![](img/billboarder_proxy.gif)
+![](man/figures/billboarder_proxy.gif)
 
 
 To see examples, run : 
@@ -524,5 +524,5 @@ params <- list(
 billboarder(params)
 ```
 
-![](img/linechart0.png)
+![](man/figures/linechart0.png)
 

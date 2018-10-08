@@ -9,6 +9,7 @@
 
 * OK on win-builder.
 * Update JS dependencies.
+* No reverse dependencies
 
 
 ---
