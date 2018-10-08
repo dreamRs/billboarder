@@ -1,4 +1,4 @@
-billboarder 0.2.3.920
+billboarder 0.2.4
 ==================
 
 * Upgrade billboard library to 1.6.2
