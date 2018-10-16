@@ -9,7 +9,7 @@ bb_proxy_show(proxy, targetIdsValue, options = NULL)
 \arguments{
 \item{proxy}{A \code{billboardProxy} \code{htmlwidget} object.}
 
-\item{targetIdsValue}{Name of series to hide.}
+\item{targetIdsValue}{Name of series to show.}
 
 \item{options}{Additional options.}
 }

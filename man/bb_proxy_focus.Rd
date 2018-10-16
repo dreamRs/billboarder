@@ -28,7 +28,6 @@ Highlights specified targets and fade out the others.
 if (interactive()) {
 library("shiny")
 library("billboarder")
-library("magrittr")
 
 ui <- fluidPage(
   tags$h1("Proxy method to highlight data"),

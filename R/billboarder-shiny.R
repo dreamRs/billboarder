@@ -199,7 +199,6 @@ bb_unload <- function(proxy, ids = NULL) {
 #' if (interactive()) {
 #' library("shiny")
 #' library("billboarder")
-#' library("magrittr")
 #' 
 #' ui <- fluidPage(
 #'   tags$h1("Proxy method to highlight data"),
@@ -348,14 +347,15 @@ bb_proxy_groups <- function(proxy, ...) {
 bb_proxy_hide <- function(proxy, targetIdsValue, options = NULL) {
   if (!"billboarder_Proxy" %in% class(proxy)) 
     stop("This function must be used with a billboarderProxy object")
-  
+  if (is.null(options))
+    options <- list()
   .bb_proxy(proxy, "hide", targetIdsValue = targetIdsValue, options = options)
 }
 
 #' Show method with proxy
 #'
 #' @param proxy A \code{billboardProxy} \code{htmlwidget} object.
-#' @param targetIdsValue Name of series to hide.
+#' @param targetIdsValue Name of series to show.
 #' @param options Additional options.
 #' 
 #' @seealso \code{\link{bb_proxy_hide}}
@@ -365,7 +365,8 @@ bb_proxy_hide <- function(proxy, targetIdsValue, options = NULL) {
 bb_proxy_show <- function(proxy, targetIdsValue, options = NULL) {
   if (!"billboarder_Proxy" %in% class(proxy)) 
     stop("This function must be used with a billboarderProxy object")
-  
+  if (is.null(options))
+    options <- list()
   .bb_proxy(proxy, "show", targetIdsValue = targetIdsValue, options = options)
 }
 
