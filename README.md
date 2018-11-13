@@ -15,10 +15,10 @@ a re-usable easy interface JavaScript chart library, based on D3 v4+.
 
 A **proxy** method is implemented to smoothly update charts in shiny applications, see below for details.
 
-Note : developpement is heavily inspired by awesome [highcharter](http://jkunst.com/highcharter/) by [Joshua Kunst](https://github.com/jbkunst).
+Note : Development is heavily inspired by awesome [highcharter](http://jkunst.com/highcharter/) by [Joshua Kunst](https://github.com/jbkunst).
 
 
-Installation :
+## Installation :
 ```r
 # From CRAN
 install.packages("billboarder")
