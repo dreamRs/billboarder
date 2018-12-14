@@ -40,8 +40,8 @@ billboarder <- function(bb_opts = list(), data = NULL, width = NULL, height = NU
     elementId = elementId, 
     dependencies = htmlDependency(
       name = "billboard-theme", 
-      version = "1.6.2", 
-      src = "htmlwidgets/lib/billboard-1.6",
+      version = "1.7.0", 
+      src = "htmlwidgets/lib/billboard-1.7",
       package = "billboarder",
       stylesheet = getOption(
         x = "billboard.theme", 
@@ -62,7 +62,7 @@ billboarder <- function(bb_opts = list(), data = NULL, width = NULL, height = NU
 
 #' Set theme for Billboard charts
 #'
-#' @param name Name of the theme, possible values are : \code{"billboard"}, \code{"insight"}.
+#' @param name Name of the theme, possible values are : \code{"billboard"}, \code{"insight"}, \code{"graph"}.
 #' 
 #' @note You can only use one theme at a time (in Shiny applications or Markdown documents).
 #'
@@ -86,7 +86,7 @@ billboarder <- function(bb_opts = list(), data = NULL, width = NULL, height = NU
 #'   bb_legend(position = "inset", inset = list(anchor = "top-right")) %>% 
 #'   bb_labs(title = "Renewable energy production",
 #'           caption = "Data source: RTE (https://opendata.rte-france.com)")
-set_theme <- function(name = c("billboard", "insight")) {
+set_theme <- function(name = c("billboard", "insight", "graph")) {
   name <- match.arg(arg = name)
   options("billboard.theme" = paste0(name, ".min.css"))
 }

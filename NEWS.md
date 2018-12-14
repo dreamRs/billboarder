@@ -1,3 +1,10 @@
+billboarder 0.2.5
+==================
+
+* Upgrade billboard library to 1.7.0 (new theme, multiple axes, normalized staking data), see the [release note](https://medium.com/@alberto.park/billboard-js-1-7-0-release-4944a2eb59fe)
+
+
+
 billboarder 0.2.4
 ==================
 

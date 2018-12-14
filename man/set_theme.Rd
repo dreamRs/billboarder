@@ -4,10 +4,10 @@
 \alias{set_theme}
 \title{Set theme for Billboard charts}
 \usage{
-set_theme(name = c("billboard", "insight"))
+set_theme(name = c("billboard", "insight", "graph"))
 }
 \arguments{
-\item{name}{Name of the theme, possible values are : \code{"billboard"}, \code{"insight"}.}
+\item{name}{Name of the theme, possible values are : \code{"billboard"}, \code{"insight"}, \code{"graph"}.}
 }
 \description{
 Set theme for Billboard charts
