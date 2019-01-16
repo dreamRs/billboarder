@@ -665,3 +665,22 @@ bb_export <- function(proxy, path = NULL) {
     stop("This function must be used with a billboarderProxy object")
   .bb_proxy(proxy, "export", data = list())
 }
+
+
+
+
+#' Update chart flow with proxy
+#'
+#' @param proxy A \code{billboardProxy} \code{htmlwidget} object.
+#' @param ... Arguments passed to the flow API, see \url{https://naver.github.io/billboard.js/release/latest/doc/Chart.html#flow}.
+#'
+#' @return A \code{billboardProxy} \code{htmlwidget} object.
+#' @export
+bb_proxy_flow <- function(proxy, ...) {
+  if (!"billboarder_Proxy" %in% class(proxy)) 
+    stop("This function must be used with a billboarderProxy object")
+  
+  .bb_proxy2(proxy, "flow", list(...))
+}
+
+

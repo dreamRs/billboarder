@@ -432,6 +432,14 @@ if (HTMLWidgets.shinyMode) {
         chart.data.colors(data.data.colors);
       }
   });
+  Shiny.addCustomMessageHandler('update-billboard-flow',
+    function(data) {
+      var chart = get_billboard(data.id);
+      // console.log(data.data.type);
+      if (typeof chart != 'undefined') {
+        chart.flow(data.data);
+      }
+  });
   // Export
   Shiny.addCustomMessageHandler('update-billboard-export',
     function(data) {
