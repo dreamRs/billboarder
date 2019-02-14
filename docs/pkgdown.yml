@@ -1,0 +1,8 @@
+pandoc: '2.5'
+pkgdown: 1.3.0
+pkgdown_sha: ~
+articles:
+  billboarder-intro: billboarder-intro.html
+  billboarder-mapping: billboarder-mapping.html
+  billboarder-options: billboarder-options.html
+
