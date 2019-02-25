@@ -19,6 +19,7 @@ Note : Development is heavily inspired by awesome [highcharter](http://jkunst.co
 
 
 ## Installation :
+
 ```r
 # From CRAN
 install.packages("billboarder")
@@ -28,7 +29,10 @@ install.packages("billboarder")
 devtools::install_github("dreamRs/billboarder")
 ```
 
-A markdown document with some examples is available here : http://rpubs.com/Victorp/billboarder_examples
+
+For interactive examples & documentation, see `pkgdown` site : https://dreamrs.github.io/billboarder/index.html
+
+
 
 Other examples:
 
@@ -38,8 +42,6 @@ Other examples:
   - [Line charts](#lines-charts)
   - [Histogram & density](#histogram--density)
   - [Shiny interaction](#shiny-interaction)
-
-
 
 
 

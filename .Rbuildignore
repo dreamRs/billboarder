@@ -9,3 +9,6 @@
 ^inst/examples$
 ^dev$
 ^img$
+^_pkgdown\.yml$
+^docs$
+^index\.md$
