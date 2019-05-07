@@ -1,3 +1,10 @@
+billboarder 0.2.6
+==================
+
+* Upgrade billboard library to 1.8.0 (color on over, linear gradient for area charts, multiline text labels, bar width), see the [release note](https://medium.com/@alberto.park/billboard-js-1-8-0-released-today-3ed432f2d9d4)
+* New function *bauge* : a gauge that automatically updates itself in Shiny apps.
+
+
 billboarder 0.2.5
 ==================
 
