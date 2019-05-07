@@ -135,7 +135,7 @@ billboarder(data = prod_filiere_long) %>%
 
 ## Mapping with programming
 
-In Shiny app or in function, you can use `bbaes_string` or `bb_aes_string`, these function accept character instead of unquoted varaible names :
+In Shiny app or in function, you can use `bbaes_string` or `bb_aes_string`, these function accept character instead of unquoted variable names :
 
 ```{r}
 billboarder(data = prod_filiere_long) %>% 
