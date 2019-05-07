@@ -5,7 +5,7 @@
 
 [![Travis-CI Build Status](https://travis-ci.org/dreamRs/billboarder.svg?branch=master)](https://travis-ci.org/dreamRs/billboarder)
 [![version](http://www.r-pkg.org/badges/version/billboarder)](https://CRAN.R-project.org/package=billboarder)
-[![cranlogs](http://cranlogs.r-pkg.org/badges/billboarder)](http://cran.rstudio.com/web/packages/billboarder/index.html)
+[![cranlogs](http://cranlogs.r-pkg.org/badges/billboarder)](https://CRAN.R-project.org/package=billboarder)
 
 
 ## Overview
