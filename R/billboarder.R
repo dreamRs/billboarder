@@ -40,8 +40,8 @@ billboarder <- function(bb_opts = list(), data = NULL, width = NULL, height = NU
     elementId = elementId, 
     dependencies = htmlDependency(
       name = "billboard-theme", 
-      version = "1.8.0", 
-      src = "htmlwidgets/lib/billboard-1.8",
+      version = "1.9.0", 
+      src = "htmlwidgets/lib/billboard-1.9",
       package = "billboarder",
       stylesheet = getOption(
         x = "billboard.theme", 

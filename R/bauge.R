@@ -113,8 +113,8 @@ bauge <- function(value, min = 0, max = 100,
     elementId = elementId,
     dependencies = htmlDependency(
       name = "billboard-theme", 
-      version = "1.7.0", 
-      src = "htmlwidgets/lib/billboard-1.7",
+      version = "1.9.0", 
+      src = "htmlwidgets/lib/billboard-1.9",
       package = "billboarder",
       stylesheet = getOption(
         x = "billboard.theme", 
