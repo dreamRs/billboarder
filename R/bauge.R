@@ -111,16 +111,7 @@ bauge <- function(value, min = 0, max = 100,
     height = height,
     package = 'billboarder',
     elementId = elementId,
-    dependencies = htmlDependency(
-      name = "billboard-theme", 
-      version = "1.9.0", 
-      src = "htmlwidgets/lib/billboard-1.9",
-      package = "billboarder",
-      stylesheet = getOption(
-        x = "billboard.theme", 
-        default = "billboard.min.css"
-      )
-    )
+    dependencies = theme_dependency()
   )
 }
 
