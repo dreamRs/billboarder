@@ -35,7 +35,7 @@ set_theme <- function(name = c("billboard", "insight", "graph")) {
 theme_dependency <- function() {
   htmlDependency(
     name = "billboard-theme", 
-    version = "1.9.2", 
+    version = "1.9.3", 
     src = "htmlwidgets/lib/billboard-1.9",
     package = "billboarder",
     stylesheet = getOption(
