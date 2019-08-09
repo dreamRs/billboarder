@@ -1,6 +1,7 @@
 billboarder 0.2.7
 ==================
 
+* Upgrade billboard library to 1.10.0, see the [release note](https://medium.com/@alberto.park/billboard-js-1-10-release-bubble-dimension-axis-culling-more-132d343a46cc)
 * Upgrade billboard library to 1.9.0, see the [release note](https://medium.com/@alberto.park/billboard-js-1-9-release-introducing-plugins-more-636ada3a7881)
 
 billboarder 0.2.6

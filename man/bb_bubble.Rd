@@ -18,5 +18,18 @@ A \code{billboard} \code{htmlwidget} object.
 Bubble property for a Billboard.js chart
 }
 \examples{
-#
+billboarder() \%>\% 
+  bb_scatterplot(
+    data = iris, 
+    mapping = bbaes(Sepal.Length, Sepal.Width, group = Species, size = Petal.Width)
+  ) \%>\% 
+  bb_bubble(maxR = 10)
+
+
+billboarder() \%>\% 
+  bb_scatterplot(
+    data = iris, 
+    mapping = bbaes(Sepal.Length, Sepal.Width, group = Species, size = Petal.Width)
+  ) \%>\% 
+  bb_bubble(maxR = JS("function(d) {return Math.sqrt(d.value.z * 20);}"))
 }

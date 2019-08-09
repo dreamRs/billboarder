@@ -82,22 +82,7 @@ HTMLWidgets.widget({
         bb_opts.size.width = w;
         bb_opts.size.height = h;
         
-        
-        // Bubble
-        if (bb_opts.data.type == 'bubble') {
-          //if (typeof bb_opts.bubble == 'undefined') {
-            bb_opts.bubble = {};
-            bb_opts.bubble.maxR = function(d) {
-              //var chart = get_billboard(el.id);
-              //var z = chart.data('z_' + d.id);
-              var z = bb_opts.data.json[d.index]['z_' + d.id];
-              console.log(d);
-              console.log(z);
-              return Math.sqrt(z * 10);
-            };
-            bb_opts.data.xSort = false;
-          //}
-        }
+
         
         // Custom legend .contents.templat
         if (typeof bb_opts.legend !== 'undefined') {
@@ -148,7 +133,7 @@ HTMLWidgets.widget({
         // Billboarder specials
         if (typeof bb_opts.billboarderspecials != 'undefined') {
           if (typeof bb_opts.billboarderspecials.opacity != 'undefined') {
-            var cssopacity = '.bb-area { opacity: ' + bb_opts.billboarderspecials.opacity + ' !important; }',
+            var cssopacity = '#' + el.id + ' .bb-area { opacity: ' + bb_opts.billboarderspecials.opacity + ' !important; }',
               styleopacity = document.createElement('style');
             styleopacity.type = 'text/css';
             if (styleopacity.styleSheet){

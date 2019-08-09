@@ -13,7 +13,7 @@ bb_scatterplot(bb, data, mapping = NULL, ...)
 
 \item{mapping}{Mapping of variables on the chart, see \code{\link{bbaes}}.}
 
-\item{...}{unused}
+\item{...}{Alternative mapping, you can specify \code{x = "Sepal.Length"} for example.}
 }
 \value{
 A \code{billboard} \code{htmlwidget} object.
@@ -50,9 +50,10 @@ billboarder() \%>\%
 billboarder() \%>\% 
   bb_scatterplot(
     data = iris, 
-    mapping = bbaes(Sepal.Length, Sepal.Width,
-                    group = Species, size = Petal.Width),
-    range = c(0.5, 120)
+    mapping = bbaes(
+      Sepal.Length, Sepal.Width,
+      group = Species, size = Petal.Width
+    )
   ) \%>\% 
   bb_x_axis(tick = list(fit = FALSE))
 

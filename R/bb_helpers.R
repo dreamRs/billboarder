@@ -295,7 +295,7 @@ bb_categories <- function(bb, categories) {
 #' @param bb A \code{billboard} \code{htmlwidget} object.
 #' @param data A \code{data.frame}
 #' @param mapping Mapping of variables on the chart, see \code{\link{bbaes}}.
-#' @param ... unused
+#' @param ... Alternative mapping, you can specify \code{x = "Sepal.Length"} for example.
 #' 
 #' @note This function can be used with \code{\link{billboarderProxy}} in shiny application.
 #'
@@ -331,9 +331,10 @@ bb_categories <- function(bb, categories) {
 #' billboarder() %>% 
 #'   bb_scatterplot(
 #'     data = iris, 
-#'     mapping = bbaes(Sepal.Length, Sepal.Width,
-#'                     group = Species, size = Petal.Width),
-#'     range = c(0.5, 120)
+#'     mapping = bbaes(
+#'       Sepal.Length, Sepal.Width,
+#'       group = Species, size = Petal.Width
+#'     )
 #'   ) %>% 
 #'   bb_x_axis(tick = list(fit = FALSE))
 #'
@@ -369,48 +370,48 @@ bb_scatterplot <- function(bb, data, mapping = NULL, ...) {
   if (is.null(group)) {
     xs <- stats::setNames(list(x), y)
     json <- as.list(data[, c(x, y)])
+    if (!is.null(z)) {
+      json$y <- mapply(
+        FUN = function(y, z) list(y = y, z = z), 
+        y = json$y, z = data[[z]], 
+        SIMPLIFY = FALSE
+      )
+    }
   } else {
     xs <- stats::setNames(
       object = as.list(paste(unique(data[[group]]), "x", sep = "_")), 
       nm = unique(data[[group]])
     )
-    json <- c(
-      split(x = data[[x]], f = paste(data[[group]], "x", sep = "_")),
-      split(x = data[[y]], f = data[[group]])
-    )
-  }
-  
-  if (is.null(args$range)) {
-    args$range <- c(10, 60)
-  }
-  if (!is.null(z)) {
-    if (is.null(group)) {
-      to_hide <- paste0("z_", y)
-      json[[to_hide]] <- scales::rescale(data[[z]], to = args$range)/data[[y]]
+    if (!is.null(z)) {
+      json <- c(
+        split(x = data[[x]], f = paste(data[[group]], "x", sep = "_")),
+        split(
+          x = mapply(
+            FUN = function(y, z) list(y = y, z = z), 
+            y = data[[y]], z = data[[z]], 
+            SIMPLIFY = FALSE
+          ), 
+          f = data[[group]]
+        )
+      )
     } else {
-      zz <- scales::rescale(data[[z]], to = args$range)/data[[y]]
-      zz <- split(x = zz, f = paste0("z_", data[[group]]))
-      to_hide <- names(zz)
-      json <- c(json, zz)
+      json <- c(
+        split(x = data[[x]], f = paste(data[[group]], "x", sep = "_")),
+        split(x = data[[y]], f = data[[group]])
+      )
     }
-    to_show <- setdiff(names(json), to_hide)
-    json <- lapply(
-      X = seq_along(json[[1]]),
-      FUN = function(x) {
-        as.list(sapply(X = json, FUN = `[[`, x))
-      }
-    )
   }
+
   
   data_opt <- list(
     xs = xs,
     json = json,
     type = if (is.null(z)) "scatter" else "bubble"
   )
-  if (!is.null(z)) {
-    data_opt$keys <- list(value = to_show)
-    # data_opt$hide <- to_hide
-  }
+  # if (!is.null(z)) {
+  #   data_opt$keys <- list(value = to_show)
+  #   # data_opt$hide <- to_hide
+  # }
   
   data_axis <- list(
     x = list(

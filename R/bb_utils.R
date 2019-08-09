@@ -755,7 +755,20 @@ bb_zoom <- function(bb, ...) {
 #' @export
 #'
 #' @examples
-#' #
+#' billboarder() %>% 
+#'   bb_scatterplot(
+#'     data = iris, 
+#'     mapping = bbaes(Sepal.Length, Sepal.Width, group = Species, size = Petal.Width)
+#'   ) %>% 
+#'   bb_bubble(maxR = 10)
+#' 
+#' 
+#' billboarder() %>% 
+#'   bb_scatterplot(
+#'     data = iris, 
+#'     mapping = bbaes(Sepal.Length, Sepal.Width, group = Species, size = Petal.Width)
+#'   ) %>% 
+#'   bb_bubble(maxR = JS("function(d) {return Math.sqrt(d.value.z * 20);}"))
 bb_bubble <- function(bb, ...) {
   
   .bb_opt(bb, "bubble", ...)

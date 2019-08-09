@@ -23,3 +23,9 @@ NULL
 #' @export
 #' @rdname billboarder-exports
 NULL
+
+#' @importFrom htmlwidgets JS
+#' @name JS
+#' @export
+#' @rdname billboarder-exports
+NULL
