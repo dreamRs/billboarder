@@ -408,10 +408,6 @@ bb_scatterplot <- function(bb, data, mapping = NULL, ...) {
     json = json,
     type = if (is.null(z)) "scatter" else "bubble"
   )
-  # if (!is.null(z)) {
-  #   data_opt$keys <- list(value = to_show)
-  #   # data_opt$hide <- to_hide
-  # }
   
   data_axis <- list(
     x = list(
@@ -442,36 +438,10 @@ bb_scatterplot <- function(bb, data, mapping = NULL, ...) {
     bb <- .bb_opt2(bb, "axis", data_axis)
     
     if (!is.null(z)) {
-    #   # rescale <- function(x, max = 35) {
-    #   #   rng <- range(x, na.rm = TRUE)
-    #   #   (x - rng[1]) / (rng[2] - rng[1]) * 34.5 + 0.5
-    #   # }
-    #   if (is.null(args$range)) {
-    #     args$range <- c(10, 40)
-    #   }
-    #   if (is.null(group)) {
-    #     funjs <- paste0(
-    #       "function(d) {",
-    #       "console.log(d);",
-    #       "var z = ", jsonlite::toJSON(x = scales::rescale(data[[z]], to = args$range)), ";",
-    #       "return Math.sqrt(z[d.index] * 2);", 
-    #       "}"
-    #     )
-    #   } else {
-    #     funjs <- paste0(
-    #       "function(d) {",
-    #       "var z = ", jsonlite::toJSON(x = split(x = scales::rescale(data[[z]], to = args$range), f = data[[group]])), ";",
-    #       "return Math.sqrt(z[d.id][d.index] * 2);", 
-    #       "}"
-    #     )
-    #   }
-    #   
-    #   bb <- .bb_opt2(bb, "bubble", list(maxR = htmlwidgets::JS(funjs)))
       bb <- .bb_opt2(bb, "axis", list(x = list(padding = list(right = 0.1))))
     }
     
   }
-  
   
   return(bb)
 }
@@ -714,52 +684,6 @@ bb_donutchart <- function(bb, data, mapping = NULL, ...) {
   
   return(bb)
 }
-
-
-
-
-
-
-
-# Helper for creating an histogram
-#
-# @param bb A \code{billboard} \code{htmlwidget} object.
-# @param x A numeric \code{vector}.
-# @param breaks Arguments passed to \code{hist}.
-# @param ... Arguments for slot 
-#
-# @return A \code{billboard} \code{htmlwidget} object.
-# @export
-# 
-# @importFrom graphics hist
-#
-bb_histogram <- function(bb, x, breaks = "Sturges", ...) {
-  
-  
-  h <- graphics::hist(x = x, breaks = breaks, plot = FALSE)
-  
-  json <- list(
-    data = h$counts,
-    x = h$breaks
-  )
-  
-  
-  data_opt <- list(
-    json = json,
-    type = "area-step",
-    x = "x"
-  )
-  
-  bb <- .bb_opt2(bb, "data", data_opt)
-  
-  bb <- .bb_opt(bb, "area", ...)
-  
-  bb <- .bb_opt(bb, "line", step = list(type = "step"))
-  
-  return(bb)
-}
-
-
 
 
 
