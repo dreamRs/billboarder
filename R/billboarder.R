@@ -31,13 +31,13 @@ billboarder <- function(bb_opts = list(), data = NULL, width = NULL, height = NU
 
   # create widget
   createWidget(
-    name = 'billboarder',
+    name = "billboarder",
     x = x,
     width = width,
     height = height,
-    package = 'billboarder',
+    package = "billboarder",
     elementId = elementId, 
-    dependencies = theme_dependency(),
+    dependencies = billboard_dependency(),
     sizingPolicy = sizingPolicy(
       defaultWidth = "95%",
       viewer.defaultHeight = "100%",
@@ -51,6 +51,19 @@ billboarder <- function(bb_opts = list(), data = NULL, width = NULL, height = NU
 
 
 
-
+#' @importFrom htmltools htmlDependency
+billboard_dependency <- function() {
+  htmlDependency(
+    name = "billboard", 
+    version = "1.10.2", 
+    src = "htmlwidgets/lib/billboard-1.10/",
+    package = "billboarder",
+    script = "billboard.min.js",
+    stylesheet = getOption(
+      x = "billboard.theme", 
+      default = "billboard.min.css"
+    )
+  )
+}
 
 

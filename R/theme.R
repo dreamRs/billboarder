@@ -30,17 +30,3 @@ set_theme <- function(name = c("billboard", "insight", "graph")) {
   options("billboard.theme" = paste0(name, ".min.css"))
 }
 
-
-#' @importFrom htmltools htmlDependency
-theme_dependency <- function() {
-  htmlDependency(
-    name = "billboard-theme", 
-    version = "1.10.2", 
-    src = "htmlwidgets/lib/billboard-1.10",
-    package = "billboarder",
-    stylesheet = getOption(
-      x = "billboard.theme", 
-      default = "billboard.min.css"
-    )
-  )
-}
