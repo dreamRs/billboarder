@@ -835,3 +835,38 @@ bb_radar <- function(bb, ...) {
   
 }
 
+
+
+
+
+
+
+
+#' Export a Billboard to PNG
+#'
+#' @param bb A \code{\link{billboarder}} \code{htmlwidget} object
+#'  or a \code{\link{billboarderProxy}} \code{htmlwidget} object.
+#' @param filename A string of the filename, excluding extension (will be \code{.png}).
+#'
+#' @return A \code{billboard} \code{htmlwidget} object.
+#' @export
+#'
+#' @examples
+#' # TODO
+bb_export <- function(bb, filename = NULL) {
+  if (is.null(filename))
+    filename <- paste0("export-", Sys.time())
+  if (inherits(bb, "billboarder_Proxy")) {
+    .bb_proxy(bb, "export", filename = filename)
+  } else {
+    .bb_opt(bb, "export", filename = filename)
+  }
+}
+
+
+
+
+
+
+
+
