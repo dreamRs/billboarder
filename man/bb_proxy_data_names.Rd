@@ -20,8 +20,6 @@ A \code{billboardProxy} \code{htmlwidget} object.
 Change names of the data with proxy
 }
 \examples{
-\dontrun{
-
 if (interactive()) {
 
 library(shiny)
@@ -64,8 +62,6 @@ server <- function(input, output, session) {
 }
 
 shinyApp(ui, server)
-
-}
 
 }
 }

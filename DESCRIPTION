@@ -21,9 +21,9 @@ Imports: htmlwidgets,
     magrittr,
     jsonlite,
     ggplot2,
-    scales
+    scales,
+    shiny
 Suggests: RColorBrewer,
-    shiny,
     testthat,
     knitr,
     rmarkdown,

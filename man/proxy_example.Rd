@@ -15,7 +15,6 @@ proxy_example(chart = "gauge")
 Launch an example to demonstrate how to use proxy method from \code{billboarder} in Shiny app.
 }
 \examples{
-\dontrun{
 
 if (interactive()) {
 
@@ -48,8 +47,6 @@ proxy_example("histogram")
 
 # Update chart type
 proxy_example("transform")
-
-}
 
 }
 }

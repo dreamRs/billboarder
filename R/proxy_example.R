@@ -7,9 +7,10 @@
 #'  or \code{transform} (for changing type of chart).
 #'
 #' @export
+#' 
+#' @importFrom shiny shinyAppDir
 #'
 #' @examples
-#' \dontrun{
 #' 
 #' if (interactive()) {
 #' 
@@ -44,8 +45,6 @@
 #' proxy_example("transform")
 #' 
 #' }
-#' 
-#' }
 proxy_example <- function(chart = "gauge") {
   chart <- match.arg(
     arg = chart,
@@ -53,14 +52,10 @@ proxy_example <- function(chart = "gauge") {
                 "density", "histogram", "transform", "stacked_bar", "lollipop"), 
     several.ok = FALSE
   )
-  if (!requireNamespace(package = "shiny"))
-    message("Package 'shiny' is required to run this function")
   path <- file.path("proxy_examples", chart)
-  shiny::runApp(
+  shinyAppDir(
     appDir = system.file(path, package="billboarder", mustWork=TRUE), 
-    display.mode = "showcase"
+    options = list(display.mode = "showcase")
   )
 }
-
-
 

@@ -24,7 +24,6 @@ Highlights specified targets and fade out the others.
 \code{bb_defocus} is the opposite of \code{bb_focus}
 }
 \examples{
-\dontrun{
 if (interactive()) {
 library("shiny")
 library("billboarder")
@@ -61,6 +60,5 @@ server <- function(input, output, session) {
 }
 
 shinyApp(ui = ui, server = server)
-}
 }
 }

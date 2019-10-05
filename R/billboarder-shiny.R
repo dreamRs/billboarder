@@ -24,6 +24,74 @@
 #'
 #' @export
 #' @importFrom htmlwidgets shinyWidgetOutput shinyRenderWidget
+#' 
+#' @examples 
+#' if (interactive()) {
+#'   library(shiny)
+#'   
+#'   ui <- fluidPage(
+#'     tags$h2("Include billboard charts in Shiny"),
+#'     fluidRow(
+#'       column(
+#'         width = 6,
+#'         billboarderOutput("mybb1"),
+#'         tags$p("Click on a bar to get the value:"),
+#'         verbatimTextOutput("res_click")
+#'       ),
+#'       column(
+#'         width = 6,
+#'         billboarderOutput("mybb2")
+#'       )
+#'     )
+#'   )
+#'   
+#'   server <- function(input, output, session) {
+#'     
+#'     output$mybb1 <- renderBillboarder({
+#'       
+#'       dat <- data.frame(
+#'         label = paste("Label", 1:5),
+#'         value = sample.int(100, 5)
+#'       )
+#'       
+#'       billboarder() %>%
+#'         bb_barchart(
+#'           data = dat,
+#'           mapping = bbaes(label, value),
+#'           rotated = TRUE
+#'         )
+#'     })
+#'     
+#'     output$res_click <- renderPrint({
+#'       input$mybb1_click
+#'     })
+#'     
+#'     
+#'     output$mybb2 <- renderBillboarder({
+#'       
+#'       data(AirPassengers)
+#'       
+#'       air_passengers <- data.frame(
+#'         date = as.Date(paste(
+#'           rep(1949:1960, each = 12),
+#'           rep(1:12, times = 12),
+#'           "01", sep = "-"
+#'         )), 
+#'         passengers = AirPassengers
+#'       )
+#'       
+#'       billboarder() %>% 
+#'         bb_linechart(
+#'           data = air_passengers, 
+#'           mapping = bbaes(date, passengers), type = "spline"
+#'         ) %>% 
+#'         bb_x_axis(tick = list(format = "%Y", fit = FALSE))
+#'     })
+#'     
+#'   }
+#'   
+#'   shinyApp(ui, server)
+#' }
 billboarderOutput <- function(outputId, width = '100%', height = '400px'){
   htmlwidgets::shinyWidgetOutput(outputId, 'billboarder', width, height, package = 'billboarder')
 }
@@ -195,7 +263,6 @@ bb_unload <- function(proxy, ids = NULL) {
 #' @name bb_proxy_focus
 #' 
 #' @examples 
-#' \dontrun{
 #' if (interactive()) {
 #' library("shiny")
 #' library("billboarder")
@@ -232,7 +299,6 @@ bb_unload <- function(proxy, ids = NULL) {
 #' }
 #' 
 #' shinyApp(ui = ui, server = server)
-#' }
 #' }
 bb_proxy_focus <- function(proxy, ids = NULL) {
   
@@ -382,86 +448,100 @@ bb_proxy_show <- function(proxy, targetIdsValue, options = NULL) {
 #' @export
 #' 
 #' @examples 
-#' \dontrun{
+#' if (interactive()) {
+#'   library("shiny")
 #' 
-#' library("shiny")
+#'   data("prod_par_filiere")
 #' 
-#' data("prod_par_filiere")
-#' 
-#' ui <- fluidPage(
-#'   tags$h2("Show or hide legend with Proxy"),
-#'   fluidRow(
-#'     column(
-#'       width = 3,
-#'       checkboxInput(
-#'         inputId = "show_legend", 
-#'         label = "Show legend", 
-#'         value = TRUE
+#'   ui <- fluidPage(
+#'     tags$h2("Show or hide legend with Proxy"),
+#'     fluidRow(
+#'       column(
+#'         width = 3,
+#'         checkboxInput(
+#'           inputId = "show_legend",
+#'           label = "Show legend",
+#'           value = TRUE
+#'         ),
+#'         checkboxGroupInput(
+#'           inputId = "item_show",
+#'           label = "Item to show in legend",
+#'           choices = c("Hydraulic" = "prod_hydraulique",
+#'                       "Wind" = "prod_eolien",
+#'                       "Solar" = "prod_solaire"),
+#'           selected = c("prod_hydraulique", "prod_eolien", "prod_solaire")
+#'         )
 #'       ),
-#'       checkboxGroupInput(
-#'         inputId = "item_show",
-#'         label = "Item to show in legend", 
-#'         choices = c("Hydraulic" = "prod_hydraulique", 
-#'                     "Wind" = "prod_eolien", 
-#'                     "Solar" = "prod_solaire"), 
-#'         selected = c("prod_hydraulique", "prod_eolien", "prod_solaire")
+#'       column(
+#'         width = 9,
+#'         billboarderOutput(outputId = "mybb")
 #'       )
-#'     ),
-#'     column(
-#'       width = 9,
-#'       billboarderOutput(outputId = "mybb")
 #'     )
 #'   )
-#' )
 #' 
-#' server <- function(input, output, session) {
-#'   
-#'   output$mybb <- renderBillboarder({
-#'     billboarder() %>%
-#'       bb_barchart(
-#'         data = prod_par_filiere[, c("annee", "prod_hydraulique", "prod_eolien", "prod_solaire")], 
-#'         stacked = TRUE
-#'       ) %>%
-#'       bb_data(
-#'         names = list(prod_hydraulique = "Hydraulic", prod_eolien = "Wind", prod_solaire = "Solar"), 
-#'         labels = TRUE
-#'       ) %>% 
-#'       bb_colors_manual(
-#'         "prod_eolien" = "#41AB5D", "prod_hydraulique" = "#4292C6", "prod_solaire" = "#FEB24C"
-#'       ) %>%
-#'       bb_y_grid(show = TRUE) %>%
-#'       bb_y_axis(tick = list(format = suffix("TWh")),
-#'                 label = list(text = "production (in terawatt-hours)", position = "outer-top")) %>% 
-#'       bb_legend(position = "right") %>% 
-#'       bb_labs(title = "Renewable energy production",
-#'               caption = "Data source: RTE (https://opendata.rte-france.com)")
-#'   })
-#'   
-#'   observe({
-#'     if (input$show_legend) {
-#'       billboarderProxy("mybb") %>% bb_proxy_legend(what = "show")
-#'     } else {
-#'       billboarderProxy("mybb") %>% bb_proxy_legend(what = "hide")
-#'     }
-#'   })
-#'   
-#'   observe({
-#'     lapply(
-#'       X = c("prod_hydraulique", "prod_eolien", "prod_solaire"),
-#'       FUN = function(x) {
-#'         if (x %in% input$item_show) {
-#'           billboarderProxy("mybb") %>% bb_proxy_legend(what = "show", targetIds = x)
-#'         } else {
-#'           billboarderProxy("mybb") %>% bb_proxy_legend(what = "hide", targetIds = x)
-#'         }
+#'   server <- function(input, output, session) {
+#' 
+#'     output$mybb <- renderBillboarder({
+#'       billboarder() %>%
+#'         bb_barchart(
+#'           data = prod_par_filiere[, c(
+#'             "annee", "prod_hydraulique", 
+#'             "prod_eolien", "prod_solaire"
+#'           )],
+#'           stacked = TRUE
+#'         ) %>%
+#'         bb_data(
+#'           names = list(prod_hydraulique = "Hydraulic",
+#'                        prod_eolien = "Wind",
+#'                        prod_solaire = "Solar"),
+#'           labels = TRUE
+#'         ) %>%
+#'         bb_colors_manual(
+#'           "prod_eolien" = "#41AB5D",
+#'           "prod_hydraulique" = "#4292C6", 
+#'           "prod_solaire" = "#FEB24C"
+#'         ) %>%
+#'         bb_y_grid(show = TRUE) %>%
+#'         bb_y_axis(
+#'           tick = list(format = suffix("TWh")),
+#'           label = list(text = "production (in terawatt-hours)",
+#'                        position = "outer-top")
+#'         ) %>%
+#'         bb_legend(position = "right") %>%
+#'         bb_labs(
+#'           title = "Renewable energy production",
+#'           caption = "Data source: RTE (https://opendata.rte-france.com)"
+#'         )
+#'     })
+#' 
+#'     observe({
+#'       if (input$show_legend) {
+#'         billboarderProxy("mybb") %>% 
+#'           bb_proxy_legend(what = "show")
+#'       } else {
+#'         billboarderProxy("mybb") %>% 
+#'           bb_proxy_legend(what = "hide")
 #'       }
-#'     )
-#'   })
-#'   
-#' }
+#'     })
 #' 
-#' shinyApp(ui = ui, server = server)
+#'     observe({
+#'       lapply(
+#'         X = c("prod_hydraulique", "prod_eolien", "prod_solaire"),
+#'         FUN = function(x) {
+#'           if (x %in% input$item_show) {
+#'             billboarderProxy("mybb") %>%
+#'               bb_proxy_legend(what = "show", targetIds = x)
+#'           } else {
+#'             billboarderProxy("mybb") %>%
+#'               bb_proxy_legend(what = "hide", targetIds = x)
+#'           }
+#'         }
+#'       )
+#'     })
 #' 
+#'   }
+#' 
+#'   shinyApp(ui = ui, server = server)
 #' }
 bb_proxy_legend <- function(proxy, what = c("show", "hide"), targetIds = NULL) {
   if (!"billboarder_Proxy" %in% class(proxy)) 
@@ -511,8 +591,6 @@ bb_proxy_tooltip <- function(proxy, what = c("show", "hide"), x = NULL, index = 
 #' @export
 #' 
 #' @examples 
-#' \dontrun{
-#' 
 #' if (interactive()) {
 #' 
 #' library(shiny)
@@ -557,8 +635,6 @@ bb_proxy_tooltip <- function(proxy, what = c("show", "hide"), x = NULL, index = 
 #' shinyApp(ui, server)
 #' 
 #' }
-#' 
-#' }
 bb_proxy_data_names <- function(proxy, old = NULL, new = NULL) {
   if (!"billboarder_Proxy" %in% class(proxy)) 
     stop("This function must be used with a billboarderProxy object")
@@ -579,8 +655,6 @@ bb_proxy_data_names <- function(proxy, old = NULL, new = NULL) {
 #' @export
 #'
 #' @examples
-#' \dontrun{
-#' 
 #' if (interactive()) {
 #' 
 #' library(shiny)
@@ -636,8 +710,6 @@ bb_proxy_data_names <- function(proxy, old = NULL, new = NULL) {
 #' }
 #' 
 #' shinyApp(ui, server)
-#' 
-#' }
 #' 
 #' }
 bb_proxy_data_colors <- function(proxy, names = NULL, colors = NULL) {

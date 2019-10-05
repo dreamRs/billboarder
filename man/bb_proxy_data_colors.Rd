@@ -20,8 +20,6 @@ A \code{billboardProxy} \code{htmlwidget} object.
 Change colors with proxy
 }
 \examples{
-\dontrun{
-
 if (interactive()) {
 
 library(shiny)
@@ -77,8 +75,6 @@ server <- function(input, output, session) {
 }
 
 shinyApp(ui, server)
-
-}
 
 }
 }

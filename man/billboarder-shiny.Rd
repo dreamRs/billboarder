@@ -41,6 +41,74 @@ default value will suffice}
 Output and render functions for using billboarder within Shiny
 applications and interactive Rmd documents.
 }
+\examples{
+if (interactive()) {
+  library(shiny)
+  
+  ui <- fluidPage(
+    tags$h2("Include billboard charts in Shiny"),
+    fluidRow(
+      column(
+        width = 6,
+        billboarderOutput("mybb1"),
+        tags$p("Click on a bar to get the value:"),
+        verbatimTextOutput("res_click")
+      ),
+      column(
+        width = 6,
+        billboarderOutput("mybb2")
+      )
+    )
+  )
+  
+  server <- function(input, output, session) {
+    
+    output$mybb1 <- renderBillboarder({
+      
+      dat <- data.frame(
+        label = paste("Label", 1:5),
+        value = sample.int(100, 5)
+      )
+      
+      billboarder() \%>\%
+        bb_barchart(
+          data = dat,
+          mapping = bbaes(label, value),
+          rotated = TRUE
+        )
+    })
+    
+    output$res_click <- renderPrint({
+      input$mybb1_click
+    })
+    
+    
+    output$mybb2 <- renderBillboarder({
+      
+      data(AirPassengers)
+      
+      air_passengers <- data.frame(
+        date = as.Date(paste(
+          rep(1949:1960, each = 12),
+          rep(1:12, times = 12),
+          "01", sep = "-"
+        )), 
+        passengers = AirPassengers
+      )
+      
+      billboarder() \%>\% 
+        bb_linechart(
+          data = air_passengers, 
+          mapping = bbaes(date, passengers), type = "spline"
+        ) \%>\% 
+        bb_x_axis(tick = list(format = "\%Y", fit = FALSE))
+    })
+    
+  }
+  
+  shinyApp(ui, server)
+}
+}
 \seealso{
 \code{\link{proxy_example}}
 }
