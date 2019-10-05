@@ -1,3 +1,9 @@
+billboarder 0.2.8
+==================
+
+* New function `bb_export()` to export chart to PNG in Shiny application.
+
+
 billboarder 0.2.7
 ==================
 
