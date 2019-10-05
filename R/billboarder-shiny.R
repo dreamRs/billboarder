@@ -650,23 +650,6 @@ bb_proxy_data_colors <- function(proxy, names = NULL, colors = NULL) {
 
 
 
-#' Export a Billboard object
-#'
-#' @param proxy A \code{billboardProxy} \code{htmlwidget} object.
-#' @param path Path where to save the widget.
-#'
-#' @return A \code{billboard} \code{htmlwidget} object.
-#' @noRd
-#'
-#' @examples
-#' # TODO
-bb_export <- function(proxy, path = NULL) {
-  if (!"billboarder_Proxy" %in% class(proxy)) 
-    stop("This function must be used with a billboarderProxy object")
-  .bb_proxy(proxy, "export", data = list())
-}
-
-
 
 
 #' Update chart flow with proxy

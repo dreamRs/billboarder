@@ -10,8 +10,7 @@ ui <- fluidPage(
       width = 8, offset = 2,
       tags$h1("Export billboard"),
       billboarderOutput(outputId = "mybb"),
-      actionButton(inputId = "Export", label = "Export", icon = icon("download")),
-      tags$div(id = "Export2")
+      actionButton(inputId = "export", label = "Export", icon = icon("download"))
     )
   )
 )
@@ -30,10 +29,11 @@ server <- function(input, output, session) {
               caption = "Data source: RTE (https://opendata.rte-france.com)")
   })
   
-  observeEvent(input$Export, {
-    billboarderProxy(shinyId = "mybb") %>% billboarder:::bb_export()
+  observeEvent(input$export, {
+    billboarderProxy(shinyId = "mybb") %>% 
+      bb_export(filename = "my-chart")
   })
-  
+
 }
 
 shinyApp(ui, server)
