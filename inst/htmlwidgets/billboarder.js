@@ -197,6 +197,28 @@ HTMLWidgets.widget({
       },
 
       resize: function(width, height) {
+        var container = document.getElementById(el.id); 
+        if (container) {
+          // code to re-render the widget with a new size	
+          var w = container.clientWidth;	
+          var h = container.clientHeight;	
+          chart.resize({ width: w, height: h });	
+  
+          // Caption	
+          if (typeof bb_opts.caption != "undefined") {	
+            d3.select("#" + el.id + " svg")	
+              .selectAll(".bb-caption")	
+              .remove();	
+            d3.select("#" + el.id + " svg")	
+              .append("text")	
+              .attr("class", "bb-caption")	
+              .attr("x", w)	
+              .attr("y", h)	
+              .attr("startOffset", "100%")	
+              .attr("text-anchor", "end")	
+              .text(bb_opts.caption.text);	
+          }
+        }
       }
     };
   }
