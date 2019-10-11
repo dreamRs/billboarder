@@ -69,7 +69,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">billboarder</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.7.920</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.7.940</span>
       </span>
     </div>
 
@@ -102,6 +102,9 @@
     </li>
     <li>
       <a href="../articles/billboarder-options.html">Options - styling charts</a>
+    </li>
+    <li>
+      <a href="../articles/lines-options.html">Lines options</a>
     </li>
   </ul>
 </li>
@@ -138,7 +141,8 @@
     <p>Add custom style for regions and grid lines</p>
     </div>
 
-    <pre class="usage"><span class='fu'>bb_add_style</span>(<span class='no'>bb</span>, <span class='kw'>region</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>x_grid</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>y_grid</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>bb_add_style</span>(<span class='no'>bb</span>, <span class='kw'>region</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>x_grid</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>y_grid</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>,
+  <span class='kw'>.list</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -160,8 +164,8 @@
       <td><p>A named list with style associated with grid line on the Y-axis.</p></td>
     </tr>
     <tr>
-      <th>...</th>
-      <td><p>Not used</p></td>
+      <th>..., .list</th>
+      <td><p>Used internally.</p></td>
     </tr>
     </table>
 

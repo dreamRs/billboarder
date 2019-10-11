@@ -67,7 +67,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">billboarder</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.7.920</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.7.940</span>
       </span>
     </div>
 
@@ -100,6 +100,9 @@
     </li>
     <li>
       <a href="../articles/billboarder-options.html">Options - styling charts</a>
+    </li>
+    <li>
+      <a href="../articles/lines-options.html">Lines options</a>
     </li>
   </ul>
 </li>
@@ -136,8 +139,11 @@
 <a href="#billboarder-028" class="anchor"></a>billboarder 0.2.8<small> Unreleased </small>
 </h1>
 <ul>
-<li>New function <code><a href="../reference/bb_export.html">bb_export()</a></code> to export chart to PNG in Shiny applications.</li>
-<li>Ability to add an export button to PNG.</li>
+<li>
+<code><a href="../reference/bb_export.html">bb_export()</a></code> : new function to export chart to PNG in Shiny applications with proxy or by adding a “download” button on the chart.</li>
+<li>
+<code><a href="../reference/bb_linechart.html">bb_linechart()</a></code> have two new arguments: <code>dasharray</code> (use dash in lines) and <code>width</code> to control lines size.</li>
+<li>New vignette to describe lines options, use <code><a href="../articles/lines-options.html">vignette("lines-options", package = "billboarder")</a></code> to display it.</li>
 </ul>
 </div>
     <div id="billboarder-027" class="section level1">
