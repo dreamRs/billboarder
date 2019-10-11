@@ -1,9 +1,9 @@
 billboarder 0.2.8
 ==================
 
-* New function `bb_export()` to export chart to PNG in Shiny applications.
-* Ability to add an export button to PNG.
-
+* `bb_export()` : new function to export chart to PNG in Shiny applications with proxy or by adding a "download" button on the chart.
+* `bb_linechart()` have two new arguments: `dasharray` (use dash in lines) and `width` to control lines size.
+* New vignette to describe lines options, use `vignette("lines-options", package = "billboarder")` to display it.
 
 
 billboarder 0.2.7

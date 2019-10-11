@@ -1,0 +1,163 @@
+---
+title: "Lines options"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Lines options}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(billboarder)
+```
+
+We'll use two datasets : one in wide format and one in long format to use with mapping. Here how two create the datasets :
+
+```{r}
+# wide format
+wide <- data.frame(
+  index = seq_len(100),
+  Sine = sin(1:100/10),
+  Cosine = 0.5 * cos(1:100/10),
+  Sine2 = sin(1:100/10) * 0.25 + 0.5
+)
+# long format (to use with mapping)
+long <- reshape(
+  data = wide, 
+  times = c("Sine", "Cosine", "Sine2"),
+  varying = list(2:4), 
+  idvar = "index", 
+  direction = "long", 
+  v.names = "value"
+)
+```
+
+
+
+## Type of lines
+
+You can change type of line with `type` argument, available choices are : line, spline, step, area, area-spline, area-step, area-line-range, and area-spline-range. Some examples : 
+
+
+```{r}
+billboarder(height = "200px") %>% 
+  bb_linechart(data = wide, type = "spline")
+
+billboarder(height = "200px") %>% 
+  bb_linechart(data = wide, type = "step")
+
+billboarder(height = "200px") %>% 
+  bb_linechart(data = wide, type = "area")
+```
+
+
+You can use different types for each lines : 
+
+```{r}
+billboarder() %>% 
+  bb_linechart(data = wide, type = c("area", "spline", "step"))
+```
+
+With mapping : 
+
+```{r}
+billboarder() %>% 
+  bb_linechart(
+    data = long, 
+    mapping = bbaes(index, value, group = time),
+    type = c("area", "spline", "step")
+  )
+```
+
+
+
+## Dash array
+
+You can use a pattern of dashes and gaps for a line by specifying argument `dasharray`. Possible values are : 
+
+* a numeric : length of dashes and length of gaps are the same
+* a character under the format `"x1 y1 x2..."` : first dash will be length `x1`, following gap length `y1`, ...
+
+Example :
+
+```{r}
+billboarder() %>% 
+  bb_linechart(data = wide, dasharray = 4)
+
+billboarder() %>% 
+  bb_linechart(data = wide, dasharray = "6 2 1 2")
+```
+
+
+To use different patterns, use a vector with the same length as the data (use `0` for no dash) :
+
+```{r}
+billboarder() %>% 
+  bb_linechart(data = wide, dasharray = c("0", "4 2", "8 3 2 3"))
+```
+
+With mapping : 
+
+```{r}
+billboarder() %>% 
+  bb_linechart(
+    data = long, 
+    mapping = bbaes(index, value, group = time),
+    dasharray = c("2", "4 2", "8 3 2 3")
+  )
+```
+
+
+
+## Width
+
+Lines width can be define with `width` argument :
+
+```{r}
+billboarder() %>% 
+  bb_linechart(data = wide, width = 3)
+```
+
+Use a vector with same length as lines to use different widths :
+
+```{r}
+billboarder() %>% 
+  bb_linechart(data = wide, width = c(1, 4, 8))
+```
+
+
+With mapping : 
+
+```{r}
+billboarder() %>% 
+  bb_linechart(
+    data = long, 
+    mapping = bbaes(index, value, group = time),
+    width = c(1, 4, 8)
+  )
+```
+
+
+## Use both dasharray and width
+
+You can use both at the same time :
+
+```{r}
+billboarder() %>% 
+  bb_linechart(
+    data = long, 
+    mapping = bbaes(index, value, group = time),
+    dasharray = c("2", "4 2", "8 3 2 3"),
+    width = c(1, 4, 8)
+  )
+```
+
+
+
