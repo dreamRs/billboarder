@@ -5,7 +5,7 @@
 \title{Helper for creating a line chart}
 \usage{
 bb_linechart(bb, data, mapping = NULL, type = "line",
-  show_point = FALSE, ...)
+  show_point = FALSE, dasharray = NULL, width = NULL, ...)
 }
 \arguments{
 \item{bb}{A \code{billboard} \code{htmlwidget} object.}
@@ -14,10 +14,16 @@ bb_linechart(bb, data, mapping = NULL, type = "line",
 
 \item{mapping}{Mapping of variables on the chart, see \code{\link{bbaes}}.}
 
-\item{type}{Type of chart : line, spline, step, area, area-spline, area-step, 
-area-line-range, area-spline-range.}
+\item{type}{Type of chart : \code{"line"}, \code{"spline"}, \code{"step"}, \code{"area"}, \code{"area-spline"}, \code{"area-step"}, 
+\code{"area-line-range"}, \code{"area-spline-range"}.}
 
 \item{show_point}{Whether to show each point in line.}
+
+\item{dasharray}{Pattern of dashes and gaps used to paint the outline of the line,
+see \url{https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray} for specifications.}
+
+\item{width}{Width of the stroke to be applied to the line,
+see \url{https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-width} for specifications.}
 
 \item{...}{Not used.}
 }

@@ -23,11 +23,8 @@ dropNulls <- function(x) {
 #'
 #' @noRd
 .bb_opt <- function(bb, name, ...) {
-  
-  if(!any(class(bb) %in% c("billboarder", "billboarder_Proxy"))){
-    stop("bb must be a billboarder or a billboarderProxy object")
-  }
 
+  bb$x$bb_empty <- NULL
   if (is.null(bb$x$bb_opts[[name]])) {
     bb$x$bb_opts[[name]] <- list(...)
   } else {
@@ -48,6 +45,7 @@ dropNulls <- function(x) {
 #' @noRd
 .bb_opt2 <- function(bb, name, l) {
 
+  bb$x$bb_empty <- NULL
   if (is.null(bb$x$bb_opts[[name]])) {
     bb$x$bb_opts[[name]] <- l
   } else {

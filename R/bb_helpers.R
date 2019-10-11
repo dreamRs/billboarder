@@ -695,9 +695,13 @@ bb_donutchart <- function(bb, data, mapping = NULL, ...) {
 #' @param bb A \code{billboard} \code{htmlwidget} object.
 #' @param data A \code{data.frame} or a \code{vector}.
 #' @param mapping Mapping of variables on the chart, see \code{\link{bbaes}}.
-#' @param type Type of chart : line, spline, step, area, area-spline, area-step, 
-#'  area-line-range, area-spline-range.
+#' @param type Type of chart : \code{"line"}, \code{"spline"}, \code{"step"}, \code{"area"}, \code{"area-spline"}, \code{"area-step"}, 
+#'  \code{"area-line-range"}, \code{"area-spline-range"}.
 #' @param show_point Whether to show each point in line.
+#' @param dasharray Pattern of dashes and gaps used to paint the outline of the line,
+#'  see \url{https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray} for specifications.
+#' @param width Width of the stroke to be applied to the line,
+#'  see \url{https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-width} for specifications.
 #' @param ... Not used.
 #' 
 #' @note Types area-line-range and area-spline-range don't work in RStudio viewer, open chart in a browser. 
@@ -812,7 +816,9 @@ bb_donutchart <- function(bb, data, mapping = NULL, ...) {
 #'   ) %>% 
 #'   bb_y_axis(min = 50)
 #'   
-bb_linechart <- function(bb, data, mapping = NULL, type = "line", show_point = FALSE, ...) {
+bb_linechart <- function(bb, data, mapping = NULL, type = "line", 
+                         show_point = FALSE, dasharray = NULL, width = NULL,
+                         ...) {
   
   type <- match.arg(
     arg = type, 
@@ -832,46 +838,44 @@ bb_linechart <- function(bb, data, mapping = NULL, type = "line", show_point = F
   if (is.vector(data)) {
     if (!is.null(mapping))
       warning("'mapping' is ignored when 'data' is a vector.")
+    data <- data.frame(
+      index = seq_along(data),
+      x = data
+    )
+  }
+  
+  if (!is.null(mapping)) {
+    data <- bbmapping(data = data, mapping = mapping)
+    # if (!is.null(bb$data$json$y))
+  } 
+  if (inherits(x = data[[1]], what = c("Date", "POSIXct"))) {
+    if (inherits(x = data[[1]], what = c("POSIXct"))) {
+      if (!"billboarder_Proxy" %in% class(bb)) {
+        bb <- bb_data(bb, xFormat = "%Y-%m-%d %H:%M:%S")
+      }
+    }
+    if (inherits(x = data[[1]], what = c("POSIXct"))) {
+      data[[1]] <- format(data[[1]], format = "%Y-%m-%d %H:%M:%S")
+    } else if (inherits(x = data[[1]], what = c("Date"))) {
+      data[[1]] <- format(data[[1]], format = "%Y-%m-%d")
+    } else {
+      data[[1]] <- as.character(data[[1]])
+    }
+    if (!"billboarder_Proxy" %in% class(bb)) {
+      bb <- bb_x_axis(bb, type = "timeseries")
+    }
+  }
+  if (length(data) > 1) {
     data_opt <- list(
-      json = list(
-        x = data
-      ),
-      type = type
+      x = names(data)[1],
+      json = as.list(data),
+      types = setNames(as.list(rep_len(type, length(data) - 1)), nm = names(data)[-1])
     )
   } else {
-    if (!is.null(mapping)) {
-      data <- bbmapping(data = data, mapping = mapping)
-      # if (!is.null(bb$data$json$y))
-    } 
-    if (inherits(x = data[[1]], what = c("Date", "POSIXct"))) {
-      if (inherits(x = data[[1]], what = c("POSIXct"))) {
-        if (!"billboarder_Proxy" %in% class(bb)) {
-          bb <- bb_data(bb, xFormat = "%Y-%m-%d %H:%M:%S")
-        }
-      }
-      if (inherits(x = data[[1]], what = c("POSIXct"))) {
-        data[[1]] <- format(data[[1]], format = "%Y-%m-%d %H:%M:%S")
-      } else if (inherits(x = data[[1]], what = c("Date"))) {
-        data[[1]] <- format(data[[1]], format = "%Y-%m-%d")
-      } else {
-        data[[1]] <- as.character(data[[1]])
-      }
-      if (!"billboarder_Proxy" %in% class(bb)) {
-        bb <- bb_x_axis(bb, type = "timeseries")
-      }
-    }
-    if (length(data) > 1) {
-      data_opt <- list(
-        x = names(data)[1],
-        json = as.list(data),
-        types = setNames(as.list(rep_len(type, length(data) - 1)), nm = names(data)[-1])
-      )
-    } else {
-      data_opt <- list(
-        json = as.list(data),
-        types = setNames(list(type), nm = names(data)[1])
-      )
-    }
+    data_opt <- list(
+      json = as.list(data),
+      types = setNames(list(type), nm = names(data)[1])
+    )
   }
   
   if ("billboarder_Proxy" %in% class(bb)) {
@@ -879,6 +883,24 @@ bb_linechart <- function(bb, data, mapping = NULL, type = "line", show_point = F
     bb <- bb_load(proxy = bb, json = data_opt$json, unload = bb$unload) 
     
   } else {
+    
+    if (!is.null(dasharray)) {
+      dasharray <- setNames(
+        object = as.list(sprintf("stroke-dasharray:%s;", rep_len(dasharray, length(data) - 1))), 
+        nm = sprintf(".billboarder-line-%s", names(data)[-1])
+      )
+      bb <- bb_add_style(bb, .list = dasharray)
+    }
+    
+    if (!is.null(width)) {
+      width <- setNames(
+        object = as.list(sprintf("stroke-width:%s;", rep_len(width, length(data) - 1))), 
+        nm = sprintf(".billboarder-line-%s", names(data)[-1])
+      )
+      bb <- bb_add_style(bb, .list = width)
+    }
+    
+    bb <- .bb_opt(bb, "line", classes = as.list(sprintf("billboarder-line-%s", names(data)[-1])))
     
     bb <- .bb_opt2(bb, "data", c(data_opt, args))
 

@@ -4,7 +4,8 @@
 \alias{bb_add_style}
 \title{Add custom style for regions and grid lines}
 \usage{
-bb_add_style(bb, region = NULL, x_grid = NULL, y_grid = NULL, ...)
+bb_add_style(bb, region = NULL, x_grid = NULL, y_grid = NULL, ...,
+  .list = NULL)
 }
 \arguments{
 \item{bb}{A \code{billboard} \code{htmlwidget} object.}
@@ -15,7 +16,7 @@ bb_add_style(bb, region = NULL, x_grid = NULL, y_grid = NULL, ...)
 
 \item{y_grid}{A named list with style associated with grid line on the Y-axis.}
 
-\item{...}{Not used}
+\item{..., .list}{Used internally.}
 }
 \value{
 A \code{billboard} \code{htmlwidget} object.

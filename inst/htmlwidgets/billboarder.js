@@ -167,9 +167,8 @@ HTMLWidgets.widget({
         }
 
         // Custom style
-        if (typeof bb_opts.customstyle != "undefined") {
-          if (typeof bb_opts.customstyle.custom_style != "undefined") {
-            var customcss = bb_opts.customstyle.custom_style,
+        if (typeof bb_opts.customStyle != "undefined") {
+            var customcss = bb_opts.customStyle,
               stylecustom = document.createElement("style");
             if (Array.isArray(customcss)) {
               customcss = customcss
@@ -188,7 +187,6 @@ HTMLWidgets.widget({
               stylecustom.appendChild(document.createTextNode(customcss));
             }
             head.appendChild(stylecustom);
-          }
         }
         
         

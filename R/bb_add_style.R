@@ -4,7 +4,7 @@
 #' @param region A named list with style associated with region.
 #' @param x_grid A named list with style associated with grid line on the X-axis.
 #' @param y_grid A named list with style associated with grid line on the Y-axis.
-#' @param ... Not used
+#' @param ...,.list  Used internally.
 #'
 #' @return A \code{billboard} \code{htmlwidget} object.
 #' @export
@@ -29,7 +29,7 @@
 #'     zero = list(line = "stroke: red", text = "font-size: 240%; fill: black"
 #'   )))
 #' 
-bb_add_style <- function(bb, region = NULL, x_grid = NULL, y_grid = NULL, ...) {
+bb_add_style <- function(bb, region = NULL, x_grid = NULL, y_grid = NULL, ..., .list = NULL) {
   
   if (!is.null(region)) {
     region <- paste0(".bb-region.", names(region), "{", unlist(region, use.names = FALSE), "}")
@@ -56,7 +56,7 @@ bb_add_style <- function(bb, region = NULL, x_grid = NULL, y_grid = NULL, ...) {
     y_grid <- paste(y_grid_tmp, collapse = " ")
   }
   
-  args <- list(...)
+  args <- c(list(...), .list)
   if (length(args) > 0) {
     args <- paste0(names(args), "{", unlist(args, use.names = FALSE), "}")
     # args <- paste(args, collapse = "")
@@ -64,6 +64,8 @@ bb_add_style <- function(bb, region = NULL, x_grid = NULL, y_grid = NULL, ...) {
   
   custom_style <- c(region, x_grid, y_grid, args)
   
-  .bb_opt(bb, "customstyle", custom_style = custom_style)
+  # .bb_opt(bb, "customstyle", custom_style = custom_style)
+  bb$x$bb_opts$customStyle <- c(bb$x$bb_opts$customStyle, custom_style)
+  bb
 }
 
