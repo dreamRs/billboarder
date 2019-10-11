@@ -26,12 +26,12 @@ server <- function(input, output, session) {
                 label = list(text = "production (in terawatt-hours)", position = "outer-top")) %>% 
       bb_legend(show = FALSE) %>% 
       bb_labs(title = "French hydraulic production",
-              caption = "Data source: RTE (https://opendata.rte-france.com)")
+              caption = "Data source: RTE (https://opendata.rte-france.com)") %>% bb_export()
   })
   
   observeEvent(input$export, {
     billboarderProxy(shinyId = "mybb") %>% 
-      bb_export(filename = "my-chart")
+      bb_export(filename = "my-billboard-chart")
   })
 
 }

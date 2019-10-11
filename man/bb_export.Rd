@@ -4,13 +4,15 @@
 \alias{bb_export}
 \title{Export a Billboard to PNG}
 \usage{
-bb_export(bb, filename = NULL)
+bb_export(bb, filename = NULL, download_label = "Export (.png)")
 }
 \arguments{
 \item{bb}{A \code{\link{billboarder}} \code{htmlwidget} object
 or a \code{\link{billboarderProxy}} \code{htmlwidget} object.}
 
-\item{filename}{A string of the filename, excluding extension (will be \code{.png}).}
+\item{filename}{A string of the filename, excluding extension (will be \code{".png"}).}
+
+\item{download_label}{Label to appear on the link to download PNG.}
 }
 \value{
 A \code{billboard} \code{htmlwidget} object.
@@ -18,6 +20,73 @@ A \code{billboard} \code{htmlwidget} object.
 \description{
 Export a Billboard to PNG
 }
+\note{
+This function has two uses:
+\itemize{
+ \item{\strong{in shiny:} you can export to PNG with an \code{observeEvent} by using \code{\link{billboarderProxy}}.}
+ \item{\strong{in markdown and in shiny:} add a button to download chart as PNG.}
+}
+}
 \examples{
-# TODO
+
+# Add a button to download as PNG:
+
+data("equilibre_mensuel")
+billboarder() \%>\% 
+  bb_linechart(
+    data = equilibre_mensuel,
+    mapping = bbaes(date, solde),
+    type = "spline"
+  ) \%>\% 
+  bb_x_axis(
+    tick = list(format = "\%Y-\%m", fit = FALSE)
+  ) \%>\% 
+  bb_export(
+    filename = "my-awesome-chart",
+    download_label = "Click to download"
+  )
+  
+
+# In shiny, you can use proxy :
+
+if (interactive()) {
+  library(shiny)
+  library(billboarder)
+  
+  ui <- fluidPage(
+    fluidRow(
+      column(
+        width = 8, offset = 2,
+        tags$h1("Export billboard as PNG via Proxy"),
+        billboarderOutput(outputId = "mybb"),
+        actionButton(
+          inputId = "export", 
+          label = "Export", 
+          icon = icon("download")
+        )
+      )
+    )
+  )
+  
+  server <- function(input, output, session) {
+    
+    output$mybb <- renderBillboarder({
+      data("prod_par_filiere")
+      billboarder() \%>\%
+        bb_barchart(
+          data = prod_par_filiere[, c("annee", "prod_hydraulique")],
+          color = "#102246"
+        ) \%>\%
+        bb_y_grid(show = TRUE)
+    })
+    
+    observeEvent(input$export, {
+      billboarderProxy(shinyId = "mybb") \%>\% 
+        bb_export(filename = "my-billboard-chart")
+    })
+    
+  }
+  
+  shinyApp(ui, server)
+}
 }

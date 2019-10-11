@@ -15,7 +15,7 @@ HTMLWidgets.widget({
 
     return {
       renderValue: function(x) {
-        //console.log(x.bb_opts);
+
         if (typeof x.bb_opts.data == "undefined") {
           bb_opts = x.bb_empty;
         } else {
@@ -90,16 +90,29 @@ HTMLWidgets.widget({
             }
           }
         }
+        
+        if (typeof bb_opts.export !== "undefined") {
+          bb_opts.onrendered = function(ctx) {
+            setTimeout(function() {
+              ctx.export("image/png", function(dataUrl) {
+                var link = document.getElementById(el.id + "-export");
+                if (typeof bb_opts.export.filename !== "undefined") {
+                  link.download = bb_opts.export.filename + ".png";
+                } else {
+                  link.download = `export-${Date.now()}.png`;
+                }
+                link.innerHTML = bb_opts.export.download_label;
+                link.href = dataUrl;
+                link.style.display = "inline-block";
+                //if (HTMLWidgets.shinyMode) {
+                //  Shiny.onInputChange("export_bb", dataUrl);
+                //}
+              });
+            }, 300);
+          };
+        }
 
-        bb_opts.onrendered = function(ctx) {
-          setTimeout(function() {
-            ctx.export("image/png", function(dataUrl) {
-              if (HTMLWidgets.shinyMode) {
-                Shiny.onInputChange("export_bb", dataUrl);
-              }
-            });
-          }, 1000);
-        };
+
 
         // Generate billboard chart
         chart = bb.generate(bb_opts);
@@ -177,6 +190,8 @@ HTMLWidgets.widget({
             head.appendChild(stylecustom);
           }
         }
+        
+        
       },
 
       getChart: function() {

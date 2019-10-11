@@ -39,9 +39,12 @@ billboarder <- function(bb_opts = list(), data = NULL, width = NULL, height = NU
     elementId = elementId, 
     dependencies = billboard_dependency(),
     sizingPolicy = sizingPolicy(
-      defaultWidth = "95%",
+      defaultWidth = "100%",
+      defaultHeight = "100%",
       viewer.defaultHeight = "100%",
       viewer.defaultWidth = "100%",
+      browser.defaultHeight = "100%",
+      browser.defaultWidth = "100%",
       knitr.figure = FALSE,
       browser.fill = TRUE,
       padding = 10
@@ -49,7 +52,18 @@ billboarder <- function(bb_opts = list(), data = NULL, width = NULL, height = NU
   )
 }
 
-
+#' @importFrom htmltools tags
+billboarder_html <- function(id, style, class, ...) {
+  tags$div(
+    style = style, class = class,
+    style = "position: relative;",
+    tags$a(
+      id = paste0(id, "-export"),
+      style = "position:absolute; top:0; right:0; display:none; z-index:50;"
+    ),
+    tags$div(id = id, class = class, style = style)
+  )
+}
 
 #' @importFrom htmltools htmlDependency
 billboard_dependency <- function() {
