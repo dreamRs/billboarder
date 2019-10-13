@@ -130,36 +130,6 @@ billboarderProxy <- function(shinyId, data = NULL, session = shiny::getDefaultRe
 
 
 
-#' Retrieve click value in Shiny
-#'
-#' @param bb A \code{billboard} \code{htmlwidget} object.
-#' @param inputId The \code{input} slot that will be used to access the value.
-#'
-#' @return A \code{billboard} \code{htmlwidget} object.
-#' @noRd
-#' 
-#' @importFrom htmlwidgets JS
-#'
-#' @examples
-#' \dontrun{
-#' 
-#'  if (interactive()) {
-#'  
-#'  
-#'  }
-#' 
-#' }
-bb_click <- function(bb, inputId) {
-  
-  click <- sprintf("Shiny.onInputChange('%s', d);", inputId)
-  click <- paste0("function(d, element) {", click, "}")
-  click <- htmlwidgets::JS(click)
-  
-  bb <- .bb_opt(bb, "data", onclick = click)
-  return(bb)
-}
-
-
 
 #' Call a proxy method
 #'
@@ -170,21 +140,21 @@ bb_click <- function(bb, inputId) {
 #' @return A \code{billboardProxy} \code{htmlwidget} object.
 #' @noRd
 .bb_proxy <- function(proxy, name, ...) {
-  
+  if (!"billboarder_Proxy" %in% class(proxy)) 
+    stop("This function must be used with a billboarderProxy object")
   proxy$session$sendCustomMessage(
     type = sprintf("update-billboard-%s", name),
     message = list(id = proxy$id, data = list(...))
   )
-  
   proxy
 }
 .bb_proxy2 <- function(proxy, name, l) {
-  
+  if (!"billboarder_Proxy" %in% class(proxy)) 
+    stop("This function must be used with a billboarderProxy object")
   proxy$session$sendCustomMessage(
     type = sprintf("update-billboard-%s", name),
     message = list(id = proxy$id, data = l)
   )
-  
   proxy
 }
 
@@ -200,10 +170,6 @@ bb_click <- function(bb, inputId) {
 #' @return A \code{billboardProxy} \code{htmlwidget} object.
 #' @export
 bb_load <- function(proxy, data = NULL, unload = NULL, ...) {
-  
-  if (!"billboarder_Proxy" %in% class(proxy)) 
-    stop("This function must be used with a billboarderProxy object")
-  
   if (!is.null(data)) {
     if (nrow(data) == 1) {
       json <- lapply(X = as.list(data), FUN = list)
@@ -219,9 +185,7 @@ bb_load <- function(proxy, data = NULL, unload = NULL, ...) {
       unload <- list(unload)
     }
   }
-  
   .bb_proxy2(proxy, "load", dropNulls(c(list(json = json, unload = unload), list(...))))
-  
 }
 
 
@@ -234,18 +198,12 @@ bb_load <- function(proxy, data = NULL, unload = NULL, ...) {
 #' @return A \code{billboardProxy} \code{htmlwidget} object.
 #' @export
 bb_unload <- function(proxy, ids = NULL) {
-  
-  if (!"billboarder_Proxy" %in% class(proxy)) 
-    stop("This function must be used with a billboarderProxy object")
-  
-  # .bb_proxy2(proxy, "unload", dropNulls(list(ids = ids)))
   if (!is.null(ids)) {
     proxy$unload <- ids
   } else {
     proxy$unload <- TRUE
   }
   proxy
-  
 }
 
 
@@ -301,29 +259,17 @@ bb_unload <- function(proxy, ids = NULL) {
 #' shinyApp(ui = ui, server = server)
 #' }
 bb_proxy_focus <- function(proxy, ids = NULL) {
-  
-  if (!"billboarder_Proxy" %in% class(proxy)) 
-    stop("This function must be used with a billboarderProxy object")
-  
   if (is.null(ids)) 
     ids <- character(0)
-  
   .bb_proxy2(proxy, "focus", list(ids = ids))
-  
 }
 
 #' @rdname bb_proxy_focus
 #' @export
 bb_proxy_defocus <- function(proxy, ids = NULL) {
-  
-  if (!"billboarder_Proxy" %in% class(proxy)) 
-    stop("This function must be used with a billboarderProxy object")
-  
   if (is.null(ids)) 
     ids <- character(0)
-  
   .bb_proxy2(proxy, "defocus", list(ids = ids))
-  
 }
 
 
@@ -340,12 +286,7 @@ bb_proxy_defocus <- function(proxy, ids = NULL) {
 #' @return A \code{billboardProxy} \code{htmlwidget} object.
 #' @export
 bb_proxy_axis_labels <- function(proxy, x = NULL, y = NULL) {
-  
-  if (!"billboarder_Proxy" %in% class(proxy)) 
-    stop("This function must be used with a billboarderProxy object")
-  
   .bb_proxy2(proxy, "axis_labels", dropNulls(list(x = x, y = y)))
-  
 }
 
 
@@ -357,12 +298,7 @@ bb_proxy_axis_labels <- function(proxy, x = NULL, y = NULL) {
 #' @return A \code{billboardProxy} \code{htmlwidget} object.
 #' @export
 bb_proxy_xs <- function(proxy, xs) {
-  
-  if (!"billboarder_Proxy" %in% class(proxy)) 
-    stop("This function must be used with a billboarderProxy object")
-  
   .bb_proxy(proxy, "xs", dropNulls(xs))
-  
 }
 
 
@@ -377,12 +313,7 @@ bb_proxy_xs <- function(proxy, xs) {
 #' @return A \code{billboardProxy} \code{htmlwidget} object.
 #' @export
 bb_proxy_transform <- function(proxy, type, targetIds = NULL) {
-  
-  if (!"billboarder_Proxy" %in% class(proxy)) 
-    stop("This function must be used with a billboarderProxy object")
-  
   .bb_proxy2(proxy, "transform", dropNulls(list(type = type, targetIds = targetIds)))
-  
 }
 
 
@@ -394,9 +325,6 @@ bb_proxy_transform <- function(proxy, type, targetIds = NULL) {
 #' @return A \code{billboardProxy} \code{htmlwidget} object.
 #' @export
 bb_proxy_groups <- function(proxy, ...) {
-  if (!"billboarder_Proxy" %in% class(proxy)) 
-    stop("This function must be used with a billboarderProxy object")
-  
   .bb_proxy2(proxy, "groups", list(...))
 }
 
@@ -411,8 +339,6 @@ bb_proxy_groups <- function(proxy, ...) {
 #' @return A \code{billboardProxy} \code{htmlwidget} object.
 #' @export
 bb_proxy_hide <- function(proxy, targetIdsValue, options = NULL) {
-  if (!"billboarder_Proxy" %in% class(proxy)) 
-    stop("This function must be used with a billboarderProxy object")
   if (is.null(options))
     options <- list()
   .bb_proxy(proxy, "hide", targetIdsValue = targetIdsValue, options = options)
@@ -429,8 +355,6 @@ bb_proxy_hide <- function(proxy, targetIdsValue, options = NULL) {
 #' @return A \code{billboardProxy} \code{htmlwidget} object.
 #' @export
 bb_proxy_show <- function(proxy, targetIdsValue, options = NULL) {
-  if (!"billboarder_Proxy" %in% class(proxy)) 
-    stop("This function must be used with a billboarderProxy object")
   if (is.null(options))
     options <- list()
   .bb_proxy(proxy, "show", targetIdsValue = targetIdsValue, options = options)
@@ -544,8 +468,6 @@ bb_proxy_show <- function(proxy, targetIdsValue, options = NULL) {
 #'   shinyApp(ui = ui, server = server)
 #' }
 bb_proxy_legend <- function(proxy, what = c("show", "hide"), targetIds = NULL) {
-  if (!"billboarder_Proxy" %in% class(proxy)) 
-    stop("This function must be used with a billboarderProxy object")
   what <- match.arg(what)
   if (what == "show") {
     .bb_proxy(proxy, "legend-show", targetIds = targetIds)
@@ -568,8 +490,6 @@ bb_proxy_legend <- function(proxy, what = c("show", "hide"), targetIds = NULL) {
 #' @return A \code{billboardProxy} \code{htmlwidget} object.
 #' @export
 bb_proxy_tooltip <- function(proxy, what = c("show", "hide"), x = NULL, index = NULL, ...) {
-  if (!"billboarder_Proxy" %in% class(proxy)) 
-    stop("This function must be used with a billboarderProxy object")
   what <- match.arg(what)
   data <- list(x = x, index = index, ...)
   data <- dropNulls(data)
@@ -636,8 +556,6 @@ bb_proxy_tooltip <- function(proxy, what = c("show", "hide"), x = NULL, index = 
 #' 
 #' }
 bb_proxy_data_names <- function(proxy, old = NULL, new = NULL) {
-  if (!"billboarder_Proxy" %in% class(proxy)) 
-    stop("This function must be used with a billboarderProxy object")
   data_names <- as.list(new)
   names(data_names) <- old
   .bb_proxy(proxy, "data-names", names = data_names)
@@ -713,8 +631,6 @@ bb_proxy_data_names <- function(proxy, old = NULL, new = NULL) {
 #' 
 #' }
 bb_proxy_data_colors <- function(proxy, names = NULL, colors = NULL) {
-  if (!"billboarder_Proxy" %in% class(proxy)) 
-    stop("This function must be used with a billboarderProxy object")
   data_colors <- as.list(colors)
   names(data_colors) <- names
   .bb_proxy(proxy, "data-colors", colors = data_colors)
@@ -799,9 +715,6 @@ bb_proxy_data_colors <- function(proxy, names = NULL, colors = NULL) {
 #'   shinyApp(ui, server)
 #' }
 bb_proxy_flow <- function(proxy, ...) {
-  if (!"billboarder_Proxy" %in% class(proxy)) 
-    stop("This function must be used with a billboarderProxy object")
-  
   .bb_proxy2(proxy, "flow", list(...))
 }
 

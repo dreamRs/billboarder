@@ -1,11 +1,13 @@
 # billboarder
 
-
 > Htmlwidget for billboard.js
 
+<!-- badges: start -->
 [![Travis-CI Build Status](https://travis-ci.org/dreamRs/billboarder.svg?branch=master)](https://travis-ci.org/dreamRs/billboarder)
+[![Codecov test coverage](https://codecov.io/gh/dreamRs/billboarder/branch/master/graph/badge.svg)](https://codecov.io/gh/dreamRs/billboarder?branch=master)
 [![version](http://www.r-pkg.org/badges/version/billboarder)](https://CRAN.R-project.org/package=billboarder)
 [![cranlogs](http://cranlogs.r-pkg.org/badges/billboarder)](https://CRAN.R-project.org/package=billboarder)
+<!-- badges: end -->
 
 
 ## Overview

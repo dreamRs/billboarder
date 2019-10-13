@@ -23,8 +23,10 @@ Imports: htmlwidgets,
     ggplot2,
     scales,
     shiny
-Suggests: RColorBrewer,
+Suggests: 
+    RColorBrewer,
     testthat,
     knitr,
-    rmarkdown
+    rmarkdown,
+    covr
 VignetteBuilder: knitr
