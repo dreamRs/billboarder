@@ -45,6 +45,7 @@ billboarder <- function(bb_opts = list(), data = NULL, width = NULL, height = NU
       viewer.defaultWidth = "100%",
       browser.defaultHeight = "100%",
       browser.defaultWidth = "100%",
+      knitr.defaultHeight = "320px",
       knitr.figure = FALSE,
       browser.fill = TRUE,
       padding = 10
