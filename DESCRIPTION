@@ -4,7 +4,7 @@ Version: 0.2.7.9410
 Authors@R: c(
   person("Victor", "Perrier", email = "victor.perrier@dreamrs.fr", role = c("aut", "cre")),
   person("Fanny", "Meyer", email = "fanny.meyer@dreamrs.fr", role = c("aut")),
-  person("NAVER Corp", role = c("cph"), comment = "billboard library"))
+  person("NAVER Corp", role = c("cph"), comment = "billboard.js library"))
 Description: Provides an 'htmlwidgets' interface to 'billboard.js', 
     a re-usable easy interface JavaScript chart library, based on D3 v4+.
     Chart types include line charts, scatterplots, bar/lollipop charts, histogram/density plots, pie/donut charts and gauge charts.
@@ -26,6 +26,5 @@ Imports: htmlwidgets,
 Suggests: RColorBrewer,
     testthat,
     knitr,
-    rmarkdown,
-    prettydoc
+    rmarkdown
 VignetteBuilder: knitr

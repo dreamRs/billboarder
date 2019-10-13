@@ -71,9 +71,8 @@ HTMLWidgets.widget({
         }
 
         // Sizing
-        var elpar = document.getElementById(el.id); 
-        var w = elpar.clientWidth;
-        var h = elpar.clientHeight;
+        var w = el.clientWidth;
+        var h = el.clientHeight;
         bb_opts.size = {};
         bb_opts.size.width = w;
         bb_opts.size.height = h;

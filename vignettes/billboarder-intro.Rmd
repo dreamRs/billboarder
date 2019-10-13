@@ -2,10 +2,9 @@
 title: "Introduction - basic use"
 author: "Victor Perrier"
 date: "`r Sys.Date()`"
-output:
-  prettydoc::html_pretty:
-    theme: architect
-    highlight: github
+output: 
+  rmarkdown::html_vignette:
+    lib_dir: "billboarder"
 vignette: >
   %\VignetteIndexEntry{Introduction - basic use}
   %\VignetteEngine{knitr::rmarkdown}

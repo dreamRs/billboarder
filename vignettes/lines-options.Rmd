@@ -1,6 +1,8 @@
 ---
 title: "Lines options"
-output: rmarkdown::html_vignette
+output: 
+  rmarkdown::html_vignette:
+    lib_dir: "billboarder"
 vignette: >
   %\VignetteIndexEntry{Lines options}
   %\VignetteEngine{knitr::rmarkdown}
