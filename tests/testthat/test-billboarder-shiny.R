@@ -17,6 +17,18 @@ test_that("billboarderProxy works", {
 })
 
 
+test_that("billboarder-shiny works", {
+  
+  server <- renderBillboarder(billboarder())
+  ui <- billboarderOutput(outputId = "bb")
+
+  expect_is(ui, "shiny.tag.list")
+  expect_true(length(htmltools::findDependencies(ui)) >= 2)
+  expect_is(server, "function")
+  
+})
+
+
 
 test_that("do not use with billboarder()", {
   

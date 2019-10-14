@@ -62,7 +62,7 @@ billboarder_html <- function(id, style, class, ...) {
       id = paste0(id, "-export"),
       style = "position:absolute; top:0; right:0; display:none; z-index:50;"
     ),
-    tags$div(id = id, class = class, style = style)
+    tags$div(id = id, class = class, style = style, ...)
   )
 }
 

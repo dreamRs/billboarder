@@ -10,3 +10,14 @@ test_that("bauge works", {
   expect_identical(b$x$data$json$value[[1]], expected = 45)
 })
 
+
+test_that("bauge-shiny works", {
+  
+  server <- renderBauge(bauge())
+  ui <- baugeOutput(outputId = "bb")
+  
+  expect_is(ui, "shiny.tag.list")
+  expect_true(length(htmltools::findDependencies(ui)) >= 2)
+  expect_is(server, "function")
+  
+})

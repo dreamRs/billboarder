@@ -204,6 +204,7 @@ bb_legend <- function(bb, ...) {
 #' @param text The chart title.
 #' @param padding A named list with \code{top}, \code{right}, \code{bottom}, \code{left} values.
 #' @param position A string specifying the position of the title.
+#' @param ... Additional arguments.
 #'
 #' @return A \code{billboard} \code{htmlwidget} object.
 #' @export
@@ -215,9 +216,12 @@ bb_legend <- function(bb, ...) {
 #'   bb_barchart(data = table(sample(letters, 100, TRUE))) %>% 
 #'   bb_title(text = "Random letters", position = "center")
 #' 
-bb_title <- function(bb, text = NULL, padding = NULL, position = "top-center") {
+bb_title <- function(bb, text = NULL, padding = NULL, position = "top-center", ...) {
 
-  .bb_opt2(bb, "title", dropNulls(list(text = text, padding = padding, position = position)))
+  .bb_opt2(bb, "title", dropNulls(c(
+    list(text = text, padding = padding, position = position),
+    list(...)
+  )))
 
 }
 
@@ -846,6 +850,8 @@ bb_radar <- function(bb, ...) {
 #'  or a \code{\link{billboarderProxy}} \code{htmlwidget} object.
 #' @param filename A string of the filename, excluding extension (will be \code{".png"}).
 #' @param download_label Label to appear on the link to download PNG.
+#' @param ... Additional arguments (not used).
+#' 
 #'
 #' @return A \code{billboard} \code{htmlwidget} object.
 #' @export
@@ -918,7 +924,7 @@ bb_radar <- function(bb, ...) {
 #'   
 #'   shinyApp(ui, server)
 #' }
-bb_export <- function(bb, filename = NULL, download_label = "Export (.png)") {
+bb_export <- function(bb, filename = NULL, download_label = "Export (.png)", ...) {
   if (is.null(filename))
     filename <- paste0("export-", Sys.time())
   if (inherits(bb, "billboarder_Proxy")) {

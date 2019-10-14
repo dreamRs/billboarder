@@ -4,7 +4,8 @@
 \alias{bb_title}
 \title{Add title to Billboard.js chart}
 \usage{
-bb_title(bb, text = NULL, padding = NULL, position = "top-center")
+bb_title(bb, text = NULL, padding = NULL, position = "top-center",
+  ...)
 }
 \arguments{
 \item{bb}{A \code{billboard} \code{htmlwidget} object.}
@@ -14,6 +15,8 @@ bb_title(bb, text = NULL, padding = NULL, position = "top-center")
 \item{padding}{A named list with \code{top}, \code{right}, \code{bottom}, \code{left} values.}
 
 \item{position}{A string specifying the position of the title.}
+
+\item{...}{Additional arguments.}
 }
 \value{
 A \code{billboard} \code{htmlwidget} object.

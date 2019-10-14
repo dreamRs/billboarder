@@ -95,6 +95,13 @@ test_that("bb_scatterplot works", {
   expect_is(bb, "billboarder")
   expect_identical(bb$x$bb_opts$data$type, "scatter")
   
+  
+  bb <- billboarder(data = dat) %>% 
+    bb_scatterplot(mapping = bbaes(x, y, group = groups, size = z))
+  
+  expect_is(bb, "billboarder")
+  expect_identical(bb$x$bb_opts$data$type, "bubble")
+  
 })
 
 
@@ -145,6 +152,12 @@ test_that("bb_donutchart works", {
   expect_is(bb, "billboarder")
   expect_identical(bb$x$bb_opts$data$type, "donut")
   
+  bb <- billboarder() %>% 
+    bb_donutchart(data = dat)
+  
+  expect_is(bb, "billboarder")
+  expect_identical(bb$x$bb_opts$data$type, "donut")
+  
 })
 
 
@@ -165,7 +178,15 @@ test_that("bb_linechart works", {
   expect_is(bb, "billboarder")
   expect_is(bb$x$bb_opts$data$type, "list")
   expect_true(length(bb$x$bb_opts$customStyle) > 0)
+  
+  
+  bb <- billboarder() %>% 
+    bb_linechart(data = rnorm(30))
+  
+  expect_is(bb, "billboarder")
+  expect_identical(bb$x$bb_opts$data$type[[1]], "line")
 })
+
 
 
 

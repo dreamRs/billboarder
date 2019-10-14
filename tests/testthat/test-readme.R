@@ -139,7 +139,7 @@ test_that("Line chart Date", {
     bb_legend(position = "right") %>% 
     bb_subchart(show = TRUE, size = list(height = 30)) %>% 
     bb_labs(title = "Monthly electricity consumption and production in France (2007 - 2017)",
-            y = "In megawatt (MW)",
+            y = "In megawatt (MW)", x = "Date",
             caption = "Data source: RTE (https://opendata.rte-france.com)")
   
   expect_silent(bb)
@@ -186,7 +186,7 @@ test_that("Line chart POSIXct", {
       )
     ) %>% 
     bb_labs(title = "Solar production (2017-06-12)",
-            y = "In megawatt (MW)",
+            y = "In megawatt (MW)", x = "Time",
             caption = "Data source: RTE (https://opendata.rte-france.com)")
   
   expect_silent(bb)

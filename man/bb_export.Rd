@@ -4,7 +4,7 @@
 \alias{bb_export}
 \title{Export a Billboard to PNG}
 \usage{
-bb_export(bb, filename = NULL, download_label = "Export (.png)")
+bb_export(bb, filename = NULL, download_label = "Export (.png)", ...)
 }
 \arguments{
 \item{bb}{A \code{\link{billboarder}} \code{htmlwidget} object
@@ -13,6 +13,8 @@ or a \code{\link{billboarderProxy}} \code{htmlwidget} object.}
 \item{filename}{A string of the filename, excluding extension (will be \code{".png"}).}
 
 \item{download_label}{Label to appear on the link to download PNG.}
+
+\item{...}{Additional arguments (not used).}
 }
 \value{
 A \code{billboard} \code{htmlwidget} object.
