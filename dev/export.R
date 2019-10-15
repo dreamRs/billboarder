@@ -26,7 +26,7 @@ server <- function(input, output, session) {
                 label = list(text = "production (in terawatt-hours)", position = "outer-top")) %>% 
       bb_legend(show = FALSE) %>% 
       bb_labs(title = "French hydraulic production",
-              caption = "Data source: RTE (https://opendata.rte-france.com)") %>% bb_export()
+              caption = "Data source: RTE (https://opendata.rte-france.com)")# %>% bb_export()
   })
   
   observeEvent(input$export, {

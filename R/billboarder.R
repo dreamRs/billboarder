@@ -70,10 +70,10 @@ billboarder_html <- function(id, style, class, ...) {
 billboard_dependency <- function() {
   htmlDependency(
     name = "billboard", 
-    version = "1.10.2", 
-    src = c(file = "htmlwidgets/lib/billboard-1.10/"),
+    version = "1.11.0", 
+    src = c(file = "htmlwidgets/lib/billboard-1.11"),
     package = "billboarder",
-    script = "billboard.min.js",
+    script = "billboard.pkgd.min.js",
     stylesheet = getOption(
       x = "billboard.theme", 
       default = "billboard.min.css"

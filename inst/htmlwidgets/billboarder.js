@@ -98,7 +98,7 @@ HTMLWidgets.widget({
                 if (typeof bb_opts.export.filename !== "undefined") {
                   link.download = bb_opts.export.filename + ".png";
                 } else {
-                  link.download = `export-${Date.now()}.png`;
+                  link.download = "export-" + Date.now() + ".png"; 
                 }
                 link.innerHTML = bb_opts.export.download_label;
                 link.href = dataUrl;
