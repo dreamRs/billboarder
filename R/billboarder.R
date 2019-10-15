@@ -68,16 +68,18 @@ billboarder_html <- function(id, style, class, ...) {
 
 #' @importFrom htmltools htmlDependency
 billboard_dependency <- function() {
+  theme <- getOption(
+    x = "billboard.theme", 
+    default = "billboard.min.css"
+  )
+  theme <- paste0("billboard-1.11/", theme)
   htmlDependency(
     name = "billboard", 
     version = "1.11.0", 
-    src = c(file = "htmlwidgets/lib/billboard-1.11"),
+    src = c(file = "htmlwidgets/lib"),
     package = "billboarder",
-    script = "billboard.pkgd.min.js",
-    stylesheet = getOption(
-      x = "billboard.theme", 
-      default = "billboard.min.css"
-    )
+    script = "billboard-1.11/billboard.pkgd.min.js",
+    stylesheet = c(theme, "billboarder.css")
   )
 }
 
