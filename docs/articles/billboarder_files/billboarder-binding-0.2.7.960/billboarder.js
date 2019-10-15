@@ -2,7 +2,6 @@
 
 var HTMLWidgets = window.HTMLWidgets || {};
 var bb = window.bb || {};
-var d3 = window.d3 || {};
 
 HTMLWidgets.widget({
   name: "billboarder",
@@ -12,6 +11,7 @@ HTMLWidgets.widget({
   factory: function(el, width, height) {
 
     var chart, bb_opts;
+    var head = document.head || document.getElementsByTagName("head")[0];
 
     return {
       renderValue: function(x) {
@@ -98,7 +98,7 @@ HTMLWidgets.widget({
                 if (typeof bb_opts.export.filename !== "undefined") {
                   link.download = bb_opts.export.filename + ".png";
                 } else {
-                  link.download = `export-${Date.now()}.png`;
+                  link.download = "export-" + Date.now() + ".png"; 
                 }
                 link.innerHTML = bb_opts.export.download_label;
                 link.href = dataUrl;
@@ -115,21 +115,7 @@ HTMLWidgets.widget({
 
         // Generate billboard chart
         chart = bb.generate(bb_opts);
-
-
-        // bold title
-        //var sheet = window.document.styleSheets[0];
-        //sheet.insertRule('.bb-title { font-weight: bold; }', sheet.cssRules.length);
-        var css = ".bb-title { font-weight: bold; }",
-          head = document.head || document.getElementsByTagName("head")[0],
-          style = document.createElement("style");
-        style.type = "text/css";
-        if (style.styleSheet) {
-          style.styleSheet.cssText = css;
-        } else {
-          style.appendChild(document.createTextNode(css));
-        }
-        head.appendChild(style);
+        
 
         // Billboarder specials
         if (typeof bb_opts.billboarderspecials != "undefined") {
@@ -176,17 +162,23 @@ HTMLWidgets.widget({
         
         // Caption
         if (typeof bb_opts.caption != "undefined") {
-          d3.select("#" + el.id + " svg")
-              .selectAll(".bb-caption")
-              .remove();
-          d3.select("#" + el.id + " svg")
-              .append("text")
-              .attr("class", "bb-caption")
-              .attr("x", w)
-              .attr("y", h)
-              //.attr("startOffset", "100%")
-              .attr("text-anchor", "end")
-              .text(bb_opts.caption.text);
+          
+          var caption = document.querySelector("#" + el.id + " svg > .bb-caption");
+          if (caption === null) {
+            var svg = document.querySelector("#" + el.id + " svg");
+            var captionG = document.createElementNS("http://www.w3.org/2000/svg", "g");
+            captionG.setAttribute("class", "bb-caption");
+            captionG.setAttribute("transform", "translate(" + w + "," + h + ")");
+            
+            var captionText = document.createElementNS("http://www.w3.org/2000/svg", "text");
+            captionText.setAttribute("text-anchor", "end");
+            captionText.innerHTML = bb_opts.caption.text;
+            captionG.appendChild(captionText);
+            svg.appendChild(captionG);
+          } else {
+            caption.setAttribute("transform", "translate(" + w + "," + h + ")");
+            caption.firstChild.innerHTML = bb_opts.caption.text;
+          }
         }
         
         
@@ -205,18 +197,23 @@ HTMLWidgets.widget({
           chart.resize({ width: w, height: h });	
   
           // Caption	
-          if (typeof bb_opts.caption != "undefined") {	
-            d3.select("#" + el.id + " svg")	
-              .selectAll(".bb-caption")	
-              .remove();	
-            d3.select("#" + el.id + " svg")	
-              .append("text")	
-              .attr("class", "bb-caption")	
-              .attr("x", w)	
-              .attr("y", h)	
-              .attr("startOffset", "100%")	
-              .attr("text-anchor", "end")	
-              .text(bb_opts.caption.text);	
+          if (typeof bb_opts.caption != "undefined") {
+            var caption = document.querySelector("#" + el.id + " svg > .bb-caption");
+            if (caption === null) {
+              var svg = document.querySelector("#" + el.id + " svg");
+              var captionG = document.createElementNS("http://www.w3.org/2000/svg", "g");
+              captionG.setAttribute("class", "bb-caption");
+              captionG.setAttribute("transform", "translate(" + w + "," + h + ")");
+              
+              var captionText = document.createElementNS("http://www.w3.org/2000/svg", "text");
+              captionText.setAttribute("text-anchor", "end");
+              captionText.innerHTML = bb_opts.caption.text;
+              captionG.appendChild(captionText);
+              svg.appendChild(captionG);
+            } else {
+              caption.setAttribute("transform", "translate(" + w + "," + h + ")");
+              caption.firstChild.innerHTML = bb_opts.caption.text;
+            }
           }
         }
       }
