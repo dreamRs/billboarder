@@ -1,10 +1,11 @@
 Package: billboarder
 Title: Create Interactive Chart with the JavaScript 'Billboard' Library
-Version: 0.2.7.960
+Version: 0.2.7.970
 Authors@R: c(
   person("Victor", "Perrier", email = "victor.perrier@dreamrs.fr", role = c("aut", "cre")),
   person("Fanny", "Meyer", email = "fanny.meyer@dreamrs.fr", role = c("aut")),
-  person("NAVER Corp", role = c("cph"), comment = "billboard.js library"))
+  person("NAVER Corp", role = c("cph"), comment = "billboard.js library"),
+  person("Mike", "Bostock", role = "cph", comment = "d3.format library"))
 Description: Provides an 'htmlwidgets' interface to 'billboard.js', 
     a re-usable easy interface JavaScript chart library, based on D3 v4+.
     Chart types include line charts, scatterplots, bar/lollipop charts, histogram/density plots, pie/donut charts and gauge charts.
@@ -15,7 +16,7 @@ Depends: R (>= 3.1.0)
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 6.1.1
+RoxygenNote: 7.0.1
 Imports: htmlwidgets,
     htmltools,
     magrittr,

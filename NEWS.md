@@ -1,6 +1,7 @@
 billboarder 0.2.8
 ==================
 
+* Update of the billboard.js library to 1.11.0, see the [release note](https://medium.com/@alberto.park/billboard-js-1-11-0-release-lazy-render-new-textoverlap-plugin-more-831e33efcbe5).
 * `bb_export()` : new function to export chart to PNG in Shiny applications with proxy or by adding a "download" button on the chart.
 * `bb_linechart()` have two new arguments: `dasharray` (use dash in lines) and `width` to control lines size.
 * New vignette to describe lines options, use `vignette("lines-options", package = "billboarder")` to display it.
