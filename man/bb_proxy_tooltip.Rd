@@ -4,8 +4,7 @@
 \alias{bb_proxy_tooltip}
 \title{Show or hide tooltip with proxy}
 \usage{
-bb_proxy_tooltip(proxy, what = c("show", "hide"), x = NULL,
-  index = NULL, ...)
+bb_proxy_tooltip(proxy, what = c("show", "hide"), x = NULL, index = NULL, ...)
 }
 \arguments{
 \item{proxy}{A \code{billboardProxy} \code{htmlwidget} object.}

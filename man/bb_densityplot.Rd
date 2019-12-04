@@ -4,8 +4,15 @@
 \alias{bb_densityplot}
 \title{Helper for creating a density plot}
 \usage{
-bb_densityplot(bb, data, mapping = NULL, stacked = FALSE,
-  stat = "density", fill = FALSE, ...)
+bb_densityplot(
+  bb,
+  data,
+  mapping = NULL,
+  stacked = FALSE,
+  stat = "density",
+  fill = FALSE,
+  ...
+)
 }
 \arguments{
 \item{bb}{A \code{billboard} \code{htmlwidget} object.}

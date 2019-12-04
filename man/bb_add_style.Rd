@@ -4,8 +4,14 @@
 \alias{bb_add_style}
 \title{Add custom style for regions and grid lines}
 \usage{
-bb_add_style(bb, region = NULL, x_grid = NULL, y_grid = NULL, ...,
-  .list = NULL)
+bb_add_style(
+  bb,
+  region = NULL,
+  x_grid = NULL,
+  y_grid = NULL,
+  ...,
+  .list = NULL
+)
 }
 \arguments{
 \item{bb}{A \code{billboard} \code{htmlwidget} object.}

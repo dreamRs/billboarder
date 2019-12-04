@@ -11,8 +11,11 @@ billboarderOutput(outputId, width = "100\%", height = "400px")
 
 renderBillboarder(expr, env = parent.frame(), quoted = FALSE)
 
-billboarderProxy(shinyId, data = NULL,
-  session = shiny::getDefaultReactiveDomain())
+billboarderProxy(
+  shinyId,
+  data = NULL,
+  session = shiny::getDefaultReactiveDomain()
+)
 }
 \arguments{
 \item{outputId}{output variable to read from}

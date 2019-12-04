@@ -4,8 +4,16 @@
 \alias{bb_linechart}
 \title{Helper for creating a line chart}
 \usage{
-bb_linechart(bb, data, mapping = NULL, type = "line",
-  show_point = FALSE, dasharray = NULL, width = NULL, ...)
+bb_linechart(
+  bb,
+  data,
+  mapping = NULL,
+  type = "line",
+  show_point = FALSE,
+  dasharray = NULL,
+  width = NULL,
+  ...
+)
 }
 \arguments{
 \item{bb}{A \code{billboard} \code{htmlwidget} object.}

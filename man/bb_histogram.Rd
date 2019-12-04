@@ -4,8 +4,16 @@
 \alias{bb_histogram}
 \title{Helper for creating an histogram}
 \usage{
-bb_histogram(bb, data, mapping = NULL, stacked = FALSE, fill = FALSE,
-  bins = 30, binwidth = NULL, ...)
+bb_histogram(
+  bb,
+  data,
+  mapping = NULL,
+  stacked = FALSE,
+  fill = FALSE,
+  bins = 30,
+  binwidth = NULL,
+  ...
+)
 }
 \arguments{
 \item{bb}{A \code{billboard} \code{htmlwidget} object.}

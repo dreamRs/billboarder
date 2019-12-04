@@ -4,8 +4,14 @@
 \alias{bb_gaugechart}
 \title{Helper for creating a gauge}
 \usage{
-bb_gaugechart(bb, value, name = "Value", steps = c(30, 60, 90, 100),
-  steps_color = c("#FF0000", "#F97600", "#F6C600", "#60B044"), ...)
+bb_gaugechart(
+  bb,
+  value,
+  name = "Value",
+  steps = c(30, 60, 90, 100),
+  steps_color = c("#FF0000", "#F97600", "#F6C600", "#60B044"),
+  ...
+)
 }
 \arguments{
 \item{bb}{A \code{billboard} \code{htmlwidget} object.}

@@ -4,9 +4,17 @@
 \alias{bb_callbacks}
 \title{Callbacks for billboard charts}
 \usage{
-bb_callbacks(bb, onafterinit = NULL, onbeforeinit = NULL,
-  oninit = NULL, onout = NULL, onover = NULL, onrendered = NULL,
-  onresize = NULL, onresized = NULL)
+bb_callbacks(
+  bb,
+  onafterinit = NULL,
+  onbeforeinit = NULL,
+  oninit = NULL,
+  onout = NULL,
+  onover = NULL,
+  onrendered = NULL,
+  onresize = NULL,
+  onresized = NULL
+)
 }
 \arguments{
 \item{bb}{A \code{billboard} \code{htmlwidget} object.}

@@ -4,8 +4,16 @@
 \alias{bb_lollipop}
 \title{Helper for creating a lollipop chart}
 \usage{
-bb_lollipop(bb, data, mapping = NULL, rotated = FALSE,
-  point_color = "#112446", point_size = 8, line_color = "#000", ...)
+bb_lollipop(
+  bb,
+  data,
+  mapping = NULL,
+  rotated = FALSE,
+  point_color = "#112446",
+  point_size = 8,
+  line_color = "#000",
+  ...
+)
 }
 \arguments{
 \item{bb}{A \code{billboard} \code{htmlwidget} object.}

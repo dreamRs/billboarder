@@ -4,11 +4,24 @@
 \alias{bauge}
 \title{Simple Gauge}
 \usage{
-bauge(value, min = 0, max = 100, colors = NULL, steps = NULL,
-  label_tooltip = NULL, label_show = TRUE, label_format = NULL,
-  label_extents = NULL, expand = TRUE, subtitle = NULL,
-  full_circle = FALSE, gauge_width = NULL, width = NULL,
-  height = NULL, elementId = NULL)
+bauge(
+  value,
+  min = 0,
+  max = 100,
+  colors = NULL,
+  steps = NULL,
+  label_tooltip = NULL,
+  label_show = TRUE,
+  label_format = NULL,
+  label_extents = NULL,
+  expand = TRUE,
+  subtitle = NULL,
+  full_circle = FALSE,
+  gauge_width = NULL,
+  width = NULL,
+  height = NULL,
+  elementId = NULL
+)
 }
 \arguments{
 \item{value}{Value for the gauge.}
