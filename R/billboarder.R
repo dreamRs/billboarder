@@ -37,7 +37,7 @@ billboarder <- function(bb_opts = list(), data = NULL, width = NULL, height = NU
     height = height,
     package = "billboarder",
     elementId = elementId, 
-    dependencies = billboard_dependency(),
+    dependencies = billboard_dependencies(),
     sizingPolicy = sizingPolicy(
       defaultWidth = "100%",
       defaultHeight = "100%",
@@ -67,18 +67,18 @@ billboarder_html <- function(id, style, class, ...) {
 }
 
 #' @importFrom htmltools htmlDependency
-billboard_dependency <- function() {
+billboard_dependencies <- function() {
   theme <- getOption(
     x = "billboard.theme", 
     default = "billboard.min.css"
   )
-  theme <- paste0("billboard-1.11/", theme)
+  theme <- paste0("billboard/", theme)
   htmlDependency(
     name = "billboard", 
     version = "1.11.0", 
     src = c(file = "htmlwidgets/lib"),
     package = "billboarder",
-    script = "billboard-1.11/billboard.pkgd.min.js",
+    script = "billboard/billboard.pkgd.min.js",
     stylesheet = c(theme, "billboarder.css")
   )
 }

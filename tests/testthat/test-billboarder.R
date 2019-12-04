@@ -39,7 +39,7 @@ test_that("billboarder empty (function) works", {
 
 test_that("billboard_dependency works", {
   
-  bbdeps <- billboard_dependency()
+  bbdeps <- billboard_dependencies()
   
   expect_is(bbdeps, "html_dependency")
   

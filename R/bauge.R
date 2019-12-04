@@ -111,7 +111,7 @@ bauge <- function(value, min = 0, max = 100,
     height = height,
     package = 'billboarder',
     elementId = elementId,
-    dependencies = billboard_dependency()
+    dependencies = billboard_dependencies()
   )
 }
 
