@@ -75,11 +75,12 @@ billboard_dependencies <- function() {
   theme <- paste0("billboard/", theme)
   htmlDependency(
     name = "billboard", 
-    version = "1.11.0", 
+    version = "1.11.1", 
     src = c(file = "htmlwidgets/lib"),
     package = "billboarder",
     script = "billboard/billboard.pkgd.min.js",
-    stylesheet = c(theme, "billboarder.css")
+    stylesheet = c(theme, "billboarder.css"), 
+    all_files = FALSE
   )
 }
 
