@@ -4,7 +4,8 @@
 \name{prod_par_filiere}
 \alias{prod_par_filiere}
 \title{French electricity generation by year and branch.}
-\format{A data frame with 5 rows and 11 variables:
+\format{
+A data frame with 5 rows and 11 variables:
 \describe{
   \item{annee}{Year}
   \item{prod_total}{Total production in TWh (thermal + hydro + nuclear + solar + wind + bioenergy)}
@@ -17,7 +18,8 @@
   \item{prod_therm_gaz}{Gaz thermal production in TWh}
   \item{prod_nucleaire}{Nuclear production in TWh}
   \item{prod_therm_fioul}{Oil thermal production in TWh}
-}}
+}
+}
 \source{
 RTE (\url{https://opendata.rte-france.com/explore/dataset/prod_par_filiere})
 }

@@ -5,13 +5,17 @@
 \alias{avengers}
 \alias{avengers_wide}
 \title{Power ratings for The Avengers.}
-\format{A data frame with 24 rows and 4 variables:
+\format{
+A data frame with 24 rows and 4 variables:
 \describe{
   \item{group}{Name of the hero}
   \item{axis}{Power skill}
   \item{value}{Value (1-7)}
   \item{description}{Character description}
-}}
+}
+
+An object of class \code{data.frame} with 6 rows and 5 columns.
+}
 \source{
 Marvel Wikia (\url{http://marvel.wikia.com}) and Chris Zhou (\url{http://bl.ocks.org/chrisrzhou/2421ac6541b68c1680f8})
 }

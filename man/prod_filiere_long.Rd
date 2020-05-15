@@ -4,12 +4,14 @@
 \name{prod_filiere_long}
 \alias{prod_filiere_long}
 \title{French electricity generation by year and branch.}
-\format{A data frame with 45 rows and 3 variables:
+\format{
+A data frame with 45 rows and 3 variables:
 \describe{
   \item{annee}{Year}
   \item{branche}{Source of production}
   \item{prod}{Production in TWh}
-}}
+}
+}
 \source{
 RTE (\url{https://opendata.rte-france.com/explore/dataset/prod_par_filiere})
 }

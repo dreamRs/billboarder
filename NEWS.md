@@ -1,7 +1,7 @@
 billboarder 0.2.9
 ==================
 
-* Update of the billboard.js library to 1.12.0, see the [release note](https://medium.com/@alberto.park/billboard-js-692f4db55b0b).
+* Update of the billboard.js library to 1.12.8, see the [release note](https://medium.com/@alberto.park/billboard-js-692f4db55b0b).
 
 
 

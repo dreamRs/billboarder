@@ -4,7 +4,8 @@
 \name{cdc_prod_filiere}
 \alias{cdc_prod_filiere}
 \title{French electricity generation by power source for the day of 2017-06-12.}
-\format{A data frame with 48 rows and 11 variables:
+\format{
+A data frame with 48 rows and 11 variables:
 \describe{
   \item{date_heure}{Timestamp (POSIXct)}
   \item{prod_total}{Total production in MW (thermal + hydro + nuclear + solar + wind + bioenergy)}
@@ -17,7 +18,8 @@
   \item{prod_solaire}{Solar production in MW}   
   \item{prod_nucleaire}{Nuclear production in MW}
   \item{prod_fioul}{Oil production in MW}
-}}
+}
+}
 \source{
 RTE (\url{https://opendata.reseaux-energies.fr/explore/dataset/production-quotidienne-filiere})
 }

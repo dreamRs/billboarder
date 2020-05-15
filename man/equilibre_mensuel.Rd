@@ -4,14 +4,16 @@
 \name{equilibre_mensuel}
 \alias{equilibre_mensuel}
 \title{Monthly supply / demand balance (january 2007 to june 2017)}
-\format{A data frame with 126 rows and 5 variables:
+\format{
+A data frame with 126 rows and 5 variables:
 \describe{
   \item{date}{Date}
   \item{solde}{Supply/demand balance (in GWh)}
   \item{production}{Generation (in GWh)}
   \item{pompage}{Pumping for hydraulic generation (in GWh)}
   \item{consommation}{Consumption (in GWh)}
-}}
+}
+}
 \source{
 RTE (\url{https://opendata.reseaux-energies.fr/explore/dataset/equilibre-national-mensuel-prod-conso-brute/})
 }
