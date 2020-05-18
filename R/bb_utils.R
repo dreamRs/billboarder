@@ -28,7 +28,11 @@ dropNulls <- function(x) {
   if (is.null(bb$x$bb_opts[[name]])) {
     bb$x$bb_opts[[name]] <- list(...)
   } else {
-    bb$x$bb_opts[[name]] <- utils::modifyList(x = bb$x$bb_opts[[name]], val = list(...), keep.null = TRUE)
+    bb$x$bb_opts[[name]] <- utils::modifyList(
+      x = bb$x$bb_opts[[name]], 
+      val = list(...), 
+      keep.null = TRUE
+    )
   }
 
   return(bb)
@@ -49,7 +53,11 @@ dropNulls <- function(x) {
   if (is.null(bb$x$bb_opts[[name]])) {
     bb$x$bb_opts[[name]] <- l
   } else {
-    bb$x$bb_opts[[name]] <- utils::modifyList(x = bb$x$bb_opts[[name]], val = l, keep.null = TRUE)
+    bb$x$bb_opts[[name]] <- utils::modifyList(
+      x = bb$x$bb_opts[[name]], 
+      val = l,
+      keep.null = TRUE
+    )
   }
 
   return(bb)

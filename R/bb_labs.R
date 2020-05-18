@@ -43,11 +43,11 @@ bb_labs <- function(bb, title = NULL, x = NULL, y = NULL, caption = NULL, captio
   }
   
   if (!is.null(caption)) {
-    bb <- .bb_opt(bb, "caption", text = caption)
+    bb <- .bb_opt2(bb, "caption", l = dropNulls(list(
+      text = caption,
+      href = caption_href
+    )))
     bb <- .bb_opt(bb, "padding", bottom = 10)
-    if (!is.null(caption)) {
-      bb <- .bb_opt(bb, "caption", href = caption_href)
-    }
   }
   
   return(bb)

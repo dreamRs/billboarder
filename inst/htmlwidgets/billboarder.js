@@ -169,7 +169,7 @@ HTMLWidgets.widget({
             var svg = document.querySelector("#" + el.id + " svg");
             var captionG = document.createElementNS("http://www.w3.org/2000/svg", "g");
             captionG.setAttribute("class", "bb-caption");
-            captionG.setAttribute("transform", "translate(" + w + "," + (h-5) + ")");
+            captionG.setAttribute("transform", "translate(" + w + "," + (h-3) + ")");
             
             var captionText = document.createElementNS("http://www.w3.org/2000/svg", "text");
             captionText.setAttribute("text-anchor", "end");
@@ -187,7 +187,7 @@ HTMLWidgets.widget({
             svg.appendChild(captionG);
             
           } else {
-            caption.setAttribute("transform", "translate(" + w + "," + (h-5) + ")");
+            caption.setAttribute("transform", "translate(" + w + "," + (h-3) + ")");
             //caption.firstChild.innerHTML = bb_opts.caption.text;
             var textUpdate = caption.querySelector("text");
             textUpdate.innerHTML = bb_opts.caption.text;
@@ -217,7 +217,7 @@ HTMLWidgets.widget({
               var svg = document.querySelector("#" + el.id + " svg");
               var captionG = document.createElementNS("http://www.w3.org/2000/svg", "g");
               captionG.setAttribute("class", "bb-caption");
-              captionG.setAttribute("transform", "translate(" + w + "," + (h-5) + ")");
+              captionG.setAttribute("transform", "translate(" + w + "," + (h-3) + ")");
               
               var captionText = document.createElementNS("http://www.w3.org/2000/svg", "text");
               captionText.setAttribute("text-anchor", "end");
@@ -235,7 +235,7 @@ HTMLWidgets.widget({
               svg.appendChild(captionG);
               
             } else {
-              caption.setAttribute("transform", "translate(" + w + "," + (h-5) + ")");
+              caption.setAttribute("transform", "translate(" + w + "," + (h-3) + ")");
               var textUpdate = caption.querySelector("text");
               textUpdate.innerHTML = bb_opts.caption.text;
             }
