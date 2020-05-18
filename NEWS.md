@@ -2,6 +2,7 @@ billboarder 0.2.9
 ==================
 
 * Update of the billboard.js library to 1.12.8, see the [release note](https://medium.com/@alberto.park/billboard-js-692f4db55b0b).
+* `bb_labs()` lower part of caption was cut and added argument `caption_href` to add a link.
 
 
 

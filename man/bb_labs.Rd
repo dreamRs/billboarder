@@ -4,18 +4,27 @@
 \alias{bb_labs}
 \title{Quickly set title, axis labels and caption}
 \usage{
-bb_labs(bb, title = NULL, x = NULL, y = NULL, caption = NULL)
+bb_labs(
+  bb,
+  title = NULL,
+  x = NULL,
+  y = NULL,
+  caption = NULL,
+  caption_href = NULL
+)
 }
 \arguments{
 \item{bb}{A \code{billboard} \code{htmlwidget} object.}
 
-\item{title}{Plot title.}
+\item{title}{Text for the chart title, use \code{\\n} to make a new line.}
 
-\item{x}{Label for x axis.}
+\item{x}{Text for x axis title.}
 
-\item{y}{Label for y axis.}
+\item{y}{Text for y axis title.}
 
-\item{caption}{Caption for the chart.}
+\item{caption}{Text for the caption displayed in the bottom-right of the chart.}
+
+\item{caption_href}{Associate the caption with a link to an URL.}
 }
 \value{
 A \code{billboard} \code{htmlwidget} object.
@@ -30,10 +39,15 @@ Quickly set title, axis labels and caption
 data("prod_par_filiere")
 
 billboarder() \%>\%
-  bb_barchart(data = prod_par_filiere[, c("annee", "prod_hydraulique")], color = "#102246") \%>\%
-  bb_legend(show = FALSE) \%>\% 
-  bb_labs(title = "French hydraulic production", 
-          y = "production (in terawatt-hours)",
-          caption = "Data source: RTE (https://opendata.rte-france.com)")
-
+  bb_barchart(
+    data = prod_par_filiere[, c("annee", "prod_hydraulique")],
+    color = "#102246"
+  ) \%>\%
+  bb_legend(show = FALSE) \%>\%
+  bb_labs(
+    title = "French hydraulic production",
+    y = "production (in terawatt-hours)",
+    caption = "Data source: RTE (https://opendata.reseaux-energies.fr/)",
+    caption_href = "https://opendata.reseaux-energies.fr/"
+  )
 }
