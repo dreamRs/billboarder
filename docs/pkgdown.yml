@@ -1,5 +1,5 @@
 pandoc: 2.7.2
-pkgdown: 1.4.1
+pkgdown: 1.5.1
 pkgdown_sha: ~
 articles:
   billboarder-intro: billboarder-intro.html
@@ -8,4 +8,5 @@ articles:
   billboarder: billboarder.html
   lines-options: lines-options.html
   linked-tooltip: linked-tooltip.html
+last_built: 2020-05-18T10:29Z
 
