@@ -70,13 +70,22 @@
 #'   
 #'   shinyApp(ui, server)
 #' }
-bauge <- function(value, min = 0, max = 100, 
-                  colors = NULL, steps = NULL, 
+bauge <- function(value,
+                  min = 0, 
+                  max = 100, 
+                  colors = NULL, 
+                  steps = NULL, 
                   label_tooltip = NULL,
-                  label_show = TRUE, label_format = NULL,
-                  label_extents = NULL, expand = TRUE,
-                  subtitle = NULL, full_circle = FALSE, gauge_width = NULL,
-                  width = NULL, height = NULL, elementId = NULL) {
+                  label_show = TRUE, 
+                  label_format = NULL,
+                  label_extents = NULL, 
+                  expand = TRUE,
+                  subtitle = NULL, 
+                  full_circle = FALSE,
+                  gauge_width = NULL,
+                  width = NULL, 
+                  height = NULL,
+                  elementId = NULL) {
 
   if (!isTRUE(nzchar(label_tooltip)))
     label_tooltip <- "value:"
@@ -98,6 +107,7 @@ bauge <- function(value, min = 0, max = 100,
         extents = label_extents
       ))
     )),
+    legend = list(show = FALSE),
     color = dropNulls(list(
       pattern = list1(colors),
       threshold = dropNulls(list(values = steps))
@@ -105,23 +115,16 @@ bauge <- function(value, min = 0, max = 100,
   ))
 
   htmlwidgets::createWidget(
-    name = 'bauge',
+    name = "bauge",
     x = x,
     width = width,
     height = height,
-    package = 'billboarder',
+    package = "billboarder",
     elementId = elementId,
     dependencies = billboard_dependencies()
   )
 }
 
-list1 <- function(x) {
-  if (length(x) == 1) {
-    list(x)
-  } else {
-    x
-  }
-}
 
 #' Shiny bindings for bauge
 #'
@@ -140,8 +143,8 @@ list1 <- function(x) {
 #' @name bauge-shiny
 #'
 #' @export
-baugeOutput <- function(outputId, width = '100%', height = '200px'){
-  htmlwidgets::shinyWidgetOutput(outputId, 'bauge', width, height, package = 'billboarder')
+baugeOutput <- function(outputId, width = "100%", height = "200px"){
+  htmlwidgets::shinyWidgetOutput(outputId, "bauge", width, height, package = "billboarder")
 }
 
 #' @rdname bauge-shiny

@@ -342,15 +342,6 @@ if (HTMLWidgets.shinyMode) {
       chart.categories(message.data[0]);
     }
   });
-  // Transform / change chart type
-  Shiny.addCustomMessageHandler("update-billboard-transform", function(
-    message
-  ) {
-    var chart = get_billboard(message.id);
-    if (typeof chart != "undefined") {
-      chart.transform(message.data.type, message.data.targetIds);
-    }
-  });
   // Regions
   Shiny.addCustomMessageHandler("update-billboard-region", function(message) {
     var chart = get_billboard(message.id);

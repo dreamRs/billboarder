@@ -1,3 +1,12 @@
+billboarder 0.3.0
+==================
+
+* Update of the billboard.js library to 2.1.1
+* New theme available: datalab.
+* Deprecated `bb_proxy_transform()`
+
+
+
 billboarder 0.2.9
 ==================
 

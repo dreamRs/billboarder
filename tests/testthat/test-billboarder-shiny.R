@@ -171,23 +171,6 @@ test_that("bb_proxy_xs works", {
 
 
 
-test_that("bb_proxy_transform works", {
-  
-  session <- as.environment(list(
-    ns = identity,
-    sendCustomMessage = function(type, message) {
-      session$lastCustomMessage <- list(type = type, message = message)
-    }
-  ))
-  
-  proxy <- billboarderProxy("mybb", session = session) %>% 
-    bb_proxy_transform(type = "pie")
-  
-  expect_is(proxy, "billboarder_Proxy")
-  expect_identical(session$lastCustomMessage$type, "update-billboard-transform")
-})
-
-
 
 test_that("bb_proxy_groups works", {
   

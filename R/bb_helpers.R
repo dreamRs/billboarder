@@ -1329,8 +1329,6 @@ bb_histogram <- function(bb, data, mapping = NULL, stacked = FALSE, fill = FALSE
     )
   )
   
-  
-  
   # tooltip
   if (is.null(binwidth)) {
     binwidth <- dat$xmax[1] - dat$xmin[1]
@@ -1351,12 +1349,10 @@ bb_histogram <- function(bb, data, mapping = NULL, stacked = FALSE, fill = FALSE
   } else {
     
     bb <- .bb_opt2(bb, "data", data_opt)
-    
     bb <- .bb_opt(bb, "legend", show = !is.null(group))
-    
     bb <- .bb_opt2(bb, "axis", axis_opt)
-    
     bb <- .bb_opt2(bb, "tooltip", tooltip_opt)
+    bb <- .bb_opt(bb, "point", show = FALSE)
     
   }
   

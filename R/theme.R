@@ -1,7 +1,8 @@
 
 #' Set theme for Billboard charts
 #'
-#' @param name Name of the theme, possible values are : \code{"billboard"}, \code{"insight"}, \code{"graph"}.
+#' @param name Name of the theme, possible values are : \code{"billboard"},
+#'  \code{"insight"}, \code{"graph"}, \code{"datalab"}.
 #' 
 #' @note You can only use one theme at a time (in Shiny applications or Markdown documents).
 #'
@@ -25,7 +26,7 @@
 #'   bb_legend(position = "inset", inset = list(anchor = "top-right")) %>% 
 #'   bb_labs(title = "Renewable energy production",
 #'           caption = "Data source: RTE (https://opendata.rte-france.com)")
-set_theme <- function(name = c("billboard", "insight", "graph")) {
+set_theme <- function(name = c("billboard", "insight", "graph", "datalab")) {
   name <- match.arg(arg = name)
   options("billboard.theme" = paste0(name, ".min.css"))
 }

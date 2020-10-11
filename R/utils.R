@@ -1,3 +1,12 @@
+
+list1 <- function(x) {
+  if (length(x) == 1) {
+    list(x)
+  } else {
+    x
+  }
+}
+
 #' Shortcut to add a suffix value to axis labels
 #'
 #' @param x A character of length one.

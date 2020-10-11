@@ -7,7 +7,7 @@ test_that("proxy_example works", {
   expect_is(default, "shiny.appobj")
   
   examples <- c("gauge", "pie", "bar", "bar2", "line", "line2",
-                "density", "histogram", "transform", "stacked_bar", "lollipop")
+                "density", "histogram", "stacked_bar", "lollipop")
   
   for (i in examples) {
     ex <- proxy_example(i)

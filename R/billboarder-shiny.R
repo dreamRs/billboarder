@@ -313,7 +313,7 @@ bb_proxy_xs <- function(proxy, xs) {
 #' @return A \code{billboardProxy} \code{htmlwidget} object.
 #' @export
 bb_proxy_transform <- function(proxy, type, targetIds = NULL) {
-  .bb_proxy2(proxy, "transform", dropNulls(list(type = type, targetIds = targetIds)))
+  warning("bb_proxy_transform: this function has been deprecated as of version 0.3.0 and is no longer available.")
 }
 
 
