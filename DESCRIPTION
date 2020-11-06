@@ -1,6 +1,6 @@
 Package: billboarder
 Title: Create Interactive Chart with the JavaScript 'Billboard' Library
-Version: 0.2.9.9000
+Version: 0.2.9.9100
 Authors@R: c(
   person("Victor", "Perrier", email = "victor.perrier@dreamrs.fr", role = c("aut", "cre")),
   person("Fanny", "Meyer", email = "fanny.meyer@dreamrs.fr", role = c("aut")),
@@ -23,7 +23,8 @@ Imports: htmlwidgets,
     jsonlite,
     ggplot2,
     scales,
-    shiny
+    shiny,
+    rlang
 Suggests: 
     RColorBrewer,
     testthat,

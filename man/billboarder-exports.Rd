@@ -4,6 +4,7 @@
 \alias{billboarder-exports}
 \alias{\%>\%}
 \alias{JS}
+\alias{aes}
 \title{billboarder exported operators and S3 methods}
 \description{
 The following functions are imported and then re-exported
