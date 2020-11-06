@@ -355,15 +355,17 @@ bb_scatterplot <- function(bb, data, mapping = NULL, ..., point_opacity = NULL) 
     group <- args$group
   } else {
     data <- lapply(mapping, rlang::eval_tidy, data = data)
-    x <- "x"
-    y <- "y"
+    nms <- lapply(mapping, rlang::as_label)
+    names(data) <- unlist(nms, use.names = FALSE)
+    x <- nms$x
+    y <- nms$y
     if (!is.null(mapping$group)) {
-      group <- "group"
+      group <- nms$group
     } else {
       group <- NULL
     }
     if (!is.null(mapping$size)) {
-      z <- "size"
+      z <- nms$size
     } else {
       z <- NULL
     }
@@ -371,7 +373,7 @@ bb_scatterplot <- function(bb, data, mapping = NULL, ..., point_opacity = NULL) 
   
   if (is.null(group)) {
     xs <- stats::setNames(list(x), y)
-    json <- as.list(data[, c(x, y)])
+    json <- data[c(x, y)]
     if (!is.null(z)) {
       json$y <- mapply(
         FUN = function(y, z) list(y = y, z = z), 
