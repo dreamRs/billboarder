@@ -10,7 +10,7 @@ test_that("bbaes - one var", {
   aes <- bbaes(x = Sepal.Length)
   
   expect_length(object = aes, n = 1)
-  expect_identical(object = aes$x, expected = as.name("Sepal.Length"))
+  expect_is(aes$x, "quosure")
 
 })
 
@@ -19,8 +19,8 @@ test_that("bbaes - two var", {
   aes <- bbaes(x = Sepal.Length, y = Sepal.Width)
   
   expect_length(object = aes, n = 2)
-  expect_identical(object = aes$x, expected = as.name("Sepal.Length"))
-  expect_identical(object = aes$y, expected = as.name("Sepal.Width"))
+  expect_is(aes$x, "quosure")
+  expect_is(aes$y, "quosure")
 
 })
 
@@ -29,9 +29,9 @@ test_that("bbaes - group var", {
   aes <- bbaes(x = Sepal.Length, y = Sepal.Width, group = Species)
   
   expect_length(object = aes, n = 3)
-  expect_identical(object = aes$x, expected = as.name("Sepal.Length"))
-  expect_identical(object = aes$y, expected = as.name("Sepal.Width"))
-  expect_identical(object = aes$group, expected = as.name("Species"))
+  expect_is(aes$x, "quosure")
+  expect_is(aes$y, "quosure")
+  expect_is(aes$group, "quosure")
   
 })
 
@@ -46,7 +46,7 @@ test_that("bbaes - one var", {
   
   expect_false(is.null(aes$x$mapping))
   expect_length(object = aes$x$mapping, n = 1)
-  expect_identical(object = aes$x$mapping$x, expected = as.name("Sepal.Length"))
+  expect_is(aes$x$mapping$x, "quosure")
   
 })
 
@@ -56,8 +56,8 @@ test_that("bbaes - two var", {
   
   expect_false(is.null(aes$x$mapping))
   expect_length(object = aes$x$mapping, n = 2)
-  expect_identical(object = aes$x$mapping$x, expected = as.name("Sepal.Length"))
-  expect_identical(object = aes$x$mapping$y, expected = as.name("Sepal.Width"))
+  expect_is(aes$x$mapping$x, "quosure")
+  expect_is(aes$x$mapping$y, "quosure")
   
 })
 
@@ -67,9 +67,9 @@ test_that("bbaes - group var", {
   
   expect_false(is.null(aes$x$mapping))
   expect_length(object = aes$x$mapping, n = 3)
-  expect_identical(object = aes$x$mapping$x, expected = as.name("Sepal.Length"))
-  expect_identical(object = aes$x$mapping$y, expected = as.name("Sepal.Width"))
-  expect_identical(object = aes$x$mapping$group, expected = as.name("Species"))
+  expect_is(aes$x$mapping$x, "quosure")
+  expect_is(aes$x$mapping$y, "quosure")
+  expect_is(aes$x$mapping$group, "quosure")
   
 })
 
@@ -82,7 +82,7 @@ test_that("bbaes_string - one var", {
   
   aes <- bbaes_string(x = "Sepal.Length")
   
-  expect_identical(object = aes, expected = bbaes(x = Sepal.Length))
+  expect_equal(object = aes, expected = bbaes(x = Sepal.Length))
   
 })
 
@@ -90,15 +90,7 @@ test_that("bbaes_string - two var", {
   
   aes <- bbaes_string(x = "Sepal.Length", y = "Sepal.Width")
   
-  expect_identical(object = aes, expected = bbaes(x = Sepal.Length, y = Sepal.Width))
-  
-})
-
-test_that("bbaes_string - group var", {
-  
-  aes <- bbaes_string(x = "Sepal.Length", y = "Sepal.Width", group = "Species")
-  
-  expect_identical(object = aes, expected = bbaes(x = Sepal.Length, y = Sepal.Width, group = Species))
+  expect_equal(object = aes, expected = bbaes(x = Sepal.Length, y = Sepal.Width))
   
 })
 
@@ -111,7 +103,7 @@ test_that("bb_aes_string - one var", {
   
   aes <- bb_aes_string(list(), x = "Sepal.Length")
   
-  expect_identical(object = aes, expected = bb_aes(list(), x = Sepal.Length))
+  expect_equal(object = aes, expected = bb_aes(list(), x = Sepal.Length))
   
 })
 
@@ -119,17 +111,10 @@ test_that("bb_aes_string - two var", {
   
   aes <- bb_aes_string(list(), x = "Sepal.Length", y = "Sepal.Width")
   
-  expect_identical(object = aes, expected = bb_aes(list(), x = Sepal.Length, y = Sepal.Width))
+  expect_equal(object = aes, expected = bb_aes(list(), x = Sepal.Length, y = Sepal.Width))
   
 })
 
-test_that("bb_aes_string - group var", {
-  
-  aes <- bb_aes_string(list(), x = "Sepal.Length", y = "Sepal.Width", group = "Species")
-  
-  expect_identical(object = aes, expected = bb_aes(list(), x = Sepal.Length, y = Sepal.Width, group = Species))
-  
-})
 
 
 
