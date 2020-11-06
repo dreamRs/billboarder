@@ -126,7 +126,7 @@ bb_barchart <- function(bb, data, mapping = NULL, stacked = FALSE, rotated = FAL
   } else {
     
     json <- bbmapping(data = data, mapping = mapping)
-    x <- as.character(mapping$x)
+    x <- as_label(mapping$x)
     names(json)[which(names(json) == x)] <- getOption("billboarder-x", default = "bb-x")
     
     if (is.null(mapping$group)) {
@@ -296,6 +296,7 @@ bb_categories <- function(bb, categories) {
 #' @param data A \code{data.frame}
 #' @param mapping Mapping of variables on the chart, see \code{\link{bbaes}}.
 #' @param ... Alternative mapping, you can specify \code{x = "Sepal.Length"} for example.
+#' @param point_opacity Opacity for points, value between \code{[0,1]}.
 #' 
 #' @note This function can be used with \code{\link{billboarderProxy}} in shiny application.
 #'
@@ -338,7 +339,7 @@ bb_categories <- function(bb, categories) {
 #'   ) %>% 
 #'   bb_x_axis(tick = list(fit = FALSE))
 #'
-bb_scatterplot <- function(bb, data, mapping = NULL, ...) {
+bb_scatterplot <- function(bb, data, mapping = NULL, ..., point_opacity = NULL) {
   
   if (missing(data))
     data <- bb$x$data
@@ -353,15 +354,16 @@ bb_scatterplot <- function(bb, data, mapping = NULL, ...) {
     z <- args$z
     group <- args$group
   } else {
-    x <- as.character(mapping$x)
-    y <- as.character(mapping$y)
+    data <- lapply(mapping, rlang::eval_tidy, data = data)
+    x <- "x"
+    y <- "y"
     if (!is.null(mapping$group)) {
-      group <- as.character(mapping$group)
+      group <- "group"
     } else {
       group <- NULL
     }
     if (!is.null(mapping$size)) {
-      z <- as.character(mapping$size)
+      z <- "size"
     } else {
       z <- NULL
     }
@@ -439,6 +441,10 @@ bb_scatterplot <- function(bb, data, mapping = NULL, ...) {
     
     if (!is.null(z)) {
       bb <- .bb_opt2(bb, "axis", list(x = list(padding = list(right = 0.1))))
+    }
+    
+    if (!is.null(point_opacity)) {
+      bb <- bb_add_style(bb, ".bb-circles circle" = sprintf("opacity: %s !important;", point_opacity))
     }
     
   }
@@ -1003,13 +1009,13 @@ bb_densityplot <- function(bb, data, mapping = NULL, stacked = FALSE, stat = "de
   } else {
     if (!is.null(mapping)) {
       if (!is.null(mapping$group))
-        group <- as.character(mapping$group)
+        group <- as_label(mapping$group)
       else
         group <- NULL
       mapping$group <- NULL
       data_mapped <- bbmapping(data = data, mapping = mapping)
       data_mapped <- data.frame(unlist(data_mapped))
-      names(data_mapped) <- as.character(mapping$x)
+      names(data_mapped) <- as_label(mapping$x)
       if (!is.null(group))
         data_mapped[[group]] <- data[[group]]
       data <- data_mapped
@@ -1228,13 +1234,13 @@ bb_histogram <- function(bb, data, mapping = NULL, stacked = FALSE, fill = FALSE
   } else {
     if (!is.null(mapping)) {
       if (!is.null(mapping$group))
-        group <- as.character(mapping$group)
+        group <- as_label(mapping$group)
       else
         group <- NULL
       mapping$group <- NULL
       data_mapped <- bbmapping(data = data, mapping = mapping)
       data_mapped <- data.frame(unlist(data_mapped))
-      names(data_mapped) <- as.character(mapping$x)
+      names(data_mapped) <- as_label(mapping$x)
       if (!is.null(group))
         data_mapped[[group]] <- data[[group]]
       data <- data_mapped
@@ -1430,8 +1436,8 @@ bb_lollipop <- function(bb, data, mapping = NULL, rotated = FALSE, point_color =
   
   
   if (!is.null(mapping)) {
-    x <- as.character(mapping$x)
-    y <- as.character(mapping$y)
+    x <- as_label(mapping$x)
+    y <- as_label(mapping$y)
     json <- bbmapping(data = data, mapping = mapping)
   } else {
     x <- names(data)[1]
@@ -1559,7 +1565,7 @@ bb_radarchart <- function(bb, data, mapping = NULL, ...) {
   } else {
     
     json <- bbmapping(data = data, mapping = mapping)
-    x <- as.character(mapping$x)
+    x <- as_label(mapping$x)
     names(json)[which(names(json) == x)] <- getOption("billboarder-x", default = "bb-x")
     
   }

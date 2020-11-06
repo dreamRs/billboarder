@@ -1,13 +1,12 @@
 #' Map variables on the chart
 #'
 #' @param bb A \code{billboard} \code{htmlwidget} object.
-#' @param x Name of the variable to map on the x-axis.
-#' @param y Name of the variable to map on the y-axis.
-#' @param group Name of the grouping variable.
-#' @param ... Additional mapping parameters, for now only 'size' for scatter plot is used.
+#' @param ... Mapping parameters, such as \code{x} for x-axis, \code{y} for y-axis, \code{group} for grouping variable.
 #'
 #' @return A \code{billboard} \code{htmlwidget} object.
 #' @export
+#' 
+#' @importFrom ggplot2 aes
 #' 
 #' @note \code{bb_aes} is intended to use in a "piping" way. 
 #' \code{bbaes} is the equivalent to use inside a helper function
@@ -40,10 +39,8 @@
 #   bb$x$aes <- list(x = x, y = y, group = group)
 #   bb
 # }
-bb_aes <- function(bb, x, y, group = NULL, ...) {
-  mapping <- structure(as.list(match.call()[-1]), class = "bb.uneval")
-  mapping$bb <- NULL
-  bb$x$mapping <- mapping
+bb_aes <- function(bb, ...) {
+  bb$x$mapping <- dropNulls(aes(...))
   bb
 }
 
@@ -77,9 +74,9 @@ bb_aes_string <- function(bb, x, y, group = NULL, ...) {
 
 #' @rdname billboard-aes
 #' @export
-bbaes <- function(x, y, group = NULL, ...) {
-  mapping <- structure(as.list(match.call()[-1]), class = "bb.uneval")
-  mapping
+#' @importFrom ggplot2 aes
+bbaes <- function(...) {
+  dropNulls(aes(...))
 }
 
 #' @rdname billboard-aes
@@ -111,7 +108,10 @@ bbaes_string <- function(x, y, group = NULL, ...) {
 }
 
 
+#' @importFrom rlang eval_tidy as_label
 bbmapping <- function(data, mapping) {
+  
+  mapping <- dropNulls(mapping)
   
   # if (is.null(data))
   #   return(list())
@@ -119,34 +119,32 @@ bbmapping <- function(data, mapping) {
   if (is.null(mapping$group)) {
     json <- lapply(
       X = mapping,
-      FUN = function(paraes) {
-        eval(paraes, envir = data, enclos = parent.frame())
-      }
+      FUN = eval_tidy,
+      data = data
     )
-    names(json) <- as.character(unlist(mapping))
-    x <- as.character(mapping$x)
-    if (inherits(json[[x]], what = c("character", "factor")) & anyDuplicated(json[[x]])) {
-      y <- as.character(mapping$y)
-      json[[y]] <- tapply(X = json[[y]], INDEX = json[[x]], FUN = sum, na.rm = TRUE)
-      json[[x]] <- names(json[[y]])
-      json[[y]] <- as.vector(unname(json[[y]]))
-      message("Non unique values in '", x, "' : calculating sum of '", y, "'")
+    if (inherits(json[["x"]], what = c("character", "factor")) & anyDuplicated(json[["x"]])) {
+      json[["y"]] <- tapply(X = json[["y"]], INDEX = json[["x"]], FUN = sum, na.rm = TRUE)
+      json[["x"]] <- names(json[["y"]])
+      json[["y"]] <- as.vector(unname(json[["y"]]))
+      message("Non unique values in '", as_label(mapping$x), "' : calculating sum of '", as_label(mapping$y), "'")
     }
     if (!is.null(mapping$ymin) & !is.null(mapping$ymax)) {
-      json[[mapping$y]] <- lapply(
-        X = seq_along(json[[mapping$y]]),
+      json[["y"]] <- lapply(
+        X = seq_along(json[["y"]]),
         FUN = function(i) {
-          lapply(X = list(low = json[[mapping$ymin]], mid = json[[mapping$y]], high = json[[mapping$ymax]]), FUN = `[[`, i)
+          lapply(X = list(low = json[["ymin"]], mid = json[["y"]], high = json[["ymax"]]), FUN = `[[`, i)
         }
       )
-      json[[mapping$ymin]] <- NULL
-      json[[mapping$ymax]] <- NULL
+      json[["ymin"]] <- NULL
+      json[["ymax"]] <- NULL
     }
+    names(json)[names(json) == "x"] <- as_label(mapping$x)
+    names(json)[names(json) == "y"] <- as_label(mapping$y)
   } else {
-    grouping <- as.character(eval(mapping$group, envir = data, enclos = parent.frame()))
+    grouping <- as.character(eval_tidy(mapping$group, data = data))
     grouping_order <- unique(grouping)
     mapping$group <- NULL
-    x_un <- eval(mapping$x, envir = data, enclos = parent.frame())
+    x_un <- eval_tidy(mapping$x, data = data)
     x_un <- unique(x_un)
     data_split <- split(x = data, f = grouping)
     n_ <- names(data_split)
@@ -155,10 +153,10 @@ bbmapping <- function(data, mapping) {
       FUN = function(iii) {
         if (!is.null(mapping$y)) {
           if (!is.null(mapping$ymin) & !is.null(mapping$ymax)) {
-            ymin_ <- eval(mapping$ymin, envir = data_split[[iii]], enclos = parent.frame())
-            ymax_ <- eval(mapping$ymax, envir = data_split[[iii]], enclos = parent.frame())
-            y_ <- eval(mapping$y, envir = data_split[[iii]], enclos = parent.frame())
-            x_ <- eval(mapping$x, envir = data_split[[iii]], enclos = parent.frame())
+            ymin_ <- eval_tidy(mapping$ymin, data = data_split[[iii]])
+            ymax_ <- eval_tidy(mapping$ymax, data = data_split[[iii]])
+            y_ <- eval_tidy(mapping$y, data = data_split[[iii]])
+            x_ <- eval_tidy(mapping$x, data = data_split[[iii]])
             idx <- match(x = x_un, table = x_, nomatch = nrow(data_split[[iii]])+1)
             res <- lapply(
               X = seq_along(y_),
@@ -168,26 +166,25 @@ bbmapping <- function(data, mapping) {
             )
             res[idx]
           } else {
-            y_ <- eval(mapping$y, envir = data_split[[iii]], enclos = parent.frame())
-            x_ <- eval(mapping$x, envir = data_split[[iii]], enclos = parent.frame())
+            y_ <- eval_tidy(mapping$y, data = data_split[[iii]])
+            x_ <- eval_tidy(mapping$x, data = data_split[[iii]])
             idx <- match(x = x_un, table = x_, nomatch = nrow(data_split[[iii]])+1)
             y_[idx]
           }
         } else {
-          eval(mapping$x, envir = data_split[[iii]], enclos = parent.frame())
+          eval_tidy(mapping$x, data = data_split[[iii]])
         }
       }
     )
     json <- json[grouping_order]
     if (!is.null(mapping$x)) {
-      x <- as.character(mapping$x)
+      x <- as_label(mapping$x)
       json[[x]] <- x_un
       json <- json[c(x, setdiff(names(json), x))]
     }
   }
   
   return(json)
-  
 }
 
 
