@@ -10,11 +10,11 @@
 \usage{
 bb_aes(bb, ...)
 
-bb_aes_string(bb, x, y, group = NULL, ...)
+bb_aes_string(bb, ...)
 
 bbaes(...)
 
-bbaes_string(x, y, group = NULL, ...)
+bbaes_string(...)
 }
 \arguments{
 \item{bb}{A \code{billboard} \code{htmlwidget} object.}

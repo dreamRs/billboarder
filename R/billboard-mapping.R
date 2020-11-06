@@ -46,29 +46,8 @@ bb_aes <- function(bb, ...) {
 
 #' @rdname billboard-aes
 #' @export
-bb_aes_string <- function(bb, x, y, group = NULL, ...) {
-  mapping <- list()
-  if (!missing(x)) 
-    mapping["x"] <- list(x)
-  if (!missing(y)) 
-    mapping["y"] <- list(y)
-  if (!is.null(group)) 
-    mapping["group"] <- list(group)
-  args <- list(...)
-  if (!is.null(args$size)) 
-    mapping["size"] <- list(args$size)
-  mapping <- lapply(
-    X = mapping,
-    FUN = function(x) {
-      if (is.character(x)) {
-        parse(text = x)[[1]]
-      }
-      else {
-        x
-      }
-    }
-  )
-  bb$x$mapping <- structure(mapping, class = "bb.uneval")
+bb_aes_string <- function(bb, ...) {
+  bb$x$mapping <- dropNulls(aes_string(...))
   bb
 }
 
@@ -81,30 +60,8 @@ bbaes <- function(...) {
 
 #' @rdname billboard-aes
 #' @export
-bbaes_string <- function(x, y, group = NULL, ...) {
-  mapping <- list()
-  if (!missing(x)) 
-    mapping["x"] <- list(x)
-  if (!missing(y)) 
-    mapping["y"] <- list(y)
-  if (!is.null(group)) 
-    mapping["group"] <- list(group)
-  args <- list(...)
-  if (!is.null(args$size)) 
-    mapping["size"] <- list(args$size)
-  mapping <- lapply(
-    X = mapping,
-    FUN = function(x) {
-      if (is.character(x)) {
-        parse(text = x)[[1]]
-      }
-      else {
-        x
-      }
-    }
-  )
-  aes <- structure(mapping, class = "bb.uneval")
-  aes
+bbaes_string <- function(...) {
+  dropNulls(aes_string(...))
 }
 
 
