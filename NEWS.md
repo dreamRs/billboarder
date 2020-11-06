@@ -3,6 +3,8 @@ billboarder 0.3.0
 
 * Update of the billboard.js library to 2.1.1
 * New theme available: datalab.
+* New function `set_color_palette()` to define default colors used in charts.
+* It's now possible to use `aes()` directly to define mapping of aesthetics.
 * Deprecated `bb_proxy_transform()`
 
 
