@@ -4,7 +4,7 @@
 \alias{bb_scatterplot}
 \title{Helper for creating a scatter chart}
 \usage{
-bb_scatterplot(bb, data, mapping = NULL, ...)
+bb_scatterplot(bb, data, mapping = NULL, ..., point_opacity = NULL)
 }
 \arguments{
 \item{bb}{A \code{billboard} \code{htmlwidget} object.}
@@ -14,6 +14,8 @@ bb_scatterplot(bb, data, mapping = NULL, ...)
 \item{mapping}{Mapping of variables on the chart, see \code{\link{bbaes}}.}
 
 \item{...}{Alternative mapping, you can specify \code{x = "Sepal.Length"} for example.}
+
+\item{point_opacity}{Opacity for points, value between \code{[0,1]}.}
 }
 \value{
 A \code{billboard} \code{htmlwidget} object.

@@ -29,3 +29,9 @@ NULL
 #' @export
 #' @rdname billboarder-exports
 NULL
+
+#' @importFrom ggplot2 aes
+#' @name aes
+#' @export
+#' @rdname billboarder-exports
+NULL

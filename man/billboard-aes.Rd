@@ -8,24 +8,18 @@
 \alias{bbaes_string}
 \title{Map variables on the chart}
 \usage{
-bb_aes(bb, x, y, group = NULL, ...)
+bb_aes(bb, ...)
 
 bb_aes_string(bb, x, y, group = NULL, ...)
 
-bbaes(x, y, group = NULL, ...)
+bbaes(...)
 
 bbaes_string(x, y, group = NULL, ...)
 }
 \arguments{
 \item{bb}{A \code{billboard} \code{htmlwidget} object.}
 
-\item{x}{Name of the variable to map on the x-axis.}
-
-\item{y}{Name of the variable to map on the y-axis.}
-
-\item{group}{Name of the grouping variable.}
-
-\item{...}{Additional mapping parameters, for now only 'size' for scatter plot is used.}
+\item{...}{Mapping parameters, such as \code{x} for x-axis, \code{y} for y-axis, \code{group} for grouping variable.}
 }
 \value{
 A \code{billboard} \code{htmlwidget} object.
