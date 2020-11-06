@@ -1,18 +1,13 @@
 
-
-
-# README ------------------------------------------------------------------
-
-
+# Examples from README ----------------------------------------------------
 
 
 # packages ----------------------------------------------------------------
 
-library("billboarder")
-library("magrittr")
-library("data.table")
-library("dplyr")
-library("tidyr")
+library(billboarder)
+library(data.table)
+library(dplyr)
+library(tidyr)
 
 
 
@@ -34,18 +29,17 @@ data(mtcars)
 ### simple bar chart
 
 billboarder() %>%
-  bb_bar(data = mpg[, list(count = .N), by = manufacturer][order(count)]) %>%
+  bb_barchart(data = mpg[, list(count = .N), by = manufacturer][order(count)]) %>%
   bb_axis(rotated = TRUE) %>%
   bb_title(text = "Number of models by manufacturer", position = "left-top")
 
 # with some other options
 billboarder() %>%
-  bb_bar(data = mpg[, list(count = .N), by = manufacturer][order(count, decreasing = TRUE)]) %>%
+  bb_barchart(data = mpg[, list(count = .N), by = manufacturer][order(count, decreasing = TRUE)]) %>%
   bb_y_grid(show = TRUE) %>%
   bb_legend(show = FALSE) %>% 
   bb_y_axis(label = list(text = "# of models", position = "outer-top")) %>% 
-  bb_title(text = "Popular models by manufacturer", position = "left-top", 
-           padding = list(top = 0, right = 0, left = 0, bottom = 20))
+  bb_title(text = "Popular models by manufacturer", position = "left-top")
 
 
 
@@ -54,7 +48,7 @@ mpg %>%
   count(manufacturer) %>% 
   arrange(n) %>% 
   billboarder(data = .) %>% 
-  bb_bar() %>%
+  bb_barchart() %>%
   bb_axis(rotated = TRUE) %>%
   bb_title(text = "Number of models by manufacturer", position = "left-top")
 
@@ -64,7 +58,7 @@ mpg %>%
 data("prod_par_filiere")
 
 billboarder() %>%
-  bb_bar(data = prod_par_filiere[, c("annee", "prod_hydraulique")]) %>%
+  bb_barchart(data = prod_par_filiere[, c("annee", "prod_hydraulique")]) %>%
   bb_color("#102246") %>% 
   bb_y_grid(show = TRUE) %>%
   bb_y_axis(tick = list(format = htmlwidgets::JS("function(x) {return x + 'TWh';}"))) %>% 
@@ -72,7 +66,7 @@ billboarder() %>%
   bb_title(text = "French hydraulic production", position = "right-top")
 
 billboarder() %>%
-  bb_bar(data = prod_par_filiere[, c("annee", "prod_hydraulique")]) %>%
+  bb_barchart(data = prod_par_filiere[, c("annee", "prod_hydraulique")]) %>%
   bb_color("#102246") %>% 
   bb_y_grid(show = TRUE) %>%
   bb_y_axis(tick = list(format = htmlwidgets::JS("function(x) {return x + 'TWh';}"))) %>% 
