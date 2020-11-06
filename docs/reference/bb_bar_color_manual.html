@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">billboarder</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.8.910</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.9.9100</span>
       </span>
     </div>
 
@@ -147,7 +147,7 @@
     <p>Manual color for barchart</p>
     </div>
 
-    <pre class="usage"><span class='fu'>bb_bar_color_manual</span>(<span class='no'>bb</span>, <span class='no'>values</span>)</pre>
+    <pre class="usage"><span class='fu'>bb_bar_color_manual</span><span class='op'>(</span><span class='va'>bb</span>, <span class='va'>values</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -172,26 +172,27 @@ the same order of the chart.</p></td>
     <p>Must be called after <code>bb_bar</code>.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
 
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='st'>"data.table"</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='st'>"billboarder"</span>)
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='st'><a href='http://r-datatable.com'>"data.table"</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='st'><a href='https://github.com/dreamRs/billboarder'>"billboarder"</a></span><span class='op'>)</span>
 
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='st'>"mpg"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"ggplot2"</span>)
-<span class='fu'><a href='https://Rdatatable.gitlab.io/data.table/reference/setDT.html'>setDT</a></span>(<span class='no'>mpg</span>)
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='st'>"mpg"</span>, package <span class='op'>=</span> <span class='st'>"ggplot2"</span><span class='op'>)</span>
+<span class='fu'><a href='https://Rdatatable.gitlab.io/data.table/reference/setDT.html'>setDT</a></span><span class='op'>(</span><span class='va'>mpg</span><span class='op'>)</span>
 
 <span class='co'># all in blue</span>
-<span class='no'>manufa</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://Rdatatable.gitlab.io/data.table/reference/duplicated.html'>unique</a></span>(<span class='no'>mpg</span>$<span class='no'>manufacturer</span>)
-<span class='no'>cols</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='st'>"#08298A"</span>, <span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span>(<span class='no'>manufa</span>))
-<span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='no'>cols</span>) <span class='kw'>&lt;-</span> <span class='no'>manufa</span>
+<span class='va'>manufa</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://Rdatatable.gitlab.io/data.table/reference/duplicated.html'>unique</a></span><span class='op'>(</span><span class='va'>mpg</span><span class='op'>$</span><span class='va'>manufacturer</span><span class='op'>)</span>
+<span class='va'>cols</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='st'>"#08298A"</span>, <span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>manufa</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>cols</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='va'>manufa</span>
 
 <span class='co'># Nissan in red</span>
-<span class='no'>cols</span><span class='kw'>[[</span><span class='st'>"nissan"</span>]] <span class='kw'>&lt;-</span> <span class='st'>"#DF0101"</span><span class='co'>#' </span>
+<span class='va'>cols</span><span class='op'>[[</span><span class='st'>"nissan"</span><span class='op'>]</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='st'>"#DF0101"</span><span class='co'>#' </span>
 
-<span class='fu'><a href='billboarder.html'>billboarder</a></span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='bb_barchart.html'>bb_barchart</a></span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>mpg</span>[, <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>count</span> <span class='kw'>=</span> <span class='no'>.N</span>), <span class='kw'>by</span> <span class='kw'>=</span> <span class='no'>manufacturer</span>][<span class='fu'><a href='https://Rdatatable.gitlab.io/data.table/reference/setorder.html'>order</a></span>(<span class='no'>count</span>)]) <span class='kw'>%&gt;%</span>
-  <span class='fu'>bb_bar_color_manual</span>(<span class='kw'>values</span> <span class='kw'>=</span> <span class='no'>cols</span>)
-}</div></pre>
+<span class='fu'><a href='billboarder.html'>billboarder</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='bb_barchart.html'>bb_barchart</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>mpg</span><span class='op'>[</span>, <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>count <span class='op'>=</span> <span class='va'>.N</span><span class='op'>)</span>, by <span class='op'>=</span> <span class='va'>manufacturer</span><span class='op'>]</span><span class='op'>[</span><span class='fu'><a href='https://Rdatatable.gitlab.io/data.table/reference/setorder.html'>order</a></span><span class='op'>(</span><span class='va'>count</span><span class='op'>)</span><span class='op'>]</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>bb_bar_color_manual</span><span class='op'>(</span>values <span class='op'>=</span> <span class='va'>cols</span><span class='op'>)</span>
+<span class='op'>}</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -207,7 +208,7 @@ the same order of the chart.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

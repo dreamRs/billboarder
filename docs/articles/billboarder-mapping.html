@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">billboarder</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.8.910</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.9.9100</span>
       </span>
     </div>
 
@@ -94,15 +94,15 @@
 
       
 
-      </header><script src="billboarder-mapping_files/htmlwidgets-1.5.1/htmlwidgets.js"></script><script src="billboarder-mapping_files/d3-format-1.4.2/d3-format.min.js"></script><script src="billboarder-mapping_files/billboarder-binding-0.2.8.910/billboarder.js"></script><link href="billboarder-mapping_files/billboard-1.12.8/billboard/billboard.min.css" rel="stylesheet">
-<link href="billboarder-mapping_files/billboard-1.12.8/billboarder.css" rel="stylesheet">
-<script src="billboarder-mapping_files/billboard-1.12.8/billboard/billboard.pkgd.min.js"></script><div class="row">
+      </header><script src="billboarder-mapping_files/accessible-code-block-0.0.1/empty-anchor.js"></script><script src="billboarder-mapping_files/htmlwidgets-1.5.2/htmlwidgets.js"></script><script src="billboarder-mapping_files/d3-format-1.4.2/d3-format.min.js"></script><script src="billboarder-mapping_files/billboarder-binding-0.2.9.9100/billboarder.js"></script><link href="billboarder-mapping_files/billboard-2.1.1/billboard/billboard.min.css" rel="stylesheet">
+<link href="billboarder-mapping_files/billboard-2.1.1/billboarder.css" rel="stylesheet">
+<script src="billboarder-mapping_files/billboard-2.1.1/billboard/billboard.pkgd.min.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Mapping - map variables to the chart</h1>
                         <h4 class="author">Victor Perrier</h4>
             
-            <h4 class="date">2020-05-18</h4>
+            <h4 class="date">2020-11-06</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/dreamRs/billboarder/blob/master/vignettes/billboarder-mapping.Rmd"><code>vignettes/billboarder-mapping.Rmd</code></a></small>
       <div class="hidden name"><code>billboarder-mapping.Rmd</code></div>
@@ -125,8 +125,9 @@
 <h2 class="hasAnchor">
 <a href="#data" class="anchor"></a>Data</h2>
 <p>We’ll use data about the french electricity production between 2012 and 2016 :</p>
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(<span class="st">"prod_par_filiere"</span>)
-<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(<span class="no">prod_par_filiere</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb1"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"prod_par_filiere"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">prod_par_filiere</span><span class="op">)</span></pre></div>
 <pre><code>## 'data.frame':    5 obs. of  11 variables:
 ##  $ annee             : chr  "2012" "2013" "2014" "2015" ...
 ##  $ prod_total        : num  542 550 540 547 531
@@ -145,84 +146,92 @@
 <a href="#first-method-use-a-data-frame" class="anchor"></a>First method : use a <code>data.frame</code>
 </h2>
 <p>For creating this simple barchart, we need to use two columns of our <code>data.frame</code></p>
-<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="fu"><a href="../reference/billboarder.html">billboarder</a></span>() <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/bb_barchart.html">bb_barchart</a></span>(<span class="kw">data</span> <span class="kw">=</span> <span class="no">prod_par_filiere</span>[, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"annee"</span>, <span class="st">"prod_bioenergies"</span>)])</pre></body></html></div>
+<div class="sourceCode" id="cb3"><pre class="downlit">
+<span class="fu"><a href="../reference/billboarder.html">billboarder</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="../reference/bb_barchart.html">bb_barchart</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">prod_par_filiere</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"annee"</span>, <span class="st">"prod_bioenergies"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></pre></div>
 <div class="billboarder html-widget" style="width:100%;height:320px; position: relative;">
-<a id="htmlwidget-0f20b1deefa4cc43e3d5-export" style="position:absolute; top:0; right:0; display:none; z-index:50;"></a>
-<div id="htmlwidget-0f20b1deefa4cc43e3d5" class="billboarder html-widget" style="width:100%;height:320px;" width="100%" height="320px"></div>
+<a id="htmlwidget-dfd1c3e6801dd784262a-export" style="position:absolute; top:0; right:0; display:none; z-index:50;"></a>
+<div id="htmlwidget-dfd1c3e6801dd784262a" class="billboarder html-widget" style="width:100%;height:320px;" width="100%" height="320px"></div>
 </div>
-<script type="application/json" data-for="htmlwidget-0f20b1deefa4cc43e3d5">{"x":{"bb_opts":{"interaction":{"inputType":{"touch":false}},"data":{"x":"bb-x","json":{"bb-x":["2012","2013","2014","2015","2016"],"prod_bioenergies":[5.8,7.1,7.5,8,8.5]},"type":"bar"},"bar":[],"axis":{"x":{"type":"category"},"rotated":false}},"data":null},"evals":[],"jsHooks":[]}</script><p>Variable <code>annee</code> is used on the x-axis, and <code>prod_bioenergies</code> as y values.</p>
+<script type="application/json" data-for="htmlwidget-dfd1c3e6801dd784262a">{"x":{"bb_opts":{"interaction":{"inputType":{"touch":false}},"data":{"x":"bb-x","json":{"bb-x":["2012","2013","2014","2015","2016"],"prod_bioenergies":[5.8,7.1,7.5,8,8.5]},"type":"bar"},"bar":[],"axis":{"x":{"type":"category"},"rotated":false}},"data":null},"evals":[],"jsHooks":[]}</script><p>Variable <code>annee</code> is used on the x-axis, and <code>prod_bioenergies</code> as y values.</p>
 <p>This is similar for line chart :</p>
-<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="fu"><a href="../reference/billboarder.html">billboarder</a></span>() <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/bb_linechart.html">bb_linechart</a></span>(<span class="kw">data</span> <span class="kw">=</span> <span class="no">prod_par_filiere</span>[, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"annee"</span>, <span class="st">"prod_bioenergies"</span>)])</pre></body></html></div>
+<div class="sourceCode" id="cb4"><pre class="downlit">
+<span class="fu"><a href="../reference/billboarder.html">billboarder</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="../reference/bb_linechart.html">bb_linechart</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">prod_par_filiere</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"annee"</span>, <span class="st">"prod_bioenergies"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></pre></div>
 <div class="billboarder html-widget" style="width:100%;height:320px; position: relative;">
-<a id="htmlwidget-30e1ac771afc9ef4019a-export" style="position:absolute; top:0; right:0; display:none; z-index:50;"></a>
-<div id="htmlwidget-30e1ac771afc9ef4019a" class="billboarder html-widget" style="width:100%;height:320px;" width="100%" height="320px"></div>
+<a id="htmlwidget-f2ad70e19de1124c2e4d-export" style="position:absolute; top:0; right:0; display:none; z-index:50;"></a>
+<div id="htmlwidget-f2ad70e19de1124c2e4d" class="billboarder html-widget" style="width:100%;height:320px;" width="100%" height="320px"></div>
 </div>
-<script type="application/json" data-for="htmlwidget-30e1ac771afc9ef4019a">{"x":{"bb_opts":{"interaction":{"inputType":{"touch":false}},"line":{"classes":["billboarder-line-prod_bioenergies"]},"data":{"x":"annee","json":{"annee":["2012","2013","2014","2015","2016"],"prod_bioenergies":[5.8,7.1,7.5,8,8.5]},"types":{"prod_bioenergies":"line"}},"point":{"show":false}},"data":null},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-f2ad70e19de1124c2e4d">{"x":{"bb_opts":{"interaction":{"inputType":{"touch":false}},"line":{"classes":["billboarder-line-prod_bioenergies"]},"data":{"x":"annee","json":{"annee":["2012","2013","2014","2015","2016"],"prod_bioenergies":[5.8,7.1,7.5,8,8.5]},"types":{"prod_bioenergies":"line"}},"point":{"show":false}},"data":null},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="second-method-with-mapping" class="section level2">
 <h2 class="hasAnchor">
 <a href="#second-method-with-mapping" class="anchor"></a>Second method : with mapping</h2>
 <p>We can pass our data to function <code>billboarder</code> and then call <code>bb_aes</code> to specify which variable to use :</p>
-<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="fu"><a href="../reference/billboarder.html">billboarder</a></span>(<span class="kw">data</span> <span class="kw">=</span> <span class="no">prod_par_filiere</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/billboard-aes.html">bb_aes</a></span>(<span class="kw">x</span> <span class="kw">=</span> <span class="no">annee</span>, <span class="kw">y</span> <span class="kw">=</span> <span class="no">prod_bioenergies</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/bb_barchart.html">bb_barchart</a></span>()</pre></body></html></div>
+<div class="sourceCode" id="cb5"><pre class="downlit">
+<span class="fu"><a href="../reference/billboarder.html">billboarder</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">prod_par_filiere</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="../reference/billboard-aes.html">bb_aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">annee</span>, y <span class="op">=</span> <span class="va">prod_bioenergies</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="../reference/bb_barchart.html">bb_barchart</a></span><span class="op">(</span><span class="op">)</span></pre></div>
 <div class="billboarder html-widget" style="width:100%;height:320px; position: relative;">
-<a id="htmlwidget-67625438f3ae0ca37722-export" style="position:absolute; top:0; right:0; display:none; z-index:50;"></a>
-<div id="htmlwidget-67625438f3ae0ca37722" class="billboarder html-widget" style="width:100%;height:320px;" width="100%" height="320px"></div>
+<a id="htmlwidget-6cc07f8b56e5aaa47a12-export" style="position:absolute; top:0; right:0; display:none; z-index:50;"></a>
+<div id="htmlwidget-6cc07f8b56e5aaa47a12" class="billboarder html-widget" style="width:100%;height:320px;" width="100%" height="320px"></div>
 </div>
-<script type="application/json" data-for="htmlwidget-67625438f3ae0ca37722">{"x":{"bb_opts":{"interaction":{"inputType":{"touch":false}},"data":{"x":"bb-x","json":{"bb-x":["2012","2013","2014","2015","2016"],"prod_bioenergies":[5.8,7.1,7.5,8,8.5]},"type":"bar"},"bar":[],"axis":{"x":{"type":"category"},"rotated":false}},"data":{"annee":["2012","2013","2014","2015","2016"],"prod_total":[542,550,540.4,546.8,531.3],"prod_therm":[48.1,43.6,25.9,34.4,45.9],"prod_hydraulique":[63.8,75.5,68.1,59.1,63.9],"prod_bioenergies":[5.8,7.1,7.5,8,8.5],"prod_eolien":[14.9,15.9,17.1,21.1,20.7],"prod_therm_charbon":[17.4,19.9,8.4,8.6,7.3],"prod_solaire":[4.1,4.7,5.9,7.4,8.3],"prod_therm_gaz":[24,19.9,14.3,21.9,35.3],"prod_nucleaire":[405,404,415.9,416.8,384],"prod_therm_fioul":[6.7,3.8,3.3,3.8,3.3]},"mapping":{"x":{},"y":{}}},"evals":[],"jsHooks":[]}</script><p>You don’t have to pass arguments to <code>bb_barchart</code>.</p>
+<script type="application/json" data-for="htmlwidget-6cc07f8b56e5aaa47a12">{"x":{"bb_opts":{"interaction":{"inputType":{"touch":false}},"data":{"x":"bb-x","json":{"bb-x":["2012","2013","2014","2015","2016"],"prod_bioenergies":[5.8,7.1,7.5,8,8.5]},"type":"bar"},"bar":[],"axis":{"x":{"type":"category"},"rotated":false}},"data":{"annee":["2012","2013","2014","2015","2016"],"prod_total":[542,550,540.4,546.8,531.3],"prod_therm":[48.1,43.6,25.9,34.4,45.9],"prod_hydraulique":[63.8,75.5,68.1,59.1,63.9],"prod_bioenergies":[5.8,7.1,7.5,8,8.5],"prod_eolien":[14.9,15.9,17.1,21.1,20.7],"prod_therm_charbon":[17.4,19.9,8.4,8.6,7.3],"prod_solaire":[4.1,4.7,5.9,7.4,8.3],"prod_therm_gaz":[24,19.9,14.3,21.9,35.3],"prod_nucleaire":[405,404,415.9,416.8,384],"prod_therm_fioul":[6.7,3.8,3.3,3.8,3.3]},"mapping":{"x":{},"y":{}}},"evals":[],"jsHooks":[]}</script><p>You don’t have to pass arguments to <code>bb_barchart</code>.</p>
 <p>This is the same for line chart :</p>
-<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="fu"><a href="../reference/billboarder.html">billboarder</a></span>(<span class="kw">data</span> <span class="kw">=</span> <span class="no">prod_par_filiere</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/billboard-aes.html">bb_aes</a></span>(<span class="kw">x</span> <span class="kw">=</span> <span class="no">annee</span>, <span class="kw">y</span> <span class="kw">=</span> <span class="no">prod_bioenergies</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/bb_linechart.html">bb_linechart</a></span>()</pre></body></html></div>
+<div class="sourceCode" id="cb6"><pre class="downlit">
+<span class="fu"><a href="../reference/billboarder.html">billboarder</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">prod_par_filiere</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="../reference/billboard-aes.html">bb_aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">annee</span>, y <span class="op">=</span> <span class="va">prod_bioenergies</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="../reference/bb_linechart.html">bb_linechart</a></span><span class="op">(</span><span class="op">)</span></pre></div>
 <div class="billboarder html-widget" style="width:100%;height:320px; position: relative;">
-<a id="htmlwidget-ed7f273cf95104201764-export" style="position:absolute; top:0; right:0; display:none; z-index:50;"></a>
-<div id="htmlwidget-ed7f273cf95104201764" class="billboarder html-widget" style="width:100%;height:320px;" width="100%" height="320px"></div>
+<a id="htmlwidget-6639fb1a238f1d309c10-export" style="position:absolute; top:0; right:0; display:none; z-index:50;"></a>
+<div id="htmlwidget-6639fb1a238f1d309c10" class="billboarder html-widget" style="width:100%;height:320px;" width="100%" height="320px"></div>
 </div>
-<script type="application/json" data-for="htmlwidget-ed7f273cf95104201764">{"x":{"bb_opts":{"interaction":{"inputType":{"touch":false}},"line":{"classes":["billboarder-line-prod_bioenergies"]},"data":{"x":"annee","json":{"annee":["2012","2013","2014","2015","2016"],"prod_bioenergies":[5.8,7.1,7.5,8,8.5]},"types":{"prod_bioenergies":"line"}},"point":{"show":false}},"data":{"annee":["2012","2013","2014","2015","2016"],"prod_total":[542,550,540.4,546.8,531.3],"prod_therm":[48.1,43.6,25.9,34.4,45.9],"prod_hydraulique":[63.8,75.5,68.1,59.1,63.9],"prod_bioenergies":[5.8,7.1,7.5,8,8.5],"prod_eolien":[14.9,15.9,17.1,21.1,20.7],"prod_therm_charbon":[17.4,19.9,8.4,8.6,7.3],"prod_solaire":[4.1,4.7,5.9,7.4,8.3],"prod_therm_gaz":[24,19.9,14.3,21.9,35.3],"prod_nucleaire":[405,404,415.9,416.8,384],"prod_therm_fioul":[6.7,3.8,3.3,3.8,3.3]},"mapping":{"x":{},"y":{}}},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-6639fb1a238f1d309c10">{"x":{"bb_opts":{"interaction":{"inputType":{"touch":false}},"line":{"classes":["billboarder-line-prod_bioenergies"]},"data":{"x":"annee","json":{"annee":["2012","2013","2014","2015","2016"],"prod_bioenergies":[5.8,7.1,7.5,8,8.5]},"types":{"prod_bioenergies":"line"}},"point":{"show":false}},"data":{"annee":["2012","2013","2014","2015","2016"],"prod_total":[542,550,540.4,546.8,531.3],"prod_therm":[48.1,43.6,25.9,34.4,45.9],"prod_hydraulique":[63.8,75.5,68.1,59.1,63.9],"prod_bioenergies":[5.8,7.1,7.5,8,8.5],"prod_eolien":[14.9,15.9,17.1,21.1,20.7],"prod_therm_charbon":[17.4,19.9,8.4,8.6,7.3],"prod_solaire":[4.1,4.7,5.9,7.4,8.3],"prod_therm_gaz":[24,19.9,14.3,21.9,35.3],"prod_nucleaire":[405,404,415.9,416.8,384],"prod_therm_fioul":[6.7,3.8,3.3,3.8,3.3]},"mapping":{"x":{},"y":{}}},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="third-method-mapping-inside-function" class="section level2">
 <h2 class="hasAnchor">
 <a href="#third-method-mapping-inside-function" class="anchor"></a>Third method : mapping inside function</h2>
 <p>Mapping can be specified inside the function which specify the type of chart :</p>
-<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="fu"><a href="../reference/billboarder.html">billboarder</a></span>(<span class="kw">data</span> <span class="kw">=</span> <span class="no">prod_par_filiere</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/bb_barchart.html">bb_barchart</a></span>(<span class="kw">mapping</span> <span class="kw">=</span> <span class="fu"><a href="../reference/billboard-aes.html">bbaes</a></span>(<span class="kw">x</span> <span class="kw">=</span> <span class="no">annee</span>, <span class="kw">y</span> <span class="kw">=</span> <span class="no">prod_bioenergies</span>))</pre></body></html></div>
+<div class="sourceCode" id="cb7"><pre class="downlit">
+<span class="fu"><a href="../reference/billboarder.html">billboarder</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">prod_par_filiere</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="../reference/bb_barchart.html">bb_barchart</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="../reference/billboard-aes.html">bbaes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">annee</span>, y <span class="op">=</span> <span class="va">prod_bioenergies</span><span class="op">)</span><span class="op">)</span></pre></div>
 <div class="billboarder html-widget" style="width:100%;height:320px; position: relative;">
-<a id="htmlwidget-6a66abe12b76b9b4c53f-export" style="position:absolute; top:0; right:0; display:none; z-index:50;"></a>
-<div id="htmlwidget-6a66abe12b76b9b4c53f" class="billboarder html-widget" style="width:100%;height:320px;" width="100%" height="320px"></div>
+<a id="htmlwidget-14636d86aa0acf2864ef-export" style="position:absolute; top:0; right:0; display:none; z-index:50;"></a>
+<div id="htmlwidget-14636d86aa0acf2864ef" class="billboarder html-widget" style="width:100%;height:320px;" width="100%" height="320px"></div>
 </div>
-<script type="application/json" data-for="htmlwidget-6a66abe12b76b9b4c53f">{"x":{"bb_opts":{"interaction":{"inputType":{"touch":false}},"data":{"x":"bb-x","json":{"bb-x":["2012","2013","2014","2015","2016"],"prod_bioenergies":[5.8,7.1,7.5,8,8.5]},"type":"bar"},"bar":[],"axis":{"x":{"type":"category"},"rotated":false}},"data":{"annee":["2012","2013","2014","2015","2016"],"prod_total":[542,550,540.4,546.8,531.3],"prod_therm":[48.1,43.6,25.9,34.4,45.9],"prod_hydraulique":[63.8,75.5,68.1,59.1,63.9],"prod_bioenergies":[5.8,7.1,7.5,8,8.5],"prod_eolien":[14.9,15.9,17.1,21.1,20.7],"prod_therm_charbon":[17.4,19.9,8.4,8.6,7.3],"prod_solaire":[4.1,4.7,5.9,7.4,8.3],"prod_therm_gaz":[24,19.9,14.3,21.9,35.3],"prod_nucleaire":[405,404,415.9,416.8,384],"prod_therm_fioul":[6.7,3.8,3.3,3.8,3.3]}},"evals":[],"jsHooks":[]}</script><p>The function to map variables is <code>bbaes</code> without underscore.</p>
+<script type="application/json" data-for="htmlwidget-14636d86aa0acf2864ef">{"x":{"bb_opts":{"interaction":{"inputType":{"touch":false}},"data":{"x":"bb-x","json":{"bb-x":["2012","2013","2014","2015","2016"],"prod_bioenergies":[5.8,7.1,7.5,8,8.5]},"type":"bar"},"bar":[],"axis":{"x":{"type":"category"},"rotated":false}},"data":{"annee":["2012","2013","2014","2015","2016"],"prod_total":[542,550,540.4,546.8,531.3],"prod_therm":[48.1,43.6,25.9,34.4,45.9],"prod_hydraulique":[63.8,75.5,68.1,59.1,63.9],"prod_bioenergies":[5.8,7.1,7.5,8,8.5],"prod_eolien":[14.9,15.9,17.1,21.1,20.7],"prod_therm_charbon":[17.4,19.9,8.4,8.6,7.3],"prod_solaire":[4.1,4.7,5.9,7.4,8.3],"prod_therm_gaz":[24,19.9,14.3,21.9,35.3],"prod_nucleaire":[405,404,415.9,416.8,384],"prod_therm_fioul":[6.7,3.8,3.3,3.8,3.3]}},"evals":[],"jsHooks":[]}</script><p>The function to map variables is <code>bbaes</code> without underscore.</p>
 <p>For line chart :</p>
-<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="fu"><a href="../reference/billboarder.html">billboarder</a></span>(<span class="kw">data</span> <span class="kw">=</span> <span class="no">prod_par_filiere</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/bb_linechart.html">bb_linechart</a></span>(<span class="kw">mapping</span> <span class="kw">=</span> <span class="fu"><a href="../reference/billboard-aes.html">bbaes</a></span>(<span class="kw">x</span> <span class="kw">=</span> <span class="no">annee</span>, <span class="kw">y</span> <span class="kw">=</span> <span class="no">prod_bioenergies</span>))</pre></body></html></div>
+<div class="sourceCode" id="cb8"><pre class="downlit">
+<span class="fu"><a href="../reference/billboarder.html">billboarder</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">prod_par_filiere</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="../reference/bb_linechart.html">bb_linechart</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="../reference/billboard-aes.html">bbaes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">annee</span>, y <span class="op">=</span> <span class="va">prod_bioenergies</span><span class="op">)</span><span class="op">)</span></pre></div>
 <div class="billboarder html-widget" style="width:100%;height:320px; position: relative;">
-<a id="htmlwidget-6227f073188b28df50fe-export" style="position:absolute; top:0; right:0; display:none; z-index:50;"></a>
-<div id="htmlwidget-6227f073188b28df50fe" class="billboarder html-widget" style="width:100%;height:320px;" width="100%" height="320px"></div>
+<a id="htmlwidget-d692390ba244170e4e5b-export" style="position:absolute; top:0; right:0; display:none; z-index:50;"></a>
+<div id="htmlwidget-d692390ba244170e4e5b" class="billboarder html-widget" style="width:100%;height:320px;" width="100%" height="320px"></div>
 </div>
-<script type="application/json" data-for="htmlwidget-6227f073188b28df50fe">{"x":{"bb_opts":{"interaction":{"inputType":{"touch":false}},"line":{"classes":["billboarder-line-prod_bioenergies"]},"data":{"x":"annee","json":{"annee":["2012","2013","2014","2015","2016"],"prod_bioenergies":[5.8,7.1,7.5,8,8.5]},"types":{"prod_bioenergies":"line"}},"point":{"show":false}},"data":{"annee":["2012","2013","2014","2015","2016"],"prod_total":[542,550,540.4,546.8,531.3],"prod_therm":[48.1,43.6,25.9,34.4,45.9],"prod_hydraulique":[63.8,75.5,68.1,59.1,63.9],"prod_bioenergies":[5.8,7.1,7.5,8,8.5],"prod_eolien":[14.9,15.9,17.1,21.1,20.7],"prod_therm_charbon":[17.4,19.9,8.4,8.6,7.3],"prod_solaire":[4.1,4.7,5.9,7.4,8.3],"prod_therm_gaz":[24,19.9,14.3,21.9,35.3],"prod_nucleaire":[405,404,415.9,416.8,384],"prod_therm_fioul":[6.7,3.8,3.3,3.8,3.3]}},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-d692390ba244170e4e5b">{"x":{"bb_opts":{"interaction":{"inputType":{"touch":false}},"line":{"classes":["billboarder-line-prod_bioenergies"]},"data":{"x":"annee","json":{"annee":["2012","2013","2014","2015","2016"],"prod_bioenergies":[5.8,7.1,7.5,8,8.5]},"types":{"prod_bioenergies":"line"}},"point":{"show":false}},"data":{"annee":["2012","2013","2014","2015","2016"],"prod_total":[542,550,540.4,546.8,531.3],"prod_therm":[48.1,43.6,25.9,34.4,45.9],"prod_hydraulique":[63.8,75.5,68.1,59.1,63.9],"prod_bioenergies":[5.8,7.1,7.5,8,8.5],"prod_eolien":[14.9,15.9,17.1,21.1,20.7],"prod_therm_charbon":[17.4,19.9,8.4,8.6,7.3],"prod_solaire":[4.1,4.7,5.9,7.4,8.3],"prod_therm_gaz":[24,19.9,14.3,21.9,35.3],"prod_nucleaire":[405,404,415.9,416.8,384],"prod_therm_fioul":[6.7,3.8,3.3,3.8,3.3]}},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="grouping-variable" class="section level2">
 <h2 class="hasAnchor">
 <a href="#grouping-variable" class="anchor"></a>Grouping variable</h2>
 <p>Construct a chart with groups differ between the first method and the others. For the first one, data need to be in ‘wide’ format, the other need data in ‘long’ format with a grouping variable.</p>
 <p>With ‘wide’ data :</p>
-<div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="fu"><a href="../reference/billboarder.html">billboarder</a></span>() <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/bb_barchart.html">bb_barchart</a></span>(
-    <span class="kw">data</span> <span class="kw">=</span> <span class="no">prod_par_filiere</span>[, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"annee"</span>, <span class="st">"prod_bioenergies"</span>, <span class="st">"prod_eolien"</span>, <span class="st">"prod_solaire"</span>, <span class="st">"prod_hydraulique"</span>)]
-  )</pre></body></html></div>
+<div class="sourceCode" id="cb9"><pre class="downlit">
+<span class="fu"><a href="../reference/billboarder.html">billboarder</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="../reference/bb_barchart.html">bb_barchart</a></span><span class="op">(</span>
+    data <span class="op">=</span> <span class="va">prod_par_filiere</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"annee"</span>, <span class="st">"prod_bioenergies"</span>, <span class="st">"prod_eolien"</span>, <span class="st">"prod_solaire"</span>, <span class="st">"prod_hydraulique"</span><span class="op">)</span><span class="op">]</span>
+  <span class="op">)</span></pre></div>
 <div class="billboarder html-widget" style="width:100%;height:320px; position: relative;">
-<a id="htmlwidget-4246cf6bc657df8926dd-export" style="position:absolute; top:0; right:0; display:none; z-index:50;"></a>
-<div id="htmlwidget-4246cf6bc657df8926dd" class="billboarder html-widget" style="width:100%;height:320px;" width="100%" height="320px"></div>
+<a id="htmlwidget-7cbf09a0f2f7656b8539-export" style="position:absolute; top:0; right:0; display:none; z-index:50;"></a>
+<div id="htmlwidget-7cbf09a0f2f7656b8539" class="billboarder html-widget" style="width:100%;height:320px;" width="100%" height="320px"></div>
 </div>
-<script type="application/json" data-for="htmlwidget-4246cf6bc657df8926dd">{"x":{"bb_opts":{"interaction":{"inputType":{"touch":false}},"data":{"x":"bb-x","json":{"bb-x":["2012","2013","2014","2015","2016"],"prod_bioenergies":[5.8,7.1,7.5,8,8.5],"prod_eolien":[14.9,15.9,17.1,21.1,20.7],"prod_solaire":[4.1,4.7,5.9,7.4,8.3],"prod_hydraulique":[63.8,75.5,68.1,59.1,63.9]},"type":"bar"},"bar":[],"axis":{"x":{"type":"category"},"rotated":false}},"data":null},"evals":[],"jsHooks":[]}</script><p>with ‘long’ data :</p>
-<div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="co"># prepare data</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(<span class="st">"prod_filiere_long"</span>)
-<span class="no">prod_filiere_long</span> <span class="kw">&lt;-</span> <span class="no">prod_filiere_long</span>[
-  <span class="no">prod_filiere_long</span>$<span class="no">branche</span> <span class="kw">%in%</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"bioenergies"</span>, <span class="st">"eolien"</span>, <span class="st">"solaire"</span>, <span class="st">"hydraulique"</span>),
-]
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">prod_filiere_long</span>)</pre></body></html></div>
+<script type="application/json" data-for="htmlwidget-7cbf09a0f2f7656b8539">{"x":{"bb_opts":{"interaction":{"inputType":{"touch":false}},"data":{"x":"bb-x","json":{"bb-x":["2012","2013","2014","2015","2016"],"prod_bioenergies":[5.8,7.1,7.5,8,8.5],"prod_eolien":[14.9,15.9,17.1,21.1,20.7],"prod_solaire":[4.1,4.7,5.9,7.4,8.3],"prod_hydraulique":[63.8,75.5,68.1,59.1,63.9]},"type":"bar"},"bar":[],"axis":{"x":{"type":"category"},"rotated":false}},"data":null},"evals":[],"jsHooks":[]}</script><p>with ‘long’ data :</p>
+<div class="sourceCode" id="cb10"><pre class="downlit">
+<span class="co"># prepare data</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"prod_filiere_long"</span><span class="op">)</span>
+<span class="va">prod_filiere_long</span> <span class="op">&lt;-</span> <span class="va">prod_filiere_long</span><span class="op">[</span>
+  <span class="va">prod_filiere_long</span><span class="op">$</span><span class="va">branche</span> <span class="op">%in%</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"bioenergies"</span>, <span class="st">"eolien"</span>, <span class="st">"solaire"</span>, <span class="st">"hydraulique"</span><span class="op">)</span>, 
+<span class="op">]</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">prod_filiere_long</span><span class="op">)</span></pre></div>
 <pre><code>##    annee     branche prod
 ## 11  2012 hydraulique 63.8
 ## 12  2013 hydraulique 75.5
@@ -230,25 +239,27 @@
 ## 14  2015 hydraulique 59.1
 ## 15  2016 hydraulique 63.9
 ## 16  2012 bioenergies  5.8</code></pre>
-<div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="fu"><a href="../reference/billboarder.html">billboarder</a></span>(<span class="kw">data</span> <span class="kw">=</span> <span class="no">prod_filiere_long</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/bb_barchart.html">bb_barchart</a></span>(<span class="kw">mapping</span> <span class="kw">=</span> <span class="fu"><a href="../reference/billboard-aes.html">bbaes</a></span>(<span class="kw">x</span> <span class="kw">=</span> <span class="no">annee</span>, <span class="kw">y</span> <span class="kw">=</span> <span class="no">prod</span>, <span class="kw">group</span> <span class="kw">=</span> <span class="no">branche</span>))</pre></body></html></div>
+<div class="sourceCode" id="cb12"><pre class="downlit">
+<span class="fu"><a href="../reference/billboarder.html">billboarder</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">prod_filiere_long</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="../reference/bb_barchart.html">bb_barchart</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="../reference/billboard-aes.html">bbaes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">annee</span>, y <span class="op">=</span> <span class="va">prod</span>, group <span class="op">=</span> <span class="va">branche</span><span class="op">)</span><span class="op">)</span></pre></div>
 <div class="billboarder html-widget" style="width:100%;height:320px; position: relative;">
-<a id="htmlwidget-77f4fe5775b5e494182a-export" style="position:absolute; top:0; right:0; display:none; z-index:50;"></a>
-<div id="htmlwidget-77f4fe5775b5e494182a" class="billboarder html-widget" style="width:100%;height:320px;" width="100%" height="320px"></div>
+<a id="htmlwidget-c9a47034d1ad631932c5-export" style="position:absolute; top:0; right:0; display:none; z-index:50;"></a>
+<div id="htmlwidget-c9a47034d1ad631932c5" class="billboarder html-widget" style="width:100%;height:320px;" width="100%" height="320px"></div>
 </div>
-<script type="application/json" data-for="htmlwidget-77f4fe5775b5e494182a">{"x":{"bb_opts":{"interaction":{"inputType":{"touch":false}},"data":{"x":"bb-x","json":{"bb-x":["2012","2013","2014","2015","2016"],"hydraulique":[63.8,75.5,68.1,59.1,63.9],"bioenergies":[5.8,7.1,7.5,8,8.5],"eolien":[14.9,15.9,17.1,21.1,20.7],"solaire":[4.1,4.7,5.9,7.4,8.3]},"type":"bar"},"bar":[],"axis":{"x":{"type":"category"},"rotated":false}},"data":{"annee":["2012","2013","2014","2015","2016","2012","2013","2014","2015","2016","2012","2013","2014","2015","2016","2012","2013","2014","2015","2016"],"branche":["hydraulique","hydraulique","hydraulique","hydraulique","hydraulique","bioenergies","bioenergies","bioenergies","bioenergies","bioenergies","eolien","eolien","eolien","eolien","eolien","solaire","solaire","solaire","solaire","solaire"],"prod":[63.8,75.5,68.1,59.1,63.9,5.8,7.1,7.5,8,8.5,14.9,15.9,17.1,21.1,20.7,4.1,4.7,5.9,7.4,8.3]}},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-c9a47034d1ad631932c5">{"x":{"bb_opts":{"interaction":{"inputType":{"touch":false}},"data":{"x":"bb-x","json":{"bb-x":["2012","2013","2014","2015","2016"],"hydraulique":[63.8,75.5,68.1,59.1,63.9],"bioenergies":[5.8,7.1,7.5,8,8.5],"eolien":[14.9,15.9,17.1,21.1,20.7],"solaire":[4.1,4.7,5.9,7.4,8.3]},"type":"bar"},"bar":[],"axis":{"x":{"type":"category"},"rotated":false}},"data":{"annee":["2012","2013","2014","2015","2016","2012","2013","2014","2015","2016","2012","2013","2014","2015","2016","2012","2013","2014","2015","2016"],"branche":["hydraulique","hydraulique","hydraulique","hydraulique","hydraulique","bioenergies","bioenergies","bioenergies","bioenergies","bioenergies","eolien","eolien","eolien","eolien","eolien","solaire","solaire","solaire","solaire","solaire"],"prod":[63.8,75.5,68.1,59.1,63.9,5.8,7.1,7.5,8,8.5,14.9,15.9,17.1,21.1,20.7,4.1,4.7,5.9,7.4,8.3]}},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="mapping-with-programming" class="section level2">
 <h2 class="hasAnchor">
 <a href="#mapping-with-programming" class="anchor"></a>Mapping with programming</h2>
 <p>In Shiny app or in function, you can use <code>bbaes_string</code> or <code>bb_aes_string</code>, these function accept character instead of unquoted variable names :</p>
-<div class="sourceCode" id="cb13"><html><body><pre class="r"><span class="fu"><a href="../reference/billboarder.html">billboarder</a></span>(<span class="kw">data</span> <span class="kw">=</span> <span class="no">prod_filiere_long</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/bb_barchart.html">bb_barchart</a></span>(<span class="kw">mapping</span> <span class="kw">=</span> <span class="fu"><a href="../reference/billboard-aes.html">bbaes_string</a></span>(<span class="kw">x</span> <span class="kw">=</span> <span class="st">"annee"</span>, <span class="kw">y</span> <span class="kw">=</span> <span class="st">"prod"</span>, <span class="kw">group</span> <span class="kw">=</span> <span class="st">"branche"</span>))</pre></body></html></div>
+<div class="sourceCode" id="cb13"><pre class="downlit">
+<span class="fu"><a href="../reference/billboarder.html">billboarder</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">prod_filiere_long</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="../reference/bb_barchart.html">bb_barchart</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="../reference/billboard-aes.html">bbaes_string</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"annee"</span>, y <span class="op">=</span> <span class="st">"prod"</span>, group <span class="op">=</span> <span class="st">"branche"</span><span class="op">)</span><span class="op">)</span></pre></div>
 <div class="billboarder html-widget" style="width:100%;height:320px; position: relative;">
-<a id="htmlwidget-a6a8843995cf64966bce-export" style="position:absolute; top:0; right:0; display:none; z-index:50;"></a>
-<div id="htmlwidget-a6a8843995cf64966bce" class="billboarder html-widget" style="width:100%;height:320px;" width="100%" height="320px"></div>
+<a id="htmlwidget-aa1ee6ed23e3e34b318d-export" style="position:absolute; top:0; right:0; display:none; z-index:50;"></a>
+<div id="htmlwidget-aa1ee6ed23e3e34b318d" class="billboarder html-widget" style="width:100%;height:320px;" width="100%" height="320px"></div>
 </div>
-<script type="application/json" data-for="htmlwidget-a6a8843995cf64966bce">{"x":{"bb_opts":{"interaction":{"inputType":{"touch":false}},"data":{"x":"bb-x","json":{"bb-x":["2012","2013","2014","2015","2016"],"hydraulique":[63.8,75.5,68.1,59.1,63.9],"bioenergies":[5.8,7.1,7.5,8,8.5],"eolien":[14.9,15.9,17.1,21.1,20.7],"solaire":[4.1,4.7,5.9,7.4,8.3]},"type":"bar"},"bar":[],"axis":{"x":{"type":"category"},"rotated":false}},"data":{"annee":["2012","2013","2014","2015","2016","2012","2013","2014","2015","2016","2012","2013","2014","2015","2016","2012","2013","2014","2015","2016"],"branche":["hydraulique","hydraulique","hydraulique","hydraulique","hydraulique","bioenergies","bioenergies","bioenergies","bioenergies","bioenergies","eolien","eolien","eolien","eolien","eolien","solaire","solaire","solaire","solaire","solaire"],"prod":[63.8,75.5,68.1,59.1,63.9,5.8,7.1,7.5,8,8.5,14.9,15.9,17.1,21.1,20.7,4.1,4.7,5.9,7.4,8.3]}},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-aa1ee6ed23e3e34b318d">{"x":{"bb_opts":{"interaction":{"inputType":{"touch":false}},"data":{"x":"bb-x","json":{"bb-x":["2012","2013","2014","2015","2016"],"hydraulique":[63.8,75.5,68.1,59.1,63.9],"bioenergies":[5.8,7.1,7.5,8,8.5],"eolien":[14.9,15.9,17.1,21.1,20.7],"solaire":[4.1,4.7,5.9,7.4,8.3]},"type":"bar"},"bar":[],"axis":{"x":{"type":"category"},"rotated":false}},"data":{"annee":["2012","2013","2014","2015","2016","2012","2013","2014","2015","2016","2012","2013","2014","2015","2016","2012","2013","2014","2015","2016"],"branche":["hydraulique","hydraulique","hydraulique","hydraulique","hydraulique","bioenergies","bioenergies","bioenergies","bioenergies","bioenergies","eolien","eolien","eolien","eolien","eolien","solaire","solaire","solaire","solaire","solaire"],"prod":[63.8,75.5,68.1,59.1,63.9,5.8,7.1,7.5,8,8.5,14.9,15.9,17.1,21.1,20.7,4.1,4.7,5.9,7.4,8.3]}},"evals":[],"jsHooks":[]}</script>
 </div>
   </div>
 
@@ -267,7 +278,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

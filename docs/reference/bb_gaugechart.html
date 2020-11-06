@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">billboarder</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.8.910</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.9.9100</span>
       </span>
     </div>
 
@@ -147,14 +147,14 @@
     <p>Helper for creating a gauge</p>
     </div>
 
-    <pre class="usage"><span class='fu'>bb_gaugechart</span>(
-  <span class='no'>bb</span>,
-  <span class='no'>value</span>,
-  <span class='kw'>name</span> <span class='kw'>=</span> <span class='st'>"Value"</span>,
-  <span class='kw'>steps</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>30</span>, <span class='fl'>60</span>, <span class='fl'>90</span>, <span class='fl'>100</span>),
-  <span class='kw'>steps_color</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"#FF0000"</span>, <span class='st'>"#F97600"</span>, <span class='st'>"#F6C600"</span>, <span class='st'>"#60B044"</span>),
-  <span class='no'>...</span>
-)</pre>
+    <pre class="usage"><span class='fu'>bb_gaugechart</span><span class='op'>(</span>
+  <span class='va'>bb</span>,
+  <span class='va'>value</span>,
+  name <span class='op'>=</span> <span class='st'>"Value"</span>,
+  steps <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>30</span>, <span class='fl'>60</span>, <span class='fl'>90</span>, <span class='fl'>100</span><span class='op'>)</span>,
+  steps_color <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"#FF0000"</span>, <span class='st'>"#F97600"</span>, <span class='st'>"#F6C600"</span>, <span class='st'>"#60B044"</span><span class='op'>)</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -193,19 +193,21 @@
     <p>This function can be used with <code><a href='billboarder-shiny.html'>billboarderProxy</a></code> in shiny application.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='billboarder.html'>billboarder</a></span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'>bb_gaugechart</span>(<span class='kw'>value</span> <span class='kw'>=</span> <span class='fl'>50</span>)
+    <pre class="examples"><div class='input'><span class='fu'><a href='billboarder.html'>billboarder</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>bb_gaugechart</span><span class='op'>(</span>value <span class='op'>=</span> <span class='fl'>50</span><span class='op'>)</span>
 
 <span class='co'># With some options</span>
-<span class='fu'><a href='billboarder.html'>billboarder</a></span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'>bb_gaugechart</span>(
-    <span class='kw'>value</span> <span class='kw'>=</span> <span class='fl'>160</span>,
-    <span class='kw'>steps_color</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rev.html'>rev</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"#FF0000"</span>, <span class='st'>"#F97600"</span>, <span class='st'>"#F6C600"</span>, <span class='st'>"#60B044"</span>))
-  ) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='bb_gauge.html'>bb_gauge</a></span>(
-    <span class='kw'>label</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>format</span> <span class='kw'>=</span> <span class='fu'><a href='suffix.html'>suffix</a></span>(<span class='st'>"km/h"</span>)),
-    <span class='kw'>min</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>max</span> <span class='kw'>=</span> <span class='fl'>200</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>20</span>
-  )</div></pre>
+<span class='fu'><a href='billboarder.html'>billboarder</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>bb_gaugechart</span><span class='op'>(</span>
+    value <span class='op'>=</span> <span class='fl'>160</span>,
+    steps_color <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rev.html'>rev</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"#FF0000"</span>, <span class='st'>"#F97600"</span>, <span class='st'>"#F6C600"</span>, <span class='st'>"#60B044"</span><span class='op'>)</span><span class='op'>)</span>
+  <span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='bb_gauge.html'>bb_gauge</a></span><span class='op'>(</span>
+    label <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>format <span class='op'>=</span> <span class='fu'><a href='suffix.html'>suffix</a></span><span class='op'>(</span><span class='st'>"km/h"</span><span class='op'>)</span><span class='op'>)</span>,
+    min <span class='op'>=</span> <span class='fl'>10</span>, max <span class='op'>=</span> <span class='fl'>200</span>, width <span class='op'>=</span> <span class='fl'>20</span>
+  <span class='op'>)</span>
+
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -221,7 +223,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">billboarder</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.8.910</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.9.9100</span>
       </span>
     </div>
 
@@ -147,7 +147,7 @@
     <p>Add a shading effect to the background of the chart, to highlight a period for example.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>bb_regions</span>(<span class='no'>bb</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>bb_regions</span><span class='op'>(</span><span class='va'>bb</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -174,60 +174,62 @@
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>#' With a categorical X-axis</span>
-<span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
-  <span class='kw'>month</span> <span class='kw'>=</span> <span class='no'>month.abb</span>,
-  <span class='kw'>AirPassengers</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>tail</a></span>(<span class='no'>AirPassengers</span>, <span class='fl'>12</span>)
-)
+<span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>
+  month <span class='op'>=</span> <span class='va'>month.abb</span>,
+  AirPassengers <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>tail</a></span><span class='op'>(</span><span class='va'>AirPassengers</span>, <span class='fl'>12</span><span class='op'>)</span>
+<span class='op'>)</span>
 <span class='co'># Highlight Jun/Jul/Aug</span>
-<span class='fu'><a href='billboarder.html'>billboarder</a></span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='bb_linechart.html'>bb_linechart</a></span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>dat</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>"month"</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='bb_axis.html'>bb_x_axis</a></span>(<span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"category"</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'>bb_regions</span>(
-    <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>start</span> <span class='kw'>=</span> <span class='fl'>4.5</span>, <span class='kw'>end</span> <span class='kw'>=</span> <span class='fl'>7.5</span>) <span class='co'>#' jan = 0</span>
-  )
+<span class='fu'><a href='billboarder.html'>billboarder</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='bb_linechart.html'>bb_linechart</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>dat</span>, x <span class='op'>=</span> <span class='st'>"month"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='bb_axis.html'>bb_x_axis</a></span><span class='op'>(</span>type <span class='op'>=</span> <span class='st'>"category"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>bb_regions</span><span class='op'>(</span>
+    <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>start <span class='op'>=</span> <span class='fl'>4.5</span>, end <span class='op'>=</span> <span class='fl'>7.5</span><span class='op'>)</span> <span class='co'>#' jan = 0</span>
+  <span class='op'>)</span>
 
 <span class='co'># With a barchart</span>
-<span class='fu'><a href='billboarder.html'>billboarder</a></span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='bb_barchart.html'>bb_barchart</a></span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>dat</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'>bb_regions</span>(
-    <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>start</span> <span class='kw'>=</span> <span class='fl'>1.5</span>, <span class='kw'>end</span> <span class='kw'>=</span> <span class='fl'>2.5</span>, <span class='kw'>class</span> <span class='kw'>=</span> <span class='st'>"custom"</span>),
-    <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>start</span> <span class='kw'>=</span> <span class='fl'>8</span>, <span class='kw'>end</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>class</span> <span class='kw'>=</span> <span class='st'>"foo"</span>)
-  ) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='bb_add_style.html'>bb_add_style</a></span>(<span class='kw'>region</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>custom</span> <span class='kw'>=</span> <span class='st'>"fill: red;"</span>, <span class='kw'>foo</span> <span class='kw'>=</span> <span class='st'>"fill: #'009246;"</span>))
+<span class='fu'><a href='billboarder.html'>billboarder</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='bb_barchart.html'>bb_barchart</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>dat</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>bb_regions</span><span class='op'>(</span>
+    <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>start <span class='op'>=</span> <span class='fl'>1.5</span>, end <span class='op'>=</span> <span class='fl'>2.5</span>, class <span class='op'>=</span> <span class='st'>"custom"</span><span class='op'>)</span>,
+    <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>start <span class='op'>=</span> <span class='fl'>8</span>, end <span class='op'>=</span> <span class='fl'>10</span>, class <span class='op'>=</span> <span class='st'>"foo"</span><span class='op'>)</span>
+  <span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='bb_add_style.html'>bb_add_style</a></span><span class='op'>(</span>region <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>custom <span class='op'>=</span> <span class='st'>"fill: red;"</span>, foo <span class='op'>=</span> <span class='st'>"fill: #'009246;"</span><span class='op'>)</span><span class='op'>)</span>
 
 
 
 
 <span class='co'># With Date X-axis</span>
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='st'>"stats"</span>)
-<span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
-  <span class='kw'>date</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.Date.html'>seq.Date</a></span>(<span class='kw'>from</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.Date</a></span>(), <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"day"</span>, <span class='kw'>length.out</span> <span class='kw'>=</span> <span class='fl'>365</span>),
-  <span class='kw'>var</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/density.html'>density</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/Exponential.html'>rexp</a></span>(<span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>1000</span>), <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>365</span>)$<span class='no'>y</span>
-)
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='st'>"stats"</span><span class='op'>)</span>
+<span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>
+  date <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.Date.html'>seq.Date</a></span><span class='op'>(</span>from <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.Date</a></span><span class='op'>(</span><span class='op'>)</span>, by <span class='op'>=</span> <span class='st'>"day"</span>, length.out <span class='op'>=</span> <span class='fl'>365</span><span class='op'>)</span>,
+  var <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/density.html'>density</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Exponential.html'>rexp</a></span><span class='op'>(</span>n <span class='op'>=</span> <span class='fl'>1000</span><span class='op'>)</span>, n <span class='op'>=</span> <span class='fl'>365</span><span class='op'>)</span><span class='op'>$</span><span class='va'>y</span>
+<span class='op'>)</span>
 
-<span class='fu'><a href='billboarder.html'>billboarder</a></span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='bb_linechart.html'>bb_linechart</a></span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>dat</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='bb_axis.html'>bb_x_axis</a></span>(<span class='kw'>tick</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>fit</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='bb_axis.html'>bb_y_axis</a></span>(<span class='kw'>min</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>padding</span> <span class='kw'>=</span> <span class='fl'>0</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'>bb_regions</span>(
-    <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>start</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/format.html'>format</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.Date</a></span>() + <span class='fl'>30</span>), <span class='kw'>end</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/format.html'>format</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.Date</a></span>() + <span class='fl'>120</span>))
-  )
+<span class='fu'><a href='billboarder.html'>billboarder</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='bb_linechart.html'>bb_linechart</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>dat</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='bb_axis.html'>bb_x_axis</a></span><span class='op'>(</span>tick <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>fit <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='bb_axis.html'>bb_y_axis</a></span><span class='op'>(</span>min <span class='op'>=</span> <span class='fl'>0</span>, padding <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>bb_regions</span><span class='op'>(</span>
+    <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>start <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/format.html'>format</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.Date</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fl'>30</span><span class='op'>)</span>, end <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/format.html'>format</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.Date</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fl'>120</span><span class='op'>)</span><span class='op'>)</span>
+  <span class='op'>)</span>
 
 
 
 <span class='co'># With POSIXct X-axis</span>
-<span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
-  <span class='kw'>time</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.POSIXt.html'>seq.POSIXt</a></span>(<span class='kw'>from</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.time</a></span>(), <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"min"</span>, <span class='kw'>length.out</span> <span class='kw'>=</span> <span class='fl'>60</span>),
-  <span class='kw'>var</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/sort.html'>sort</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>60</span>)), <span class='fl'>2</span>)
-)
+<span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>
+  time <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.POSIXt.html'>seq.POSIXt</a></span><span class='op'>(</span>from <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.time</a></span><span class='op'>(</span><span class='op'>)</span>, by <span class='op'>=</span> <span class='st'>"min"</span>, length.out <span class='op'>=</span> <span class='fl'>60</span><span class='op'>)</span>,
+  var <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/sort.html'>sort</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>60</span><span class='op'>)</span><span class='op'>)</span>, <span class='fl'>2</span><span class='op'>)</span>
+<span class='op'>)</span>
 
-<span class='fu'><a href='billboarder.html'>billboarder</a></span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='bb_linechart.html'>bb_linechart</a></span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>dat</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='bb_axis.html'>bb_x_axis</a></span>(<span class='kw'>tick</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>format</span> <span class='kw'>=</span> <span class='st'>"%H:%M"</span>, <span class='kw'>fit</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)) <span class='kw'>%&gt;%</span>
-  <span class='fu'>bb_regions</span>(
-    <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>start</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/format.html'>format</a></span>(<span class='no'>dat</span>$<span class='no'>time</span>[<span class='fl'>15</span>]),
-         <span class='kw'>end</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/format.html'>format</a></span>(<span class='no'>dat</span>$<span class='no'>time</span>[<span class='fl'>30</span>]))
-  )</div></pre>
+<span class='fu'><a href='billboarder.html'>billboarder</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='bb_linechart.html'>bb_linechart</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>dat</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='bb_axis.html'>bb_x_axis</a></span><span class='op'>(</span>tick <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>format <span class='op'>=</span> <span class='st'>"%H:%M"</span>, fit <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>  
+  <span class='fu'>bb_regions</span><span class='op'>(</span>
+    <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>start <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/format.html'>format</a></span><span class='op'>(</span><span class='va'>dat</span><span class='op'>$</span><span class='va'>time</span><span class='op'>[</span><span class='fl'>15</span><span class='op'>]</span><span class='op'>)</span>, 
+         end <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/format.html'>format</a></span><span class='op'>(</span><span class='va'>dat</span><span class='op'>$</span><span class='va'>time</span><span class='op'>[</span><span class='fl'>30</span><span class='op'>]</span><span class='op'>)</span><span class='op'>)</span>
+  <span class='op'>)</span>
+
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -243,7 +245,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

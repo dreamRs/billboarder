@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">billboarder</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.8.910</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.9.9100</span>
       </span>
     </div>
 
@@ -147,7 +147,7 @@
     <p>Add title to Billboard.js chart</p>
     </div>
 
-    <pre class="usage"><span class='fu'>bb_title</span>(<span class='no'>bb</span>, <span class='kw'>text</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>padding</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"top-center"</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>bb_title</span><span class='op'>(</span><span class='va'>bb</span>, text <span class='op'>=</span> <span class='cn'>NULL</span>, padding <span class='op'>=</span> <span class='cn'>NULL</span>, position <span class='op'>=</span> <span class='st'>"top-center"</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -182,9 +182,11 @@
     <div class='dont-index'><p><a href='bb_labs.html'>bb_labs</a></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='billboarder.html'>billboarder</a></span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='bb_barchart.html'>bb_barchart</a></span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='no'>letters</span>, <span class='fl'>100</span>, <span class='fl'>TRUE</span>))) <span class='kw'>%&gt;%</span>
-  <span class='fu'>bb_title</span>(<span class='kw'>text</span> <span class='kw'>=</span> <span class='st'>"Random letters"</span>, <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"center"</span>)</div></pre>
+    <pre class="examples"><div class='input'><span class='fu'><a href='billboarder.html'>billboarder</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='bb_barchart.html'>bb_barchart</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='va'>letters</span>, <span class='fl'>100</span>, <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>bb_title</span><span class='op'>(</span>text <span class='op'>=</span> <span class='st'>"Random letters"</span>, position <span class='op'>=</span> <span class='st'>"center"</span><span class='op'>)</span>
+
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -200,7 +202,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

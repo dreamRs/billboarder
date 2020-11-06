@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">billboarder</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.8.910</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.9.9100</span>
       </span>
     </div>
 
@@ -147,16 +147,16 @@
     <p>Helper for creating a lollipop chart</p>
     </div>
 
-    <pre class="usage"><span class='fu'>bb_lollipop</span>(
-  <span class='no'>bb</span>,
-  <span class='no'>data</span>,
-  <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>rotated</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>point_color</span> <span class='kw'>=</span> <span class='st'>"#112446"</span>,
-  <span class='kw'>point_size</span> <span class='kw'>=</span> <span class='fl'>8</span>,
-  <span class='kw'>line_color</span> <span class='kw'>=</span> <span class='st'>"#000"</span>,
-  <span class='no'>...</span>
-)</pre>
+    <pre class="usage"><span class='fu'>bb_lollipop</span><span class='op'>(</span>
+  <span class='va'>bb</span>,
+  <span class='va'>data</span>,
+  mapping <span class='op'>=</span> <span class='cn'>NULL</span>,
+  rotated <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  point_color <span class='op'>=</span> <span class='st'>"#112446"</span>,
+  point_size <span class='op'>=</span> <span class='fl'>8</span>,
+  line_color <span class='op'>=</span> <span class='st'>"#000"</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -204,40 +204,42 @@ argument <code>x</code> is specified, the second one will be use as y values.
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='co'># From wikipedia</span>
-<span class='no'>sw</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
-  <span class='kw'>film</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"The Force Awakens"</span>, <span class='st'>"The Phantom Menace"</span>,
+<span class='va'>sw</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>
+  film <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"The Force Awakens"</span>, <span class='st'>"The Phantom Menace"</span>, 
            <span class='st'>"Revenge of the Sith"</span>, <span class='st'>"A New Hope"</span>,
            <span class='st'>"Attack of the Clones"</span>, <span class='st'>"The Empire Strikes Back"</span>,
            <span class='st'>"Return of the Jedi"</span>
-  ),
-  <span class='kw'>worldwide_gross</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2068178225</span>, <span class='fl'>1027044677</span>, <span class='fl'>848754768</span>,
+  <span class='op'>)</span>,
+  worldwide_gross <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2068178225</span>, <span class='fl'>1027044677</span>, <span class='fl'>848754768</span>,
                       <span class='fl'>775398007</span>, <span class='fl'>649398328</span>, <span class='fl'>538375067</span>,
-                      <span class='fl'>475106177</span>)
-)
+                      <span class='fl'>475106177</span><span class='op'>)</span>
+<span class='op'>)</span>
 
 <span class='co'># Simple example</span>
-<span class='fu'><a href='billboarder.html'>billboarder</a></span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'>bb_lollipop</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>sw</span>)
+<span class='fu'><a href='billboarder.html'>billboarder</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>bb_lollipop</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>sw</span><span class='op'>)</span>
 
 <span class='co'># Fancy example</span>
-<span class='fu'><a href='billboarder.html'>billboarder</a></span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'>bb_lollipop</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>sw</span>, <span class='kw'>rotated</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)<span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='bb_grid.html'>bb_y_grid</a></span>(<span class='kw'>show</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='bb_axis.html'>bb_y_axis</a></span>(<span class='kw'>tick</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(
-    <span class='kw'>values</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>5e+08</span>, <span class='fl'>1e+09</span>, <span class='fl'>1.5e+09</span>, <span class='fl'>2e+09</span>),
-    <span class='kw'>outer</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-    <span class='kw'>format</span> <span class='kw'>=</span> <span class='kw pkg'>htmlwidgets</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/htmlwidgets/man/JS.html'>JS</a></span>(<span class='st'>"d3.formatPrefix('$,.0', 1e6)"</span>)
-  )) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='bb_axis.html'>bb_x_axis</a></span>(<span class='kw'>tick</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>centered</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='bb_labs.html'>bb_labs</a></span>(
-    <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"Star Wars - Total Lifetime Grosses"</span>,
-    <span class='kw'>caption</span> <span class='kw'>=</span> <span class='st'>"Data source : wikipedia"</span>
-  )
+<span class='fu'><a href='billboarder.html'>billboarder</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>bb_lollipop</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>sw</span>, rotated <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='bb_grid.html'>bb_y_grid</a></span><span class='op'>(</span>show <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='bb_axis.html'>bb_y_axis</a></span><span class='op'>(</span>tick <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>
+    values <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>5e+08</span>, <span class='fl'>1e+09</span>, <span class='fl'>1.5e+09</span>, <span class='fl'>2e+09</span><span class='op'>)</span>,
+    outer <span class='op'>=</span> <span class='cn'>FALSE</span>,
+    format <span class='op'>=</span> <span class='fu'>htmlwidgets</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/htmlwidgets/man/JS.html'>JS</a></span><span class='op'>(</span><span class='st'>"d3.formatPrefix('$,.0', 1e6)"</span><span class='op'>)</span>
+  <span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='bb_axis.html'>bb_x_axis</a></span><span class='op'>(</span>tick <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>centered <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='bb_labs.html'>bb_labs</a></span><span class='op'>(</span>
+    title <span class='op'>=</span> <span class='st'>"Star Wars - Total Lifetime Grosses"</span>,
+    caption <span class='op'>=</span> <span class='st'>"Data source : wikipedia"</span>
+  <span class='op'>)</span>
 
 
 <span class='co'># With mapping</span>
-<span class='fu'><a href='billboarder.html'>billboarder</a></span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>sw</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'>bb_lollipop</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='fu'><a href='billboard-aes.html'>bbaes</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>film</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>worldwide_gross</span>))</div></pre>
+<span class='fu'><a href='billboarder.html'>billboarder</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>sw</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>bb_lollipop</span><span class='op'>(</span>mapping <span class='op'>=</span> <span class='fu'><a href='billboard-aes.html'>bbaes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>film</span>, y <span class='op'>=</span> <span class='va'>worldwide_gross</span><span class='op'>)</span><span class='op'>)</span>
+  
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -253,7 +255,7 @@ argument <code>x</code> is specified, the second one will be use as y values.
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">billboarder</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.8.910</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.9.9100</span>
       </span>
     </div>
 
@@ -147,7 +147,7 @@
     <p>Helper for creating a radar chart</p>
     </div>
 
-    <pre class="usage"><span class='fu'>bb_radarchart</span>(<span class='no'>bb</span>, <span class='no'>data</span>, <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>bb_radarchart</span><span class='op'>(</span><span class='va'>bb</span>, <span class='va'>data</span>, mapping <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -176,31 +176,32 @@ specified otherwise in <code>mapping</code>. If not a <code>data.frame</code>, a
     <p>A <code>billboard</code> <code>htmlwidget</code> object.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='st'>"billboarder"</span>)
+    <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='st'><a href='https://github.com/dreamRs/billboarder'>"billboarder"</a></span><span class='op'>)</span>
 
 <span class='co'># data about Avengers</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='st'>"avengers_wide"</span>)
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='st'>"avengers_wide"</span><span class='op'>)</span>
 
 <span class='co'># if not specified, first column is used as x-axis, </span>
 <span class='co'># all others are used on y-axis</span>
-<span class='fu'><a href='billboarder.html'>billboarder</a></span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'>bb_radarchart</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>avengers_wide</span>)
+<span class='fu'><a href='billboarder.html'>billboarder</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>bb_radarchart</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>avengers_wide</span><span class='op'>)</span>
 
 <span class='co'># specify explicitly which column to use with mapping</span>
-<span class='fu'><a href='billboarder.html'>billboarder</a></span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'>bb_radarchart</span>(
-    <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>avengers_wide</span>,
-    <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='fu'><a href='billboard-aes.html'>bbaes</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>axis</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>`Captain America`</span>)
-  )
+<span class='fu'><a href='billboarder.html'>billboarder</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>bb_radarchart</span><span class='op'>(</span>
+    data <span class='op'>=</span> <span class='va'>avengers_wide</span>,
+    mapping <span class='op'>=</span> <span class='fu'><a href='billboard-aes.html'>bbaes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>axis</span>, y <span class='op'>=</span> <span class='va'>`Captain America`</span><span class='op'>)</span>
+  <span class='op'>)</span>
 
 
 <span class='co'># with data in "long" format you can use "group" aesthetics</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='st'>"avengers"</span>)
-<span class='fu'><a href='billboarder.html'>billboarder</a></span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'>bb_radarchart</span>(
-    <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>avengers</span>,
-    <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='fu'><a href='billboard-aes.html'>bbaes</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>axis</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>value</span>, <span class='kw'>group</span> <span class='kw'>=</span> <span class='no'>group</span>)
-  )</div></pre>
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='st'>"avengers"</span><span class='op'>)</span>
+<span class='fu'><a href='billboarder.html'>billboarder</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>bb_radarchart</span><span class='op'>(</span>
+    data <span class='op'>=</span> <span class='va'>avengers</span>, 
+    mapping <span class='op'>=</span> <span class='fu'><a href='billboard-aes.html'>bbaes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>axis</span>, y <span class='op'>=</span> <span class='va'>value</span>, group <span class='op'>=</span> <span class='va'>group</span><span class='op'>)</span>
+  <span class='op'>)</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -216,7 +217,7 @@ specified otherwise in <code>mapping</code>. If not a <code>data.frame</code>, a
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

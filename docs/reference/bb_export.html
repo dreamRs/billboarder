@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">billboarder</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.8.910</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.9.9100</span>
       </span>
     </div>
 
@@ -147,7 +147,7 @@
     <p>Export a Billboard to PNG</p>
     </div>
 
-    <pre class="usage"><span class='fu'>bb_export</span>(<span class='no'>bb</span>, <span class='kw'>filename</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>download_label</span> <span class='kw'>=</span> <span class='st'>"Export (.png)"</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>bb_export</span><span class='op'>(</span><span class='va'>bb</span>, filename <span class='op'>=</span> <span class='cn'>NULL</span>, download_label <span class='op'>=</span> <span class='st'>"Export (.png)"</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -186,64 +186,65 @@ or a <code><a href='billboarder-shiny.html'>billboarderProxy</a></code> <code>ht
     <pre class="examples"><div class='input'>
 <span class='co'># Add a button to download as PNG:</span>
 
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='st'>"equilibre_mensuel"</span>)
-<span class='fu'><a href='billboarder.html'>billboarder</a></span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='bb_linechart.html'>bb_linechart</a></span>(
-    <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>equilibre_mensuel</span>,
-    <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='fu'><a href='billboard-aes.html'>bbaes</a></span>(<span class='no'>date</span>, <span class='no'>solde</span>),
-    <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"spline"</span>
-  ) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='bb_axis.html'>bb_x_axis</a></span>(
-    <span class='kw'>tick</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>format</span> <span class='kw'>=</span> <span class='st'>"%Y-%m"</span>, <span class='kw'>fit</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-  ) <span class='kw'>%&gt;%</span>
-  <span class='fu'>bb_export</span>(
-    <span class='kw'>filename</span> <span class='kw'>=</span> <span class='st'>"my-awesome-chart"</span>,
-    <span class='kw'>download_label</span> <span class='kw'>=</span> <span class='st'>"Click to download"</span>
-  )
-
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='st'>"equilibre_mensuel"</span><span class='op'>)</span>
+<span class='fu'><a href='billboarder.html'>billboarder</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='bb_linechart.html'>bb_linechart</a></span><span class='op'>(</span>
+    data <span class='op'>=</span> <span class='va'>equilibre_mensuel</span>,
+    mapping <span class='op'>=</span> <span class='fu'><a href='billboard-aes.html'>bbaes</a></span><span class='op'>(</span><span class='va'>date</span>, <span class='va'>solde</span><span class='op'>)</span>,
+    type <span class='op'>=</span> <span class='st'>"spline"</span>
+  <span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='bb_axis.html'>bb_x_axis</a></span><span class='op'>(</span>
+    tick <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>format <span class='op'>=</span> <span class='st'>"%Y-%m"</span>, fit <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+  <span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>bb_export</span><span class='op'>(</span>
+    filename <span class='op'>=</span> <span class='st'>"my-awesome-chart"</span>,
+    download_label <span class='op'>=</span> <span class='st'>"Click to download"</span>
+  <span class='op'>)</span>
+  
 
 <span class='co'># In shiny, you can use proxy :</span>
 
-<span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span>()) {
-  <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>shiny</span>)
-  <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>billboarder</span>)
-
-  <span class='no'>ui</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/fluidPage.html'>fluidPage</a></span>(
-    <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/fluidPage.html'>fluidRow</a></span>(
-      <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/column.html'>column</a></span>(
-        <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>8</span>, <span class='kw'>offset</span> <span class='kw'>=</span> <span class='fl'>2</span>,
-        <span class='no'>tags</span>$<span class='fu'><a href='https://rdrr.io/pkg/shiny/man/builder.html'>h1</a></span>(<span class='st'>"Export billboard as PNG via Proxy"</span>),
-        <span class='fu'><a href='billboarder-shiny.html'>billboarderOutput</a></span>(<span class='kw'>outputId</span> <span class='kw'>=</span> <span class='st'>"mybb"</span>),
-        <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/actionButton.html'>actionButton</a></span>(
-          <span class='kw'>inputId</span> <span class='kw'>=</span> <span class='st'>"export"</span>,
-          <span class='kw'>label</span> <span class='kw'>=</span> <span class='st'>"Export"</span>,
-          <span class='kw'>icon</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/icon.html'>icon</a></span>(<span class='st'>"download"</span>)
-        )
-      )
-    )
-  )
-
-  <span class='no'>server</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(<span class='no'>input</span>, <span class='no'>output</span>, <span class='no'>session</span>) {
-
-    <span class='no'>output</span>$<span class='no'>mybb</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='billboarder-shiny.html'>renderBillboarder</a></span>({
-      <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='st'>"prod_par_filiere"</span>)
-      <span class='fu'><a href='billboarder.html'>billboarder</a></span>() <span class='kw'>%&gt;%</span>
-        <span class='fu'><a href='bb_barchart.html'>bb_barchart</a></span>(
-          <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>prod_par_filiere</span>[, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"annee"</span>, <span class='st'>"prod_hydraulique"</span>)],
-          <span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"#102246"</span>
-        ) <span class='kw'>%&gt;%</span>
-        <span class='fu'><a href='bb_grid.html'>bb_y_grid</a></span>(<span class='kw'>show</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-    })
-
-    <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/observeEvent.html'>observeEvent</a></span>(<span class='no'>input</span>$<span class='no'>export</span>, {
-      <span class='fu'><a href='billboarder-shiny.html'>billboarderProxy</a></span>(<span class='kw'>shinyId</span> <span class='kw'>=</span> <span class='st'>"mybb"</span>) <span class='kw'>%&gt;%</span>
-        <span class='fu'>bb_export</span>(<span class='kw'>filename</span> <span class='kw'>=</span> <span class='st'>"my-billboard-chart"</span>)
-    })
-
-  }
-
-  <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/shinyApp.html'>shinyApp</a></span>(<span class='no'>ui</span>, <span class='no'>server</span>)
-}</div></pre>
+<span class='kw'>if</span> <span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
+  <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://shiny.rstudio.com'>shiny</a></span><span class='op'>)</span>
+  <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/dreamRs/billboarder'>billboarder</a></span><span class='op'>)</span>
+  
+  <span class='va'>ui</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/fluidPage.html'>fluidPage</a></span><span class='op'>(</span>
+    <span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/fluidPage.html'>fluidRow</a></span><span class='op'>(</span>
+      <span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/column.html'>column</a></span><span class='op'>(</span>
+        width <span class='op'>=</span> <span class='fl'>8</span>, offset <span class='op'>=</span> <span class='fl'>2</span>,
+        <span class='va'>tags</span><span class='op'>$</span><span class='fu'>h1</span><span class='op'>(</span><span class='st'>"Export billboard as PNG via Proxy"</span><span class='op'>)</span>,
+        <span class='fu'><a href='billboarder-shiny.html'>billboarderOutput</a></span><span class='op'>(</span>outputId <span class='op'>=</span> <span class='st'>"mybb"</span><span class='op'>)</span>,
+        <span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/actionButton.html'>actionButton</a></span><span class='op'>(</span>
+          inputId <span class='op'>=</span> <span class='st'>"export"</span>, 
+          label <span class='op'>=</span> <span class='st'>"Export"</span>, 
+          icon <span class='op'>=</span> <span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/icon.html'>icon</a></span><span class='op'>(</span><span class='st'>"download"</span><span class='op'>)</span>
+        <span class='op'>)</span>
+      <span class='op'>)</span>
+    <span class='op'>)</span>
+  <span class='op'>)</span>
+  
+  <span class='va'>server</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>input</span>, <span class='va'>output</span>, <span class='va'>session</span><span class='op'>)</span> <span class='op'>{</span>
+    
+    <span class='va'>output</span><span class='op'>$</span><span class='va'>mybb</span> <span class='op'>&lt;-</span> <span class='fu'><a href='billboarder-shiny.html'>renderBillboarder</a></span><span class='op'>(</span><span class='op'>{</span>
+      <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='st'>"prod_par_filiere"</span><span class='op'>)</span>
+      <span class='fu'><a href='billboarder.html'>billboarder</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+        <span class='fu'><a href='bb_barchart.html'>bb_barchart</a></span><span class='op'>(</span>
+          data <span class='op'>=</span> <span class='va'>prod_par_filiere</span><span class='op'>[</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"annee"</span>, <span class='st'>"prod_hydraulique"</span><span class='op'>)</span><span class='op'>]</span>,
+          color <span class='op'>=</span> <span class='st'>"#102246"</span>
+        <span class='op'>)</span> <span class='op'>%&gt;%</span>
+        <span class='fu'><a href='bb_grid.html'>bb_y_grid</a></span><span class='op'>(</span>show <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+    <span class='op'>}</span><span class='op'>)</span>
+    
+    <span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/observeEvent.html'>observeEvent</a></span><span class='op'>(</span><span class='va'>input</span><span class='op'>$</span><span class='va'>export</span>, <span class='op'>{</span>
+      <span class='fu'><a href='billboarder-shiny.html'>billboarderProxy</a></span><span class='op'>(</span>shinyId <span class='op'>=</span> <span class='st'>"mybb"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+        <span class='fu'>bb_export</span><span class='op'>(</span>filename <span class='op'>=</span> <span class='st'>"my-billboard-chart"</span><span class='op'>)</span>
+    <span class='op'>}</span><span class='op'>)</span>
+    
+  <span class='op'>}</span>
+  
+  <span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/shinyApp.html'>shinyApp</a></span><span class='op'>(</span><span class='va'>ui</span>, <span class='va'>server</span><span class='op'>)</span>
+<span class='op'>}</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -259,7 +260,7 @@ or a <code><a href='billboarder-shiny.html'>billboarderProxy</a></code> <code>ht
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

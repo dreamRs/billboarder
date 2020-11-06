@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">billboarder</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.8.910</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.9.9100</span>
       </span>
     </div>
 
@@ -147,15 +147,15 @@
     <p>Helper for creating a bar chart</p>
     </div>
 
-    <pre class="usage"><span class='fu'>bb_barchart</span>(
-  <span class='no'>bb</span>,
-  <span class='no'>data</span>,
-  <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>stacked</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>rotated</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>color</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='no'>...</span>
-)</pre>
+    <pre class="usage"><span class='fu'>bb_barchart</span><span class='op'>(</span>
+  <span class='va'>bb</span>,
+  <span class='va'>data</span>,
+  mapping <span class='op'>=</span> <span class='cn'>NULL</span>,
+  stacked <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  rotated <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  color <span class='op'>=</span> <span class='cn'>NULL</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -201,76 +201,77 @@ a dodge bar chart.</p></td>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='no'>stars</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
-  <span class='kw'>package</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"billboarder"</span>, <span class='st'>"ggiraph"</span>, <span class='st'>"officer"</span>,
-              <span class='st'>"shinyWidgets"</span>, <span class='st'>"visNetwork"</span>, <span class='st'>"rAmCharts"</span>,
-              <span class='st'>"D3partitionR"</span>),
-  <span class='kw'>stars</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>67</span>, <span class='fl'>252</span>, <span class='fl'>160</span>, <span class='fl'>144</span>, <span class='fl'>224</span>, <span class='fl'>32</span>, <span class='fl'>25</span>)
-)
+<span class='va'>stars</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>
+  package <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"billboarder"</span>, <span class='st'>"ggiraph"</span>, <span class='st'>"officer"</span>,
+              <span class='st'>"shinyWidgets"</span>, <span class='st'>"visNetwork"</span>, <span class='st'>"rAmCharts"</span>, 
+              <span class='st'>"D3partitionR"</span><span class='op'>)</span>,
+  stars <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>67</span>, <span class='fl'>252</span>, <span class='fl'>160</span>, <span class='fl'>144</span>, <span class='fl'>224</span>, <span class='fl'>32</span>, <span class='fl'>25</span><span class='op'>)</span>
+<span class='op'>)</span>
 
 <span class='co'># By default, first column is mapped on the x-axis</span>
 <span class='co'># second one on the y axis</span>
-<span class='fu'><a href='billboarder.html'>billboarder</a></span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'>bb_barchart</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>stars</span>)
+<span class='fu'><a href='billboarder.html'>billboarder</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>bb_barchart</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>stars</span><span class='op'>)</span>
 
 
 <span class='co'># Specify explicitly the columns to use</span>
-<span class='fu'><a href='billboarder.html'>billboarder</a></span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'>bb_barchart</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>stars</span>, <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='fu'><a href='billboard-aes.html'>bbaes</a></span>(<span class='no'>package</span>, <span class='no'>stars</span>), <span class='kw'>rotated</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='fu'><a href='billboarder.html'>billboarder</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>bb_barchart</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>stars</span>, mapping <span class='op'>=</span> <span class='fu'><a href='billboard-aes.html'>bbaes</a></span><span class='op'>(</span><span class='va'>package</span>, <span class='va'>stars</span><span class='op'>)</span>, rotated <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 
 
 <span class='co'># Add some options</span>
-<span class='fu'><a href='billboarder.html'>billboarder</a></span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'>bb_barchart</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>stars</span>[<span class='fu'><a href='https://rdrr.io/r/base/order.html'>order</a></span>(<span class='no'>stars</span>$<span class='no'>stars</span>), ], <span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>"package"</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='st'>"stars"</span>, <span class='kw'>rotated</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='bb_data.html'>bb_data</a></span>(<span class='kw'>names</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>stars</span> <span class='kw'>=</span> <span class='st'>"Number of stars"</span>)) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='bb_grid.html'>bb_y_grid</a></span>(<span class='kw'>show</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='fu'><a href='billboarder.html'>billboarder</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>bb_barchart</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>stars</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/order.html'>order</a></span><span class='op'>(</span><span class='va'>stars</span><span class='op'>$</span><span class='va'>stars</span><span class='op'>)</span>, <span class='op'>]</span>, x <span class='op'>=</span> <span class='st'>"package"</span>, y <span class='op'>=</span> <span class='st'>"stars"</span>, rotated <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='bb_data.html'>bb_data</a></span><span class='op'>(</span>names <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>stars <span class='op'>=</span> <span class='st'>"Number of stars"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='bb_grid.html'>bb_y_grid</a></span><span class='op'>(</span>show <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 
 
 
 <span class='co'># Hack stacked barcharts (to color bar)</span>
-<span class='no'>stars_wide</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
-  <span class='kw'>author</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"dreamRs"</span>, <span class='st'>"davidgohel"</span>, <span class='st'>"davidgohel"</span>, <span class='st'>"dreamRs"</span>,
-             <span class='st'>"datastorm-open"</span>, <span class='st'>"datastorm-open"</span>, <span class='st'>"AntoineGuillot2"</span>),
-  <span class='kw'>package</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"billboarder"</span>, <span class='st'>"ggiraph"</span>, <span class='st'>"officer"</span>,
-              <span class='st'>"shinyWidgets"</span>, <span class='st'>"visNetwork"</span>, <span class='st'>"rAmCharts"</span>,
-              <span class='st'>"D3partitionR"</span>),
-  <span class='kw'>stars</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>67</span>, <span class='fl'>252</span>, <span class='fl'>160</span>, <span class='fl'>144</span>, <span class='fl'>224</span>, <span class='fl'>32</span>, <span class='fl'>25</span>)
-)
+<span class='va'>stars_wide</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>
+  author <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"dreamRs"</span>, <span class='st'>"davidgohel"</span>, <span class='st'>"davidgohel"</span>, <span class='st'>"dreamRs"</span>,
+             <span class='st'>"datastorm-open"</span>, <span class='st'>"datastorm-open"</span>, <span class='st'>"AntoineGuillot2"</span><span class='op'>)</span>,
+  package <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"billboarder"</span>, <span class='st'>"ggiraph"</span>, <span class='st'>"officer"</span>,
+              <span class='st'>"shinyWidgets"</span>, <span class='st'>"visNetwork"</span>, <span class='st'>"rAmCharts"</span>, 
+              <span class='st'>"D3partitionR"</span><span class='op'>)</span>,
+  stars <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>67</span>, <span class='fl'>252</span>, <span class='fl'>160</span>, <span class='fl'>144</span>, <span class='fl'>224</span>, <span class='fl'>32</span>, <span class='fl'>25</span><span class='op'>)</span>
+<span class='op'>)</span>
 
-<span class='fu'><a href='billboarder.html'>billboarder</a></span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'>bb_barchart</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>stars_wide</span>,
-              <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='fu'><a href='billboard-aes.html'>bbaes</a></span>(<span class='no'>package</span>, <span class='no'>stars</span>, <span class='kw'>group</span> <span class='kw'>=</span> <span class='no'>author</span>),
-              <span class='kw'>stacked</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='fu'><a href='billboarder.html'>billboarder</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>bb_barchart</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>stars_wide</span>, 
+              mapping <span class='op'>=</span> <span class='fu'><a href='billboard-aes.html'>bbaes</a></span><span class='op'>(</span><span class='va'>package</span>, <span class='va'>stars</span>, group <span class='op'>=</span> <span class='va'>author</span><span class='op'>)</span>,
+              stacked <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 
-<span class='fu'><a href='billboarder.html'>billboarder</a></span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'>bb_barchart</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>stars_wide</span>,
-              <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='fu'><a href='billboard-aes.html'>bbaes</a></span>(<span class='no'>author</span>, <span class='no'>stars</span>, <span class='kw'>group</span> <span class='kw'>=</span> <span class='no'>package</span>),
-              <span class='kw'>stacked</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='fu'><a href='billboarder.html'>billboarder</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>bb_barchart</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>stars_wide</span>,
+              mapping <span class='op'>=</span> <span class='fu'><a href='billboard-aes.html'>bbaes</a></span><span class='op'>(</span><span class='va'>author</span>, <span class='va'>stars</span>, group <span class='op'>=</span> <span class='va'>package</span><span class='op'>)</span>,
+              stacked <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 
 
 
 <span class='co'># Grouping variable</span>
-<span class='no'>tab</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='no'>letters</span>[<span class='fl'>1</span>:<span class='fl'>5</span>], <span class='fl'>100</span>, <span class='fl'>TRUE</span>), <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='no'>LETTERS</span>[<span class='fl'>1</span>:<span class='fl'>5</span>], <span class='fl'>100</span>, <span class='fl'>TRUE</span>))
-<span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame</a></span>(<span class='no'>tab</span>)
+<span class='va'>tab</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='va'>letters</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span><span class='op'>]</span>, <span class='fl'>100</span>, <span class='cn'>TRUE</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='va'>LETTERS</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span><span class='op'>]</span>, <span class='fl'>100</span>, <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame</a></span><span class='op'>(</span><span class='va'>tab</span><span class='op'>)</span>
 
-<span class='fu'><a href='billboarder.html'>billboarder</a></span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'>bb_barchart</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>dat</span>, <span class='fu'><a href='billboard-aes.html'>bbaes</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>Var1</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>Freq</span>, <span class='kw'>group</span> <span class='kw'>=</span> <span class='no'>Var2</span>), <span class='kw'>rotated</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='fu'><a href='billboarder.html'>billboarder</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>bb_barchart</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>dat</span>, <span class='fu'><a href='billboard-aes.html'>bbaes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>Var1</span>, y <span class='op'>=</span> <span class='va'>Freq</span>, group <span class='op'>=</span> <span class='va'>Var2</span><span class='op'>)</span>, rotated <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 
 
 <span class='co'># You can also pass data in a 'wide' format</span>
-<span class='no'>dat2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
-  <span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>letters</span>[<span class='fl'>1</span>:<span class='fl'>5</span>],
-  <span class='kw'>A</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample.int</a></span>(<span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>5</span>),
-  <span class='kw'>B</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample.int</a></span>(<span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>5</span>),
-  <span class='kw'>C</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample.int</a></span>(<span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>5</span>),
-  <span class='kw'>D</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample.int</a></span>(<span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>5</span>),
-  <span class='kw'>E</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample.int</a></span>(<span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>5</span>)
-)
+<span class='va'>dat2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>
+  x <span class='op'>=</span> <span class='va'>letters</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span><span class='op'>]</span>,
+  A <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample.int</a></span><span class='op'>(</span>n <span class='op'>=</span> <span class='fl'>100</span>, size <span class='op'>=</span> <span class='fl'>5</span><span class='op'>)</span>,
+  B <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample.int</a></span><span class='op'>(</span>n <span class='op'>=</span> <span class='fl'>100</span>, size <span class='op'>=</span> <span class='fl'>5</span><span class='op'>)</span>,
+  C <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample.int</a></span><span class='op'>(</span>n <span class='op'>=</span> <span class='fl'>100</span>, size <span class='op'>=</span> <span class='fl'>5</span><span class='op'>)</span>,
+  D <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample.int</a></span><span class='op'>(</span>n <span class='op'>=</span> <span class='fl'>100</span>, size <span class='op'>=</span> <span class='fl'>5</span><span class='op'>)</span>,
+  E <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample.int</a></span><span class='op'>(</span>n <span class='op'>=</span> <span class='fl'>100</span>, size <span class='op'>=</span> <span class='fl'>5</span><span class='op'>)</span>
+<span class='op'>)</span>
 
 <span class='co'># But cannot use mapping</span>
-<span class='fu'><a href='billboarder.html'>billboarder</a></span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'>bb_barchart</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>dat2</span>, <span class='kw'>stacked</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='bb_data.html'>bb_data</a></span>(<span class='kw'>order</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>labels</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div></pre>
+<span class='fu'><a href='billboarder.html'>billboarder</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>bb_barchart</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>dat2</span>, stacked <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='bb_data.html'>bb_data</a></span><span class='op'>(</span>order <span class='op'>=</span> <span class='cn'>NULL</span>, labels <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -286,7 +287,7 @@ a dodge bar chart.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
