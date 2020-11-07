@@ -40,14 +40,14 @@
 #   bb
 # }
 bb_aes <- function(bb, ...) {
-  bb$x$mapping <- dropNulls(aes(...))
+  bb$x$mapping <- bbaes(...)
   bb
 }
 
 #' @rdname billboard-aes
 #' @export
 bb_aes_string <- function(bb, ...) {
-  bb$x$mapping <- dropNulls(aes_string(...))
+  bb$x$mapping <- bbaes_string(...)
   bb
 }
 
@@ -55,13 +55,23 @@ bb_aes_string <- function(bb, ...) {
 #' @export
 #' @importFrom ggplot2 aes
 bbaes <- function(...) {
-  dropNulls(aes(...))
+  mapping <- dropNulls(aes(...))
+  noname <- which(names(mapping) == "")
+  if (length(noname) == 1) {
+    names(mapping)[noname] <- "group"
+  }
+  mapping
 }
 
 #' @rdname billboard-aes
 #' @export
 bbaes_string <- function(...) {
-  dropNulls(aes_string(...))
+  mapping <- dropNulls(aes_string(...))
+  noname <- which(names(mapping) == "")
+  if (length(noname) == 1) {
+    names(mapping)[noname] <- "group"
+  }
+  mapping
 }
 
 
