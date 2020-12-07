@@ -1,7 +1,6 @@
 // HTMLWidgets billboard ----
 
-var HTMLWidgets = window.HTMLWidgets || {};
-var bb = window.bb || {};
+/*global HTMLWidgets, bb, Shiny */
 
 HTMLWidgets.widget({
   name: "billboarder",
@@ -27,22 +26,22 @@ HTMLWidgets.widget({
 
         // Shiny interaction
         if (HTMLWidgets.shinyMode) {
-          var Shiny = window.Shiny || {};
 
           // Click
           if (typeof bb_opts.data.onclick == "undefined") {
             bb_opts.data.onclick = function(d, element) {
-              var chartclick = get_billboard(el.id);
-              //console.log(chartclick.categories());
-              d.category = chartclick.categories()[d.index];
-              Shiny.onInputChange(el.id + "_click", d);
+              var click = JSON.parse(JSON.stringify(d));
+              click.category = this.categories()[click.index];
+              Shiny.onInputChange(el.id + "_click", click);
             };
           }
 
           // Hover
           if (typeof bb_opts.data.onover == "undefined") {
             bb_opts.data.onover = function(d, element) {
-              Shiny.onInputChange(el.id + "_over", d);
+              var over = JSON.parse(JSON.stringify(d));
+              over.category = this.categories()[over.index];
+              Shiny.onInputChange(el.id + "_over", over);
             };
           }
 
@@ -264,7 +263,6 @@ function get_billboard(id) {
 // Shiny ----
 
 if (HTMLWidgets.shinyMode) {
-  var Shiny = window.Shiny || {};
 
   // data = load
   Shiny.addCustomMessageHandler("update-billboard-data", function(message) {
