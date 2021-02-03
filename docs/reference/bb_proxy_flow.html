@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">billboarder</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.9.9100</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.9.9110</span>
       </span>
     </div>
 
@@ -80,7 +80,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -121,7 +121,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/dreamRs/billboarder/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -168,15 +168,15 @@
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
-  <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://shiny.rstudio.com'>shiny</a></span><span class='op'>)</span>
+  <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://shiny.rstudio.com/'>shiny</a></span><span class='op'>)</span>
   <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/dreamRs/billboarder'>billboarder</a></span><span class='op'>)</span>
   
-  <span class='va'>ui</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/fluidPage.html'>fluidPage</a></span><span class='op'>(</span>
+  <span class='va'>ui</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/fluidPage.html'>fluidPage</a></span><span class='op'>(</span>
     <span class='va'>tags</span><span class='op'>$</span><span class='fu'>h3</span><span class='op'>(</span><span class='st'>"Proxy flow"</span><span class='op'>)</span>,
-    <span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/actionButton.html'>actionButton</a></span><span class='op'>(</span>
+    <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/actionButton.html'>actionButton</a></span><span class='op'>(</span>
       inputId <span class='op'>=</span> <span class='st'>"next_data"</span>,
       label <span class='op'>=</span> <span class='st'>"Add data"</span>,
-      icon <span class='op'>=</span> <span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/icon.html'>icon</a></span><span class='op'>(</span><span class='st'>"arrow-right"</span><span class='op'>)</span>
+      icon <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/icon.html'>icon</a></span><span class='op'>(</span><span class='st'>"arrow-right"</span><span class='op'>)</span>
     <span class='op'>)</span>,
     <span class='fu'><a href='billboarder-shiny.html'>billboarderOutput</a></span><span class='op'>(</span>outputId <span class='op'>=</span> <span class='st'>"chart1"</span><span class='op'>)</span>,
     
@@ -187,22 +187,22 @@
   <span class='va'>server</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>input</span>, <span class='va'>output</span>, <span class='va'>session</span><span class='op'>)</span> <span class='op'>{</span>
     
     
-    <span class='va'>time_data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/reactiveValues.html'>reactiveValues</a></span><span class='op'>(</span>df <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>
+    <span class='va'>time_data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/reactiveValues.html'>reactiveValues</a></span><span class='op'>(</span>df <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>
       x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.Date</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>20</span>,
       y <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>20</span><span class='op'>)</span> <span class='op'>*</span> <span class='fl'>10</span><span class='op'>)</span>
     <span class='op'>)</span><span class='op'>)</span>
     
     <span class='va'>output</span><span class='op'>$</span><span class='va'>chart1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='billboarder-shiny.html'>renderBillboarder</a></span><span class='op'>(</span><span class='op'>{</span>
       <span class='fu'><a href='billboarder.html'>billboarder</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-        <span class='fu'><a href='bb_linechart.html'>bb_linechart</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/isolate.html'>isolate</a></span><span class='op'>(</span><span class='va'>time_data</span><span class='op'>$</span><span class='va'>df</span><span class='op'>)</span><span class='op'>)</span>
+        <span class='fu'><a href='bb_linechart.html'>bb_linechart</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/isolate.html'>isolate</a></span><span class='op'>(</span><span class='va'>time_data</span><span class='op'>$</span><span class='va'>df</span><span class='op'>)</span><span class='op'>)</span>
     <span class='op'>}</span><span class='op'>)</span>
     
-    <span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/observeEvent.html'>observeEvent</a></span><span class='op'>(</span><span class='va'>input</span><span class='op'>$</span><span class='va'>next_data</span>, <span class='op'>{</span>
+    <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/observeEvent.html'>observeEvent</a></span><span class='op'>(</span><span class='va'>input</span><span class='op'>$</span><span class='va'>next_data</span>, <span class='op'>{</span>
       <span class='va'>time_data</span><span class='op'>$</span><span class='va'>df</span><span class='op'>$</span><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='va'>time_data</span><span class='op'>$</span><span class='va'>df</span><span class='op'>$</span><span class='va'>x</span> <span class='op'>+</span> <span class='fl'>21</span>
       <span class='va'>time_data</span><span class='op'>$</span><span class='va'>df</span><span class='op'>$</span><span class='va'>y</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>20</span><span class='op'>)</span> <span class='op'>*</span> <span class='fl'>10</span><span class='op'>)</span>
     <span class='op'>}</span><span class='op'>)</span>
     
-    <span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/observe.html'>observe</a></span><span class='op'>(</span><span class='op'>{</span>
+    <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/observe.html'>observe</a></span><span class='op'>(</span><span class='op'>{</span>
       <span class='fu'><a href='billboarder-shiny.html'>billboarderProxy</a></span><span class='op'>(</span><span class='st'>"chart1"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
         <span class='fu'>bb_proxy_flow</span><span class='op'>(</span>json <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>as.list</a></span><span class='op'>(</span><span class='va'>time_data</span><span class='op'>$</span><span class='va'>df</span><span class='op'>)</span>, duration <span class='op'>=</span> <span class='fl'>1500</span><span class='op'>)</span>
     <span class='op'>}</span><span class='op'>)</span>
@@ -219,8 +219,8 @@
         <span class='fu'><a href='bb_axis.html'>bb_x_axis</a></span><span class='op'>(</span>tick <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>format <span class='op'>=</span> <span class='st'>"%H:%M"</span>, fit <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span><span class='op'>)</span>
     <span class='op'>}</span><span class='op'>)</span>
     
-    <span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/observe.html'>observe</a></span><span class='op'>(</span><span class='op'>{</span>
-      <span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/invalidateLater.html'>invalidateLater</a></span><span class='op'>(</span><span class='fl'>2000</span><span class='op'>)</span>
+    <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/observe.html'>observe</a></span><span class='op'>(</span><span class='op'>{</span>
+      <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/invalidateLater.html'>invalidateLater</a></span><span class='op'>(</span><span class='fl'>2000</span><span class='op'>)</span>
       <span class='fu'><a href='billboarder-shiny.html'>billboarderProxy</a></span><span class='op'>(</span><span class='st'>"chart2"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
         <span class='fu'>bb_proxy_flow</span><span class='op'>(</span>json <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>
           x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/format.html'>format</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.time</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>,
@@ -230,7 +230,7 @@
     
   <span class='op'>}</span>
   
-  <span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/shinyApp.html'>shinyApp</a></span><span class='op'>(</span><span class='va'>ui</span>, <span class='va'>server</span><span class='op'>)</span>
+  <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/shinyApp.html'>shinyApp</a></span><span class='op'>(</span><span class='va'>ui</span>, <span class='va'>server</span><span class='op'>)</span>
 <span class='op'>}</span>
 </div></pre>
   </div>

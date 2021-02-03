@@ -30,16 +30,25 @@
 bb_labs <- function(bb, title = NULL, x = NULL, y = NULL, caption = NULL, caption_href = NULL) {
   
   if (!is.null(title)) {
-    bb <- bb_title(bb, text = title, position = "left-top", 
-                   padding = list(top = 0, right = 0, left = 0, bottom = 20))
+    bb <- bb_title(
+      bb = bb,
+      text = title, 
+      position = "left-top"
+    )
   }
   
   if (!is.null(x)) {
-    bb <- bb_x_axis(bb, label = list(text = x, position = "outer-right"))
+    bb <- bb_x_axis(
+      bb = bb, 
+      label = list(text = x, position = "outer-right")
+    )
   }
   
   if (!is.null(y)) {
-    bb <- bb_y_axis(bb, label = list(text = y, position = "outer-top"))
+    bb <- bb_y_axis(
+      bb = bb, 
+      label = list(text = y, position = "outer-top")
+    )
   }
   
   if (!is.null(caption)) {

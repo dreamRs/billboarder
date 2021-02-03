@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">billboarder</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.9.9100</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.9.9110</span>
       </span>
     </div>
 
@@ -80,7 +80,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -121,7 +121,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/dreamRs/billboarder/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -173,19 +173,19 @@
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
 
-<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://shiny.rstudio.com'>shiny</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://shiny.rstudio.com/'>shiny</a></span><span class='op'>)</span>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/dreamRs/billboarder'>billboarder</a></span><span class='op'>)</span>
 
-<span class='va'>ui</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/fluidPage.html'>fluidPage</a></span><span class='op'>(</span>
+<span class='va'>ui</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/fluidPage.html'>fluidPage</a></span><span class='op'>(</span>
   <span class='va'>tags</span><span class='op'>$</span><span class='fu'>h2</span><span class='op'>(</span><span class='st'>"Update axis title &amp; data name (tooltip &amp; legend)"</span><span class='op'>)</span>,
   <span class='fu'><a href='billboarder-shiny.html'>billboarderOutput</a></span><span class='op'>(</span>outputId <span class='op'>=</span> <span class='st'>"my_bb"</span><span class='op'>)</span>,
-  <span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/textInput.html'>textInput</a></span><span class='op'>(</span>
+  <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/textInput.html'>textInput</a></span><span class='op'>(</span>
     inputId <span class='op'>=</span> <span class='st'>"new_name"</span>,
     label <span class='op'>=</span> <span class='st'>"New name :"</span>,
     value <span class='op'>=</span> <span class='st'>"this is a new name"</span>,
     width <span class='op'>=</span> <span class='st'>"100%"</span>
   <span class='op'>)</span>,
-  <span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/actionButton.html'>actionButton</a></span><span class='op'>(</span>
+  <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/actionButton.html'>actionButton</a></span><span class='op'>(</span>
     inputId <span class='op'>=</span> <span class='st'>"update"</span>,
     label <span class='op'>=</span> <span class='st'>"Update chart"</span>,
     width <span class='op'>=</span> <span class='st'>"100%"</span>
@@ -201,7 +201,7 @@
       <span class='fu'><a href='bb_axis.html'>bb_y_axis</a></span><span class='op'>(</span>label <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>text <span class='op'>=</span> <span class='st'>"Freq"</span><span class='op'>)</span><span class='op'>)</span>
   <span class='op'>}</span><span class='op'>)</span>
   
-  <span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/observeEvent.html'>observeEvent</a></span><span class='op'>(</span><span class='va'>input</span><span class='op'>$</span><span class='va'>update</span>, <span class='op'>{</span>
+  <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/observeEvent.html'>observeEvent</a></span><span class='op'>(</span><span class='va'>input</span><span class='op'>$</span><span class='va'>update</span>, <span class='op'>{</span>
     <span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='va'>letters</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span><span class='op'>]</span>, <span class='fl'>100</span>, <span class='cn'>TRUE</span><span class='op'>)</span>
     <span class='fu'><a href='billboarder-shiny.html'>billboarderProxy</a></span><span class='op'>(</span>shinyId <span class='op'>=</span> <span class='st'>"my_bb"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
       <span class='fu'><a href='bb_proxy_axis_labels.html'>bb_proxy_axis_labels</a></span><span class='op'>(</span>y <span class='op'>=</span> <span class='va'>input</span><span class='op'>$</span><span class='va'>new_name</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
@@ -212,7 +212,7 @@
   
 <span class='op'>}</span>
 
-<span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/shinyApp.html'>shinyApp</a></span><span class='op'>(</span><span class='va'>ui</span>, <span class='va'>server</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/pkg/shiny/man/shinyApp.html'>shinyApp</a></span><span class='op'>(</span><span class='va'>ui</span>, <span class='va'>server</span><span class='op'>)</span>
 
 <span class='op'>}</span>
 </div></pre>

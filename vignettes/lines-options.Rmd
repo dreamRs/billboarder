@@ -51,8 +51,12 @@ You can change type of line with `type` argument, available choices are : line, 
 ```{r}
 billboarder(height = "200px") %>% 
   bb_linechart(data = wide, type = "spline")
+```
+```{r}
 billboarder(height = "200px") %>% 
   bb_linechart(data = wide, type = "step")
+```
+```{r}
 billboarder(height = "200px") %>% 
   bb_linechart(data = wide, type = "area")
 ```
@@ -90,6 +94,8 @@ Example :
 ```{r}
 billboarder() %>% 
   bb_linechart(data = wide, dasharray = 4)
+```
+```{r}
 billboarder() %>% 
   bb_linechart(data = wide, dasharray = "6 2 1 2")
 ```

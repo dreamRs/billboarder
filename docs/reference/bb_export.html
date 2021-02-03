@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">billboarder</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.9.9100</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.9.9110</span>
       </span>
     </div>
 
@@ -80,7 +80,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -121,7 +121,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/dreamRs/billboarder/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -205,19 +205,19 @@ or a <code><a href='billboarder-shiny.html'>billboarderProxy</a></code> <code>ht
 <span class='co'># In shiny, you can use proxy :</span>
 
 <span class='kw'>if</span> <span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
-  <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://shiny.rstudio.com'>shiny</a></span><span class='op'>)</span>
+  <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://shiny.rstudio.com/'>shiny</a></span><span class='op'>)</span>
   <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/dreamRs/billboarder'>billboarder</a></span><span class='op'>)</span>
   
-  <span class='va'>ui</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/fluidPage.html'>fluidPage</a></span><span class='op'>(</span>
-    <span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/fluidPage.html'>fluidRow</a></span><span class='op'>(</span>
-      <span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/column.html'>column</a></span><span class='op'>(</span>
+  <span class='va'>ui</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/fluidPage.html'>fluidPage</a></span><span class='op'>(</span>
+    <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/fluidPage.html'>fluidRow</a></span><span class='op'>(</span>
+      <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/column.html'>column</a></span><span class='op'>(</span>
         width <span class='op'>=</span> <span class='fl'>8</span>, offset <span class='op'>=</span> <span class='fl'>2</span>,
         <span class='va'>tags</span><span class='op'>$</span><span class='fu'>h1</span><span class='op'>(</span><span class='st'>"Export billboard as PNG via Proxy"</span><span class='op'>)</span>,
         <span class='fu'><a href='billboarder-shiny.html'>billboarderOutput</a></span><span class='op'>(</span>outputId <span class='op'>=</span> <span class='st'>"mybb"</span><span class='op'>)</span>,
-        <span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/actionButton.html'>actionButton</a></span><span class='op'>(</span>
+        <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/actionButton.html'>actionButton</a></span><span class='op'>(</span>
           inputId <span class='op'>=</span> <span class='st'>"export"</span>, 
           label <span class='op'>=</span> <span class='st'>"Export"</span>, 
-          icon <span class='op'>=</span> <span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/icon.html'>icon</a></span><span class='op'>(</span><span class='st'>"download"</span><span class='op'>)</span>
+          icon <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/icon.html'>icon</a></span><span class='op'>(</span><span class='st'>"download"</span><span class='op'>)</span>
         <span class='op'>)</span>
       <span class='op'>)</span>
     <span class='op'>)</span>
@@ -235,14 +235,14 @@ or a <code><a href='billboarder-shiny.html'>billboarderProxy</a></code> <code>ht
         <span class='fu'><a href='bb_grid.html'>bb_y_grid</a></span><span class='op'>(</span>show <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
     <span class='op'>}</span><span class='op'>)</span>
     
-    <span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/observeEvent.html'>observeEvent</a></span><span class='op'>(</span><span class='va'>input</span><span class='op'>$</span><span class='va'>export</span>, <span class='op'>{</span>
+    <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/observeEvent.html'>observeEvent</a></span><span class='op'>(</span><span class='va'>input</span><span class='op'>$</span><span class='va'>export</span>, <span class='op'>{</span>
       <span class='fu'><a href='billboarder-shiny.html'>billboarderProxy</a></span><span class='op'>(</span>shinyId <span class='op'>=</span> <span class='st'>"mybb"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
         <span class='fu'>bb_export</span><span class='op'>(</span>filename <span class='op'>=</span> <span class='st'>"my-billboard-chart"</span><span class='op'>)</span>
     <span class='op'>}</span><span class='op'>)</span>
     
   <span class='op'>}</span>
   
-  <span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/shinyApp.html'>shinyApp</a></span><span class='op'>(</span><span class='va'>ui</span>, <span class='va'>server</span><span class='op'>)</span>
+  <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/shinyApp.html'>shinyApp</a></span><span class='op'>(</span><span class='va'>ui</span>, <span class='va'>server</span><span class='op'>)</span>
 <span class='op'>}</span>
 </div></pre>
   </div>
