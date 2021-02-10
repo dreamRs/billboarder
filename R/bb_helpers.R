@@ -345,7 +345,6 @@ bb_scatterplot <- function(bb, data, mapping = NULL, ..., point_opacity = NULL) 
     data <- bb$x$data
   
   args <- list(...)
-  
   mapping <- mapping %||% bb$x$mapping
   
   if (is.null(mapping)) {
@@ -405,7 +404,6 @@ bb_scatterplot <- function(bb, data, mapping = NULL, ..., point_opacity = NULL) 
       )
     }
   }
-
   
   data_opt <- list(
     xs = xs,
@@ -426,29 +424,19 @@ bb_scatterplot <- function(bb, data, mapping = NULL, ..., point_opacity = NULL) 
     )
   )
   
-  
   if ("billboarder_Proxy" %in% class(bb)) {
-    
     bb <- bb_load(proxy = bb, json = json, xs = xs, unload = bb$unload) 
-    
     bb <- bb_proxy_axis_labels(proxy = bb, x = x, y = y)
-    
   } else {
-    
     bb <- .bb_opt2(bb, "data", data_opt)
-    
     bb <- .bb_opt(bb, "legend", show = !is.null(group))
-    
     bb <- .bb_opt2(bb, "axis", data_axis)
-    
     if (!is.null(z)) {
       bb <- .bb_opt2(bb, "axis", list(x = list(padding = list(right = 0.1))))
     }
-    
     if (!is.null(point_opacity)) {
       bb <- bb_add_style(bb, ".bb-circles circle" = sprintf("opacity: %s !important;", point_opacity))
     }
-    
   }
   
   return(bb)

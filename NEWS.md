@@ -12,7 +12,7 @@ billboarder 0.3.0
 billboarder 0.2.9
 ==================
 
-* Update of the billboard.js library to 1.12.8, see the [release note](https://medium.com/@alberto.park/billboard-js-692f4db55b0b).
+* Update of the billboard.js library to 1.12.8, see the [release note](https://netil.medium.com/billboard-js-692f4db55b0b).
 * `bb_labs()` lower part of caption was cut and added argument `caption_href` to add a link.
 
 
@@ -20,7 +20,7 @@ billboarder 0.2.9
 billboarder 0.2.8
 ==================
 
-* Update of the billboard.js library to 1.11.1, see the [release note](https://medium.com/@alberto.park/billboard-js-1-11-0-release-lazy-render-new-textoverlap-plugin-more-831e33efcbe5).
+* Update of the billboard.js library to 1.11.1, see the [release note](https://netil.medium.com/billboard-js-1-11-0-release-lazy-render-new-textoverlap-plugin-more-831e33efcbe5).
 * `bb_export()` : new function to export chart to PNG in Shiny applications with proxy or by adding a "download" button on the chart.
 * `bb_linechart()` have two new arguments: `dasharray` (use dash in lines) and `width` to control lines size.
 * New vignette to describe lines options, use `vignette("lines-options", package = "billboarder")` to display it.
@@ -30,8 +30,8 @@ billboarder 0.2.8
 billboarder 0.2.7
 ==================
 
-* Upgrade billboard library to 1.10.0, see the [release note](https://medium.com/@alberto.park/billboard-js-1-10-release-bubble-dimension-axis-culling-more-132d343a46cc)
-* Upgrade billboard library to 1.9.0, see the [release note](https://medium.com/@alberto.park/billboard-js-1-9-release-introducing-plugins-more-636ada3a7881)
+* Upgrade billboard library to 1.10.0, see the [release note](https://netil.medium.com/billboard-js-1-10-release-bubble-dimension-axis-culling-more-132d343a46cc)
+* Upgrade billboard library to 1.9.0, see the [release note](https://netil.medium.com/billboard-js-1-9-release-introducing-plugins-more-636ada3a7881)
 
 ## Breaking changes
 
@@ -42,14 +42,14 @@ billboarder 0.2.7
 billboarder 0.2.6
 ==================
 
-* Upgrade billboard library to 1.8.0 (color on over, linear gradient for area charts, multiline text labels, bar width), see the [release note](https://medium.com/@alberto.park/billboard-js-1-8-0-released-today-3ed432f2d9d4)
+* Upgrade billboard library to 1.8.0 (color on over, linear gradient for area charts, multiline text labels, bar width), see the [release note](https://netil.medium.com/billboard-js-1-8-0-released-today-3ed432f2d9d4)
 * New function *bauge* : a gauge that automatically updates itself in Shiny apps.
 
 
 billboarder 0.2.5
 ==================
 
-* Upgrade billboard library to 1.7.0 (new theme, multiple axes, normalized staking data), see the [release note](https://medium.com/@alberto.park/billboard-js-1-7-0-release-4944a2eb59fe)
+* Upgrade billboard library to 1.7.0 (new theme, multiple axes, normalized staking data), see the [release note](https://netil.medium.com/billboard-js-1-7-0-release-4944a2eb59fe)
 
 
 
