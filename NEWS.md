@@ -1,7 +1,7 @@
 billboarder 0.3.0
 ==================
 
-* Update of the billboard.js library to 2.2.1, see the [release note](https://netil.medium.com/billboard-js-2-2-0-release-gauge-enhancements-pie-outerradius-more-407118914fbc)
+* Update of the billboard.js library to 2.2.2, see the [release note](https://netil.medium.com/billboard-js-2-2-0-release-gauge-enhancements-pie-outerradius-more-407118914fbc)
 * New theme available: datalab.
 * New function `set_color_palette()` to define default colors used in charts.
 * It's now possible to use `aes()` directly to define mapping of aesthetics.
