@@ -90,7 +90,8 @@
 #'   \item{value}{Value (1-7)}
 #'   \item{description}{Character description}
 #' }
-#' @source Marvel Wikia (\url{http://marvel.wikia.com}) and Chris Zhou (\url{http://bl.ocks.org/chrisrzhou/2421ac6541b68c1680f8})
+#' @source Marvel Wikia (\url{https://marvel.fandom.com/wiki/Marvel_Database})
+#'  and Chris Zhou (\url{http://bl.ocks.org/chrisrzhou/2421ac6541b68c1680f8})
 "avengers"
 
 #' @rdname avengers

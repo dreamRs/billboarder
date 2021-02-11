@@ -17,7 +17,8 @@ A data frame with 24 rows and 4 variables:
 An object of class \code{data.frame} with 6 rows and 5 columns.
 }
 \source{
-Marvel Wikia (\url{http://marvel.wikia.com}) and Chris Zhou (\url{http://bl.ocks.org/chrisrzhou/2421ac6541b68c1680f8})
+Marvel Wikia (\url{https://marvel.fandom.com/wiki/Marvel_Database})
+ and Chris Zhou (\url{http://bl.ocks.org/chrisrzhou/2421ac6541b68c1680f8})
 }
 \usage{
 avengers

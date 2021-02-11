@@ -1,10 +1,10 @@
 Package: billboarder
 Title: Create Interactive Chart with the JavaScript 'Billboard' Library
-Version: 0.2.9.9110
+Version: 0.3.0
 Authors@R: c(
   person("Victor", "Perrier", email = "victor.perrier@dreamrs.fr", role = c("aut", "cre")),
   person("Fanny", "Meyer", email = "fanny.meyer@dreamrs.fr", role = c("aut")),
-  person("NAVER Corp", role = c("cph"), comment = "billboard.js library"),
+  person("NAVER Corp", role = "cph", comment = "billboard.js library"),
   person("Mike", "Bostock", role = "cph", comment = "d3.format library"))
 Description: Provides an 'htmlwidgets' interface to 'billboard.js', 
     a re-usable easy interface JavaScript chart library, based on D3 v4+.
