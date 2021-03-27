@@ -79,7 +79,7 @@ billboard_dependencies <- function() {
   }
   htmlDependency(
     name = "billboard", 
-    version = "2.2.2", 
+    version = "3.0.1", 
     src = c(file = "htmlwidgets/lib"),
     package = "billboarder",
     script = "billboard/billboard.pkgd.min.js",

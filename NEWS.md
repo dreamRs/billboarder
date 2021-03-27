@@ -1,3 +1,10 @@
+billboarder 0.3.1
+==================
+
+* Update of the billboard.js library to 3.0.1, see the [release note](https://netil.medium.com/billboard-js-3-0-release-d3-js-v6-support-new-candlestick-type-9bd74af6a753)
+
+
+
 billboarder 0.3.0
 ==================
 
