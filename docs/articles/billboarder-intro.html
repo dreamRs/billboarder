@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">billboarder</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0.9000</span>
       </span>
     </div>
 
@@ -94,15 +94,15 @@
 
       
 
-      </header><script src="billboarder-intro_files/accessible-code-block-0.0.1/empty-anchor.js"></script><script src="billboarder-intro_files/htmlwidgets-1.5.3/htmlwidgets.js"></script><script src="billboarder-intro_files/d3-format-1.4.2/d3-format.min.js"></script><script src="billboarder-intro_files/billboarder-binding-0.3.0/billboarder.js"></script><link href="billboarder-intro_files/billboard-2.2.2/billboard/billboard.min.css" rel="stylesheet">
-<link href="billboarder-intro_files/billboard-2.2.2/billboarder.css" rel="stylesheet">
-<script src="billboarder-intro_files/billboard-2.2.2/billboard/billboard.pkgd.min.js"></script><div class="row">
+      </header><script src="billboarder-intro_files/accessible-code-block-0.0.1/empty-anchor.js"></script><script src="billboarder-intro_files/htmlwidgets-1.5.3/htmlwidgets.js"></script><script src="billboarder-intro_files/d3-format-1.4.2/d3-format.min.js"></script><script src="billboarder-intro_files/billboarder-binding-0.3.0.9000/billboarder.js"></script><link href="billboarder-intro_files/billboard-3.0.1/billboard/billboard.min.css" rel="stylesheet">
+<link href="billboarder-intro_files/billboard-3.0.1/billboarder.css" rel="stylesheet">
+<script src="billboarder-intro_files/billboard-3.0.1/billboard/billboard.pkgd.min.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Introduction - basic use</h1>
                         <h4 class="author">Victor Perrier</h4>
             
-            <h4 class="date">2021-02-10</h4>
+            <h4 class="date">2021-03-27</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/dreamRs/billboarder/blob/master/vignettes/billboarder-intro.Rmd"><code>vignettes/billboarder-intro.Rmd</code></a></small>
       <div class="hidden name"><code>billboarder-intro.Rmd</code></div>
@@ -130,19 +130,19 @@
 <span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span>, <span class="fl">50</span>, <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
 <span class="va">df</span></code></pre></div>
 <pre><code>##   Var1 Freq
-## 1    a   15
-## 2    b   10
-## 3    c    9
-## 4    d    8
-## 5    e    8</code></pre>
+## 1    a    6
+## 2    b    5
+## 3    c   18
+## 4    d    9
+## 5    e   12</code></pre>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/billboarder.html">billboarder</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="../reference/bb_barchart.html">bb_barchart</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">df</span><span class="op">)</span></code></pre></div>
 <div class="billboarder html-widget" style="width:100%;height:320px; position: relative;">
-<a id="htmlwidget-02b7aa58309d9839e70b-export" style="position:absolute; top:0; right:0; display:none; z-index:50;"></a>
-<div id="htmlwidget-02b7aa58309d9839e70b" class="billboarder html-widget" style="width:100%;height:320px;" width="100%" height="320px"></div>
+<a id="htmlwidget-eacf95b80b261f482861-export" style="position:absolute; top:0; right:0; display:none; z-index:50;"></a>
+<div id="htmlwidget-eacf95b80b261f482861" class="billboarder html-widget" style="width:100%;height:320px;" width="100%" height="320px"></div>
 </div>
-<script type="application/json" data-for="htmlwidget-02b7aa58309d9839e70b">{"x":{"bb_opts":{"interaction":{"inputType":{"touch":false}},"data":{"x":"bb-x","json":{"bb-x":["a","b","c","d","e"],"Freq":[15,10,9,8,8]},"type":"bar"},"bar":[],"axis":{"x":{"type":"category"},"rotated":false}},"data":null},"evals":[],"jsHooks":[]}</script><p>If you want to create a grouped bar chart, first option is to put your data in a “wide” format. Here we use <code><a href="https://rdrr.io/r/stats/reshape.html">stats::reshape</a></code>, but I recommend to use <code><a href="https://tidyr.tidyverse.org/reference/spread.html">tidyr::spread</a></code> or <code><a href="https://Rdatatable.gitlab.io/data.table/reference/dcast.data.table.html">data.table::dcast</a></code>.</p>
+<script type="application/json" data-for="htmlwidget-eacf95b80b261f482861">{"x":{"bb_opts":{"interaction":{"inputType":{"touch":false}},"data":{"x":"bb-x","json":{"bb-x":["a","b","c","d","e"],"Freq":[6,5,18,9,12]},"type":"bar"},"bar":[],"axis":{"x":{"type":"category"},"rotated":false}},"data":null},"evals":[],"jsHooks":[]}</script><p>If you want to create a grouped bar chart, first option is to put your data in a “wide” format. Here we use <code><a href="https://rdrr.io/r/stats/reshape.html">stats::reshape</a></code>, but I recommend to use <code><a href="https://tidyr.tidyverse.org/reference/spread.html">tidyr::spread</a></code> or <code><a href="https://Rdatatable.gitlab.io/data.table/reference/dcast.data.table.html">data.table::dcast</a></code>.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span>
   <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span>, <span class="fl">50</span>, <span class="cn">TRUE</span><span class="op">)</span>,
@@ -151,19 +151,19 @@
 <span class="va">df.r</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/reshape.html">reshape</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">df</span>, idvar <span class="op">=</span> <span class="st">"Var1"</span>, timevar <span class="op">=</span> <span class="st">"Var2"</span>, direction <span class="op">=</span> <span class="st">"wide"</span><span class="op">)</span>
 <span class="va">df.r</span></code></pre></div>
 <pre><code>##   Var1 Freq.A Freq.B Freq.C Freq.D Freq.E
-## 1    a      3      3      1      3      5
-## 2    b      1      2      2      1      1
-## 3    c      3      1      1      3      3
-## 4    d      1      2      0      3      5
-## 5    e      1      1      1      0      3</code></pre>
+## 1    a      1      2      6      1      1
+## 2    b      4      0      2      3      2
+## 3    c      3      4      0      3      1
+## 4    d      3      2      0      2      1
+## 5    e      2      0      4      3      0</code></pre>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/billboarder.html">billboarder</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="../reference/bb_barchart.html">bb_barchart</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">df.r</span><span class="op">)</span></code></pre></div>
 <div class="billboarder html-widget" style="width:100%;height:320px; position: relative;">
-<a id="htmlwidget-bd50045f5184ee0028a3-export" style="position:absolute; top:0; right:0; display:none; z-index:50;"></a>
-<div id="htmlwidget-bd50045f5184ee0028a3" class="billboarder html-widget" style="width:100%;height:320px;" width="100%" height="320px"></div>
+<a id="htmlwidget-7d908ac29d13eb42cd9e-export" style="position:absolute; top:0; right:0; display:none; z-index:50;"></a>
+<div id="htmlwidget-7d908ac29d13eb42cd9e" class="billboarder html-widget" style="width:100%;height:320px;" width="100%" height="320px"></div>
 </div>
-<script type="application/json" data-for="htmlwidget-bd50045f5184ee0028a3">{"x":{"bb_opts":{"interaction":{"inputType":{"touch":false}},"data":{"x":"bb-x","json":{"bb-x":["a","b","c","d","e"],"Freq.A":[3,1,3,1,1],"Freq.B":[3,2,1,2,1],"Freq.C":[1,2,1,0,1],"Freq.D":[3,1,3,3,0],"Freq.E":[5,1,3,5,3]},"type":"bar"},"bar":[],"axis":{"x":{"type":"category"},"rotated":false}},"data":null},"evals":[],"jsHooks":[]}</script><p>Second option is to define a mapping of your variable with function <code>bbaes</code> (for more example of mapping, see vignette <em>billboarder-mapping</em>).</p>
+<script type="application/json" data-for="htmlwidget-7d908ac29d13eb42cd9e">{"x":{"bb_opts":{"interaction":{"inputType":{"touch":false}},"data":{"x":"bb-x","json":{"bb-x":["a","b","c","d","e"],"Freq.A":[1,4,3,3,2],"Freq.B":[2,0,4,2,0],"Freq.C":[6,2,0,0,4],"Freq.D":[1,3,3,2,3],"Freq.E":[1,2,1,1,0]},"type":"bar"},"bar":[],"axis":{"x":{"type":"category"},"rotated":false}},"data":null},"evals":[],"jsHooks":[]}</script><p>Second option is to define a mapping of your variable with function <code>bbaes</code> (for more example of mapping, see vignette <em>billboarder-mapping</em>).</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/billboarder.html">billboarder</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="../reference/bb_barchart.html">bb_barchart</a></span><span class="op">(</span>
@@ -171,10 +171,10 @@
     mapping <span class="op">=</span> <span class="fu"><a href="../reference/billboard-aes.html">bbaes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Var1</span>, y <span class="op">=</span> <span class="va">Freq</span>, group <span class="op">=</span> <span class="va">Var2</span><span class="op">)</span>
   <span class="op">)</span></code></pre></div>
 <div class="billboarder html-widget" style="width:100%;height:320px; position: relative;">
-<a id="htmlwidget-21e07dfc2d04b81b8982-export" style="position:absolute; top:0; right:0; display:none; z-index:50;"></a>
-<div id="htmlwidget-21e07dfc2d04b81b8982" class="billboarder html-widget" style="width:100%;height:320px;" width="100%" height="320px"></div>
+<a id="htmlwidget-37fb730ec20ac78a097e-export" style="position:absolute; top:0; right:0; display:none; z-index:50;"></a>
+<div id="htmlwidget-37fb730ec20ac78a097e" class="billboarder html-widget" style="width:100%;height:320px;" width="100%" height="320px"></div>
 </div>
-<script type="application/json" data-for="htmlwidget-21e07dfc2d04b81b8982">{"x":{"bb_opts":{"interaction":{"inputType":{"touch":false}},"data":{"x":"bb-x","json":{"bb-x":["a","b","c","d","e"],"A":[3,1,3,1,1],"B":[3,2,1,2,1],"C":[1,2,1,0,1],"D":[3,1,3,3,0],"E":[5,1,3,5,3]},"type":"bar"},"bar":[],"axis":{"x":{"type":"category"},"rotated":false}},"data":null},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-37fb730ec20ac78a097e">{"x":{"bb_opts":{"interaction":{"inputType":{"touch":false}},"data":{"x":"bb-x","json":{"bb-x":["a","b","c","d","e"],"A":[1,4,3,3,2],"B":[2,0,4,2,0],"C":[6,2,0,0,4],"D":[1,3,3,2,3],"E":[1,2,1,1,0]},"type":"bar"},"bar":[],"axis":{"x":{"type":"category"},"rotated":false}},"data":null},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="line-chart" class="section level2">
 <h2 class="hasAnchor">
@@ -184,18 +184,18 @@
 <code class="sourceCode R"><span class="fu"><a href="../reference/billboarder.html">billboarder</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="../reference/bb_linechart.html">bb_linechart</a></span><span class="op">(</span>data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Trig.html">sin</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="op">-</span><span class="va">pi</span>, <span class="va">pi</span>, length.out <span class="op">=</span> <span class="fl">10</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <div class="billboarder html-widget" style="width:100%;height:320px; position: relative;">
-<a id="htmlwidget-439d4d924650beeb2a23-export" style="position:absolute; top:0; right:0; display:none; z-index:50;"></a>
-<div id="htmlwidget-439d4d924650beeb2a23" class="billboarder html-widget" style="width:100%;height:320px;" width="100%" height="320px"></div>
+<a id="htmlwidget-05c57e5cdc09fef1aca4-export" style="position:absolute; top:0; right:0; display:none; z-index:50;"></a>
+<div id="htmlwidget-05c57e5cdc09fef1aca4" class="billboarder html-widget" style="width:100%;height:320px;" width="100%" height="320px"></div>
 </div>
-<script type="application/json" data-for="htmlwidget-439d4d924650beeb2a23">{"x":{"bb_opts":{"interaction":{"inputType":{"touch":false}},"line":{"classes":["billboarder-line-x"]},"data":{"x":"index","json":{"index":[1,2,3,4,5,6,7,8,9,10],"x":[-1.22460635382238e-16,-0.642787609686539,-0.984807753012208,-0.866025403784439,-0.342020143325669,0.342020143325669,0.866025403784438,0.984807753012208,0.642787609686539,1.22460635382238e-16]},"types":{"x":"line"}},"point":{"show":false}},"data":null},"evals":[],"jsHooks":[]}</script><p>You can change the type of line with argument <code>type</code>, for example an <code>area-step</code> :</p>
+<script type="application/json" data-for="htmlwidget-05c57e5cdc09fef1aca4">{"x":{"bb_opts":{"interaction":{"inputType":{"touch":false}},"line":{"classes":["billboarder-line-x"]},"data":{"x":"index","json":{"index":[1,2,3,4,5,6,7,8,9,10],"x":[-1.22460635382238e-16,-0.642787609686539,-0.984807753012208,-0.866025403784439,-0.342020143325669,0.342020143325669,0.866025403784438,0.984807753012208,0.642787609686539,1.22460635382238e-16]},"types":{"x":"line"}},"point":{"show":false}},"data":null},"evals":[],"jsHooks":[]}</script><p>You can change the type of line with argument <code>type</code>, for example an <code>area-step</code> :</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/billboarder.html">billboarder</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="../reference/bb_linechart.html">bb_linechart</a></span><span class="op">(</span>data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Trig.html">sin</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="op">-</span><span class="va">pi</span>, <span class="va">pi</span>, length.out <span class="op">=</span> <span class="fl">10</span><span class="op">)</span><span class="op">)</span>, type <span class="op">=</span> <span class="st">"area-step"</span><span class="op">)</span></code></pre></div>
 <div class="billboarder html-widget" style="width:100%;height:320px; position: relative;">
-<a id="htmlwidget-c6fa15f77642ded37bd7-export" style="position:absolute; top:0; right:0; display:none; z-index:50;"></a>
-<div id="htmlwidget-c6fa15f77642ded37bd7" class="billboarder html-widget" style="width:100%;height:320px;" width="100%" height="320px"></div>
+<a id="htmlwidget-6ce9404208905228d435-export" style="position:absolute; top:0; right:0; display:none; z-index:50;"></a>
+<div id="htmlwidget-6ce9404208905228d435" class="billboarder html-widget" style="width:100%;height:320px;" width="100%" height="320px"></div>
 </div>
-<script type="application/json" data-for="htmlwidget-c6fa15f77642ded37bd7">{"x":{"bb_opts":{"interaction":{"inputType":{"touch":false}},"line":{"classes":["billboarder-line-x"]},"data":{"x":"index","json":{"index":[1,2,3,4,5,6,7,8,9,10],"x":[-1.22460635382238e-16,-0.642787609686539,-0.984807753012208,-0.866025403784439,-0.342020143325669,0.342020143325669,0.866025403784438,0.984807753012208,0.642787609686539,1.22460635382238e-16]},"types":{"x":"area-step"}},"point":{"show":false}},"data":null},"evals":[],"jsHooks":[]}</script><p>If want to specify a variable to map to the x-axis, you had to pass a <code>data.frame</code> to the function :</p>
+<script type="application/json" data-for="htmlwidget-6ce9404208905228d435">{"x":{"bb_opts":{"interaction":{"inputType":{"touch":false}},"line":{"classes":["billboarder-line-x"]},"data":{"x":"index","json":{"index":[1,2,3,4,5,6,7,8,9,10],"x":[-1.22460635382238e-16,-0.642787609686539,-0.984807753012208,-0.866025403784439,-0.342020143325669,0.342020143325669,0.866025403784438,0.984807753012208,0.642787609686539,1.22460635382238e-16]},"types":{"x":"area-step"}},"point":{"show":false}},"data":null},"evals":[],"jsHooks":[]}</script><p>If want to specify a variable to map to the x-axis, you had to pass a <code>data.frame</code> to the function :</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>
   var_x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="op">-</span><span class="va">pi</span>, <span class="va">pi</span>, length.out <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>,
@@ -217,35 +217,35 @@
 <code class="sourceCode R"><span class="fu"><a href="../reference/billboarder.html">billboarder</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="../reference/bb_linechart.html">bb_linechart</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">df</span>, x <span class="op">=</span> <span class="st">"var_x"</span><span class="op">)</span></code></pre></div>
 <div class="billboarder html-widget" style="width:100%;height:320px; position: relative;">
-<a id="htmlwidget-002b75c80d651389f24d-export" style="position:absolute; top:0; right:0; display:none; z-index:50;"></a>
-<div id="htmlwidget-002b75c80d651389f24d" class="billboarder html-widget" style="width:100%;height:320px;" width="100%" height="320px"></div>
+<a id="htmlwidget-23113c0cedc981ceca5b-export" style="position:absolute; top:0; right:0; display:none; z-index:50;"></a>
+<div id="htmlwidget-23113c0cedc981ceca5b" class="billboarder html-widget" style="width:100%;height:320px;" width="100%" height="320px"></div>
 </div>
-<script type="application/json" data-for="htmlwidget-002b75c80d651389f24d">{"x":{"bb_opts":{"interaction":{"inputType":{"touch":false}},"line":{"classes":["billboarder-line-sin"]},"data":{"x":"var_x","json":{"var_x":[-3.14159265358979,-2.44346095279206,-1.74532925199433,-1.0471975511966,-0.349065850398866,0.349065850398866,1.0471975511966,1.74532925199433,2.44346095279206,3.14159265358979],"sin":[-1.22460635382238e-16,-0.642787609686539,-0.984807753012208,-0.866025403784439,-0.342020143325669,0.342020143325669,0.866025403784438,0.984807753012208,0.642787609686539,1.22460635382238e-16]},"types":{"sin":"line"},"x.1":"var_x"},"point":{"show":false}},"data":null},"evals":[],"jsHooks":[]}</script><p>If the first variable of the <code>data.frame</code> is a <code>Date</code> or a <code>POSIX</code>, it will be automatically mapped to the x-axis :</p>
+<script type="application/json" data-for="htmlwidget-23113c0cedc981ceca5b">{"x":{"bb_opts":{"interaction":{"inputType":{"touch":false}},"line":{"classes":["billboarder-line-sin"]},"data":{"x":"var_x","json":{"var_x":[-3.14159265358979,-2.44346095279206,-1.74532925199433,-1.0471975511966,-0.349065850398866,0.349065850398866,1.0471975511966,1.74532925199433,2.44346095279206,3.14159265358979],"sin":[-1.22460635382238e-16,-0.642787609686539,-0.984807753012208,-0.866025403784439,-0.342020143325669,0.342020143325669,0.866025403784438,0.984807753012208,0.642787609686539,1.22460635382238e-16]},"types":{"sin":"line"},"x.1":"var_x"},"point":{"show":false}},"data":null},"evals":[],"jsHooks":[]}</script><p>If the first variable of the <code>data.frame</code> is a <code>Date</code> or a <code>POSIX</code>, it will be automatically mapped to the x-axis :</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>
   date <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.Date.html">seq.Date</a></span><span class="op">(</span>from <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="st">"2017-06-12"</span><span class="op">)</span>, by <span class="op">=</span> <span class="st">"day"</span>, length.out <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>,
   var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span>
 <span class="op">)</span>
 <span class="va">df</span></code></pre></div>
-<pre><code>##          date         var
-## 1  2017-06-12  0.38798463
-## 2  2017-06-13 -0.01117951
-## 3  2017-06-14  1.57169382
-## 4  2017-06-15  0.98265420
-## 5  2017-06-16  0.90203358
-## 6  2017-06-17 -0.97240677
-## 7  2017-06-18 -0.74327835
-## 8  2017-06-19  1.34580516
-## 9  2017-06-20  0.63116092
-## 10 2017-06-21  1.59109426</code></pre>
+<pre><code>##          date        var
+## 1  2017-06-12  0.1673278
+## 2  2017-06-13 -0.2670836
+## 3  2017-06-14 -0.9258676
+## 4  2017-06-15  0.5756269
+## 5  2017-06-16 -0.1754977
+## 6  2017-06-17 -0.4819070
+## 7  2017-06-18  0.3425696
+## 8  2017-06-19 -0.1283881
+## 9  2017-06-20 -0.2814398
+## 10 2017-06-21  0.2735585</code></pre>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/billboarder.html">billboarder</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="../reference/bb_linechart.html">bb_linechart</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">df</span><span class="op">)</span></code></pre></div>
 <div class="billboarder html-widget" style="width:100%;height:320px; position: relative;">
-<a id="htmlwidget-c00e5c5b11b886d0989a-export" style="position:absolute; top:0; right:0; display:none; z-index:50;"></a>
-<div id="htmlwidget-c00e5c5b11b886d0989a" class="billboarder html-widget" style="width:100%;height:320px;" width="100%" height="320px"></div>
+<a id="htmlwidget-e52f25f548323943b77c-export" style="position:absolute; top:0; right:0; display:none; z-index:50;"></a>
+<div id="htmlwidget-e52f25f548323943b77c" class="billboarder html-widget" style="width:100%;height:320px;" width="100%" height="320px"></div>
 </div>
-<script type="application/json" data-for="htmlwidget-c00e5c5b11b886d0989a">{"x":{"bb_opts":{"interaction":{"inputType":{"touch":false}},"axis":{"x":{"type":"timeseries"}},"line":{"classes":["billboarder-line-var"]},"data":{"x":"date","json":{"date":["2017-06-12","2017-06-13","2017-06-14","2017-06-15","2017-06-16","2017-06-17","2017-06-18","2017-06-19","2017-06-20","2017-06-21"],"var":[0.387984625121732,-0.01117951346522,1.57169381769449,0.982654203975654,0.902033582580217,-0.972406771218107,-0.743278346971153,1.34580515789335,0.631160919925487,1.59109425550481]},"types":{"var":"line"}},"point":{"show":false}},"data":null},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-e52f25f548323943b77c">{"x":{"bb_opts":{"interaction":{"inputType":{"touch":false}},"axis":{"x":{"type":"timeseries"}},"line":{"classes":["billboarder-line-var"]},"data":{"x":"date","json":{"date":["2017-06-12","2017-06-13","2017-06-14","2017-06-15","2017-06-16","2017-06-17","2017-06-18","2017-06-19","2017-06-20","2017-06-21"],"var":[0.167327848269734,-0.267083600622974,-0.925867571965424,0.575626908721013,-0.175497670453396,-0.48190704270569,0.342569609368904,-0.128388135018204,-0.281439803442532,0.273558532554421]},"types":{"var":"line"}},"point":{"show":false}},"data":null},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="scatter-plot" class="section level2">
 <h2 class="hasAnchor">
@@ -255,17 +255,17 @@
 <code class="sourceCode R"><span class="fu"><a href="../reference/billboarder.html">billboarder</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="../reference/bb_scatterplot.html">bb_scatterplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">iris</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></code></pre></div>
 <div class="billboarder html-widget" style="width:100%;height:320px; position: relative;">
-<a id="htmlwidget-f50d65c5ce5c82d2419c-export" style="position:absolute; top:0; right:0; display:none; z-index:50;"></a>
-<div id="htmlwidget-f50d65c5ce5c82d2419c" class="billboarder html-widget" style="width:100%;height:320px;" width="100%" height="320px"></div>
+<a id="htmlwidget-216146d0fd803d98d469-export" style="position:absolute; top:0; right:0; display:none; z-index:50;"></a>
+<div id="htmlwidget-216146d0fd803d98d469" class="billboarder html-widget" style="width:100%;height:320px;" width="100%" height="320px"></div>
 </div>
-<script type="application/json" data-for="htmlwidget-f50d65c5ce5c82d2419c">{"x":{"bb_opts":{"interaction":{"inputType":{"touch":false}},"data":{"xs":{"Sepal.Width":"Sepal.Length"},"json":{"Sepal.Length":[5.1,4.9,4.7,4.6,5,5.4,4.6,5,4.4,4.9,5.4,4.8,4.8,4.3,5.8,5.7,5.4,5.1,5.7,5.1,5.4,5.1,4.6,5.1,4.8,5,5,5.2,5.2,4.7,4.8,5.4,5.2,5.5,4.9,5,5.5,4.9,4.4,5.1,5,4.5,4.4,5,5.1,4.8,5.1,4.6,5.3,5,7,6.4,6.9,5.5,6.5,5.7,6.3,4.9,6.6,5.2,5,5.9,6,6.1,5.6,6.7,5.6,5.8,6.2,5.6,5.9,6.1,6.3,6.1,6.4,6.6,6.8,6.7,6,5.7,5.5,5.5,5.8,6,5.4,6,6.7,6.3,5.6,5.5,5.5,6.1,5.8,5,5.6,5.7,5.7,6.2,5.1,5.7,6.3,5.8,7.1,6.3,6.5,7.6,4.9,7.3,6.7,7.2,6.5,6.4,6.8,5.7,5.8,6.4,6.5,7.7,7.7,6,6.9,5.6,7.7,6.3,6.7,7.2,6.2,6.1,6.4,7.2,7.4,7.9,6.4,6.3,6.1,7.7,6.3,6.4,6,6.9,6.7,6.9,5.8,6.8,6.7,6.7,6.3,6.5,6.2,5.9],"Sepal.Width":[3.5,3,3.2,3.1,3.6,3.9,3.4,3.4,2.9,3.1,3.7,3.4,3,3,4,4.4,3.9,3.5,3.8,3.8,3.4,3.7,3.6,3.3,3.4,3,3.4,3.5,3.4,3.2,3.1,3.4,4.1,4.2,3.1,3.2,3.5,3.6,3,3.4,3.5,2.3,3.2,3.5,3.8,3,3.8,3.2,3.7,3.3,3.2,3.2,3.1,2.3,2.8,2.8,3.3,2.4,2.9,2.7,2,3,2.2,2.9,2.9,3.1,3,2.7,2.2,2.5,3.2,2.8,2.5,2.8,2.9,3,2.8,3,2.9,2.6,2.4,2.4,2.7,2.7,3,3.4,3.1,2.3,3,2.5,2.6,3,2.6,2.3,2.7,3,2.9,2.9,2.5,2.8,3.3,2.7,3,2.9,3,3,2.5,2.9,2.5,3.6,3.2,2.7,3,2.5,2.8,3.2,3,3.8,2.6,2.2,3.2,2.8,2.8,2.7,3.3,3.2,2.8,3,2.8,3,2.8,3.8,2.8,2.8,2.6,3,3.4,3.1,3,3.1,3.1,3.1,2.7,3.2,3.3,3,2.5,3,3.4,3]},"type":"scatter"},"legend":{"show":false},"axis":{"x":{"label":{"text":"Sepal.Length"}},"y":{"label":{"text":"Sepal.Width"}}}},"data":null},"evals":[],"jsHooks":[]}</script><div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<script type="application/json" data-for="htmlwidget-216146d0fd803d98d469">{"x":{"bb_opts":{"interaction":{"inputType":{"touch":false}},"data":{"xs":{"Sepal.Width":"Sepal.Length"},"json":{"Sepal.Length":[5.1,4.9,4.7,4.6,5,5.4,4.6,5,4.4,4.9,5.4,4.8,4.8,4.3,5.8,5.7,5.4,5.1,5.7,5.1,5.4,5.1,4.6,5.1,4.8,5,5,5.2,5.2,4.7,4.8,5.4,5.2,5.5,4.9,5,5.5,4.9,4.4,5.1,5,4.5,4.4,5,5.1,4.8,5.1,4.6,5.3,5,7,6.4,6.9,5.5,6.5,5.7,6.3,4.9,6.6,5.2,5,5.9,6,6.1,5.6,6.7,5.6,5.8,6.2,5.6,5.9,6.1,6.3,6.1,6.4,6.6,6.8,6.7,6,5.7,5.5,5.5,5.8,6,5.4,6,6.7,6.3,5.6,5.5,5.5,6.1,5.8,5,5.6,5.7,5.7,6.2,5.1,5.7,6.3,5.8,7.1,6.3,6.5,7.6,4.9,7.3,6.7,7.2,6.5,6.4,6.8,5.7,5.8,6.4,6.5,7.7,7.7,6,6.9,5.6,7.7,6.3,6.7,7.2,6.2,6.1,6.4,7.2,7.4,7.9,6.4,6.3,6.1,7.7,6.3,6.4,6,6.9,6.7,6.9,5.8,6.8,6.7,6.7,6.3,6.5,6.2,5.9],"Sepal.Width":[3.5,3,3.2,3.1,3.6,3.9,3.4,3.4,2.9,3.1,3.7,3.4,3,3,4,4.4,3.9,3.5,3.8,3.8,3.4,3.7,3.6,3.3,3.4,3,3.4,3.5,3.4,3.2,3.1,3.4,4.1,4.2,3.1,3.2,3.5,3.6,3,3.4,3.5,2.3,3.2,3.5,3.8,3,3.8,3.2,3.7,3.3,3.2,3.2,3.1,2.3,2.8,2.8,3.3,2.4,2.9,2.7,2,3,2.2,2.9,2.9,3.1,3,2.7,2.2,2.5,3.2,2.8,2.5,2.8,2.9,3,2.8,3,2.9,2.6,2.4,2.4,2.7,2.7,3,3.4,3.1,2.3,3,2.5,2.6,3,2.6,2.3,2.7,3,2.9,2.9,2.5,2.8,3.3,2.7,3,2.9,3,3,2.5,2.9,2.5,3.6,3.2,2.7,3,2.5,2.8,3.2,3,3.8,2.6,2.2,3.2,2.8,2.8,2.7,3.3,3.2,2.8,3,2.8,3,2.8,3.8,2.8,2.8,2.6,3,3.4,3.1,3,3.1,3.1,3.1,2.7,3.2,3.3,3,2.5,3,3.4,3]},"type":"scatter"},"legend":{"show":false},"axis":{"x":{"label":{"text":"Sepal.Length"}},"y":{"label":{"text":"Sepal.Width"}}}},"data":null},"evals":[],"jsHooks":[]}</script><div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/billboarder.html">billboarder</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="../reference/bb_scatterplot.html">bb_scatterplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">iris</span>, x <span class="op">=</span> <span class="st">"Petal.Length"</span>, y <span class="op">=</span> <span class="st">"Petal.Width"</span>, group <span class="op">=</span> <span class="st">"Species"</span><span class="op">)</span></code></pre></div>
 <div class="billboarder html-widget" style="width:100%;height:320px; position: relative;">
-<a id="htmlwidget-563a73d3df378cc5092b-export" style="position:absolute; top:0; right:0; display:none; z-index:50;"></a>
-<div id="htmlwidget-563a73d3df378cc5092b" class="billboarder html-widget" style="width:100%;height:320px;" width="100%" height="320px"></div>
+<a id="htmlwidget-5a7fca5e582f32213610-export" style="position:absolute; top:0; right:0; display:none; z-index:50;"></a>
+<div id="htmlwidget-5a7fca5e582f32213610" class="billboarder html-widget" style="width:100%;height:320px;" width="100%" height="320px"></div>
 </div>
-<script type="application/json" data-for="htmlwidget-563a73d3df378cc5092b">{"x":{"bb_opts":{"interaction":{"inputType":{"touch":false}},"data":{"xs":{"setosa":"setosa_x","versicolor":"versicolor_x","virginica":"virginica_x"},"json":{"setosa_x":[1.4,1.4,1.3,1.5,1.4,1.7,1.4,1.5,1.4,1.5,1.5,1.6,1.4,1.1,1.2,1.5,1.3,1.4,1.7,1.5,1.7,1.5,1,1.7,1.9,1.6,1.6,1.5,1.4,1.6,1.6,1.5,1.5,1.4,1.5,1.2,1.3,1.4,1.3,1.5,1.3,1.3,1.3,1.6,1.9,1.4,1.6,1.4,1.5,1.4],"versicolor_x":[4.7,4.5,4.9,4,4.6,4.5,4.7,3.3,4.6,3.9,3.5,4.2,4,4.7,3.6,4.4,4.5,4.1,4.5,3.9,4.8,4,4.9,4.7,4.3,4.4,4.8,5,4.5,3.5,3.8,3.7,3.9,5.1,4.5,4.5,4.7,4.4,4.1,4,4.4,4.6,4,3.3,4.2,4.2,4.2,4.3,3,4.1],"virginica_x":[6,5.1,5.9,5.6,5.8,6.6,4.5,6.3,5.8,6.1,5.1,5.3,5.5,5,5.1,5.3,5.5,6.7,6.9,5,5.7,4.9,6.7,4.9,5.7,6,4.8,4.9,5.6,5.8,6.1,6.4,5.6,5.1,5.6,6.1,5.6,5.5,4.8,5.4,5.6,5.1,5.1,5.9,5.7,5.2,5,5.2,5.4,5.1],"setosa":[0.2,0.2,0.2,0.2,0.2,0.4,0.3,0.2,0.2,0.1,0.2,0.2,0.1,0.1,0.2,0.4,0.4,0.3,0.3,0.3,0.2,0.4,0.2,0.5,0.2,0.2,0.4,0.2,0.2,0.2,0.2,0.4,0.1,0.2,0.2,0.2,0.2,0.1,0.2,0.2,0.3,0.3,0.2,0.6,0.4,0.3,0.2,0.2,0.2,0.2],"versicolor":[1.4,1.5,1.5,1.3,1.5,1.3,1.6,1,1.3,1.4,1,1.5,1,1.4,1.3,1.4,1.5,1,1.5,1.1,1.8,1.3,1.5,1.2,1.3,1.4,1.4,1.7,1.5,1,1.1,1,1.2,1.6,1.5,1.6,1.5,1.3,1.3,1.3,1.2,1.4,1.2,1,1.3,1.2,1.3,1.3,1.1,1.3],"virginica":[2.5,1.9,2.1,1.8,2.2,2.1,1.7,1.8,1.8,2.5,2,1.9,2.1,2,2.4,2.3,1.8,2.2,2.3,1.5,2.3,2,2,1.8,2.1,1.8,1.8,1.8,2.1,1.6,1.9,2,2.2,1.5,1.4,2.3,2.4,1.8,1.8,2.1,2.4,2.3,1.9,2.3,2.5,2.3,1.9,2,2.3,1.8]},"type":"scatter"},"legend":{"show":true},"axis":{"x":{"label":{"text":"Petal.Length"}},"y":{"label":{"text":"Petal.Width"}}}},"data":null},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-5a7fca5e582f32213610">{"x":{"bb_opts":{"interaction":{"inputType":{"touch":false}},"data":{"xs":{"setosa":"setosa_x","versicolor":"versicolor_x","virginica":"virginica_x"},"json":{"setosa_x":[1.4,1.4,1.3,1.5,1.4,1.7,1.4,1.5,1.4,1.5,1.5,1.6,1.4,1.1,1.2,1.5,1.3,1.4,1.7,1.5,1.7,1.5,1,1.7,1.9,1.6,1.6,1.5,1.4,1.6,1.6,1.5,1.5,1.4,1.5,1.2,1.3,1.4,1.3,1.5,1.3,1.3,1.3,1.6,1.9,1.4,1.6,1.4,1.5,1.4],"versicolor_x":[4.7,4.5,4.9,4,4.6,4.5,4.7,3.3,4.6,3.9,3.5,4.2,4,4.7,3.6,4.4,4.5,4.1,4.5,3.9,4.8,4,4.9,4.7,4.3,4.4,4.8,5,4.5,3.5,3.8,3.7,3.9,5.1,4.5,4.5,4.7,4.4,4.1,4,4.4,4.6,4,3.3,4.2,4.2,4.2,4.3,3,4.1],"virginica_x":[6,5.1,5.9,5.6,5.8,6.6,4.5,6.3,5.8,6.1,5.1,5.3,5.5,5,5.1,5.3,5.5,6.7,6.9,5,5.7,4.9,6.7,4.9,5.7,6,4.8,4.9,5.6,5.8,6.1,6.4,5.6,5.1,5.6,6.1,5.6,5.5,4.8,5.4,5.6,5.1,5.1,5.9,5.7,5.2,5,5.2,5.4,5.1],"setosa":[0.2,0.2,0.2,0.2,0.2,0.4,0.3,0.2,0.2,0.1,0.2,0.2,0.1,0.1,0.2,0.4,0.4,0.3,0.3,0.3,0.2,0.4,0.2,0.5,0.2,0.2,0.4,0.2,0.2,0.2,0.2,0.4,0.1,0.2,0.2,0.2,0.2,0.1,0.2,0.2,0.3,0.3,0.2,0.6,0.4,0.3,0.2,0.2,0.2,0.2],"versicolor":[1.4,1.5,1.5,1.3,1.5,1.3,1.6,1,1.3,1.4,1,1.5,1,1.4,1.3,1.4,1.5,1,1.5,1.1,1.8,1.3,1.5,1.2,1.3,1.4,1.4,1.7,1.5,1,1.1,1,1.2,1.6,1.5,1.6,1.5,1.3,1.3,1.3,1.2,1.4,1.2,1,1.3,1.2,1.3,1.3,1.1,1.3],"virginica":[2.5,1.9,2.1,1.8,2.2,2.1,1.7,1.8,1.8,2.5,2,1.9,2.1,2,2.4,2.3,1.8,2.2,2.3,1.5,2.3,2,2,1.8,2.1,1.8,1.8,1.8,2.1,1.6,1.9,2,2.2,1.5,1.4,2.3,2.4,1.8,1.8,2.1,2.4,2.3,1.9,2.3,2.5,2.3,1.9,2,2.3,1.8]},"type":"scatter"},"legend":{"show":true},"axis":{"x":{"label":{"text":"Petal.Length"}},"y":{"label":{"text":"Petal.Width"}}}},"data":null},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="pie-chart" class="section level2">
 <h2 class="hasAnchor">
@@ -280,10 +280,10 @@
 <span class="fu"><a href="../reference/billboarder.html">billboarder</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="../reference/bb_piechart.html">bb_piechart</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">df</span><span class="op">)</span></code></pre></div>
 <div class="billboarder html-widget" style="width:100%;height:320px; position: relative;">
-<a id="htmlwidget-f7d50244b735065ba427-export" style="position:absolute; top:0; right:0; display:none; z-index:50;"></a>
-<div id="htmlwidget-f7d50244b735065ba427" class="billboarder html-widget" style="width:100%;height:320px;" width="100%" height="320px"></div>
+<a id="htmlwidget-0966903d71b7ab0479c0-export" style="position:absolute; top:0; right:0; display:none; z-index:50;"></a>
+<div id="htmlwidget-0966903d71b7ab0479c0" class="billboarder html-widget" style="width:100%;height:320px;" width="100%" height="320px"></div>
 </div>
-<script type="application/json" data-for="htmlwidget-f7d50244b735065ba427">{"x":{"bb_opts":{"interaction":{"inputType":{"touch":false}},"data":{"json":{"A":[457],"B":[987]},"type":"pie"},"pie":[]},"data":null},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-0966903d71b7ab0479c0">{"x":{"bb_opts":{"interaction":{"inputType":{"touch":false}},"data":{"json":{"A":[457],"B":[987]},"type":"pie"},"pie":[]},"data":null},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="donut-chart" class="section level2">
 <h2 class="hasAnchor">
@@ -298,10 +298,10 @@
 <span class="fu"><a href="../reference/billboarder.html">billboarder</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="../reference/bb_donutchart.html">bb_donutchart</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">df</span><span class="op">)</span></code></pre></div>
 <div class="billboarder html-widget" style="width:100%;height:320px; position: relative;">
-<a id="htmlwidget-e4e748d43914acca8687-export" style="position:absolute; top:0; right:0; display:none; z-index:50;"></a>
-<div id="htmlwidget-e4e748d43914acca8687" class="billboarder html-widget" style="width:100%;height:320px;" width="100%" height="320px"></div>
+<a id="htmlwidget-ab0af513a25acba76072-export" style="position:absolute; top:0; right:0; display:none; z-index:50;"></a>
+<div id="htmlwidget-ab0af513a25acba76072" class="billboarder html-widget" style="width:100%;height:320px;" width="100%" height="320px"></div>
 </div>
-<script type="application/json" data-for="htmlwidget-e4e748d43914acca8687">{"x":{"bb_opts":{"interaction":{"inputType":{"touch":false}},"data":{"json":{"A":[687],"B":[246]},"type":"donut"},"donut":[]},"data":null},"evals":[],"jsHooks":[]}</script><p>Note : pie and donut are automatically sorted, you can change that with <code><a href="../reference/bb_data.html">bb_data(order = NULL)</a></code>.</p>
+<script type="application/json" data-for="htmlwidget-ab0af513a25acba76072">{"x":{"bb_opts":{"interaction":{"inputType":{"touch":false}},"data":{"json":{"A":[687],"B":[246]},"type":"donut"},"donut":[]},"data":null},"evals":[],"jsHooks":[]}</script><p>Note : pie and donut are automatically sorted, you can change that with <code><a href="../reference/bb_data.html">bb_data(order = NULL)</a></code>.</p>
 </div>
 <div id="gauge-chart" class="section level2">
 <h2 class="hasAnchor">
@@ -311,10 +311,10 @@
 <code class="sourceCode R"><span class="fu"><a href="../reference/billboarder.html">billboarder</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="../reference/bb_gaugechart.html">bb_gaugechart</a></span><span class="op">(</span>value <span class="op">=</span> <span class="fl">64</span><span class="op">)</span></code></pre></div>
 <div class="billboarder html-widget" style="width:100%;height:320px; position: relative;">
-<a id="htmlwidget-a16bba97e85356f0d11c-export" style="position:absolute; top:0; right:0; display:none; z-index:50;"></a>
-<div id="htmlwidget-a16bba97e85356f0d11c" class="billboarder html-widget" style="width:100%;height:320px;" width="100%" height="320px"></div>
+<a id="htmlwidget-bec79bf70812c36d53c5-export" style="position:absolute; top:0; right:0; display:none; z-index:50;"></a>
+<div id="htmlwidget-bec79bf70812c36d53c5" class="billboarder html-widget" style="width:100%;height:320px;" width="100%" height="320px"></div>
 </div>
-<script type="application/json" data-for="htmlwidget-a16bba97e85356f0d11c">{"x":{"bb_opts":{"interaction":{"inputType":{"touch":false}},"data":{"json":{"Value":[64]},"type":"gauge"},"gauge":[],"color":{"pattern":["#FF0000","#F97600","#F6C600","#60B044"],"threshold":{"values":[30,60,90,100]}}},"data":null},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-bec79bf70812c36d53c5">{"x":{"bb_opts":{"interaction":{"inputType":{"touch":false}},"data":{"json":{"Value":[64]},"type":"gauge"},"gauge":[],"color":{"pattern":["#FF0000","#F97600","#F6C600","#60B044"],"threshold":{"values":[30,60,90,100]}}},"data":null},"evals":[],"jsHooks":[]}</script>
 </div>
   </div>
 
