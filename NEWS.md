@@ -1,3 +1,10 @@
+billboarder 0.3.2
+==================
+
+* Fixed bug with export outside shiny.
+
+
+
 billboarder 0.3.1
 ==================
 

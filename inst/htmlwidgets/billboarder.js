@@ -90,7 +90,8 @@ HTMLWidgets.widget({
         }
         
         if (typeof bb_opts.export !== "undefined") {
-          bb_opts.onrendered = function(ctx) {
+          bb_opts.onrendered = function() {
+            var ctx = this;
             setTimeout(function() {
               ctx.export("image/png", function(dataUrl) {
                 var link = document.getElementById(el.id + "-export");
