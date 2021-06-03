@@ -1,6 +1,7 @@
 billboarder 0.3.2
 ==================
 
+* Update of the billboard.js library to 3.0.3
 * Fixed bug with export outside shiny.
 
 
