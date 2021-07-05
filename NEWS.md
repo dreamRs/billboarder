@@ -1,7 +1,7 @@
 billboarder 0.3.2
 ==================
 
-* Update of the billboard.js library to 3.0.3
+* Update of the billboard.js library to 3.1.1, see the [release note](https://netil.medium.com/billboard-js-3-1-release-subchart-data-loading-enhancements-e98be5eebdcb)
 * Fixed bug with export outside shiny.
 
 
