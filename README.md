@@ -1,11 +1,10 @@
 # billboarder
 
-> Htmlwidget for billboard.js
+> Htmlwidget for [billboard.js](https://github.com/naver/billboard.js)
 
 <!-- badges: start -->
 [![version](http://www.r-pkg.org/badges/version/billboarder)](https://CRAN.R-project.org/package=billboarder)
 [![cranlogs](http://cranlogs.r-pkg.org/badges/billboarder)](https://CRAN.R-project.org/package=billboarder)
-[![Travis-CI Build Status](https://travis-ci.org/dreamRs/billboarder.svg?branch=master)](https://travis-ci.org/dreamRs/billboarder)
 [![Codecov test coverage](https://codecov.io/gh/dreamRs/billboarder/branch/master/graph/badge.svg)](https://codecov.io/gh/dreamRs/billboarder?branch=master)
 [![R build status](https://github.com/dreamRs/billboarder/workflows/R-CMD-check/badge.svg)](https://github.com/dreamRs/billboarder/actions)
 <!-- badges: end -->
@@ -13,45 +12,31 @@
 
 ## Overview
 
-This package allow you to use [billboard.js](https://naver.github.io/billboard.js/),
-a re-usable easy interface JavaScript chart library, based on D3 v4+.
+This package allow you to use [billboard.js](https://naver.github.io/billboard.js/), a re-usable easy interface JavaScript chart library, based on D3 v4+.
 
 A **proxy** method is implemented to smoothly update charts in shiny applications, see below for details.
-
-Note : Development is heavily inspired by awesome [highcharter](https://jkunst.com/highcharter/) by [Joshua Kunst](https://github.com/jbkunst).
 
 
 ## Installation :
 
+Install from [CRAN](https://cran.r-project.org/web/packages/billboarder/index.html) with:
 ```r
-# From CRAN
 install.packages("billboarder")
-
-# From Github
-# install.packages("devtools")
-devtools::install_github("dreamRs/billboarder")
 ```
 
+Install development version grom [GitHub](https://github.com/dreamRs/billboarder) with:
+```r
+# install.packages("remotes")
+remotes::install_github("dreamRs/billboarder")
+```
 
 For interactive examples & documentation, see `pkgdown` site : https://dreamrs.github.io/billboarder/index.html
 
 
 
-Other examples:
+## Bar / column charts
 
-  - [Bar chart](#Bar-chart)
-  - [Scatter plot](#scatter-plot)
-  - [Pie charts](#pie-charts)
-  - [Line charts](#lines-charts)
-  - [Histogram & density](#histogram--density)
-  - [Shiny interaction](#shiny-interaction)
-
-
-
-## Bar chart
-
-You can do barcharts !
-
+Simple bar chart :
 
 ```r
 library("billboarder")
@@ -69,12 +54,9 @@ billboarder() %>%
   bb_labs(title = "French hydraulic production",
           caption = "Data source: RTE (https://opendata.rte-france.com)")
 ```
-
 ![](man/figures/rte_barchart0.png)
 
-
-
-And dodge bar chart too !
+Multiple categories bar chart :
 
 ```r
 library("billboarder")
@@ -97,11 +79,9 @@ billboarder() %>%
   bb_labs(title = "Renewable energy production",
           caption = "Data source: RTE (https://opendata.rte-france.com)")
 ```
-
 ![](man/figures/rte_barchart_dodge.png)
 
-
-Even stacked bar charts !
+Stacked bar charts :
 
 ```r
 library("billboarder")
@@ -139,10 +119,12 @@ billboarder() %>%
 Classic :
 
 ```r
+library(billboarder)
+library(palmerpenguins)
 billboarder() %>% 
- bb_scatterplot(data = iris, x = "Sepal.Length", y = "Sepal.Width", group = "Species") %>% 
- bb_axis(x = list(tick = list(fit = FALSE))) %>% 
- bb_point(r = 8)
+  bb_scatterplot(data = penguins, x = "bill_length_mm", y = "flipper_length_mm", group = "species") %>% 
+  bb_axis(x = list(tick = list(fit = FALSE))) %>% 
+  bb_point(r = 8)
 
 ```
 ![](man/figures/scatterchart0.png)
@@ -153,19 +135,20 @@ You can make a bubble chart using `size` aes :
 ```r
 billboarder() %>% 
   bb_scatterplot(
-    data = iris, 
-    mapping = bbaes(Sepal.Length, Sepal.Width, group = Species, size = Petal.Width),
-    range = c(0.5, 120)
+    data = penguins, 
+    mapping = bbaes(
+      bill_length_mm, flipper_length_mm, group = species,
+      size = scales::rescale(body_mass_g, c(1, 100))
+    )
   ) %>% 
+  bb_bubble(maxR = 25) %>% 
   bb_x_axis(tick = list(fit = FALSE))
 ```
 
 ![](man/figures/scatter_bubble.png)
 
 
-## Pie charts
-
-If you have to, you can do pie charts !
+## Pie / Donut charts
 
 ```r
 library("billboarder")
@@ -187,11 +170,7 @@ billboarder() %>%
   bb_labs(title = "Share of nuclear power in France in 2016",
           caption = "Data source: RTE (https://opendata.rte-france.com)")
 ```
-
 ![](man/figures/rte_piechart.png)
-
-
-You can also do donut charts.
 
 
 ## Lines charts
@@ -325,8 +304,6 @@ billboarder() %>%
 
 ### Line range
 
-Don't work in RStudio viewer... Open in browser.
-
 ```r
 # Generate data
 dat <- data.frame(
@@ -359,15 +336,12 @@ billboarder(data = dat) %>%
 
 ## Histogram & density
 
-You can do histograms !
-
 ```r
 billboarder() %>%
   bb_histogram(data = rnorm(1e5), binwidth = 0.25) %>%
   bb_colors_manual()
 ```
 ![](man/figures/histogram.png)
-
 
 With a grouping variable :
 
@@ -467,9 +441,7 @@ shinyApp(ui = ui, server = server)
 ## Proxy
 
 You can modify existing charts with function `billboarderProxy` :
-
 ![](man/figures/billboarder_proxy.gif)
-
 
 To see examples, run : 
 
@@ -482,13 +454,9 @@ proxy_example("gauge")
 ```
 
 
-
-
-
 ## Raw API
 
-If what you want to do is not possible with higher function in the package, you can anyway do what you want, you just have to pass a list-JSON as parameter :
-
+If you wish, you can build graphs using a `list` syntax :
 
 ```r
 data(economics, package = "ggplot2")

@@ -30,7 +30,7 @@ server <- function(input, output, session) {
   
   observeEvent(input$focus, {
     billboarderProxy("bb") %>% 
-      bb_focus(input$focus)
+      bb_proxy_focus(input$focus)
   }, ignoreNULL = FALSE)
 }
 
