@@ -1,12 +1,15 @@
-pandoc: 2.7.3
-pkgdown: 1.6.1
-pkgdown_sha: ~
+pandoc: 2.11.4
+pkgdown: 1.6.1.9001
+pkgdown_sha: ce9781a15c7ea07df9fb17a11295ba4abec0b54b
 articles:
   billboarder-intro: billboarder-intro.html
   billboarder-mapping: billboarder-mapping.html
   billboarder-options: billboarder-options.html
   billboarder: billboarder.html
-  lines-options: lines-options.html
-  linked-tooltip: linked-tooltip.html
-last_built: 2021-03-27T20:49Z
+  lines-options: extra/lines-options.html
+  linked-tooltip: extra/linked-tooltip.html
+last_built: 2021-10-22T08:02Z
+urls:
+  reference: https://dreamrs.github.io/billboarder/reference
+  article: https://dreamrs.github.io/billboarder/articles
 

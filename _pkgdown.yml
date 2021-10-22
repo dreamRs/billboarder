@@ -1,7 +1,17 @@
+url: https://dreamrs.github.io/billboarder/
 
 template:
-  params:
-    bootswatch: flatly
+  bootstrap: 4
+  bootswatch: cosmo
+  bslib:
+    primary: "#112446"
+
+navbar:
+  type: dark
+  bg: primary
+
+toc:
+  depth: 3
 
 authors:
   Victor Perrier:
