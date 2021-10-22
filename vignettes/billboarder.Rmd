@@ -12,7 +12,8 @@ vignette: >
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>",
+  screenshot.force = FALSE
 )
 library(billboarder)
 ```
@@ -31,7 +32,7 @@ Examples of charts you can make with `billboarder` :
 In the following we'll use the insight theme (3 others are available: billboard (default), graph and datalab) and ColorBrewer Set2 as default color palette.
 
 ```{r}
-set_theme("insight")
+set_theme("graph")
 set_color_palette(scales::brewer_pal(palette = "Set1")(9))
 ```
 
