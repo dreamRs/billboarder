@@ -4,10 +4,10 @@
 > Htmlwidget for billboard.js
 
 <!-- badges: start -->
-[![Travis-CI Build Status](https://travis-ci.org/dreamRs/billboarder.svg?branch=master)](https://travis-ci.org/dreamRs/billboarder)
-[![Codecov test coverage](https://codecov.io/gh/dreamRs/billboarder/branch/master/graph/badge.svg)](https://codecov.io/gh/dreamRs/billboarder?branch=master)
 [![version](http://www.r-pkg.org/badges/version/billboarder)](https://CRAN.R-project.org/package=billboarder)
 [![cranlogs](http://cranlogs.r-pkg.org/badges/billboarder)](https://CRAN.R-project.org/package=billboarder)
+[![Codecov test coverage](https://codecov.io/gh/dreamRs/billboarder/branch/master/graph/badge.svg)](https://codecov.io/gh/dreamRs/billboarder?branch=master)
+[![R build status](https://github.com/dreamRs/billboarder/workflows/R-CMD-check/badge.svg)](https://github.com/dreamRs/billboarder/actions)
 <!-- badges: end -->
 
 
@@ -23,15 +23,13 @@ Note : Development is heavily inspired by awesome [highcharter](http://jkunst.co
 
 ## Installation :
 
-From CRAN:
-
+Install from [CRAN](https://CRAN.R-project.org/package=billboarder) with:
 ```r
 install.packages("billboarder")
 ```
 
-From GitHub:
-
+Install development version grom [GitHub](https://github.com/dreamRs/billboarder) with:
 ```r
-# install.packages("devtools")
-devtools::install_github("dreamRs/billboarder")
+# install.packages("remotes")
+remotes::install_github("dreamRs/billboarder")
 ```

@@ -19,7 +19,7 @@ A **proxy** method is implemented to smoothly update charts in shiny application
 
 ## Installation :
 
-Install from [CRAN](https://cran.r-project.org/web/packages/billboarder/index.html) with:
+Install from [CRAN](https://CRAN.R-project.org/package=billboarder) with:
 ```r
 install.packages("billboarder")
 ```

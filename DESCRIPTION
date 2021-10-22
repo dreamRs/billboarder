@@ -1,9 +1,9 @@
 Package: billboarder
 Title: Create Interactive Chart with the JavaScript 'Billboard' Library
-Version: 0.3.1.9100
+Version: 0.3.1.9200
 Authors@R: c(
   person("Victor", "Perrier", email = "victor.perrier@dreamrs.fr", role = c("aut", "cre")),
-  person("Fanny", "Meyer", email = "fanny.meyer@dreamrs.fr", role = c("aut")),
+  person("Fanny", "Meyer", role = "aut"),
   person("NAVER Corp", role = "cph", comment = "billboard.js library"),
   person("Mike", "Bostock", role = "cph", comment = "d3.format library"))
 Description: Provides an 'htmlwidgets' interface to 'billboard.js', 
@@ -16,7 +16,7 @@ Depends: R (>= 3.1.0)
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2
 Imports: htmlwidgets,
     htmltools,
     magrittr,
