@@ -73,7 +73,7 @@
 #'   \item{prod_nucleaire}{Nuclear production in MW}
 #'   \item{prod_fioul}{Oil production in MW}
 #' }
-#' @source RTE (\url{https://opendata.reseaux-energies.fr/explore/dataset/production-quotidienne-filiere})
+#' @source RTE
 "cdc_prod_filiere"
 
 

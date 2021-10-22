@@ -5,7 +5,7 @@
 <!-- badges: start -->
 [![version](http://www.r-pkg.org/badges/version/billboarder)](https://CRAN.R-project.org/package=billboarder)
 [![cranlogs](http://cranlogs.r-pkg.org/badges/billboarder)](https://CRAN.R-project.org/package=billboarder)
-[![Codecov test coverage](https://codecov.io/gh/dreamRs/billboarder/branch/master/graph/badge.svg)](https://codecov.io/gh/dreamRs/billboarder?branch=master)
+[![Codecov test coverage](https://codecov.io/gh/dreamRs/billboarder/branch/master/graph/badge.svg)](https://app.codecov.io/gh/dreamRs/billboarder?branch=master)
 [![R build status](https://github.com/dreamRs/billboarder/workflows/R-CMD-check/badge.svg)](https://github.com/dreamRs/billboarder/actions)
 <!-- badges: end -->
 

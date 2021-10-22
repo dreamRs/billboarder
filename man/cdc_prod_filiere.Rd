@@ -21,7 +21,7 @@ A data frame with 48 rows and 11 variables:
 }
 }
 \source{
-RTE (\url{https://opendata.reseaux-energies.fr/explore/dataset/production-quotidienne-filiere})
+RTE
 }
 \usage{
 cdc_prod_filiere
