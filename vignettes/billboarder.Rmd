@@ -26,13 +26,12 @@ Examples of charts you can make with `billboarder` :
   - [Pie charts](#pie-charts)
   - [Line charts](#lines-charts)
   - [Histogram & density](#histogram--density)
-  - [Shiny interaction](#shiny-interaction)
 
 
 In the following we'll use the insight theme (3 others are available: billboard (default), graph and datalab) and ColorBrewer Set2 as default color palette.
 
 ```{r}
-set_theme("graph")
+set_theme("insight")
 set_color_palette(scales::brewer_pal(palette = "Set1")(9))
 ```
 
@@ -202,7 +201,7 @@ You can also do donut charts :
 billboarder() %>% 
   bb_donutchart(data = nuclear2016) %>% 
   bb_donut(
-    title = "Share of nuclear power\nin France in 2016",
+    title = "Share of nuclear\nin France",
     label = list(
       format = JS("function(value, ratio, id) {	return id + ': ' + d3.format('.0%')(ratio);}")
     )
