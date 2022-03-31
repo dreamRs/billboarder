@@ -407,7 +407,7 @@ bb_scatterplot <- function(bb, data, mapping = NULL, ..., point_opacity = NULL) 
   
   data_opt <- list(
     xs = xs,
-    json = json,
+    json = lapply(json, as.list),
     type = if (is.null(z)) "scatter" else "bubble"
   )
   

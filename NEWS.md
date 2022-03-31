@@ -1,9 +1,10 @@
-billboarder 0.3.2
+billboarder (unreleased)
 ==================
 
 * Update of the billboard.js library to 3.2.0, see the [release note](https://netil.medium.com/billboard-js-3-2-release-sparkline-tableview-plugins-more-32217ddc869a)
 * Update of the billboard.js library to 3.1.1, see the [release note](https://netil.medium.com/billboard-js-3-1-release-subchart-data-loading-enhancements-e98be5eebdcb)
 * Fixed bug with export outside shiny.
+* Fixed a bug in `bb_scatterplot()` when groups have length one.
 
 
 
