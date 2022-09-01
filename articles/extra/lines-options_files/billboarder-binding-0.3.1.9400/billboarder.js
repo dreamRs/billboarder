@@ -184,7 +184,9 @@ HTMLWidgets.widget({
               captionG.appendChild(captionText);
             }
             
-            svg.appendChild(captionG);
+            if (svg !== null) {
+                svg.appendChild(captionG);
+              }
             
           } else {
             caption.setAttribute("transform", "translate(" + w + "," + (h-3) + ")");
@@ -232,7 +234,9 @@ HTMLWidgets.widget({
                 captionG.appendChild(captionText);
               }
               
-              svg.appendChild(captionG);
+              if (svg !== null) {
+                svg.appendChild(captionG);
+              }
               
             } else {
               caption.setAttribute("transform", "translate(" + w + "," + (h-3) + ")");
