@@ -945,7 +945,20 @@ bb_export <- function(bb, filename = NULL, download_label = "Export (.png)", ...
 
 
 
-
+#' Render property for a Billboard.js chart
+#'
+#' @param bb A \code{\link{billboarder}} \code{htmlwidget} object
+#'  or a \code{\link{billboarderProxy}} \code{htmlwidget} object.
+#' @param ... See \url{https://naver.github.io/billboard.js/release/latest/doc/Options.html#.render} for possible options.
+#'
+#' @return A \code{billboard} \code{htmlwidget} object.
+#' @export
+#'
+bb_render <- function(bb, ...) {
+  
+  .bb_opt(bb, "render", ...)
+  
+}
 
 
 
