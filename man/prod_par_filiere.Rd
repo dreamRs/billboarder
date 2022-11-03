@@ -21,7 +21,7 @@ A data frame with 5 rows and 11 variables:
 }
 }
 \source{
-RTE (\url{https://opendata.rte-france.com/explore/dataset/prod_par_filiere})
+RTE (\url{https://odre.opendatasoft.com/explore/dataset/prod-national-annuel-filiere/})
 }
 \usage{
 prod_par_filiere

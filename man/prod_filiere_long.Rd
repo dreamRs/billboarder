@@ -13,7 +13,7 @@ A data frame with 45 rows and 3 variables:
 }
 }
 \source{
-RTE (\url{https://opendata.rte-france.com/explore/dataset/prod_par_filiere})
+RTE (\url{https://odre.opendatasoft.com/explore/dataset/prod-national-annuel-filiere/})
 }
 \usage{
 prod_filiere_long

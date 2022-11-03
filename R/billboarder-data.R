@@ -12,7 +12,7 @@
 #'   \item{pompage}{Pumping for hydraulic generation (in GWh)}
 #'   \item{consommation}{Consumption (in GWh)}
 #' }
-#' @source RTE (\url{https://opendata.reseaux-energies.fr/explore/dataset/equilibre-national-mensuel-prod-conso-brute/})
+#' @source RTE (\url{https://odre.opendatasoft.com/explore/dataset/equilibre-national-mensuel-prod-conso-brute/})
 "equilibre_mensuel"
 
 
@@ -35,7 +35,7 @@
 #'   \item{prod_nucleaire}{Nuclear production in TWh}
 #'   \item{prod_therm_fioul}{Oil thermal production in TWh}
 #' }
-#' @source RTE (\url{https://opendata.rte-france.com/explore/dataset/prod_par_filiere})
+#' @source RTE (\url{https://odre.opendatasoft.com/explore/dataset/prod-national-annuel-filiere/})
 "prod_par_filiere"
 
 
@@ -49,7 +49,7 @@
 #'   \item{branche}{Source of production}
 #'   \item{prod}{Production in TWh}
 #' }
-#' @source RTE (\url{https://opendata.rte-france.com/explore/dataset/prod_par_filiere})
+#' @source RTE (\url{https://odre.opendatasoft.com/explore/dataset/prod-national-annuel-filiere/})
 "prod_filiere_long"
 
 

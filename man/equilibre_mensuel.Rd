@@ -15,7 +15,7 @@ A data frame with 126 rows and 5 variables:
 }
 }
 \source{
-RTE (\url{https://opendata.reseaux-energies.fr/explore/dataset/equilibre-national-mensuel-prod-conso-brute/})
+RTE (\url{https://odre.opendatasoft.com/explore/dataset/equilibre-national-mensuel-prod-conso-brute/})
 }
 \usage{
 equilibre_mensuel
