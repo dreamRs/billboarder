@@ -217,7 +217,8 @@ billboarder() %>%
   bb_colors_manual("consommation" = "firebrick", "production" = "forestgreen") %>% 
   bb_legend(position = "right") %>% 
   bb_zoom(
-    enabled = list(type = "drag"),
+    enabled = TRUE,
+    type = "drag",
     resetButton = list(text = "Unzoom")
   ) %>% 
   bb_labs(title = "Monthly electricity consumption and production in France (2007 - 2017)",
