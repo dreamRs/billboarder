@@ -114,7 +114,20 @@ HTMLWidgets.widget({
 
 
         // Generate billboard chart
-        chart = bb.generate(bb_opts);
+        chart = bb.generate(bb_opts)
+        
+        // if in flexdahboard, whait before redrawing chart
+        // because 1st init doesn't work for some reason
+        if (typeof(window.FlexDashboard) !== "undefined") {
+          setTimeout(function() {
+            chart.flush();
+            chart.resize({
+              width: el.clientWidth,
+              height: el.clientHeight
+            });
+          }, 500);
+        }
+
         
 
         // Billboarder specials
@@ -186,7 +199,7 @@ HTMLWidgets.widget({
             
             if (svg !== null) {
                 svg.appendChild(captionG);
-              }
+            }
             
           } else {
             caption.setAttribute("transform", "translate(" + w + "," + (h-3) + ")");
