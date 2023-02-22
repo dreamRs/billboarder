@@ -1,0 +1,29 @@
+---
+title: "Untitled"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+---
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+```
+
+
+```{r, echo = FALSE}
+library("billboarder")
+
+# data
+data("prod_par_filiere")
+
+# a bar chart !
+billboarder() %>%
+  bb_barchart(data = prod_par_filiere[, c("annee", "prod_hydraulique")], color = "#102246") %>%
+  bb_y_grid(show = TRUE) %>%
+  bb_y_axis(tick = list(format = suffix("TWh")),
+            label = list(text = "production (in terawatt-hours)", position = "outer-top")) %>% 
+  bb_legend(show = FALSE) %>% 
+  bb_labs(title = "French hydraulic production",
+          caption = "Data source: RTE (https://opendata.rte-france.com)")
+```

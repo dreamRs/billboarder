@@ -847,6 +847,30 @@ bb_radar <- function(bb, ...) {
 
 
 
+#' Treemap property for a Billboard.js chart
+#'
+#' @param bb A \code{billboard} \code{htmlwidget} object.
+#' @param ... See \url{https://naver.github.io/billboard.js/release/latest/doc/Options.html#.treemap}
+#'
+#' @return A \code{billboard} \code{htmlwidget} object.
+#' @export
+#'
+#' @examples
+#' library("billboarder")
+#' data("mpg", package = "ggplot2")
+#' 
+#' billboarder() %>% 
+#'   bb_treemapchart(mpg[, 1]) %>% 
+#'   bb_treemap(label = list(show = TRUE, threshold = 0.03))%>% 
+#'   bb_data(
+#'     labels = list(colors = "#FFF")
+#'   )
+bb_treemap <- function(bb, ...) {
+  
+  .bb_opt(bb, "treemap", ...)
+  
+}
+
 
 
 

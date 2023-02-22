@@ -121,7 +121,19 @@ bauge <- function(value,
     height = height,
     package = "billboarder",
     elementId = elementId,
-    dependencies = billboard_dependencies()
+    dependencies = billboard_dependencies(),
+    sizingPolicy = sizingPolicy(
+      defaultWidth = "100%",
+      defaultHeight = "100%",
+      viewer.defaultHeight = "100%",
+      viewer.defaultWidth = "100%",
+      browser.defaultHeight = "100%",
+      browser.defaultWidth = "100%",
+      knitr.defaultHeight = "320px",
+      knitr.figure = FALSE,
+      browser.fill = TRUE,
+      padding = 10
+    )
   )
 }
 

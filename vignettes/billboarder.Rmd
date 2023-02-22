@@ -19,19 +19,11 @@ library(billboarder)
 ```
 
 
-Examples of charts you can make with `billboarder` :
-
-  - [Bar chart](#Bar-chart)
-  - [Scatter plot](#scatter-plot)
-  - [Pie charts](#pie-charts)
-  - [Line charts](#lines-charts)
-  - [Histogram & density](#histogram--density)
-
 
 In the following we'll use the insight theme (3 others are available: billboard (default), graph and datalab) and ColorBrewer Set2 as default color palette.
 
 ```{r}
-set_theme("insight")
+set_theme("graph")
 set_color_palette(scales::brewer_pal(palette = "Set1")(9))
 ```
 
@@ -424,6 +416,89 @@ billboarder() %>%
       list(value = unname(samples_mean['A']), text = "mean of sample A"),
       list(value = unname(samples_mean['B']), text = "mean of sample B")
     )
+  )
+```
+
+
+
+## Radar charts
+
+With single serie:
+
+```{r radar-single}
+data("avengers_wide")
+billboarder() %>%
+  bb_radarchart(
+    data = avengers_wide[, 1:2]
+  )
+```
+
+
+Multiple series and with data in long format:
+
+```{r radar-multiple}
+data("avengers")
+billboarder() %>%
+  bb_radarchart(
+    data = avengers, 
+    mapping = bbaes(x = axis, y = value, group = group)
+  )
+```
+
+
+
+## Gauge
+
+Gauge can be created with:
+
+```{r gauge-1}
+billboarder() %>% 
+  bb_gaugechart(value = 50, color = "#112446")
+```
+
+or with function `bauge()` which had special output and render function in shiny: 
+
+```{r gauge-2}
+bauge(round(sample.int(100, 1)), subtitle = "of total")
+```
+
+
+Multiple values gauge are also possible:
+
+```{r gauge-multiple}
+billboarder() %>%
+  bb_gaugechart(
+    value = c(15, 30),
+    name = c("A", "B"),
+    color = c("steelblue", "firebrick")
+  ) %>% 
+  bb_gauge(max = 60) %>% 
+  bb_data(
+    labels = list(colors = "#FFF")
+  )
+```
+
+
+
+
+## Treemap
+
+Create a treemap chart with:
+
+```{r treemap-1}
+data("mpg", package = "ggplot2")
+billboarder() %>% 
+  bb_treemapchart(
+    data = table(manufacturer = mpg$manufacturer), 
+    mapping = aes(x = manufacturer, y = Freq),
+    label = list(show = TRUE, threshold = 0.03),
+    tile = "binary" # or "slice" or "dice"
+  ) %>% 
+  bb_data(
+    labels = list(colors = "#FFF")
+  ) %>% 
+  bb_color(
+    palette = colorRampPalette(c("#08519C", "#9ECAE1"))(15) #15 = n manufacturer
   )
 ```
 

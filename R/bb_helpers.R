@@ -448,8 +448,9 @@ bb_scatterplot <- function(bb, data, mapping = NULL, ..., point_opacity = NULL) 
 #' Helper for creating a gauge
 #'
 #' @param bb A \code{billboard} \code{htmlwidget} object.
-#' @param value A numeric value.
-#' @param name Name for the value, appear in  tooltip.
+#' @param value A single numeric value or a vector for stacked gauge.
+#' @param name Name for the value, appear in  tooltip, same length as `value`.
+#' @param color Color for the gauge, if provided, `steps` and `steps_color` are ignored.
 #' @param steps Upper bound for changing colors
 #' @param steps_color Colors corresponding to steps
 #' @param ... Arguments for slot gauge.
@@ -476,28 +477,43 @@ bb_scatterplot <- function(bb, data, mapping = NULL, ..., point_opacity = NULL) 
 #'     min = 10, max = 200, width = 20
 #'   )
 #'
-bb_gaugechart <- function(bb, value, name = "Value", 
-                     steps = c(30, 60, 90, 100),
-                     steps_color = c("#FF0000", "#F97600", "#F6C600", "#60B044"),
-                     ...) {
+bb_gaugechart <- function(bb,
+                          value,
+                          name = "Value", 
+                          color = NULL,
+                          steps = c(30, 60, 90, 100),
+                          steps_color = c("#FF0000", "#F97600", "#F6C600", "#60B044"),
+                          ...) {
   
   if (missing(value) || is.null(value)) {
     bb <- .bb_opt(bb, "gauge", ...)
     return(bb)
   }
   
-  if (length(steps) != length(steps_color))
-    stop("'steps' and 'steps_color' must have same length.")
+  if (length(value) == 1) {
+    data_opt <- list(
+      json = stats::setNames(list(list(value)), name[1]),
+      type = "gauge"
+    )
+  } else {
+    data_opt <- list(
+      json = stats::setNames(lapply(value, as.list), name),
+      type = "gauge"
+    )
+  }
   
-  data_opt <- list(
-    json = stats::setNames(list(list(value)), name),
-    type = "gauge"
-  )
-  
-  data_color <- list(
-    pattern = steps_color,
-    threshold = list(values = steps)
-  )
+  if (is.null(color)) {
+    if (length(steps) != length(steps_color))
+      stop("'steps' and 'steps_color' must have same length.")
+    data_color <- list(
+      pattern = steps_color,
+      threshold = list(values = steps)
+    )
+  } else {
+    data_color <- list(
+      pattern = list1(color)
+    )
+  }
   
   
   if ("billboarder" %in% class(bb)) {
@@ -1568,10 +1584,12 @@ bb_radarchart <- function(bb, data, mapping = NULL, ...) {
   
   if ("billboarder_Proxy" %in% class(bb)) {
     
-    bb <- bb_load(proxy = bb,
-                  json = json, 
-                  x = getOption("billboarder-x", default = "bb-x"),
-                  unload = bb$unload) 
+    bb <- bb_load(
+      proxy = bb,
+      json = json, 
+      x = getOption("billboarder-x", default = "bb-x"),
+      unload = bb$unload
+    ) 
     
   } else {
     
@@ -1581,12 +1599,91 @@ bb_radarchart <- function(bb, data, mapping = NULL, ...) {
     
   }
   
-  
   return(bb)
 }
 
 
 
 
+
+#' Helper for creating a treemap chart
+#'
+#' @param bb A \code{billboard} \code{htmlwidget} object.
+#' @param data A \code{data.frame}, the first column will be used for x axis unless
+#'  specified otherwise in \code{mapping}. If not a \code{data.frame}, an object coercible to \code{data.frame}.
+#' @param mapping Mapping of variables on the chart, see \code{\link{bbaes}}.
+#' @param ... Arguments passed to \code{\link{bb_treemap}}.
+#'
+#' @return
+#' @export
+#'
+#' @examples
+#' library("billboarder")
+#' data("mpg", package = "ggplot2")
+#' 
+#' billboarder() %>% 
+#'   bb_treemapchart(mpg[, 1])
+#' 
+#' billboarder() %>% 
+#'   bb_treemapchart(
+#'     data = mpg, 
+#'     mapping = aes(x = manufacturer),
+#'     label = list(show = TRUE, threshold = 0.3)
+#'   ) %>% 
+#'   bb_data(
+#'     labels = list(colors = "#FFF")
+#'   )
+bb_treemapchart <- function(bb, data, mapping = NULL, ...) {
+  if (missing(data))
+    data <- bb$x$data
+  
+  data <- as.data.frame(data)
+  args <- list(...)
+  
+  mapping <- mapping %||% bb$x$mapping
+  
+  if (is.null(mapping)) {
+    
+    if (ncol(data) < 2) {
+      data <- as.data.frame(table(x = data[[1]]), responseName = "n")
+    }
+    
+  } else {
+    
+    if (is.null(mapping$x))
+      stop("bb_treemap: 'x' aesthetic must be provided", call. = FALSE)
+    
+    if (is.null(mapping$y))
+      mapping <- aes(!!!mapping, y = rep(1, length(!!mapping$x)))
+    
+    data <- bbmapping(data = data, mapping = mapping)
+    
+  }
+  
+  json <- setNames(lapply(data[[2]], as.list), data[[1]])
+  data_opt <- list(
+    json = json,
+    type = "treemap"
+  )
+  
+  if ("billboarder_Proxy" %in% class(bb)) {
+    
+    bb <- bb_load(
+      proxy = bb,
+      json = json, 
+      x = getOption("billboarder-x", default = "bb-x"),
+      unload = bb$unload
+    ) 
+    
+  } else {
+    
+    bb <- .bb_opt2(bb, "data", dropNulls(data_opt))
+    
+    bb <- .bb_opt(bb, "treemap", ...)
+    
+  }
+  
+  return(bb)
+}
 
 
