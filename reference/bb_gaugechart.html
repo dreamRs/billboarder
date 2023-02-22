@@ -68,6 +68,7 @@
 <span>  <span class="va">bb</span>,</span>
 <span>  <span class="va">value</span>,</span>
 <span>  name <span class="op">=</span> <span class="st">"Value"</span>,</span>
+<span>  color <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  steps <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">30</span>, <span class="fl">60</span>, <span class="fl">90</span>, <span class="fl">100</span><span class="op">)</span>,</span>
 <span>  steps_color <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#FF0000"</span>, <span class="st">"#F97600"</span>, <span class="st">"#F6C600"</span>, <span class="st">"#60B044"</span><span class="op">)</span>,</span>
 <span>  <span class="va">...</span></span>
@@ -81,11 +82,15 @@
 
 
 <dt>value</dt>
-<dd><p>A numeric value.</p></dd>
+<dd><p>A single numeric value or a vector for stacked gauge.</p></dd>
 
 
 <dt>name</dt>
-<dd><p>Name for the value, appear in  tooltip.</p></dd>
+<dd><p>Name for the value, appear in  tooltip, same length as `value`.</p></dd>
+
+
+<dt>color</dt>
+<dd><p>Color for the gauge, if provided, `steps` and `steps_color` are ignored.</p></dd>
 
 
 <dt>steps</dt>
@@ -118,10 +123,10 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="billboarder.html">billboarder</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="billboarder-exports.html">%&gt;%</a></span> </span></span>
 <span class="r-in"><span>  <span class="fu">bb_gaugechart</span><span class="op">(</span>value <span class="op">=</span> <span class="fl">50</span><span class="op">)</span></span></span>
 <div class="billboarder html-widget " style="width:700px;height:432.632880098888px; position: relative;">
-  <a id="htmlwidget-54b60b13a6c9f089d548-export" style="position:absolute; top:0; right:0; display:none; z-index:50;"></a>
-  <div id="htmlwidget-54b60b13a6c9f089d548" class="billboarder html-widget " style="width:700px;height:432.632880098888px;" width="700" height="432.632880098888"></div>
+  <a id="htmlwidget-2ff0578f79a752081a22-export" style="position:absolute; top:0; right:0; display:none; z-index:50;"></a>
+  <div id="htmlwidget-2ff0578f79a752081a22" class="billboarder html-widget " style="width:700px;height:432.632880098888px;" width="700" height="432.632880098888"></div>
 </div>
-<script type="application/json" data-for="htmlwidget-54b60b13a6c9f089d548">{"x":{"bb_opts":{"interaction":{"inputType":{"touch":false}},"data":{"json":{"Value":[50]},"type":"gauge"},"gauge":[],"color":{"pattern":["#FF0000","#F97600","#F6C600","#60B044"],"threshold":{"values":[30,60,90,100]}}},"data":null},"evals":[],"jsHooks":[]}</script><span class="r-in"><span></span></span>
+<script type="application/json" data-for="htmlwidget-2ff0578f79a752081a22">{"x":{"bb_opts":{"interaction":{"inputType":{"touch":false}},"data":{"json":{"Value":[50]},"type":"gauge"},"gauge":[],"color":{"pattern":["#FF0000","#F97600","#F6C600","#60B044"],"threshold":{"values":[30,60,90,100]}}},"data":null},"evals":[],"jsHooks":[]}</script><span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># With some options</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="billboarder.html">billboarder</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="billboarder-exports.html">%&gt;%</a></span> </span></span>
 <span class="r-in"><span>  <span class="fu">bb_gaugechart</span><span class="op">(</span></span></span>
@@ -133,10 +138,10 @@
 <span class="r-in"><span>    min <span class="op">=</span> <span class="fl">10</span>, max <span class="op">=</span> <span class="fl">200</span>, width <span class="op">=</span> <span class="fl">20</span></span></span>
 <span class="r-in"><span>  <span class="op">)</span></span></span>
 <div class="billboarder html-widget " style="width:700px;height:432.632880098888px; position: relative;">
-  <a id="htmlwidget-f98861f56a5a5c79bc5c-export" style="position:absolute; top:0; right:0; display:none; z-index:50;"></a>
-  <div id="htmlwidget-f98861f56a5a5c79bc5c" class="billboarder html-widget " style="width:700px;height:432.632880098888px;" width="700" height="432.632880098888"></div>
+  <a id="htmlwidget-fe0e0c6a67e2a045a9b3-export" style="position:absolute; top:0; right:0; display:none; z-index:50;"></a>
+  <div id="htmlwidget-fe0e0c6a67e2a045a9b3" class="billboarder html-widget " style="width:700px;height:432.632880098888px;" width="700" height="432.632880098888"></div>
 </div>
-<script type="application/json" data-for="htmlwidget-f98861f56a5a5c79bc5c">{"x":{"bb_opts":{"interaction":{"inputType":{"touch":false}},"data":{"json":{"Value":[160]},"type":"gauge"},"gauge":{"label":{"format":"function(x) {return x + 'km/h';}"},"min":10,"max":200,"width":20},"color":{"pattern":["#60B044","#F6C600","#F97600","#FF0000"],"threshold":{"values":[30,60,90,100]}}},"data":null},"evals":["bb_opts.gauge.label.format"],"jsHooks":[]}</script><span class="r-in"><span></span></span>
+<script type="application/json" data-for="htmlwidget-fe0e0c6a67e2a045a9b3">{"x":{"bb_opts":{"interaction":{"inputType":{"touch":false}},"data":{"json":{"Value":[160]},"type":"gauge"},"gauge":{"label":{"format":"function(x) {return x + 'km/h';}"},"min":10,"max":200,"width":20},"color":{"pattern":["#60B044","#F6C600","#F97600","#FF0000"],"threshold":{"values":[30,60,90,100]}}},"data":null},"evals":["bb_opts.gauge.label.format"],"jsHooks":[]}</script><span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
