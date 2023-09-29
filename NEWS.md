@@ -1,7 +1,7 @@
 billboarder 0.4.1
 ==================
 
-* New function [bb_treemapchart()] to draw treemap.
+* New function `bb_treemapchart()` to draw treemap.
 * Update of the billboard.js library to 3.9.4.
 * Update of the billboard.js library to 3.7.4, see the [release note](https://netil.medium.com/billboard-js-3-7-release-new-treemap-type-support-de9c8e887de1)
 
