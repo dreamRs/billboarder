@@ -23,7 +23,7 @@ library(billboarder)
 In the following we'll use the insight theme (3 others are available: billboard (default), graph and datalab) and ColorBrewer Set2 as default color palette.
 
 ```{r}
-set_theme("graph")
+set_theme("modern")
 set_color_palette(scales::brewer_pal(palette = "Set1")(9))
 ```
 

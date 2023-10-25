@@ -1614,7 +1614,7 @@ bb_radarchart <- function(bb, data, mapping = NULL, ...) {
 #' @param mapping Mapping of variables on the chart, see \code{\link{bbaes}}.
 #' @param ... Arguments passed to \code{\link{bb_treemap}}.
 #'
-#' @return
+#' @return A \code{billboard} \code{htmlwidget} object.
 #' @export
 #'
 #' @examples

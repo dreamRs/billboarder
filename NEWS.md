@@ -1,3 +1,11 @@
+billboarder 0.4.2
+==================
+
+* Update of the billboard.js library to 3.10.0.
+* `set_theme()` : new theme modern available.
+
+
+
 billboarder 0.4.1
 ==================
 

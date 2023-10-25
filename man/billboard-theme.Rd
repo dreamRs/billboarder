@@ -6,13 +6,13 @@
 \alias{set_color_palette}
 \title{Set theme and default colors for Billboard charts}
 \usage{
-set_theme(name = c("billboard", "insight", "graph", "datalab"))
+set_theme(name = c("billboard", "insight", "graph", "datalab", "modern"))
 
 set_color_palette(colors)
 }
 \arguments{
-\item{name}{Name of the theme, possible values are : \code{"billboard"},
-\code{"insight"}, \code{"graph"}, \code{"datalab"}.}
+\item{name}{Name of the theme, possible values are : `"billboard"`,
+`"insight"`, `"graph"`, `"datalab"`, `"modern"`.}
 
 \item{colors}{Vector of colors to use as default.}
 }
