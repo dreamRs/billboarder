@@ -4,14 +4,7 @@
 \alias{bb_labs}
 \title{Quickly set title, axis labels and caption}
 \usage{
-bb_labs(
-  bb,
-  title = NULL,
-  x = NULL,
-  y = NULL,
-  caption = NULL,
-  caption_href = NULL
-)
+bb_labs(bb, title = NULL, x = NULL, y = NULL, caption = NULL, ...)
 }
 \arguments{
 \item{bb}{A \code{billboard} \code{htmlwidget} object.}
@@ -24,7 +17,7 @@ bb_labs(
 
 \item{caption}{Text for the caption displayed in the bottom-right of the chart.}
 
-\item{caption_href}{Associate the caption with a link to an URL.}
+\item{...}{Not used.}
 }
 \value{
 A \code{billboard} \code{htmlwidget} object.

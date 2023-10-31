@@ -173,43 +173,6 @@ HTMLWidgets.widget({
             head.appendChild(stylecustom);
         }
         
-        // Caption
-        if (bb_opts.hasOwnProperty("caption")) {
-          
-          var caption = document.querySelector("#" + el.id + " svg > .bb-caption");
-          if (caption === null) {
-            
-            var svg = document.querySelector("#" + el.id + " svg");
-            var captionG = document.createElementNS("http://www.w3.org/2000/svg", "g");
-            captionG.setAttribute("class", "bb-caption");
-            captionG.setAttribute("transform", "translate(" + w + "," + (h-3) + ")");
-            
-            var captionText = document.createElementNS("http://www.w3.org/2000/svg", "text");
-            captionText.setAttribute("text-anchor", "end");
-            captionText.innerHTML = bb_opts.caption.text;
-            
-            if (bb_opts.caption.hasOwnProperty("href")) {
-              var captionLink = document.createElementNS("http://www.w3.org/2000/svg", "a");
-              captionLink.setAttribute("href", bb_opts.caption.href);
-              captionLink.appendChild(captionText);
-              captionG.appendChild(captionLink);
-            } else {
-              captionG.appendChild(captionText);
-            }
-            
-            if (svg !== null) {
-                svg.appendChild(captionG);
-            }
-            
-          } else {
-            caption.setAttribute("transform", "translate(" + w + "," + (h-3) + ")");
-            //caption.firstChild.innerHTML = bb_opts.caption.text;
-            var textUpdate = caption.querySelector("text");
-            textUpdate.innerHTML = bb_opts.caption.text;
-          }
-        }
-        
-        
       },
 
       getChart: function() {
@@ -223,40 +186,6 @@ HTMLWidgets.widget({
           var w = container.clientWidth;	
           var h = container.clientHeight;	
           chart.resize({ width: w, height: h });	
-  
-          // Caption	
-          if (typeof bb_opts.caption != "undefined") {
-            var caption = document.querySelector("#" + el.id + " svg > .bb-caption");
-            if (caption === null) {
-              
-              var svg = document.querySelector("#" + el.id + " svg");
-              var captionG = document.createElementNS("http://www.w3.org/2000/svg", "g");
-              captionG.setAttribute("class", "bb-caption");
-              captionG.setAttribute("transform", "translate(" + w + "," + (h-3) + ")");
-              
-              var captionText = document.createElementNS("http://www.w3.org/2000/svg", "text");
-              captionText.setAttribute("text-anchor", "end");
-              captionText.innerHTML = bb_opts.caption.text;
-              
-              if (bb_opts.caption.hasOwnProperty("href")) {
-                var captionLink = document.createElementNS("http://www.w3.org/2000/svg", "a");
-                captionLink.setAttribute("href", bb_opts.caption.href);
-                captionLink.appendChild(captionText);
-                captionG.appendChild(captionLink);
-              } else {
-                captionG.appendChild(captionText);
-              }
-              
-              if (svg !== null) {
-                svg.appendChild(captionG);
-              }
-              
-            } else {
-              caption.setAttribute("transform", "translate(" + w + "," + (h-3) + ")");
-              var textUpdate = caption.querySelector("text");
-              textUpdate.innerHTML = bb_opts.caption.text;
-            }
-          }
         }
       }
     };

@@ -1,4 +1,12 @@
 
+dropNulls <- function(x) {
+  x[!vapply(x, is.null, FUN.VALUE = logical(1))]
+}
+
+`%||%` <- function(x, y) {
+  if (!is.null(x)) x else y
+}
+
 list1 <- function(x) {
   if (length(x) == 1) {
     list(x)

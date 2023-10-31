@@ -5,7 +5,7 @@
 #' @param x Text for x axis title.
 #' @param y Text for y axis title.
 #' @param caption Text for the caption displayed in the bottom-right of the chart.
-#' @param caption_href Associate the caption with a link to an URL.
+#' @param ... Not used.
 #'
 #' @return A \code{billboard} \code{htmlwidget} object.
 #' @export
@@ -27,7 +27,23 @@
 #'     caption = "Data source: RTE (https://opendata.reseaux-energies.fr/)",
 #'     caption_href = "https://opendata.reseaux-energies.fr/"
 #'   )
-bb_labs <- function(bb, title = NULL, x = NULL, y = NULL, caption = NULL, caption_href = NULL) {
+bb_labs <- function(bb, title = NULL, x = NULL, y = NULL, caption = NULL, ...) {
+  
+  if (!is.null(caption)) {
+    # bb <- .bb_opt2(bb, "caption", l = dropNulls(list(
+    #   text = caption,
+    #   href = caption_href
+    # )))
+    # bb <- .bb_opt(bb, "padding", bottom = 10)
+    if (is.null(title))
+      title <- ""
+    title <- paste(title, caption, sep = "\n")
+    bb <- bb_add_style(
+      bb = bb,
+      ".bb-title tspan:nth-child(2)" = "font-size: smaller; font-weight: lighter;"
+    )
+    bb <- bb_padding(bb, top = 30)
+  }
   
   if (!is.null(title)) {
     bb <- bb_title(
@@ -49,14 +65,6 @@ bb_labs <- function(bb, title = NULL, x = NULL, y = NULL, caption = NULL, captio
       bb = bb, 
       label = list(text = y, position = "outer-top")
     )
-  }
-  
-  if (!is.null(caption)) {
-    bb <- .bb_opt2(bb, "caption", l = dropNulls(list(
-      text = caption,
-      href = caption_href
-    )))
-    bb <- .bb_opt(bb, "padding", bottom = 10)
   }
   
   return(bb)

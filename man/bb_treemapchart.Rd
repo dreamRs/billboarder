@@ -16,6 +16,9 @@ specified otherwise in \code{mapping}. If not a \code{data.frame}, an object coe
 
 \item{...}{Arguments passed to \code{\link{bb_treemap}}.}
 }
+\value{
+A \code{billboard} \code{htmlwidget} object.
+}
 \description{
 Helper for creating a treemap chart
 }

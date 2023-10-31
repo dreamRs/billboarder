@@ -53,7 +53,7 @@ billboarder(data = prod_par_filiere) %>%
   bb_legend(show = FALSE) %>% 
   bb_labs(
     title = "French hydraulic production",
-    caption = "Data source: RTE (https://opendata.rte-france.com)"
+    caption = "Data source: RTE (https://opendata.reseaux-energies.fr/)"
   )
 ```
 
@@ -83,7 +83,7 @@ billboarder() %>%
   bb_legend(position = "inset", inset = list(anchor = "top-right")) %>% 
   bb_labs(
     title = "Renewable energy production",
-    caption = "Data source: RTE (https://opendata.rte-france.com)"
+    caption = "Data source: RTE (https://opendata.reseaux-energies.fr/)"
   )
 ```
 
@@ -118,7 +118,7 @@ billboarder() %>%
   bb_legend(position = "inset", inset = list(anchor = "top-right")) %>% 
   bb_labs(
     title = "Renewable energy production",
-    caption = "Data source: RTE (https://opendata.rte-france.com)"
+    caption = "Data source: RTE (https://opendata.reseaux-energies.fr/)"
   )
 ```
 
@@ -141,7 +141,6 @@ billboarder() %>%
   # add grids
   bb_x_grid(show = TRUE) %>%
   bb_y_grid(show = TRUE)
-
 ```
 
 
@@ -182,8 +181,10 @@ nuclear2016 <- data.frame(
 # pie chart !
 billboarder() %>% 
   bb_piechart(data = nuclear2016) %>% 
-  bb_labs(title = "Share of nuclear power in France in 2016",
-          caption = "Data source: RTE (https://opendata.rte-france.com)")
+  bb_labs(
+    title = "Share of nuclear power in France in 2016",
+    caption = "Data source: RTE (https://opendata.reseaux-energies.fr/)"
+  )
 ```
 
 
@@ -199,7 +200,7 @@ billboarder() %>%
     )
   ) %>% 
   bb_legend(show = FALSE) %>% 
-  bb_labs(caption = "Data source: RTE (https://opendata.rte-france.com)")
+  bb_labs(caption = "Data source: RTE (https://opendata.reseaux-energies.fr/)")
 ```
 
 
@@ -226,9 +227,11 @@ billboarder() %>%
   bb_colors_manual("consommation" = "firebrick", "production" = "forestgreen") %>% 
   bb_legend(position = "right") %>% 
   bb_subchart(show = TRUE, size = list(height = 30)) %>% 
-  bb_labs(title = "Monthly electricity consumption and production in France (2007 - 2017)",
-          y = "In megawatt (MW)",
-          caption = "Data source: RTE (https://opendata.rte-france.com)")
+  bb_labs(
+    title = "Monthly electricity consumption and production in France (2007 - 2017)",
+    y = "In megawatt (MW)",
+    caption = "Data source: RTE (https://opendata.reseaux-energies.fr/)"
+  )
 ```
 
 
@@ -251,9 +254,11 @@ billboarder() %>%
     type = "drag",
     resetButton = list(text = "Unzoom")
   ) %>% 
-  bb_labs(title = "Monthly electricity consumption and production in France (2007 - 2017)",
-          y = "In megawatt (MW)",
-          caption = "Data source: RTE (https://opendata.rte-france.com)")
+  bb_labs(
+    title = "Monthly electricity consumption and production in France (2007 - 2017)",
+    y = "In megawatt (MW)",
+    caption = "Data source: RTE (https://opendata.reseaux-energies.fr/)"
+  )
 ```
 
 
@@ -299,9 +304,11 @@ billboarder() %>%
       list(value = as.numeric(sun$sunset)*1000, text = "sunset")
     )
   ) %>% 
-  bb_labs(title = "Solar production (2017-06-12)",
-          y = "In megawatt (MW)",
-          caption = "Data source: RTE (https://opendata.rte-france.com)")
+  bb_labs(
+    title = "Solar production (2017-06-12)",
+    y = "In megawatt (MW)",
+    caption = "Data source: RTE (https://opendata.reseaux-energies.fr/)"
+  )
 ```
 
 
@@ -330,9 +337,11 @@ billboarder() %>%
     opacity = 0.8
   ) %>% 
   bb_y_axis(min = 0, padding = 0) %>% 
-  bb_labs(title = "Renewable energy production (2017-06-12)",
-          y = "In megawatt (MW)",
-          caption = "Data source: RTE (https://opendata.rte-france.com)")
+  bb_labs(
+    title = "Renewable energy production (2017-06-12)",
+    y = "In megawatt (MW)",
+    caption = "Data source: RTE (https://opendata.reseaux-energies.fr/)"
+  )
 ```
 
 

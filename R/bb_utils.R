@@ -1,14 +1,4 @@
 
-# dropNulls
-dropNulls <- function(x) {
-  x[!vapply(x, is.null, FUN.VALUE = logical(1))]
-}
-
-
-`%||%` <- function(x, y) {
-  if (!is.null(x)) x else y
-}
-
 
 
 #' Utility function to create Billboard parameters JSON
@@ -984,5 +974,14 @@ bb_render <- function(bb, ...) {
   
 }
 
-
-
+#' The padding of the chart element.
+#'
+#' @param bb A \code{\link{billboarder}} \code{htmlwidget} object
+#'  or a \code{\link{billboarderProxy}} \code{htmlwidget} object.
+#' @param ... See \url{https://naver.github.io/billboard.js/release/latest/doc/Options.html#.padding} for possible options.
+#'
+#' @return A \code{billboard} \code{htmlwidget} object.
+#' @export
+bb_padding <- function(bb, ...) {
+  .bb_opt(bb, "padding", ...)
+}
