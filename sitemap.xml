@@ -1,267 +1,91 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://dreamrs.github.io/billboarder/404.html</loc>
-  </url>
-  <url>
-    <loc>https://dreamrs.github.io/billboarder/LICENSE-text.html</loc>
-  </url>
-  <url>
-    <loc>https://dreamrs.github.io/billboarder/LICENSE.html</loc>
-  </url>
-  <url>
-    <loc>https://dreamrs.github.io/billboarder/articles/billboarder-intro.html</loc>
-  </url>
-  <url>
-    <loc>https://dreamrs.github.io/billboarder/articles/billboarder-mapping.html</loc>
-  </url>
-  <url>
-    <loc>https://dreamrs.github.io/billboarder/articles/billboarder-options.html</loc>
-  </url>
-  <url>
-    <loc>https://dreamrs.github.io/billboarder/articles/billboarder.html</loc>
-  </url>
-  <url>
-    <loc>https://dreamrs.github.io/billboarder/articles/extra/lines-options.html</loc>
-  </url>
-  <url>
-    <loc>https://dreamrs.github.io/billboarder/articles/extra/linked-tooltip.html</loc>
-  </url>
-  <url>
-    <loc>https://dreamrs.github.io/billboarder/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>https://dreamrs.github.io/billboarder/authors.html</loc>
-  </url>
-  <url>
-    <loc>https://dreamrs.github.io/billboarder/index.html</loc>
-  </url>
-  <url>
-    <loc>https://dreamrs.github.io/billboarder/news/index.html</loc>
-  </url>
-  <url>
-    <loc>https://dreamrs.github.io/billboarder/reference/avengers.html</loc>
-  </url>
-  <url>
-    <loc>https://dreamrs.github.io/billboarder/reference/bauge-shiny.html</loc>
-  </url>
-  <url>
-    <loc>https://dreamrs.github.io/billboarder/reference/bauge.html</loc>
-  </url>
-  <url>
-    <loc>https://dreamrs.github.io/billboarder/reference/bb_add_style.html</loc>
-  </url>
-  <url>
-    <loc>https://dreamrs.github.io/billboarder/reference/bb_area.html</loc>
-  </url>
-  <url>
-    <loc>https://dreamrs.github.io/billboarder/reference/bb_axis.html</loc>
-  </url>
-  <url>
-    <loc>https://dreamrs.github.io/billboarder/reference/bb_bar.html</loc>
-  </url>
-  <url>
-    <loc>https://dreamrs.github.io/billboarder/reference/bb_bar_color_manual.html</loc>
-  </url>
-  <url>
-    <loc>https://dreamrs.github.io/billboarder/reference/bb_barchart.html</loc>
-  </url>
-  <url>
-    <loc>https://dreamrs.github.io/billboarder/reference/bb_bubble.html</loc>
-  </url>
-  <url>
-    <loc>https://dreamrs.github.io/billboarder/reference/bb_callbacks.html</loc>
-  </url>
-  <url>
-    <loc>https://dreamrs.github.io/billboarder/reference/bb_categories.html</loc>
-  </url>
-  <url>
-    <loc>https://dreamrs.github.io/billboarder/reference/bb_color.html</loc>
-  </url>
-  <url>
-    <loc>https://dreamrs.github.io/billboarder/reference/bb_colors_manual.html</loc>
-  </url>
-  <url>
-    <loc>https://dreamrs.github.io/billboarder/reference/bb_data.html</loc>
-  </url>
-  <url>
-    <loc>https://dreamrs.github.io/billboarder/reference/bb_densityplot.html</loc>
-  </url>
-  <url>
-    <loc>https://dreamrs.github.io/billboarder/reference/bb_donut.html</loc>
-  </url>
-  <url>
-    <loc>https://dreamrs.github.io/billboarder/reference/bb_donutchart.html</loc>
-  </url>
-  <url>
-    <loc>https://dreamrs.github.io/billboarder/reference/bb_export.html</loc>
-  </url>
-  <url>
-    <loc>https://dreamrs.github.io/billboarder/reference/bb_gauge.html</loc>
-  </url>
-  <url>
-    <loc>https://dreamrs.github.io/billboarder/reference/bb_gaugechart.html</loc>
-  </url>
-  <url>
-    <loc>https://dreamrs.github.io/billboarder/reference/bb_grid.html</loc>
-  </url>
-  <url>
-    <loc>https://dreamrs.github.io/billboarder/reference/bb_histogram.html</loc>
-  </url>
-  <url>
-    <loc>https://dreamrs.github.io/billboarder/reference/bb_interaction.html</loc>
-  </url>
-  <url>
-    <loc>https://dreamrs.github.io/billboarder/reference/bb_labs.html</loc>
-  </url>
-  <url>
-    <loc>https://dreamrs.github.io/billboarder/reference/bb_legend.html</loc>
-  </url>
-  <url>
-    <loc>https://dreamrs.github.io/billboarder/reference/bb_line.html</loc>
-  </url>
-  <url>
-    <loc>https://dreamrs.github.io/billboarder/reference/bb_linechart.html</loc>
-  </url>
-  <url>
-    <loc>https://dreamrs.github.io/billboarder/reference/bb_load.html</loc>
-  </url>
-  <url>
-    <loc>https://dreamrs.github.io/billboarder/reference/bb_lollipop.html</loc>
-  </url>
-  <url>
-    <loc>https://dreamrs.github.io/billboarder/reference/bb_padding.html</loc>
-  </url>
-  <url>
-    <loc>https://dreamrs.github.io/billboarder/reference/bb_pie.html</loc>
-  </url>
-  <url>
-    <loc>https://dreamrs.github.io/billboarder/reference/bb_piechart.html</loc>
-  </url>
-  <url>
-    <loc>https://dreamrs.github.io/billboarder/reference/bb_point.html</loc>
-  </url>
-  <url>
-    <loc>https://dreamrs.github.io/billboarder/reference/bb_proxy_axis_labels.html</loc>
-  </url>
-  <url>
-    <loc>https://dreamrs.github.io/billboarder/reference/bb_proxy_data_colors.html</loc>
-  </url>
-  <url>
-    <loc>https://dreamrs.github.io/billboarder/reference/bb_proxy_data_names.html</loc>
-  </url>
-  <url>
-    <loc>https://dreamrs.github.io/billboarder/reference/bb_proxy_flow.html</loc>
-  </url>
-  <url>
-    <loc>https://dreamrs.github.io/billboarder/reference/bb_proxy_focus.html</loc>
-  </url>
-  <url>
-    <loc>https://dreamrs.github.io/billboarder/reference/bb_proxy_groups.html</loc>
-  </url>
-  <url>
-    <loc>https://dreamrs.github.io/billboarder/reference/bb_proxy_hide.html</loc>
-  </url>
-  <url>
-    <loc>https://dreamrs.github.io/billboarder/reference/bb_proxy_legend.html</loc>
-  </url>
-  <url>
-    <loc>https://dreamrs.github.io/billboarder/reference/bb_proxy_show.html</loc>
-  </url>
-  <url>
-    <loc>https://dreamrs.github.io/billboarder/reference/bb_proxy_tooltip.html</loc>
-  </url>
-  <url>
-    <loc>https://dreamrs.github.io/billboarder/reference/bb_proxy_transform.html</loc>
-  </url>
-  <url>
-    <loc>https://dreamrs.github.io/billboarder/reference/bb_proxy_xs.html</loc>
-  </url>
-  <url>
-    <loc>https://dreamrs.github.io/billboarder/reference/bb_radar.html</loc>
-  </url>
-  <url>
-    <loc>https://dreamrs.github.io/billboarder/reference/bb_radarchart.html</loc>
-  </url>
-  <url>
-    <loc>https://dreamrs.github.io/billboarder/reference/bb_regions.html</loc>
-  </url>
-  <url>
-    <loc>https://dreamrs.github.io/billboarder/reference/bb_render.html</loc>
-  </url>
-  <url>
-    <loc>https://dreamrs.github.io/billboarder/reference/bb_scatterplot.html</loc>
-  </url>
-  <url>
-    <loc>https://dreamrs.github.io/billboarder/reference/bb_spline.html</loc>
-  </url>
-  <url>
-    <loc>https://dreamrs.github.io/billboarder/reference/bb_subchart.html</loc>
-  </url>
-  <url>
-    <loc>https://dreamrs.github.io/billboarder/reference/bb_svg.html</loc>
-  </url>
-  <url>
-    <loc>https://dreamrs.github.io/billboarder/reference/bb_title.html</loc>
-  </url>
-  <url>
-    <loc>https://dreamrs.github.io/billboarder/reference/bb_tooltip.html</loc>
-  </url>
-  <url>
-    <loc>https://dreamrs.github.io/billboarder/reference/bb_transition.html</loc>
-  </url>
-  <url>
-    <loc>https://dreamrs.github.io/billboarder/reference/bb_treemap.html</loc>
-  </url>
-  <url>
-    <loc>https://dreamrs.github.io/billboarder/reference/bb_treemapchart.html</loc>
-  </url>
-  <url>
-    <loc>https://dreamrs.github.io/billboarder/reference/bb_unload.html</loc>
-  </url>
-  <url>
-    <loc>https://dreamrs.github.io/billboarder/reference/bb_zoom.html</loc>
-  </url>
-  <url>
-    <loc>https://dreamrs.github.io/billboarder/reference/billboard-aes.html</loc>
-  </url>
-  <url>
-    <loc>https://dreamrs.github.io/billboarder/reference/billboard-theme.html</loc>
-  </url>
-  <url>
-    <loc>https://dreamrs.github.io/billboarder/reference/billboarder-exports.html</loc>
-  </url>
-  <url>
-    <loc>https://dreamrs.github.io/billboarder/reference/billboarder-package.html</loc>
-  </url>
-  <url>
-    <loc>https://dreamrs.github.io/billboarder/reference/billboarder-shiny.html</loc>
-  </url>
-  <url>
-    <loc>https://dreamrs.github.io/billboarder/reference/billboarder.html</loc>
-  </url>
-  <url>
-    <loc>https://dreamrs.github.io/billboarder/reference/cdc_prod_filiere.html</loc>
-  </url>
-  <url>
-    <loc>https://dreamrs.github.io/billboarder/reference/equilibre_mensuel.html</loc>
-  </url>
-  <url>
-    <loc>https://dreamrs.github.io/billboarder/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>https://dreamrs.github.io/billboarder/reference/prefix.html</loc>
-  </url>
-  <url>
-    <loc>https://dreamrs.github.io/billboarder/reference/prod_filiere_long.html</loc>
-  </url>
-  <url>
-    <loc>https://dreamrs.github.io/billboarder/reference/prod_par_filiere.html</loc>
-  </url>
-  <url>
-    <loc>https://dreamrs.github.io/billboarder/reference/proxy_example.html</loc>
-  </url>
-  <url>
-    <loc>https://dreamrs.github.io/billboarder/reference/suffix.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://dreamrs.github.io/billboarder/404.html</loc></url>
+<url><loc>https://dreamrs.github.io/billboarder/LICENSE-text.html</loc></url>
+<url><loc>https://dreamrs.github.io/billboarder/LICENSE.html</loc></url>
+<url><loc>https://dreamrs.github.io/billboarder/articles/billboarder-intro.html</loc></url>
+<url><loc>https://dreamrs.github.io/billboarder/articles/billboarder-mapping.html</loc></url>
+<url><loc>https://dreamrs.github.io/billboarder/articles/billboarder-options.html</loc></url>
+<url><loc>https://dreamrs.github.io/billboarder/articles/billboarder.html</loc></url>
+<url><loc>https://dreamrs.github.io/billboarder/articles/extra/lines-options.html</loc></url>
+<url><loc>https://dreamrs.github.io/billboarder/articles/extra/linked-tooltip.html</loc></url>
+<url><loc>https://dreamrs.github.io/billboarder/articles/index.html</loc></url>
+<url><loc>https://dreamrs.github.io/billboarder/authors.html</loc></url>
+<url><loc>https://dreamrs.github.io/billboarder/index.html</loc></url>
+<url><loc>https://dreamrs.github.io/billboarder/news/index.html</loc></url>
+<url><loc>https://dreamrs.github.io/billboarder/reference/avengers.html</loc></url>
+<url><loc>https://dreamrs.github.io/billboarder/reference/bauge-shiny.html</loc></url>
+<url><loc>https://dreamrs.github.io/billboarder/reference/bauge.html</loc></url>
+<url><loc>https://dreamrs.github.io/billboarder/reference/bb_add_style.html</loc></url>
+<url><loc>https://dreamrs.github.io/billboarder/reference/bb_area.html</loc></url>
+<url><loc>https://dreamrs.github.io/billboarder/reference/bb_axis.html</loc></url>
+<url><loc>https://dreamrs.github.io/billboarder/reference/bb_bar.html</loc></url>
+<url><loc>https://dreamrs.github.io/billboarder/reference/bb_bar_color_manual.html</loc></url>
+<url><loc>https://dreamrs.github.io/billboarder/reference/bb_barchart.html</loc></url>
+<url><loc>https://dreamrs.github.io/billboarder/reference/bb_bubble.html</loc></url>
+<url><loc>https://dreamrs.github.io/billboarder/reference/bb_callbacks.html</loc></url>
+<url><loc>https://dreamrs.github.io/billboarder/reference/bb_categories.html</loc></url>
+<url><loc>https://dreamrs.github.io/billboarder/reference/bb_color.html</loc></url>
+<url><loc>https://dreamrs.github.io/billboarder/reference/bb_colors_manual.html</loc></url>
+<url><loc>https://dreamrs.github.io/billboarder/reference/bb_data.html</loc></url>
+<url><loc>https://dreamrs.github.io/billboarder/reference/bb_densityplot.html</loc></url>
+<url><loc>https://dreamrs.github.io/billboarder/reference/bb_donut.html</loc></url>
+<url><loc>https://dreamrs.github.io/billboarder/reference/bb_donutchart.html</loc></url>
+<url><loc>https://dreamrs.github.io/billboarder/reference/bb_export.html</loc></url>
+<url><loc>https://dreamrs.github.io/billboarder/reference/bb_gauge.html</loc></url>
+<url><loc>https://dreamrs.github.io/billboarder/reference/bb_gaugechart.html</loc></url>
+<url><loc>https://dreamrs.github.io/billboarder/reference/bb_grid.html</loc></url>
+<url><loc>https://dreamrs.github.io/billboarder/reference/bb_histogram.html</loc></url>
+<url><loc>https://dreamrs.github.io/billboarder/reference/bb_interaction.html</loc></url>
+<url><loc>https://dreamrs.github.io/billboarder/reference/bb_labs.html</loc></url>
+<url><loc>https://dreamrs.github.io/billboarder/reference/bb_legend.html</loc></url>
+<url><loc>https://dreamrs.github.io/billboarder/reference/bb_line.html</loc></url>
+<url><loc>https://dreamrs.github.io/billboarder/reference/bb_linechart.html</loc></url>
+<url><loc>https://dreamrs.github.io/billboarder/reference/bb_load.html</loc></url>
+<url><loc>https://dreamrs.github.io/billboarder/reference/bb_lollipop.html</loc></url>
+<url><loc>https://dreamrs.github.io/billboarder/reference/bb_padding.html</loc></url>
+<url><loc>https://dreamrs.github.io/billboarder/reference/bb_pie.html</loc></url>
+<url><loc>https://dreamrs.github.io/billboarder/reference/bb_piechart.html</loc></url>
+<url><loc>https://dreamrs.github.io/billboarder/reference/bb_point.html</loc></url>
+<url><loc>https://dreamrs.github.io/billboarder/reference/bb_proxy_axis_labels.html</loc></url>
+<url><loc>https://dreamrs.github.io/billboarder/reference/bb_proxy_data_colors.html</loc></url>
+<url><loc>https://dreamrs.github.io/billboarder/reference/bb_proxy_data_names.html</loc></url>
+<url><loc>https://dreamrs.github.io/billboarder/reference/bb_proxy_flow.html</loc></url>
+<url><loc>https://dreamrs.github.io/billboarder/reference/bb_proxy_focus.html</loc></url>
+<url><loc>https://dreamrs.github.io/billboarder/reference/bb_proxy_groups.html</loc></url>
+<url><loc>https://dreamrs.github.io/billboarder/reference/bb_proxy_hide.html</loc></url>
+<url><loc>https://dreamrs.github.io/billboarder/reference/bb_proxy_legend.html</loc></url>
+<url><loc>https://dreamrs.github.io/billboarder/reference/bb_proxy_show.html</loc></url>
+<url><loc>https://dreamrs.github.io/billboarder/reference/bb_proxy_tooltip.html</loc></url>
+<url><loc>https://dreamrs.github.io/billboarder/reference/bb_proxy_transform.html</loc></url>
+<url><loc>https://dreamrs.github.io/billboarder/reference/bb_proxy_xs.html</loc></url>
+<url><loc>https://dreamrs.github.io/billboarder/reference/bb_radar.html</loc></url>
+<url><loc>https://dreamrs.github.io/billboarder/reference/bb_radarchart.html</loc></url>
+<url><loc>https://dreamrs.github.io/billboarder/reference/bb_regions.html</loc></url>
+<url><loc>https://dreamrs.github.io/billboarder/reference/bb_render.html</loc></url>
+<url><loc>https://dreamrs.github.io/billboarder/reference/bb_scatterplot.html</loc></url>
+<url><loc>https://dreamrs.github.io/billboarder/reference/bb_spline.html</loc></url>
+<url><loc>https://dreamrs.github.io/billboarder/reference/bb_subchart.html</loc></url>
+<url><loc>https://dreamrs.github.io/billboarder/reference/bb_svg.html</loc></url>
+<url><loc>https://dreamrs.github.io/billboarder/reference/bb_title.html</loc></url>
+<url><loc>https://dreamrs.github.io/billboarder/reference/bb_tooltip.html</loc></url>
+<url><loc>https://dreamrs.github.io/billboarder/reference/bb_transition.html</loc></url>
+<url><loc>https://dreamrs.github.io/billboarder/reference/bb_treemap.html</loc></url>
+<url><loc>https://dreamrs.github.io/billboarder/reference/bb_treemapchart.html</loc></url>
+<url><loc>https://dreamrs.github.io/billboarder/reference/bb_unload.html</loc></url>
+<url><loc>https://dreamrs.github.io/billboarder/reference/bb_zoom.html</loc></url>
+<url><loc>https://dreamrs.github.io/billboarder/reference/billboard-aes.html</loc></url>
+<url><loc>https://dreamrs.github.io/billboarder/reference/billboard-theme.html</loc></url>
+<url><loc>https://dreamrs.github.io/billboarder/reference/billboarder-exports.html</loc></url>
+<url><loc>https://dreamrs.github.io/billboarder/reference/billboarder-package.html</loc></url>
+<url><loc>https://dreamrs.github.io/billboarder/reference/billboarder-shiny.html</loc></url>
+<url><loc>https://dreamrs.github.io/billboarder/reference/billboarder.html</loc></url>
+<url><loc>https://dreamrs.github.io/billboarder/reference/cdc_prod_filiere.html</loc></url>
+<url><loc>https://dreamrs.github.io/billboarder/reference/equilibre_mensuel.html</loc></url>
+<url><loc>https://dreamrs.github.io/billboarder/reference/index.html</loc></url>
+<url><loc>https://dreamrs.github.io/billboarder/reference/prefix.html</loc></url>
+<url><loc>https://dreamrs.github.io/billboarder/reference/prod_filiere_long.html</loc></url>
+<url><loc>https://dreamrs.github.io/billboarder/reference/prod_par_filiere.html</loc></url>
+<url><loc>https://dreamrs.github.io/billboarder/reference/proxy_example.html</loc></url>
+<url><loc>https://dreamrs.github.io/billboarder/reference/suffix.html</loc></url>
 </urlset>
+
