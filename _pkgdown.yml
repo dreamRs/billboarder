@@ -6,6 +6,9 @@ template:
   bslib:
     base_font: {google: "Poppins"}
     primary: "#112446"
+    navbar-dark-color: "#FFFFFF"
+    secondary: "#DFDFDF"
+    navbar-dark-active-color: "#DFDFDF"
 
 navbar:
   bg: primary
