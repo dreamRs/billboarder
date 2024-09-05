@@ -1,7 +1,7 @@
-billboarder 0.4.2
+billboarder 0.5.0
 ==================
 
-* Update of the billboard.js library to 3.11.0.
+* Update of the billboard.js library to 3.13.0 (see https://github.com/naver/billboard.js/releases).
 * `set_theme()` : new theme modern available.
 
 

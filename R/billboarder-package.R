@@ -5,9 +5,8 @@
 #' a re-usable easy interface JavaScript chart library, based on D3 v4+.
 #' 
 #' @name billboarder-package
-#' @docType package
 #' @author Victor Perrier (@@dreamRs_fr)
-NULL
+"_PACKAGE"
 
 #' billboarder exported operators and S3 methods
 #' 

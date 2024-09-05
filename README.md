@@ -3,8 +3,8 @@
 > Htmlwidget for [billboard.js](https://github.com/naver/billboard.js)
 
 <!-- badges: start -->
-[![version](http://www.r-pkg.org/badges/version/billboarder)](https://CRAN.R-project.org/package=billboarder)
-[![cranlogs](http://cranlogs.r-pkg.org/badges/billboarder)](https://CRAN.R-project.org/package=billboarder)
+[![CRAN status](https://www.r-pkg.org/badges/version/billboarder)](https://CRAN.R-project.org/package=billboarder)
+[![cranlogs](https://cranlogs.r-pkg.org/badges/shinyWidgets?color=brightgreen)](https://CRAN.R-project.org/package=shinyWidgets)
 [![Codecov test coverage](https://codecov.io/gh/dreamRs/billboarder/branch/master/graph/badge.svg)](https://app.codecov.io/gh/dreamRs/billboarder?branch=master)
 [![R-CMD-check](https://github.com/dreamRs/billboarder/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/dreamRs/billboarder/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
