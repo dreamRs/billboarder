@@ -43,7 +43,7 @@ server <- function(input, output, session) {
   
   output$bb <- renderBillboarder({
     billboarder() \%>\% 
-      bb_scatter(
+      bb_scatterplot(
         data = iris, 
         x = "Sepal.Length", 
         y = "Sepal.Width", 
