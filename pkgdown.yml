@@ -1,5 +1,5 @@
 pandoc: 3.1.11
-pkgdown: 2.1.1
+pkgdown: 2.1.3
 pkgdown_sha: ~
 articles:
   billboarder-intro: billboarder-intro.html
@@ -8,7 +8,7 @@ articles:
   billboarder: billboarder.html
   extra/lines-options: extra/lines-options.html
   extra/linked-tooltip: extra/linked-tooltip.html
-last_built: 2025-03-20T15:54Z
+last_built: 2025-09-30T12:10Z
 urls:
   reference: https://dreamrs.github.io/billboarder/reference
   article: https://dreamrs.github.io/billboarder/articles
