@@ -1,0 +1,244 @@
+# Package index
+
+## All functions
+
+- [`avengers`](https://dreamrs.github.io/billboarder/reference/avengers.md)
+  [`avengers_wide`](https://dreamrs.github.io/billboarder/reference/avengers.md)
+  : Power ratings for The Avengers.
+
+- [`baugeOutput()`](https://dreamrs.github.io/billboarder/reference/bauge-shiny.md)
+  [`renderBauge()`](https://dreamrs.github.io/billboarder/reference/bauge-shiny.md)
+  : Shiny bindings for bauge
+
+- [`bauge()`](https://dreamrs.github.io/billboarder/reference/bauge.md)
+  : Simple Gauge
+
+- [`bb_add_style()`](https://dreamrs.github.io/billboarder/reference/bb_add_style.md)
+  : Add custom style for regions and grid lines
+
+- [`bb_area()`](https://dreamrs.github.io/billboarder/reference/bb_area.md)
+  : Area property for a Billboard.js chart
+
+- [`bb_axis()`](https://dreamrs.github.io/billboarder/reference/bb_axis.md)
+  [`bb_x_axis()`](https://dreamrs.github.io/billboarder/reference/bb_axis.md)
+  [`bb_y_axis()`](https://dreamrs.github.io/billboarder/reference/bb_axis.md)
+  : Add axis parameters
+
+- [`bb_bar()`](https://dreamrs.github.io/billboarder/reference/bb_bar.md)
+  : Bar property for a Billboard.js chart
+
+- [`bb_bar_color_manual()`](https://dreamrs.github.io/billboarder/reference/bb_bar_color_manual.md)
+  : Manual color for barchart
+
+- [`bb_barchart()`](https://dreamrs.github.io/billboarder/reference/bb_barchart.md)
+  : Helper for creating a bar chart
+
+- [`bb_bubble()`](https://dreamrs.github.io/billboarder/reference/bb_bubble.md)
+  : Bubble property for a Billboard.js chart
+
+- [`bb_callbacks()`](https://dreamrs.github.io/billboarder/reference/bb_callbacks.md)
+  : Callbacks for billboard charts
+
+- [`bb_categories()`](https://dreamrs.github.io/billboarder/reference/bb_categories.md)
+  : Set categories on X axis
+
+- [`bb_color()`](https://dreamrs.github.io/billboarder/reference/bb_color.md)
+  : Color property for a Billboard.js chart
+
+- [`bb_colors_manual()`](https://dreamrs.github.io/billboarder/reference/bb_colors_manual.md)
+  : Set colors for each datas
+
+- [`bb_data()`](https://dreamrs.github.io/billboarder/reference/bb_data.md)
+  : Add data to Billboard chart
+
+- [`bb_densityplot()`](https://dreamrs.github.io/billboarder/reference/bb_densityplot.md)
+  : Helper for creating a density plot
+
+- [`bb_donut()`](https://dreamrs.github.io/billboarder/reference/bb_donut.md)
+  : Donut property for a Billboard.js chart
+
+- [`bb_donutchart()`](https://dreamrs.github.io/billboarder/reference/bb_donutchart.md)
+  : Helper for creating a donut chart
+
+- [`bb_export()`](https://dreamrs.github.io/billboarder/reference/bb_export.md)
+  : Export a Billboard to PNG
+
+- [`bb_gauge()`](https://dreamrs.github.io/billboarder/reference/bb_gauge.md)
+  : Gauge property for a Billboard.js chart
+
+- [`bb_gaugechart()`](https://dreamrs.github.io/billboarder/reference/bb_gaugechart.md)
+  : Helper for creating a gauge
+
+- [`bb_grid()`](https://dreamrs.github.io/billboarder/reference/bb_grid.md)
+  [`bb_x_grid()`](https://dreamrs.github.io/billboarder/reference/bb_grid.md)
+  [`bb_y_grid()`](https://dreamrs.github.io/billboarder/reference/bb_grid.md)
+  : Grid property for a Billboard.js chart
+
+- [`bb_histogram()`](https://dreamrs.github.io/billboarder/reference/bb_histogram.md)
+  : Helper for creating an histogram
+
+- [`bb_interaction()`](https://dreamrs.github.io/billboarder/reference/bb_interaction.md)
+  : Interaction property for a Billboard.js chart
+
+- [`bb_labs()`](https://dreamrs.github.io/billboarder/reference/bb_labs.md)
+  : Quickly set title, axis labels and caption
+
+- [`bb_legend()`](https://dreamrs.github.io/billboarder/reference/bb_legend.md)
+  : Add legend parameters
+
+- [`bb_line()`](https://dreamrs.github.io/billboarder/reference/bb_line.md)
+  : Line property for a Billboard.js chart
+
+- [`bb_linechart()`](https://dreamrs.github.io/billboarder/reference/bb_linechart.md)
+  : Helper for creating a line chart
+
+- [`bb_load()`](https://dreamrs.github.io/billboarder/reference/bb_load.md)
+  : Load data to the chart with proxy
+
+- [`bb_lollipop()`](https://dreamrs.github.io/billboarder/reference/bb_lollipop.md)
+  : Helper for creating a lollipop chart
+
+- [`bb_padding()`](https://dreamrs.github.io/billboarder/reference/bb_padding.md)
+  : The padding of the chart element.
+
+- [`bb_pie()`](https://dreamrs.github.io/billboarder/reference/bb_pie.md)
+  : Pie property for a Billboard.js chart
+
+- [`bb_piechart()`](https://dreamrs.github.io/billboarder/reference/bb_piechart.md)
+  : Helper for creating a pie chart
+
+- [`bb_point()`](https://dreamrs.github.io/billboarder/reference/bb_point.md)
+  : Point property for a Billboard.js chart
+
+- [`bb_proxy_axis_labels()`](https://dreamrs.github.io/billboarder/reference/bb_proxy_axis_labels.md)
+  : Update axis labels with proxy
+
+- [`bb_proxy_data_colors()`](https://dreamrs.github.io/billboarder/reference/bb_proxy_data_colors.md)
+  : Change colors with proxy
+
+- [`bb_proxy_data_names()`](https://dreamrs.github.io/billboarder/reference/bb_proxy_data_names.md)
+  : Change names of the data with proxy
+
+- [`bb_proxy_flow()`](https://dreamrs.github.io/billboarder/reference/bb_proxy_flow.md)
+  : Update chart flow with proxy
+
+- [`bb_proxy_focus()`](https://dreamrs.github.io/billboarder/reference/bb_proxy_focus.md)
+  [`bb_proxy_defocus()`](https://dreamrs.github.io/billboarder/reference/bb_proxy_focus.md)
+  : Highlights specified targets and fade out the others.
+
+- [`bb_proxy_groups()`](https://dreamrs.github.io/billboarder/reference/bb_proxy_groups.md)
+  : Update chart groups with proxy
+
+- [`bb_proxy_hide()`](https://dreamrs.github.io/billboarder/reference/bb_proxy_hide.md)
+  : Hide method with proxy
+
+- [`bb_proxy_legend()`](https://dreamrs.github.io/billboarder/reference/bb_proxy_legend.md)
+  : Show or hide legend with proxy
+
+- [`bb_proxy_show()`](https://dreamrs.github.io/billboarder/reference/bb_proxy_show.md)
+  : Show method with proxy
+
+- [`bb_proxy_tooltip()`](https://dreamrs.github.io/billboarder/reference/bb_proxy_tooltip.md)
+  : Show or hide tooltip with proxy
+
+- [`bb_proxy_transform()`](https://dreamrs.github.io/billboarder/reference/bb_proxy_transform.md)
+  : Update chart type with proxy
+
+- [`bb_proxy_xs()`](https://dreamrs.github.io/billboarder/reference/bb_proxy_xs.md)
+  : Update x values with proxy
+
+- [`bb_radar()`](https://dreamrs.github.io/billboarder/reference/bb_radar.md)
+  : Radar property for a Billboard.js chart
+
+- [`bb_radarchart()`](https://dreamrs.github.io/billboarder/reference/bb_radarchart.md)
+  : Helper for creating a radar chart
+
+- [`bb_regions()`](https://dreamrs.github.io/billboarder/reference/bb_regions.md)
+  : Regions property for a Billboard.js chart
+
+- [`bb_render()`](https://dreamrs.github.io/billboarder/reference/bb_render.md)
+  : Render property for a Billboard.js chart
+
+- [`bb_scatterplot()`](https://dreamrs.github.io/billboarder/reference/bb_scatterplot.md)
+  : Helper for creating a scatter chart
+
+- [`bb_spline()`](https://dreamrs.github.io/billboarder/reference/bb_spline.md)
+  : Spline property for a Billboard.js chart
+
+- [`bb_subchart()`](https://dreamrs.github.io/billboarder/reference/bb_subchart.md)
+  : Subchart property for a Billboard.js chart
+
+- [`bb_svg()`](https://dreamrs.github.io/billboarder/reference/bb_svg.md)
+  : SVG property for a Billboard.js chart
+
+- [`bb_title()`](https://dreamrs.github.io/billboarder/reference/bb_title.md)
+  : Add title to Billboard.js chart
+
+- [`bb_tooltip()`](https://dreamrs.github.io/billboarder/reference/bb_tooltip.md)
+  : Tooltip property for a Billboard.js chart
+
+- [`bb_transition()`](https://dreamrs.github.io/billboarder/reference/bb_transition.md)
+  : Transition property for a Billboard.js chart
+
+- [`bb_treemap()`](https://dreamrs.github.io/billboarder/reference/bb_treemap.md)
+  : Treemap property for a Billboard.js chart
+
+- [`bb_treemapchart()`](https://dreamrs.github.io/billboarder/reference/bb_treemapchart.md)
+  : Helper for creating a treemap chart
+
+- [`bb_unload()`](https://dreamrs.github.io/billboarder/reference/bb_unload.md)
+  : Unload data to the chart with proxy
+
+- [`bb_zoom()`](https://dreamrs.github.io/billboarder/reference/bb_zoom.md)
+  : Zoom property for a Billboard.js chart
+
+- [`bb_aes()`](https://dreamrs.github.io/billboarder/reference/billboard-aes.md)
+  [`bb_aes_string()`](https://dreamrs.github.io/billboarder/reference/billboard-aes.md)
+  [`bbaes()`](https://dreamrs.github.io/billboarder/reference/billboard-aes.md)
+  [`bbaes_string()`](https://dreamrs.github.io/billboarder/reference/billboard-aes.md)
+  : Map variables on the chart
+
+- [`set_theme()`](https://dreamrs.github.io/billboarder/reference/billboard-theme.md)
+  [`set_color_palette()`](https://dreamrs.github.io/billboarder/reference/billboard-theme.md)
+  : Set theme and default colors for Billboard charts
+
+- [`billboarder-exports`](https://dreamrs.github.io/billboarder/reference/billboarder-exports.md)
+  [`%>%`](https://dreamrs.github.io/billboarder/reference/billboarder-exports.md)
+  [`JS`](https://dreamrs.github.io/billboarder/reference/billboarder-exports.md)
+  [`aes`](https://dreamrs.github.io/billboarder/reference/billboarder-exports.md)
+  : billboarder exported operators and S3 methods
+
+- [`billboarder-package`](https://dreamrs.github.io/billboarder/reference/billboarder-package.md)
+  :
+
+  An `htmlwidget` interface to the billboard.js javascript chart library
+
+- [`billboarderOutput()`](https://dreamrs.github.io/billboarder/reference/billboarder-shiny.md)
+  [`renderBillboarder()`](https://dreamrs.github.io/billboarder/reference/billboarder-shiny.md)
+  [`billboarderProxy()`](https://dreamrs.github.io/billboarder/reference/billboarder-shiny.md)
+  : Shiny bindings for billboarder
+
+- [`billboarder()`](https://dreamrs.github.io/billboarder/reference/billboarder.md)
+  : Create a Billboard.js widget
+
+- [`cdc_prod_filiere`](https://dreamrs.github.io/billboarder/reference/cdc_prod_filiere.md)
+  : French electricity generation by power source for the day of
+  2017-06-12.
+
+- [`equilibre_mensuel`](https://dreamrs.github.io/billboarder/reference/equilibre_mensuel.md)
+  : Monthly supply / demand balance (january 2007 to june 2017)
+
+- [`prefix()`](https://dreamrs.github.io/billboarder/reference/prefix.md)
+  : Shortcut to add a prefix value to axis labels
+
+- [`prod_filiere_long`](https://dreamrs.github.io/billboarder/reference/prod_filiere_long.md)
+  : French electricity generation by year and branch.
+
+- [`prod_par_filiere`](https://dreamrs.github.io/billboarder/reference/prod_par_filiere.md)
+  : French electricity generation by year and branch.
+
+- [`proxy_example()`](https://dreamrs.github.io/billboarder/reference/proxy_example.md)
+  : Proxy use example
+
+- [`suffix()`](https://dreamrs.github.io/billboarder/reference/suffix.md)
+  : Shortcut to add a suffix value to axis labels

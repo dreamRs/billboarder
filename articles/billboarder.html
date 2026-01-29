@@ -21,7 +21,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">billboarder</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.0.9200</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.0.9300</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -58,18 +58,18 @@
 
 
 
-<link href="billboarder_files/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet">
-<script src="billboarder_files/htmlwidgets-1.6.4/htmlwidgets.js"></script><script src="billboarder_files/d3-format-1.4.2/d3-format.min.js"></script><script src="billboarder_files/billboarder-binding-0.5.0.9200/billboarder.js"></script><link href="billboarder_files/billboard-3.17.0/billboard/insight.min.css" rel="stylesheet">
-<link href="billboarder_files/billboard-3.17.0/billboarder.css" rel="stylesheet">
-<script src="billboarder_files/billboard-3.17.0/billboard/billboard.pkgd.min.js"></script><style>.bb-color-pattern {background-image: url('#E41A1C;#377EB8;#4DAF4A;#984EA3;#FF7F00;#FFFF33;#A65628;#F781BF;#999999') !important;}</style>
-<script src="billboarder_files/bauge-binding-0.5.0.9200/bauge.js"></script><div class="row">
+<link href="billboarder_files/htmltools-fill-0.5.9/fill.css" rel="stylesheet">
+<script src="billboarder_files/htmlwidgets-1.6.4/htmlwidgets.js"></script><script src="billboarder_files/d3-format-1.4.2/d3-format.min.js"></script><script src="billboarder_files/billboarder-binding-0.5.0.9300/billboarder.js"></script><link href="billboarder_files/billboard-3.18.0/billboard/insight.min.css" rel="stylesheet">
+<link href="billboarder_files/billboard-3.18.0/billboarder.css" rel="stylesheet">
+<script src="billboarder_files/billboard-3.18.0/billboard/billboard.pkgd.min.js"></script><style>.bb-color-pattern {background-image: url('#E41A1C;#377EB8;#4DAF4A;#984EA3;#FF7F00;#FFFF33;#A65628;#F781BF;#999999') !important;}</style>
+<script src="billboarder_files/bauge-binding-0.5.0.9300/bauge.js"></script><div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>billboarder</h1>
                         <h4 data-toc-skip class="author">Victor
 Perrier</h4>
             
-            <h4 data-toc-skip class="date">2025-09-30</h4>
+            <h4 data-toc-skip class="date">2026-01-29</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/dreamRs/billboarder/blob/master/vignettes/billboarder.Rmd" class="external-link"><code>vignettes/billboarder.Rmd</code></a></small>
       <div class="d-none name"><code>billboarder.Rmd</code></div>
@@ -236,6 +236,16 @@ format, with tools such as <code>pivot_longer</code>):</p>
 <span><span class="co"># pie chart !</span></span>
 <span><span class="fu"><a href="../reference/billboarder.html">billboarder</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/billboarder-exports.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/bb_piechart.html">bb_piechart</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">nuclear2016</span><span class="op">)</span> <span class="op"><a href="../reference/billboarder-exports.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="../reference/bb_pie.html">bb_pie</a></span><span class="op">(</span></span>
+<span>    label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      line <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>        show <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>        distance <span class="op">=</span> <span class="fl">30</span>,</span>
+<span>        text <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>      <span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="../reference/billboarder-exports.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="../reference/bb_legend.html">bb_legend</a></span><span class="op">(</span>show <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op"><a href="../reference/billboarder-exports.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/bb_labs.html">bb_labs</a></span><span class="op">(</span></span>
 <span>    title <span class="op">=</span> <span class="st">"Share of nuclear power in France in 2016"</span>,</span>
 <span>    caption <span class="op">=</span> <span class="st">"Data source: RTE (https://opendata.reseaux-energies.fr/)"</span></span>
@@ -244,14 +254,19 @@ format, with tools such as <code>pivot_longer</code>):</p>
 <a id="htmlwidget-10b3b7155e8045a1b2ad-export" style="position:absolute; top:0; right:0; display:none; z-index:50;"></a>
 <div id="htmlwidget-10b3b7155e8045a1b2ad" class="billboarder html-widget" style="width:100%;height:320px;" width="100%" height="320px"></div>
 </div>
-<script type="application/json" data-for="htmlwidget-10b3b7155e8045a1b2ad">{"x":{"bb_opts":{"interaction":{"inputType":{"touch":false}},"data":{"json":{"Nuclear":[384],"Other":[147.3]},"type":"pie"},"pie":[],"customStyle":".bb-title tspan:nth-child(2){font-size: smaller; font-weight: lighter;}","padding":{"top":30},"title":{"text":"Share of nuclear power in France in 2016\nData source: RTE (https://opendata.reseaux-energies.fr/)","position":"left-top"}},"data":null},"evals":[],"jsHooks":[]}</script><p>You can also do donut charts :</p>
+<script type="application/json" data-for="htmlwidget-10b3b7155e8045a1b2ad">{"x":{"bb_opts":{"interaction":{"inputType":{"touch":false}},"data":{"json":{"Nuclear":[384],"Other":[147.3]},"type":"pie"},"pie":{"label":{"line":{"show":true,"distance":30,"text":true}}},"legend":{"show":false},"customStyle":".bb-title tspan:nth-child(2){font-size: smaller; font-weight: lighter;}","padding":{"top":30},"title":{"text":"Share of nuclear power in France in 2016\nData source: RTE (https://opendata.reseaux-energies.fr/)","position":"left-top"}},"data":null},"evals":[],"jsHooks":[]}</script><p>You can also do donut charts :</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/billboarder.html">billboarder</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/billboarder-exports.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/bb_donutchart.html">bb_donutchart</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">nuclear2016</span><span class="op">)</span> <span class="op"><a href="../reference/billboarder-exports.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/bb_donut.html">bb_donut</a></span><span class="op">(</span></span>
 <span>    title <span class="op">=</span> <span class="st">"Share of nuclear\nin France"</span>,</span>
 <span>    label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>      format <span class="op">=</span> <span class="fu"><a href="../reference/billboarder-exports.html">JS</a></span><span class="op">(</span><span class="st">"function(value, ratio, id) { return id + ': ' + d3.format('.0%')(ratio);}"</span><span class="op">)</span></span>
+<span>      format <span class="op">=</span> <span class="fu"><a href="../reference/billboarder-exports.html">JS</a></span><span class="op">(</span><span class="st">"function(value, ratio, id) { return d3.format('.0%')(ratio);}"</span><span class="op">)</span>,</span>
+<span>      line <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>        show <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>        distance <span class="op">=</span> <span class="fl">30</span>,</span>
+<span>        text <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>      <span class="op">)</span></span>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op"><a href="../reference/billboarder-exports.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/bb_legend.html">bb_legend</a></span><span class="op">(</span>show <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op"><a href="../reference/billboarder-exports.html">%&gt;%</a></span> </span>
@@ -260,7 +275,7 @@ format, with tools such as <code>pivot_longer</code>):</p>
 <a id="htmlwidget-4018eef1a407a0df6b52-export" style="position:absolute; top:0; right:0; display:none; z-index:50;"></a>
 <div id="htmlwidget-4018eef1a407a0df6b52" class="billboarder html-widget" style="width:100%;height:320px;" width="100%" height="320px"></div>
 </div>
-<script type="application/json" data-for="htmlwidget-4018eef1a407a0df6b52">{"x":{"bb_opts":{"interaction":{"inputType":{"touch":false}},"data":{"json":{"Nuclear":[384],"Other":[147.3]},"type":"donut"},"donut":{"title":"Share of nuclear\nin France","label":{"format":"function(value, ratio, id) {\treturn id + ': ' + d3.format('.0%')(ratio);}"}},"legend":{"show":false},"customStyle":".bb-title tspan:nth-child(2){font-size: smaller; font-weight: lighter;}","padding":{"top":30},"title":{"text":"\nData source: RTE (https://opendata.reseaux-energies.fr/)","position":"left-top"}},"data":null},"evals":["bb_opts.donut.label.format"],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-4018eef1a407a0df6b52">{"x":{"bb_opts":{"interaction":{"inputType":{"touch":false}},"data":{"json":{"Nuclear":[384],"Other":[147.3]},"type":"donut"},"donut":{"title":"Share of nuclear\nin France","label":{"format":"function(value, ratio, id) {\treturn d3.format('.0%')(ratio);}","line":{"show":true,"distance":30,"text":true}}},"legend":{"show":false},"customStyle":".bb-title tspan:nth-child(2){font-size: smaller; font-weight: lighter;}","padding":{"top":30},"title":{"text":"\nData source: RTE (https://opendata.reseaux-energies.fr/)","position":"left-top"}},"data":null},"evals":["bb_opts.donut.label.format"],"jsHooks":[]}</script>
 </div>
 <div class="section level2">
 <h2 id="lines-charts">Lines charts<a class="anchor" aria-label="anchor" href="#lines-charts"></a>
@@ -448,7 +463,7 @@ format, with tools such as <code>pivot_longer</code>):</p>
 <a id="htmlwidget-72cbf064100ce560a04c-export" style="position:absolute; top:0; right:0; display:none; z-index:50;"></a>
 <div id="htmlwidget-72cbf064100ce560a04c" class="billboarder html-widget" style="width:100%;height:320px;" width="100%" height="320px"></div>
 </div>
-<script type="application/json" data-for="htmlwidget-72cbf064100ce560a04c">{"x":{"bb_opts":{"interaction":{"inputType":{"touch":false}},"axis":{"x":{"type":"timeseries"},"y":{"min":50}},"line":{"classes":["billboarder-line-y1"]},"data":{"x":"date","json":{"date":["2025-09-30","2025-10-01","2025-10-02","2025-10-03","2025-10-04","2025-10-05","2025-10-06","2025-10-07","2025-10-08","2025-10-09","2025-10-10","2025-10-11","2025-10-12","2025-10-13","2025-10-14","2025-10-15","2025-10-16","2025-10-17","2025-10-18","2025-10-19"],"y1":[{"low":74,"mid":79,"high":84},{"low":99,"mid":104,"high":109},{"low":58,"mid":63,"high":68},{"low":95,"mid":100,"high":105},{"low":104,"mid":109,"high":114},{"low":112,"mid":117,"high":122},{"low":68,"mid":73,"high":78},{"low":91,"mid":96,"high":101},{"low":91,"mid":96,"high":101},{"low":91,"mid":96,"high":101},{"low":87,"mid":92,"high":97},{"low":104,"mid":109,"high":114},{"low":126,"mid":131,"high":136},{"low":71,"mid":76,"high":81},{"low":103,"mid":108,"high":113},{"low":67,"mid":72,"high":77},{"low":87,"mid":92,"high":97},{"low":94,"mid":99,"high":104},{"low":103,"mid":108,"high":113},{"low":81,"mid":86,"high":91}],"y2":[{"low":99,"mid":107,"high":115},{"low":99,"mid":105,"high":114},{"low":68,"mid":80,"high":94},{"low":108,"mid":111,"high":123},{"low":119,"mid":128,"high":142},{"low":91,"mid":99,"high":107},{"low":78,"mid":86,"high":93},{"low":95,"mid":100,"high":109},{"low":77,"mid":88,"high":93},{"low":73,"mid":77,"high":91},{"low":104,"mid":114,"high":117},{"low":100,"mid":103,"high":110},{"low":90,"mid":104,"high":107},{"low":121,"mid":124,"high":139},{"low":93,"mid":102,"high":110},{"low":84,"mid":98,"high":101},{"low":63,"mid":71,"high":74},{"low":85,"mid":96,"high":111},{"low":83,"mid":95,"high":99},{"low":112,"mid":116,"high":123}]},"types":{"y1":"area-line-range","y2":"area-spline-range"}},"point":{"show":false}},"data":{"date":["2025-09-30","2025-10-01","2025-10-02","2025-10-03","2025-10-04","2025-10-05","2025-10-06","2025-10-07","2025-10-08","2025-10-09","2025-10-10","2025-10-11","2025-10-12","2025-10-13","2025-10-14","2025-10-15","2025-10-16","2025-10-17","2025-10-18","2025-10-19"],"y1":[79,104,63,100,109,117,73,96,96,96,92,109,131,76,108,72,92,99,108,86],"y2":[107,105,80,111,128,99,86,100,88,77,114,103,104,124,102,98,71,96,95,116],"ymin1":[74,99,58,95,104,112,68,91,91,91,87,104,126,71,103,67,87,94,103,81],"ymax1":[84,109,68,105,114,122,78,101,101,101,97,114,136,81,113,77,97,104,113,91],"ymin2":[99,99,68,108,119,91,78,95,77,73,104,100,90,121,93,84,63,85,83,112],"ymax2":[115,114,94,123,142,107,93,109,93,91,117,110,107,139,110,101,74,111,99,123]}},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-72cbf064100ce560a04c">{"x":{"bb_opts":{"interaction":{"inputType":{"touch":false}},"axis":{"x":{"type":"timeseries"},"y":{"min":50}},"line":{"classes":["billboarder-line-y1"]},"data":{"x":"date","json":{"date":["2026-01-29","2026-01-30","2026-01-31","2026-02-01","2026-02-02","2026-02-03","2026-02-04","2026-02-05","2026-02-06","2026-02-07","2026-02-08","2026-02-09","2026-02-10","2026-02-11","2026-02-12","2026-02-13","2026-02-14","2026-02-15","2026-02-16","2026-02-17"],"y1":[{"low":74,"mid":79,"high":84},{"low":99,"mid":104,"high":109},{"low":58,"mid":63,"high":68},{"low":95,"mid":100,"high":105},{"low":104,"mid":109,"high":114},{"low":112,"mid":117,"high":122},{"low":68,"mid":73,"high":78},{"low":91,"mid":96,"high":101},{"low":91,"mid":96,"high":101},{"low":91,"mid":96,"high":101},{"low":87,"mid":92,"high":97},{"low":104,"mid":109,"high":114},{"low":126,"mid":131,"high":136},{"low":71,"mid":76,"high":81},{"low":103,"mid":108,"high":113},{"low":67,"mid":72,"high":77},{"low":87,"mid":92,"high":97},{"low":94,"mid":99,"high":104},{"low":103,"mid":108,"high":113},{"low":81,"mid":86,"high":91}],"y2":[{"low":99,"mid":107,"high":115},{"low":99,"mid":105,"high":114},{"low":68,"mid":80,"high":94},{"low":108,"mid":111,"high":123},{"low":119,"mid":128,"high":142},{"low":91,"mid":99,"high":107},{"low":78,"mid":86,"high":93},{"low":95,"mid":100,"high":109},{"low":77,"mid":88,"high":93},{"low":73,"mid":77,"high":91},{"low":104,"mid":114,"high":117},{"low":100,"mid":103,"high":110},{"low":90,"mid":104,"high":107},{"low":121,"mid":124,"high":139},{"low":93,"mid":102,"high":110},{"low":84,"mid":98,"high":101},{"low":63,"mid":71,"high":74},{"low":85,"mid":96,"high":111},{"low":83,"mid":95,"high":99},{"low":112,"mid":116,"high":123}]},"types":{"y1":"area-line-range","y2":"area-spline-range"}},"point":{"show":false}},"data":{"date":["2026-01-29","2026-01-30","2026-01-31","2026-02-01","2026-02-02","2026-02-03","2026-02-04","2026-02-05","2026-02-06","2026-02-07","2026-02-08","2026-02-09","2026-02-10","2026-02-11","2026-02-12","2026-02-13","2026-02-14","2026-02-15","2026-02-16","2026-02-17"],"y1":[79,104,63,100,109,117,73,96,96,96,92,109,131,76,108,72,92,99,108,86],"y2":[107,105,80,111,128,99,86,100,88,77,114,103,104,124,102,98,71,96,95,116],"ymin1":[74,99,58,95,104,112,68,91,91,91,87,104,126,71,103,67,87,94,103,81],"ymax1":[84,109,68,105,114,122,78,101,101,101,97,114,136,81,113,77,97,104,113,91],"ymin2":[99,99,68,108,119,91,78,95,77,73,104,100,90,121,93,84,63,85,83,112],"ymax2":[115,114,94,123,142,107,93,109,93,91,117,110,107,139,110,101,74,111,99,123]}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <div class="section level2">
@@ -465,7 +480,7 @@ format, with tools such as <code>pivot_longer</code>):</p>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> See also `vignette("ggplot2-in-packages")` for more information.</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> The deprecated feature was likely used in the <span style="color: #0000BB;">billboarder</span> package.</span></span>
 <span><span class="co">#&gt;   Please report the issue at <span style="color: #0000BB; font-style: italic;">&lt;https://github.com/dreamRs/billboarder/issues&gt;</span>.</span></span>
-<span><span class="co">#&gt; <span style="color: #555555;">This warning is displayed once every 8 hours.</span></span></span>
+<span><span class="co">#&gt; <span style="color: #555555;">This warning is displayed once per session.</span></span></span>
 <span><span class="co">#&gt; <span style="color: #555555;">Call `lifecycle::last_lifecycle_warnings()` to see where this warning was</span></span></span>
 <span><span class="co">#&gt; <span style="color: #555555;">generated.</span></span></span></code></pre></div>
 <div class="billboarder html-widget html-fill-item" style="width:100%;height:320px; position: relative;">
@@ -608,7 +623,7 @@ render function in shiny:</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer>

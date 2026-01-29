@@ -1,0 +1,262 @@
+# Options - styling charts
+
+## Title
+
+Add a title to your chart with `bb_title` or `bb_labs` (`bb_labs` is a
+shortcut to set title and axis labels at the same time, but with no
+options for placement) :
+
+``` r
+billboarder() %>% 
+  bb_barchart(table(sample(letters[1:6], 50, TRUE))) %>% 
+  bb_title(text = "My title", position = "center")
+```
+
+## Colors
+
+You can specify a new color palette with function `bb_color` :
+
+``` r
+data("prod_par_filiere")
+prod_par_filiere[, c(1, 3, 4, 5, 6, 8)]
+#>   annee prod_therm prod_hydraulique prod_bioenergies prod_eolien prod_solaire
+#> 1  2012       48.1             63.8              5.8        14.9          4.1
+#> 2  2013       43.6             75.5              7.1        15.9          4.7
+#> 3  2014       25.9             68.1              7.5        17.1          5.9
+#> 4  2015       34.4             59.1              8.0        21.1          7.4
+#> 5  2016       45.9             63.9              8.5        20.7          8.3
+
+# Default
+billboarder() %>% 
+  bb_barchart(data = prod_par_filiere[, c(1, 3, 4, 5, 6, 8)])
+```
+
+``` r
+
+# RColorBrewer palette
+library("RColorBrewer")
+billboarder() %>% 
+  bb_barchart(data = prod_par_filiere[, c(1, 3, 4, 5, 6, 8)]) %>% 
+  bb_color(palette = brewer.pal(n = 5, name = "Dark2"))
+```
+
+  
+Or you can specify each color associated with data with
+`bb_colors_manual` :
+
+``` r
+billboarder() %>% 
+  bb_barchart(data = prod_par_filiere[, c(1, 3, 4, 5, 6, 8)]) %>% 
+  bb_colors_manual(
+    prod_therm = "maroon",
+    prod_hydraulique = "royalblue",
+    prod_bioenergies = "forestgreen",
+    prod_eolien = "plum",
+    prod_solaire = "goldenrod"
+  )
+```
+
+Note : be careful when using named colors, CSS don’t recognize color
+variant such as `royalblue2`, `firebrick3`, … Use HEX code instead.
+
+  
+For bar charts, you can highlight a value in a simple barchart with :
+
+``` r
+billboarder() %>% 
+  bb_barchart(data = prod_par_filiere[, c(1, 4)], color = "grey") %>% 
+  bb_bar_color_manual(values = c("2015" = "firebrick"))
+```
+
+## Axis
+
+Add a label to an axis :
+
+``` r
+# data source : wikipedia
+sw <- data.frame(
+  film = c("The Force Awakens", "The Phantom Menace",
+           "Revenge of the Sith", "A New Hope", 
+           "Attack of the Clones", "The Empire Strikes Back", 
+           "Return of the Jedi"),
+  worldwide_gross = c(2068178225, 1027044677, 848754768,
+                      775398007, 649398328, 538375067, 475106177)
+)
+
+billboarder() %>% 
+  bb_barchart(data = sw) %>% 
+  bb_y_axis(label = list(text = "Worldwide grosses", position = "outer-middle"))
+```
+
+  
+You can format values on an axis with JavaScript (use
+[`htmlwidgets::JS`](https://rdrr.io/pkg/htmlwidgets/man/JS.html) to mark
+your character string as literal JavaScript) :
+
+``` r
+billboarder() %>% 
+  bb_barchart(data = sw) %>% 
+  bb_y_axis(tick = list(
+    values = c(0, 5e+08, 1e+09, 1.5e+09, 2e+09),
+    outer = FALSE,
+    format = htmlwidgets::JS("d3.formatPrefix('$,.0', 1e6)")
+  ))
+```
+
+  
+If you just want to add a suffix or prefix to the value, use the
+functions with the same name :
+
+``` r
+sw2 <- sw
+# calculate percentage
+sw2$percent <- sw2$worldwide_gross / sum(sw2$worldwide_gross) * 100
+sw2$percent <- round(sw2$percent)
+
+sw2$worldwide_gross <- NULL
+
+billboarder() %>% 
+  bb_barchart(data = sw2) %>% 
+  bb_y_axis(tick = list(format = suffix("%")))
+```
+
+  
+You can apply a format to x axis as well (especially useful with time),
+and `fit = FALSE` to don’t show all ticks :
+
+``` r
+data("cdc_prod_filiere")
+billboarder() %>% 
+  bb_linechart(data = cdc_prod_filiere[, c("date_heure", "prod_solaire")]) %>% 
+  bb_x_axis(tick = list(format = "%H:%M", fit = FALSE))
+```
+
+  
+Set a minimum on an axis (and look at the difference between above
+x-axis and below, without `fit = FALSE`) :
+
+``` r
+billboarder() %>% 
+  bb_linechart(data = cdc_prod_filiere[, c("date_heure", "prod_solaire")]) %>% 
+  bb_y_axis(min = 0, padding = 0)
+```
+
+## Legend
+
+By default, legend is shown, you can hide it with `bb_lengend`
+
+``` r
+df <- data.frame(
+  cos = cos(seq(-pi, pi, length.out = 30))
+)
+
+# No legend
+billboarder() %>% 
+  bb_linechart(data = df) %>% 
+  bb_legend(show = FALSE)
+```
+
+  
+You can change the name appearing in the legend with `bb_data`, by
+giving an alias to the variable in the data. Here we have a column named
+`cos` in our `data.frame`, we renamed it `Cosine`.
+
+``` r
+billboarder() %>% 
+  bb_linechart(data = df) %>% 
+  bb_data(names = list(cos = "Cosine"))
+```
+
+  
+Legend can be postionned with argument `position`, three values are
+possible : `"bottom"` (the default), `"right"` and `"inset"`. For the
+last one, you must specify in which area of the chart the legend must be
+placed.
+
+``` r
+df$sin <- sin(seq(-pi, pi, length.out = 30))
+
+billboarder() %>% 
+  bb_linechart(data = df) %>% 
+  bb_legend(position = "right")
+```
+
+``` r
+
+billboarder() %>% 
+  bb_linechart(data = df) %>% 
+  bb_legend(position = "inset", inset = list(anchor = "top-left"))
+```
+
+## Grids
+
+You can add grids to a chart with `bb_x_axis` and `bb_y_axis` :
+
+``` r
+billboarder() %>% 
+  bb_linechart(data = df) %>%
+  bb_y_grid(show = TRUE) %>% 
+  bb_x_grid(show = TRUE)
+```
+
+  
+This option also allows you to add vertical and horizontal lines :
+
+``` r
+billboarder() %>% 
+  bb_linechart(data = df) %>%
+  bb_y_grid(lines = list(
+    list(value = 0, text = "Zero")
+  ))
+```
+
+## Tooltip
+
+You can show the tooltip separately for each serie in the chart :
+
+``` r
+billboarder() %>% 
+  bb_linechart(data = df) %>%
+  bb_tooltip(grouped = FALSE)
+```
+
+  
+You can change the format of the tooltip with a JavaScript function, for
+example `d3.format`. Write the function as a character vector, and use
+[`htmlwidgets::JS`](https://rdrr.io/pkg/htmlwidgets/man/JS.html) to mark
+it as literal JavaScript code.
+
+``` r
+billboarder() %>% 
+  bb_barchart(data = sw) %>% 
+  bb_tooltip(format = list(
+    name =  htmlwidgets::JS("function(name, ratio, id, index) {return 'Worldwide grosses';}"),
+    value = htmlwidgets::JS("d3.format('$,')")
+  ))
+```
+
+## End
+
+All options combined :
+
+``` r
+billboarder() %>% 
+  bb_barchart(data = sw, color = "#CAD5DB") %>% 
+  bb_bar_color_manual(values = c("A New Hope" = "#112446")) %>% 
+  bb_legend(show = FALSE) %>% 
+  bb_y_grid(show = TRUE) %>% 
+  bb_y_axis(tick = list(
+    values = c(0, 5e+08, 1e+09, 1.5e+09, 2e+09),
+    outer = FALSE,
+    format = htmlwidgets::JS("d3.formatPrefix('$,.0', 1e6)")
+  )) %>% 
+  bb_tooltip(format = list(
+    name =  htmlwidgets::JS("function(name, ratio, id, index) {return 'Worldwide grosses';}"),
+    value = htmlwidgets::JS("d3.format('$,')")
+  )) %>% 
+  bb_labs(
+    title = "Star Wars - Total Lifetime Grosses", 
+    y = "Worldwide grosses",
+    caption = "Data source : wikipedia"
+  )
+```
