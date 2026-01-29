@@ -2,6 +2,8 @@
 
 ## billboarder 0.5.1
 
+CRAN release: 2026-01-29
+
 - Update of the billboard.js library to 3.18.0 (see
   <https://github.com/naver/billboard.js/releases>).
 

@@ -17,7 +17,7 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/dreamRs/billboarder/blob/master/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/dreamRs/billboarder/blob/v0.5.1/DESCRIPTION)
 
 Perrier V, Meyer F (2026). *billboarder: Create Interactive Chart with
 the JavaScript 'Billboard' Library*. R package version 0.5.1,
