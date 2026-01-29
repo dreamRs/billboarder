@@ -20,13 +20,13 @@ Source:
 [`DESCRIPTION`](https://github.com/dreamRs/billboarder/blob/master/DESCRIPTION)
 
 Perrier V, Meyer F (2026). *billboarder: Create Interactive Chart with
-the JavaScript 'Billboard' Library*. R package version 0.5.0.9300,
+the JavaScript 'Billboard' Library*. R package version 0.5.1,
 <https://github.com/dreamRs/billboarder>.
 
     @Manual{,
       title = {billboarder: Create Interactive Chart with the JavaScript 'Billboard' Library},
       author = {Victor Perrier and Fanny Meyer},
       year = {2026},
-      note = {R package version 0.5.0.9300},
+      note = {R package version 0.5.1},
       url = {https://github.com/dreamRs/billboarder},
     }
