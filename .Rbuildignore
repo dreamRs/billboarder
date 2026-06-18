@@ -17,3 +17,5 @@
 ^LICENSE\.md$
 ^pkgdown$
 ^CRAN-SUBMISSION$
+^\.positai$
+^\.claude$
