@@ -46,6 +46,7 @@ This function has two uses:
 ## Examples
 
 ``` r
+
 # Add a button to download as PNG:
 
 data("equilibre_mensuel")

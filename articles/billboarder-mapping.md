@@ -18,6 +18,7 @@ We’ll use data about the french electricity production between 2012 and
 2016 :
 
 ``` r
+
 data("prod_par_filiere")
 str(prod_par_filiere)
 #> 'data.frame':    5 obs. of  11 variables:
@@ -40,6 +41,7 @@ For creating this simple barchart, we need to use two columns of our
 `data.frame`
 
 ``` r
+
 billboarder() %>% 
   bb_barchart(data = prod_par_filiere[, c("annee", "prod_bioenergies")])
 ```
@@ -50,6 +52,7 @@ values.
 This is similar for line chart :
 
 ``` r
+
 billboarder() %>% 
   bb_linechart(data = prod_par_filiere[, c("annee", "prod_bioenergies")])
 ```
@@ -60,6 +63,7 @@ We can pass our data to function `billboarder` and then call `bb_aes` to
 specify which variable to use :
 
 ``` r
+
 billboarder(data = prod_par_filiere) %>% 
   bb_aes(x = annee, y = prod_bioenergies) %>% 
   bb_barchart()
@@ -70,6 +74,7 @@ You don’t have to pass arguments to `bb_barchart`.
 This is the same for line chart :
 
 ``` r
+
 billboarder(data = prod_par_filiere) %>% 
   bb_aes(x = annee, y = prod_bioenergies) %>% 
   bb_linechart()
@@ -81,6 +86,7 @@ Mapping can be specified inside the function which specify the type of
 chart :
 
 ``` r
+
 billboarder(data = prod_par_filiere) %>% 
   bb_barchart(mapping = bbaes(x = annee, y = prod_bioenergies))
 ```
@@ -90,6 +96,7 @@ The function to map variables is `bbaes` without underscore.
 For line chart :
 
 ``` r
+
 billboarder(data = prod_par_filiere) %>% 
   bb_linechart(mapping = bbaes(x = annee, y = prod_bioenergies))
 ```
@@ -103,6 +110,7 @@ need data in ‘long’ format with a grouping variable.
 With ‘wide’ data :
 
 ``` r
+
 billboarder() %>% 
   bb_barchart(
     data = prod_par_filiere[, c("annee", "prod_bioenergies", "prod_eolien", "prod_solaire", "prod_hydraulique")]
@@ -112,6 +120,7 @@ billboarder() %>%
 with ‘long’ data :
 
 ``` r
+
 # prepare data
 data("prod_filiere_long")
 prod_filiere_long <- prod_filiere_long[
@@ -138,6 +147,7 @@ In Shiny app or in function, you can use `bbaes_string` or
 variable names :
 
 ``` r
+
 billboarder(data = prod_filiere_long) %>% 
   bb_barchart(mapping = bbaes_string(x = "annee", y = "prod", group = "branche"))
 #> Warning: `aes_string()` was deprecated in ggplot2 3.0.0.

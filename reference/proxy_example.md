@@ -20,6 +20,7 @@ proxy_example(chart = "gauge")
 ## Examples
 
 ``` r
+
 if (interactive()) {
 
 # Titanic passenger

@@ -29,6 +29,7 @@ A `billboard` `htmlwidget` object.
 ## Examples
 
 ``` r
+
 stars <- data.frame(
   package = c("billboarder", "ggiraph", "officer", "shinyWidgets", "visNetwork"),
   stars = c(9, 178, 43, 46, 175)

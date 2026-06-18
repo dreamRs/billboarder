@@ -48,5 +48,5 @@ billboarder() %>%
   
   
 
-{"x":{"bb_opts":{"interaction":{"inputType":{"touch":false}},"data":{"x":"bb-x","json":{"bb-x":["b","c","d","e","f","g","h","i","j","k","l","n","o","p","q","r","s","t","u","v","w","x","y","z"],"Freq":[1,2,1,4,1,8,5,6,5,2,6,3,5,4,8,4,3,3,8,5,3,3,6,4]},"type":"bar"},"bar":[],"axis":{"x":{"type":"category"},"rotated":false},"title":{"text":"Random letters","position":"center"}},"data":null},"evals":[],"jsHooks":[]}
+{"x":{"bb_opts":{"interaction":{"inputType":{"touch":false}},"data":{"x":"bb-x","json":{"bb-x":["b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"],"Freq":[4,2,2,6,2,4,4,4,4,3,5,2,4,7,3,6,3,2,2,9,8,5,3,3,3]},"type":"bar"},"bar":[],"axis":{"x":{"type":"category"},"rotated":false},"title":{"text":"Random letters","position":"center"}},"data":null},"evals":[],"jsHooks":[]}
 ```

@@ -26,6 +26,7 @@ You can create a simple bar chart by passing a `data.frame` to
 second one as the y-axis :
 
 ``` r
+
 library("billboarder")
 
 df <- as.data.frame(table(sample(letters[1:5], 50, TRUE)))
@@ -47,6 +48,7 @@ data in a “wide” format. Here we use
 recommend to use `tidyr::spread` or `data.table::dcast`.
 
 ``` r
+
 df <- as.data.frame(table(
   sample(letters[1:5], 50, TRUE),
   sample(LETTERS[1:5], 50, TRUE)
@@ -69,6 +71,7 @@ Second option is to define a mapping of your variable with function
 *billboarder-mapping*).
 
 ``` r
+
 billboarder() %>% 
   bb_barchart(
     data = df,
@@ -82,6 +85,7 @@ You can pass to the function `bb_linechart` a vector, in that case
 x-axis will be the index of that vector :
 
 ``` r
+
 billboarder() %>% 
   bb_linechart(data = sin(seq(-pi, pi, length.out = 10)))
 ```
@@ -90,6 +94,7 @@ You can change the type of line with argument `type`, for example an
 `area-step` :
 
 ``` r
+
 billboarder() %>% 
   bb_linechart(data = sin(seq(-pi, pi, length.out = 10)), type = "area-step")
 ```
@@ -98,6 +103,7 @@ If want to specify a variable to map to the x-axis, you had to pass a
 `data.frame` to the function :
 
 ``` r
+
 df <- data.frame(
   var_x = seq(-pi, pi, length.out = 10),
   sin = sin(seq(-pi, pi, length.out = 10))
@@ -123,6 +129,7 @@ If the first variable of the `data.frame` is a `Date` or a `POSIX`, it
 will be automatically mapped to the x-axis :
 
 ``` r
+
 df <- data.frame(
   date = seq.Date(from = as.Date("2017-06-12"), by = "day", length.out = 10),
   var = rnorm(10)
@@ -151,11 +158,13 @@ For scatter plot, use a two column `data.frame` with function
 also specify a grouping variable) :
 
 ``` r
+
 billboarder() %>% 
   bb_scatterplot(data = iris[, 1:2])
 ```
 
 ``` r
+
 
 billboarder() %>% 
   bb_scatterplot(data = iris, x = "Petal.Length", y = "Petal.Width", group = "Species")
@@ -166,6 +175,7 @@ billboarder() %>%
 For pie chart, use `bb_piechart` with a two column `data.frame` :
 
 ``` r
+
 df <- data.frame(
   var = c("A", "B"),
   count = c(457, 987)
@@ -180,6 +190,7 @@ billboarder() %>%
 Donut charts works the same as pie charts :
 
 ``` r
+
 df <- data.frame(
   var = c("A", "B"),
   count = c(687, 246)
@@ -197,6 +208,7 @@ Note : pie and donut are automatically sorted, you can change that with
 Gauge only need one value :
 
 ``` r
+
 billboarder() %>% 
   bb_gaugechart(value = 64)
 ```

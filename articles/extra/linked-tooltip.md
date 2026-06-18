@@ -1,6 +1,7 @@
 # Linked tooltip
 
 ``` r
+
 library(billboarder)
 data("economics", package = "ggplot2")
 ```
@@ -15,6 +16,7 @@ we declare an ID to link charts. All charts with the name `"my-tooltip"`
 will be linked.
 
 ``` r
+
 draw_line <- function(var, title, percent = TRUE) {
   billboarder(height = "250px") %>%
     bb_linechart(data = economics[, c("date", var)]) %>% 
@@ -35,6 +37,7 @@ draw_line <- function(var, title, percent = TRUE) {
 We can draw several line charts that will be linked to each other :
 
 ``` r
+
 draw_line("psavert", "Personal savings rate", TRUE)
 draw_line("uempmed", "Number of unemployed", TRUE)
 draw_line("pce", "Personal consumption expenditures", FALSE)
@@ -44,6 +47,7 @@ draw_line("pop", "Total population", FALSE)
 It also works in Shiny applications :
 
 ``` r
+
 library(shiny)
 
 ui <- fluidPage(

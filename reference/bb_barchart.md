@@ -64,6 +64,7 @@ in shiny application.
 ## Examples
 
 ``` r
+
 stars <- data.frame(
   package = c("billboarder", "ggiraph", "officer",
               "shinyWidgets", "visNetwork", "rAmCharts", 
@@ -142,7 +143,7 @@ billboarder() %>%
   
   
 
-{"x":{"bb_opts":{"interaction":{"inputType":{"touch":false}},"data":{"x":"bb-x","json":{"bb-x":["a","b","c","d","e"],"A":[5,3,4,3,5],"B":[4,4,6,4,6],"C":[4,4,1,6,5],"D":[5,5,3,5,5],"E":[4,5,4,0,0]},"type":"bar"},"bar":[],"axis":{"x":{"type":"category"},"rotated":true}},"data":null},"evals":[],"jsHooks":[]}
+{"x":{"bb_opts":{"interaction":{"inputType":{"touch":false}},"data":{"x":"bb-x","json":{"bb-x":["a","b","c","d","e"],"A":[5,3,4,3,5],"B":[4,3,6,3,7],"C":[4,4,1,6,4],"D":[6,5,3,5,4],"E":[4,5,4,1,1]},"type":"bar"},"bar":[],"axis":{"x":{"type":"category"},"rotated":true}},"data":null},"evals":[],"jsHooks":[]}
 
 # You can also pass data in a 'wide' format
 dat2 <- data.frame(
@@ -162,5 +163,5 @@ billboarder() %>%
   
   
 
-{"x":{"bb_opts":{"interaction":{"inputType":{"touch":false}},"data":{"x":"bb-x","json":{"bb-x":["a","b","c","d","e"],"A":[53,72,26,37,16],"B":[51,33,29,25,34],"C":[87,77,51,31,26],"D":[3,17,63,33,48],"E":[85,18,91,24,84]},"type":"bar","groups":[["A","B","C","D","E"]],"order":null,"labels":true},"bar":[],"axis":{"x":{"type":"category"},"rotated":false}},"data":null},"evals":[],"jsHooks":[]}
+{"x":{"bb_opts":{"interaction":{"inputType":{"touch":false}},"data":{"x":"bb-x","json":{"bb-x":["a","b","c","d","e"],"A":[18,15,92,32,24],"B":[39,90,53,72,26],"C":[37,16,51,33,29],"D":[25,34,87,77,51],"E":[31,26,3,17,63]},"type":"bar","groups":[["A","B","C","D","E"]],"order":null,"labels":true},"bar":[],"axis":{"x":{"type":"category"},"rotated":false}},"data":null},"evals":[],"jsHooks":[]}
 ```

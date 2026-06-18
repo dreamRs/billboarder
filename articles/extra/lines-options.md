@@ -1,6 +1,7 @@
 # Lines options
 
 ``` r
+
 library(billboarder)
 ```
 
@@ -8,6 +9,7 @@ We’ll use two datasets : one in wide format and one in long format to
 use with mapping. Here how two create the datasets :
 
 ``` r
+
 # wide format
 wide <- data.frame(
   index = seq_len(100),
@@ -33,16 +35,19 @@ You can change type of line with `type` argument, available choices are
 area-spline-range. Some examples :
 
 ``` r
+
 billboarder(height = "200px") %>% 
   bb_linechart(data = wide, type = "spline")
 ```
 
 ``` r
+
 billboarder(height = "200px") %>% 
   bb_linechart(data = wide, type = "step")
 ```
 
 ``` r
+
 billboarder(height = "200px") %>% 
   bb_linechart(data = wide, type = "area")
 ```
@@ -50,6 +55,7 @@ billboarder(height = "200px") %>%
 You can use different types for each lines :
 
 ``` r
+
 billboarder() %>% 
   bb_linechart(data = wide, type = c("area", "spline", "step"))
 ```
@@ -57,6 +63,7 @@ billboarder() %>%
 With mapping :
 
 ``` r
+
 billboarder() %>% 
   bb_linechart(
     data = long, 
@@ -77,11 +84,13 @@ argument `dasharray`. Possible values are :
 Example :
 
 ``` r
+
 billboarder() %>% 
   bb_linechart(data = wide, dasharray = 4)
 ```
 
 ``` r
+
 billboarder() %>% 
   bb_linechart(data = wide, dasharray = "6 2 1 2")
 ```
@@ -90,6 +99,7 @@ To use different patterns, use a vector with the same length as the data
 (use `0` for no dash) :
 
 ``` r
+
 billboarder() %>% 
   bb_linechart(data = wide, dasharray = c("0", "4 2", "8 3 2 3"))
 ```
@@ -97,6 +107,7 @@ billboarder() %>%
 With mapping :
 
 ``` r
+
 billboarder() %>% 
   bb_linechart(
     data = long, 
@@ -110,6 +121,7 @@ billboarder() %>%
 Lines width can be define with `width` argument :
 
 ``` r
+
 billboarder() %>% 
   bb_linechart(data = wide, width = 3)
 ```
@@ -117,6 +129,7 @@ billboarder() %>%
 Use a vector with same length as lines to use different widths :
 
 ``` r
+
 billboarder() %>% 
   bb_linechart(data = wide, width = c(1, 4, 8))
 ```
@@ -124,6 +137,7 @@ billboarder() %>%
 With mapping :
 
 ``` r
+
 billboarder() %>% 
   bb_linechart(
     data = long, 
@@ -137,6 +151,7 @@ billboarder() %>%
 You can use both at the same time :
 
 ``` r
+
 billboarder() %>% 
   bb_linechart(
     data = long, 

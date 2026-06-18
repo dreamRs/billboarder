@@ -42,6 +42,7 @@ in shiny application.
 ## Examples
 
 ``` r
+
 stars <- data.frame(
   package = c("billboarder", "ggiraph", "officer", "shinyWidgets", "visNetwork"),
   stars = c(9, 177, 43, 44, 169)

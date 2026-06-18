@@ -65,6 +65,7 @@ A `billboard` `htmlwidget` object.
 ## Examples
 
 ``` r
+
 data("diamonds", package = "ggplot2")
 
 # one variable
@@ -146,7 +147,7 @@ billboarder() %>%
   
   
 
-{"x":{"bb_opts":{"interaction":{"inputType":{"touch":false}},"data":{"x":"x","json":{"x":[-2.25,-2,-1.75,-1.5,-1.25,-1,-0.75,-0.5,-0.25,0,0.25,0.5,0.75,1,1.25,1.5,1.75,2,2.25,2.5,2.75,3,3.25,3.5,3.75,4,4.25,4.5,4.75,5,5.25],"y":[1,1,1,3,6,10,16,17,35,34,48,55,82,72,76,84,81,88,66,68,51,37,21,20,12,5,6,2,1,0,1]},"type":"area-step"},"legend":{"show":false},"axis":{"x":{"label":{"text":"sample"},"tick":{"fit":false,"outer":false,"centered":true}},"y":{"max":null,"padding":null,"tick":{"format":null},"label":{"text":"count"}}},"tooltip":{"format":{"title":"function(i) { var x = (i-0.125) + ' ; ' + (i+0.125); return x; }"}},"point":{"show":false}},"data":null},"evals":["bb_opts.tooltip.format.title"],"jsHooks":[]}
+{"x":{"bb_opts":{"interaction":{"inputType":{"touch":false}},"data":{"x":"x","json":{"x":[-2.75,-2.5,-2.25,-2,-1.75,-1.5,-1.25,-1,-0.75,-0.5,-0.25,0,0.25,0.5,0.75,1,1.25,1.5,1.75,2,2.25,2.5,2.75,3,3.25,3.5,3.75,4,4.25,4.5,4.75,5,5.25,5.5],"y":[1,0,0,1,0,2,4,7,10,20,30,37,43,57,72,72,79,84,102,93,74,55,48,38,26,20,9,11,1,0,2,1,0,1]},"type":"area-step"},"legend":{"show":false},"axis":{"x":{"label":{"text":"sample"},"tick":{"fit":false,"outer":false,"centered":true}},"y":{"max":null,"padding":null,"tick":{"format":null},"label":{"text":"count"}}},"tooltip":{"format":{"title":"function(i) { var x = (i-0.125) + ' ; ' + (i+0.125); return x; }"}},"point":{"show":false}},"data":null},"evals":["bb_opts.tooltip.format.title"],"jsHooks":[]}
 samples_mean <- tapply(dat$sample, dat$group, mean)
 billboarder() %>% 
   bb_histogram(data = dat, x = "sample", group = "group",
@@ -163,5 +164,5 @@ billboarder() %>%
   
   
 
-{"x":{"bb_opts":{"interaction":{"inputType":{"touch":false}},"data":{"x":"x","json":{"A":[1,1,1,2,6,10,14,17,29,27,38,42,59,42,41,40,34,40,14,18,11,5,3,1,2,1,0,1,0,0,0],"B":[0,0,0,1,0,0,2,0,6,7,10,13,23,30,35,44,47,48,52,50,40,32,18,19,10,4,6,1,1,0,1],"x":[-2.25,-2,-1.75,-1.5,-1.25,-1,-0.75,-0.5,-0.25,0,0.25,0.5,0.75,1,1.25,1.5,1.75,2,2.25,2.5,2.75,3,3.25,3.5,3.75,4,4.25,4.5,4.75,5,5.25]},"type":"area-step"},"legend":{"show":true},"axis":{"x":{"label":{"text":"sample"},"tick":{"fit":false,"outer":false,"centered":true}},"y":{"max":null,"padding":null,"tick":{"format":null},"label":{"text":"count"}}},"tooltip":{"format":{"title":"function(i) { var x = (i-0.125) + ' ; ' + (i+0.125); return x; }"}},"point":{"show":false},"grid":{"x":{"lines":[{"value":0.9328141771426568,"text":"mean of sample A"},{"value":2.005241421811761,"text":"mean of sample B"}]}}},"data":null},"evals":["bb_opts.tooltip.format.title"],"jsHooks":[]}
+{"x":{"bb_opts":{"interaction":{"inputType":{"touch":false}},"data":{"x":"x","json":{"A":[1,0,0,1,0,2,4,5,10,18,27,29,35,38,46,48,38,39,49,38,26,16,10,8,7,3,1,1,0,0,0,0,0,0],"B":[0,0,0,0,0,0,0,2,0,2,3,8,8,19,26,24,41,45,53,55,48,39,38,30,19,17,8,10,1,0,2,1,0,1],"x":[-2.75,-2.5,-2.25,-2,-1.75,-1.5,-1.25,-1,-0.75,-0.5,-0.25,0,0.25,0.5,0.75,1,1.25,1.5,1.75,2,2.25,2.5,2.75,3,3.25,3.5,3.75,4,4.25,4.5,4.75,5,5.25,5.5]},"type":"area-step"},"legend":{"show":true},"axis":{"x":{"label":{"text":"sample"},"tick":{"fit":false,"outer":false,"centered":true}},"y":{"max":null,"padding":null,"tick":{"format":null},"label":{"text":"count"}}},"tooltip":{"format":{"title":"function(i) { var x = (i-0.125) + ' ; ' + (i+0.125); return x; }"}},"point":{"show":false},"grid":{"x":{"lines":[{"value":1.056265709230094,"text":"mean of sample A"},{"value":1.972482740874396,"text":"mean of sample B"}]}}},"data":null},"evals":["bb_opts.tooltip.format.title"],"jsHooks":[]}
 ```

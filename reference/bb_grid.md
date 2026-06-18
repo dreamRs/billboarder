@@ -35,6 +35,7 @@ the y-axis respectively.
 ## Examples
 
 ``` r
+
 stars <- data.frame(
   package = c("billboarder", "ggiraph", "officer", "shinyWidgets", "visNetwork"),
   stars = c(1, 176, 42, 40, 166)

@@ -26,6 +26,7 @@ A `billboard` `htmlwidget` object.
 ## Examples
 
 ``` r
+
 data("equilibre_mensuel")
 
 billboarder() %>% 

@@ -95,6 +95,7 @@ bauge(
 ## Examples
 
 ``` r
+
 bauge(45)
 
 {"x":{"data":{"json":{"value:":[45]},"type":"gauge"},"gauge":{"min":0,"max":100,"fullCircle":false,"expand":true,"label":{"show":true}},"legend":{"show":false},"color":{"threshold":{}}},"evals":[],"jsHooks":[]}

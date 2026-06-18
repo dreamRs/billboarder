@@ -5,6 +5,7 @@ billboard (default), graph and datalab) and ColorBrewer Set2 as default
 color palette.
 
 ``` r
+
 set_theme("insight")
 set_color_palette(scales::brewer_pal(palette = "Set1")(9))
 ```
@@ -14,6 +15,7 @@ set_color_palette(scales::brewer_pal(palette = "Set1")(9))
 Create barcharts with `bb_barchart` :
 
 ``` r
+
 library(billboarder)
 
 # data
@@ -41,6 +43,7 @@ use the following (otherwise you have to reshape your data in “long”
 format, with tools such as `pivot_longer`):
 
 ``` r
+
 library(billboarder)
 
 # data
@@ -68,6 +71,7 @@ billboarder() %>%
 Same principle for stacked bar charts :
 
 ``` r
+
 library(billboarder)
 
 # data
@@ -103,6 +107,7 @@ billboarder() %>%
 A classic one:
 
 ``` r
+
 billboarder() %>% 
  bb_scatterplot(
    data = mtcars, 
@@ -120,6 +125,7 @@ billboarder() %>%
 You can make a bubble chart using `size` aes :
 
 ``` r
+
 billboarder(data = mtcars) %>% 
   bb_scatterplot(
    mapping = aes(wt, mpg, group = cyl, size = scales::rescale(qsec, to = c(0.2, 7))),
@@ -135,6 +141,7 @@ billboarder(data = mtcars) %>%
 Create pie charts :
 
 ``` r
+
 library(billboarder)
 
 # data
@@ -170,6 +177,7 @@ billboarder() %>%
 You can also do donut charts :
 
 ``` r
+
 billboarder() %>% 
   bb_donutchart(data = nuclear2016) %>% 
   bb_donut(
@@ -192,6 +200,7 @@ billboarder() %>%
 ### Time serie with `Date` (and a subchart)
 
 ``` r
+
 library(billboarder)
 
 # data
@@ -219,6 +228,7 @@ billboarder() %>%
 ### Zoom by dragging
 
 ``` r
+
 billboarder() %>% 
   bb_linechart(
     data = equilibre_mensuel[, c("date", "consommation", "production")], 
@@ -244,6 +254,7 @@ billboarder() %>%
 ### Time serie with `POSIXct` (and regions)
 
 ``` r
+
 library(billboarder)
 
 # data
@@ -292,6 +303,7 @@ billboarder() %>%
 ### Stacked area chart
 
 ``` r
+
 library(billboarder)
 
 # data
@@ -324,6 +336,7 @@ billboarder() %>%
 Use RStudio \>= 1.2.0 to display in viewer.
 
 ``` r
+
 # Generate data
 dat <- data.frame(
   date = seq.Date(Sys.Date(), length.out = 20, by = "day"),
@@ -355,6 +368,7 @@ billboarder(data = dat) %>%
 Create histograms with a numeric vector (or `data.frame`) :
 
 ``` r
+
 billboarder() %>%
   bb_histogram(data = rnorm(1e5), binwidth = 0.25) %>%
   bb_colors_manual()
@@ -371,6 +385,7 @@ billboarder() %>%
 With a grouping variable :
 
 ``` r
+
 # Generate some data
 dat <- data.frame(
   sample = c(rnorm(n = 1e4, mean = 1), rnorm(n = 1e4, mean = 2)),
@@ -392,6 +407,7 @@ billboarder() %>%
 Density plot with the same data :
 
 ``` r
+
 billboarder() %>%
   bb_densityplot(data = dat, x = "sample", group = "group") %>%
   bb_x_grid(
@@ -407,6 +423,7 @@ billboarder() %>%
 With single serie:
 
 ``` r
+
 data("avengers_wide")
 billboarder() %>%
   bb_radarchart(
@@ -417,6 +434,7 @@ billboarder() %>%
 Multiple series and with data in long format:
 
 ``` r
+
 data("avengers")
 billboarder() %>%
   bb_radarchart(
@@ -430,6 +448,7 @@ billboarder() %>%
 Gauge can be created with:
 
 ``` r
+
 billboarder() %>% 
   bb_gaugechart(value = 50, color = "#112446")
 ```
@@ -439,12 +458,14 @@ or with function
 which had special output and render function in shiny:
 
 ``` r
+
 bauge(round(sample.int(100, 1)), subtitle = "of total")
 ```
 
 Multiple values gauge are also possible:
 
 ``` r
+
 billboarder() %>%
   bb_gaugechart(
     value = c(15, 30),
@@ -462,6 +483,7 @@ billboarder() %>%
 Create a treemap chart with:
 
 ``` r
+
 data("mpg", package = "ggplot2")
 billboarder() %>% 
   bb_treemapchart(

@@ -7,6 +7,7 @@ shortcut to set title and axis labels at the same time, but with no
 options for placement) :
 
 ``` r
+
 billboarder() %>% 
   bb_barchart(table(sample(letters[1:6], 50, TRUE))) %>% 
   bb_title(text = "My title", position = "center")
@@ -17,6 +18,7 @@ billboarder() %>%
 You can specify a new color palette with function `bb_color` :
 
 ``` r
+
 data("prod_par_filiere")
 prod_par_filiere[, c(1, 3, 4, 5, 6, 8)]
 #>   annee prod_therm prod_hydraulique prod_bioenergies prod_eolien prod_solaire
@@ -33,6 +35,7 @@ billboarder() %>%
 
 ``` r
 
+
 # RColorBrewer palette
 library("RColorBrewer")
 billboarder() %>% 
@@ -45,6 +48,7 @@ Or you can specify each color associated with data with
 `bb_colors_manual` :
 
 ``` r
+
 billboarder() %>% 
   bb_barchart(data = prod_par_filiere[, c(1, 3, 4, 5, 6, 8)]) %>% 
   bb_colors_manual(
@@ -63,6 +67,7 @@ variant such as `royalblue2`, `firebrick3`, … Use HEX code instead.
 For bar charts, you can highlight a value in a simple barchart with :
 
 ``` r
+
 billboarder() %>% 
   bb_barchart(data = prod_par_filiere[, c(1, 4)], color = "grey") %>% 
   bb_bar_color_manual(values = c("2015" = "firebrick"))
@@ -73,6 +78,7 @@ billboarder() %>%
 Add a label to an axis :
 
 ``` r
+
 # data source : wikipedia
 sw <- data.frame(
   film = c("The Force Awakens", "The Phantom Menace",
@@ -94,6 +100,7 @@ You can format values on an axis with JavaScript (use
 your character string as literal JavaScript) :
 
 ``` r
+
 billboarder() %>% 
   bb_barchart(data = sw) %>% 
   bb_y_axis(tick = list(
@@ -108,6 +115,7 @@ If you just want to add a suffix or prefix to the value, use the
 functions with the same name :
 
 ``` r
+
 sw2 <- sw
 # calculate percentage
 sw2$percent <- sw2$worldwide_gross / sum(sw2$worldwide_gross) * 100
@@ -125,6 +133,7 @@ You can apply a format to x axis as well (especially useful with time),
 and `fit = FALSE` to don’t show all ticks :
 
 ``` r
+
 data("cdc_prod_filiere")
 billboarder() %>% 
   bb_linechart(data = cdc_prod_filiere[, c("date_heure", "prod_solaire")]) %>% 
@@ -136,6 +145,7 @@ Set a minimum on an axis (and look at the difference between above
 x-axis and below, without `fit = FALSE`) :
 
 ``` r
+
 billboarder() %>% 
   bb_linechart(data = cdc_prod_filiere[, c("date_heure", "prod_solaire")]) %>% 
   bb_y_axis(min = 0, padding = 0)
@@ -146,6 +156,7 @@ billboarder() %>%
 By default, legend is shown, you can hide it with `bb_lengend`
 
 ``` r
+
 df <- data.frame(
   cos = cos(seq(-pi, pi, length.out = 30))
 )
@@ -162,6 +173,7 @@ giving an alias to the variable in the data. Here we have a column named
 `cos` in our `data.frame`, we renamed it `Cosine`.
 
 ``` r
+
 billboarder() %>% 
   bb_linechart(data = df) %>% 
   bb_data(names = list(cos = "Cosine"))
@@ -174,6 +186,7 @@ last one, you must specify in which area of the chart the legend must be
 placed.
 
 ``` r
+
 df$sin <- sin(seq(-pi, pi, length.out = 30))
 
 billboarder() %>% 
@@ -182,6 +195,7 @@ billboarder() %>%
 ```
 
 ``` r
+
 
 billboarder() %>% 
   bb_linechart(data = df) %>% 
@@ -193,6 +207,7 @@ billboarder() %>%
 You can add grids to a chart with `bb_x_axis` and `bb_y_axis` :
 
 ``` r
+
 billboarder() %>% 
   bb_linechart(data = df) %>%
   bb_y_grid(show = TRUE) %>% 
@@ -203,6 +218,7 @@ billboarder() %>%
 This option also allows you to add vertical and horizontal lines :
 
 ``` r
+
 billboarder() %>% 
   bb_linechart(data = df) %>%
   bb_y_grid(lines = list(
@@ -215,6 +231,7 @@ billboarder() %>%
 You can show the tooltip separately for each serie in the chart :
 
 ``` r
+
 billboarder() %>% 
   bb_linechart(data = df) %>%
   bb_tooltip(grouped = FALSE)
@@ -227,6 +244,7 @@ example `d3.format`. Write the function as a character vector, and use
 it as literal JavaScript code.
 
 ``` r
+
 billboarder() %>% 
   bb_barchart(data = sw) %>% 
   bb_tooltip(format = list(
@@ -240,6 +258,7 @@ billboarder() %>%
 All options combined :
 
 ``` r
+
 billboarder() %>% 
   bb_barchart(data = sw, color = "#CAD5DB") %>% 
   bb_bar_color_manual(values = c("A New Hope" = "#112446")) %>% 

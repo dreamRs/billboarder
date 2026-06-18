@@ -61,6 +61,7 @@ A `billboard` `htmlwidget` object.
 ## Examples
 
 ``` r
+
 # From wikipedia
 sw <- data.frame(
   film = c("The Force Awakens", "The Phantom Menace", 

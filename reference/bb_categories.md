@@ -39,5 +39,5 @@ billboarder() %>%
   
   
 
-{"x":{"bb_opts":{"interaction":{"inputType":{"touch":false}},"line":{"classes":["billboarder-line-x"]},"data":{"x":"index","json":{"index":[1,2,3,4,5,6,7,8,9,10,11,12],"x":[-1,-1,-2,2,1,2,-0,3,1,1,1,-0]},"types":{"x":"line"}},"point":{"show":false},"axis":{"x":{"type":"category","categories":["January","February","March","April","May","June","July","August","September","October","November","December"]}}},"data":null},"evals":[],"jsHooks":[]}  
+{"x":{"bb_opts":{"interaction":{"inputType":{"touch":false}},"line":{"classes":["billboarder-line-x"]},"data":{"x":"index","json":{"index":[1,2,3,4,5,6,7,8,9,10,11,12],"x":[0,0,0,-0,1,-1,1,-2,0,0,2,-1]},"types":{"x":"line"}},"point":{"show":false},"axis":{"x":{"type":"category","categories":["January","February","March","April","May","June","July","August","September","October","November","December"]}}},"data":null},"evals":[],"jsHooks":[]}  
 ```

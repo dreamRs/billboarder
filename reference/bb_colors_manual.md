@@ -30,6 +30,7 @@ A `billboard` `htmlwidget` object.
 ## Examples
 
 ``` r
+
 library("RColorBrewer")
 
 # Scatter

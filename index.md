@@ -21,6 +21,7 @@ Install from [CRAN](https://CRAN.R-project.org/package=billboarder)
 with:
 
 ``` r
+
 install.packages("billboarder")
 ```
 
@@ -28,6 +29,7 @@ Install development version grom
 [GitHub](https://github.com/dreamRs/billboarder) with:
 
 ``` r
+
 # install.packages("remotes")
 remotes::install_github("dreamRs/billboarder")
 ```
