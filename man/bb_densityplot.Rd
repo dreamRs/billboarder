@@ -15,29 +15,28 @@ bb_densityplot(
 )
 }
 \arguments{
-\item{bb}{A \code{billboard} \code{htmlwidget} object.}
+\item{bb}{A `billboard` `htmlwidget` object.}
 
-\item{data}{A \code{data.frame} or a \code{vector}, the first column will
-be used to calculate density if \code{x} is \code{NULL}.}
+\item{data}{A `data.frame` or a `vector`, the first column will
+be used to calculate density if `x` is `NULL`.}
 
-\item{mapping}{Mapping of variables on the chart, see \code{\link{bbaes}}.}
+\item{mapping}{Mapping of variables on the chart, see [bbaes()].}
 
 \item{stacked}{Logical, create a stacked density plot.}
 
-\item{stat}{Stat to compute : \code{density} or \code{count}.}
+\item{stat}{Stat to compute: `density` or `count`.}
 
-\item{fill}{Produce a conditional density estimate, this option force \code{stacked = TRUE}.}
+\item{fill}{Produce a conditional density estimate, this option force `stacked = TRUE`.}
 
-\item{...}{Arguments passed to \code{\link[stats]{density}}.}
+\item{...}{Arguments passed to [stats::density()].}
 }
 \value{
-A \code{billboard} \code{htmlwidget} object.
+A `billboard` `htmlwidget` object.
 }
 \description{
 Helper for creating a density plot
 }
 \examples{
-
 # With a vector
 billboarder() \%>\%
   bb_densityplot(data = rnorm(1e4))
@@ -45,35 +44,35 @@ billboarder() \%>\%
 data("diamonds", package = "ggplot2")
 
 # density plot with one variable
-billboarder() \%>\% 
+billboarder() \%>\%
   bb_densityplot(data = diamonds, x = "carat")
 
 # Same with mapping
-billboarder() \%>\% 
+billboarder() \%>\%
   bb_densityplot(diamonds, bbaes(carat))
 
 # With a grouping variable
-billboarder() \%>\% 
-  bb_densityplot(data = diamonds, x = "depth", group = "cut") \%>\% 
+billboarder() \%>\%
+  bb_densityplot(data = diamonds, x = "depth", group = "cut") \%>\%
   bb_x_axis(min = 55, max = 70)
 
 # Same with mapping
-billboarder() \%>\% 
-  bb_densityplot(diamonds, bbaes(depth, group = cut)) \%>\% 
+billboarder() \%>\%
+  bb_densityplot(diamonds, bbaes(depth, group = cut)) \%>\%
   bb_x_axis(min = 55, max = 70)
-
 
 # a stacked density plot using count as statistic
 bb <- billboarder() \%>\%
-  bb_densityplot(diamonds, bbaes(depth, group = cut),
-                 stacked = TRUE, stat = "count") \%>\%
+  bb_densityplot(
+    diamonds, bbaes(depth, group = cut),
+    stacked = TRUE, stat = "count"
+  ) \%>\%
   bb_x_axis(min = 55, max = 70)
 bb
 
 # changing order
 bb \%>\% bb_data(order = "asc")
-
 }
 \seealso{
-\code{\link{bb_histogram}}
+[bb_histogram()]
 }

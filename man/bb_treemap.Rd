@@ -7,12 +7,12 @@
 bb_treemap(bb, ...)
 }
 \arguments{
-\item{bb}{A \code{billboard} \code{htmlwidget} object.}
+\item{bb}{A `billboard` `htmlwidget` object.}
 
-\item{...}{See \url{https://naver.github.io/billboard.js/release/latest/doc/Options.html#.treemap}}
+\item{...}{See <https://naver.github.io/billboard.js/release/latest/doc/Options.html#.treemap>}
 }
 \value{
-A \code{billboard} \code{htmlwidget} object.
+A `billboard` `htmlwidget` object.
 }
 \description{
 Treemap property for a Billboard.js chart
@@ -21,9 +21,9 @@ Treemap property for a Billboard.js chart
 library("billboarder")
 data("mpg", package = "ggplot2")
 
-billboarder() \%>\% 
-  bb_treemapchart(mpg[, 1]) \%>\% 
-  bb_treemap(label = list(show = TRUE, threshold = 0.03))\%>\% 
+billboarder() \%>\%
+  bb_treemapchart(mpg[, 1]) \%>\%
+  bb_treemap(label = list(show = TRUE, threshold = 0.03)) \%>\%
   bb_data(
     labels = list(colors = "#FFF")
   )

@@ -7,28 +7,27 @@
 bb_title(bb, text = NULL, padding = NULL, position = "top-center", ...)
 }
 \arguments{
-\item{bb}{A \code{billboard} \code{htmlwidget} object.}
+\item{bb}{A `billboard` `htmlwidget` object.}
 
 \item{text}{The chart title.}
 
-\item{padding}{A named list with \code{top}, \code{right}, \code{bottom}, \code{left} values.}
+\item{padding}{A named list with `top`, `right`, `bottom`, `left` values.}
 
 \item{position}{A string specifying the position of the title.}
 
 \item{...}{Additional arguments.}
 }
 \value{
-A \code{billboard} \code{htmlwidget} object.
+A `billboard` `htmlwidget` object.
 }
 \description{
 Add title to Billboard.js chart
 }
 \examples{
-billboarder() \%>\% 
-  bb_barchart(data = table(sample(letters, 100, TRUE))) \%>\% 
+billboarder() \%>\%
+  bb_barchart(data = table(sample(letters, 100, TRUE))) \%>\%
   bb_title(text = "Random letters", position = "center")
-
 }
 \seealso{
-\link{bb_labs}
+[bb_labs()]
 }

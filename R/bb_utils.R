@@ -1,78 +1,74 @@
-
-
-
 #' Utility function to create Billboard parameters JSON
 #'
-#' @param bb A \code{billboard} \code{htmlwidget} object.
+#' @param bb A `billboard` `htmlwidget` object.
 #' @param name Slot's name to edit
 #' @param ... Arguments for the slot
 #'
-#' @return A \code{billboard} \code{htmlwidget} object.
-#' 
+#' @return A `billboard` `htmlwidget` object.
+#'
 #' @importFrom utils modifyList
 #'
 #' @noRd
 .bb_opt <- function(bb, name, ...) {
-
+  
   bb$x$bb_empty <- NULL
   if (is.null(bb$x$bb_opts[[name]])) {
     bb$x$bb_opts[[name]] <- list(...)
   } else {
     bb$x$bb_opts[[name]] <- utils::modifyList(
-      x = bb$x$bb_opts[[name]], 
-      val = list(...), 
+      x = bb$x$bb_opts[[name]],
+      val = list(...),
       keep.null = TRUE
     )
   }
-
+  
   return(bb)
 }
 
 #' Utility function to create Billboard parameters JSON
 #'
-#' @param bb A \code{billboard} \code{htmlwidget} object.
+#' @param bb A `billboard` `htmlwidget` object.
 #' @param name Slot's name to edit
 #' @param l List of arguments for the slot
 #'
-#' @return A \code{billboard} \code{htmlwidget} object.
+#' @return A `billboard` `htmlwidget` object.
 #'
 #' @noRd
 .bb_opt2 <- function(bb, name, l) {
-
+  
   bb$x$bb_empty <- NULL
   if (is.null(bb$x$bb_opts[[name]])) {
     bb$x$bb_opts[[name]] <- l
   } else {
     bb$x$bb_opts[[name]] <- utils::modifyList(
-      x = bb$x$bb_opts[[name]], 
+      x = bb$x$bb_opts[[name]],
       val = l,
       keep.null = TRUE
     )
   }
-
+  
   return(bb)
 }
 
 
 #' Add data to Billboard chart
 #'
-#' @param bb A \code{billboard} \code{htmlwidget} object.
-#' @param ... Arguments defined in \url{https://naver.github.io/billboard.js/demo/}.
-#' 
-#' @note This function can be used with \code{\link{billboarderProxy}} in shiny application.
+#' @param bb A `billboard` `htmlwidget` object.
+#' @param ... Arguments defined in <https://naver.github.io/billboard.js/demo/>.
 #'
-#' @return A \code{billboard} \code{htmlwidget} object.
+#' @note This function can be used with [billboarderProxy()] in Shiny applications.
+#'
+#' @return A `billboard` `htmlwidget` object.
 #' @export
 #'
-#' @examples 
+#' @examples
 #' billboarder() %>%
-#'  bb_barchart(data = table(mtcars$cyl)) %>%
-#'  bb_data(names = list(Freq = "Number of cylinders"), labels = TRUE)
-#'  
+#'   bb_barchart(data = table(mtcars$cyl)) %>%
+#'   bb_data(names = list(Freq = "Number of cylinders"), labels = TRUE)
 bb_data <- function(bb, ...) {
   
   args <- list(...)
-
+  
   if ("billboarder" %in% class(bb)) {
     
     if (is.null(bb$x$mapping)) {
@@ -82,7 +78,7 @@ bb_data <- function(bb, ...) {
     } else {
       
       data <- args$data %||% bb$x$data
-
+      
       .bb_opt(bb, "data", json = bbmapping(data = data, mapping = bb$x$mapping), x = "x", ...)
       
     }
@@ -103,40 +99,38 @@ bb_data <- function(bb, ...) {
     }
     
   }
-
+  
 }
 
 #' Add axis parameters
 #'
-#' @param bb A \code{billboard} \code{htmlwidget} object.
-#' @param ... Arguments defined in \url{https://naver.github.io/billboard.js/demo/}.
+#' @param bb A `billboard` `htmlwidget` object.
+#' @param ... Arguments defined in <https://naver.github.io/billboard.js/demo/>.
 #'
-#' @return A \code{billboard} \code{htmlwidget} object.
+#' @return A `billboard` `htmlwidget` object.
 #' @export
-#' 
+#'
 #' @name bb_axis
-#' 
-#' @examples 
-#' 
+#'
+#' @examples
 #' stars <- data.frame(
 #'   package = c("billboarder", "ggiraph", "officer", "shinyWidgets", "visNetwork"),
 #'   stars = c(9, 178, 43, 46, 175)
 #' )
 #'
 #' # Add a label to y axis
-#' billboarder() %>% 
-#'   bb_barchart(data = stars) %>% 
+#' billboarder() %>%
+#'   bb_barchart(data = stars) %>%
 #'   bb_axis(y = list(label = list(text = "# of stars", position = "middle")))
-#'   
+#'
 #' # or shorter :
-#' billboarder() %>% 
-#'   bb_barchart(data = stars) %>% 
+#' billboarder() %>%
+#'   bb_barchart(data = stars) %>%
 #'   bb_y_axis(label = list(text = "# of stars", position = "outer-top"))
-#' 
 bb_axis <- function(bb, ...) {
-
+  
   .bb_opt(bb, "axis", ...)
-
+  
 }
 
 #' @rdname bb_axis
@@ -158,86 +152,84 @@ bb_y_axis <- function(bb, ...) {
 
 #' Add legend parameters
 #'
-#' @param bb A \code{billboard} \code{htmlwidget} object.
-#' @param ... Arguments defined in \url{https://naver.github.io/billboard.js/release/latest/doc/Options.html#.legend}.
+#' @param bb A `billboard` `htmlwidget` object.
+#' @param ... Arguments defined in <https://naver.github.io/billboard.js/release/latest/doc/Options.html#.legend>.
 #'
-#' @return A \code{billboard} \code{htmlwidget} object.
+#' @return A `billboard` `htmlwidget` object.
 #' @export
 #'
 #' @examples
 #' library("billboarder")
-#' 
+#'
 #' stars <- data.frame(
 #'   package = c("billboarder", "ggiraph", "officer", "shinyWidgets", "visNetwork"),
 #'   stars = c(1, 176, 42, 40, 166)
 #' )
-#' 
+#'
 #' # Hide legend
 #' billboarder() %>%
-#'   bb_barchart(data = stars) %>% 
+#'   bb_barchart(data = stars) %>%
 #'   bb_legend(show = FALSE)
-#' 
+#'
 #' # Right legend
 #' billboarder() %>%
-#'   bb_piechart(data = stars) %>% 
+#'   bb_piechart(data = stars) %>%
 #'   bb_legend(position = "right")
-#' 
+#'
 #' # Inset legend
 #' billboarder() %>%
-#'   bb_scatterplot(data = iris, x = "Sepal.Length", y = "Sepal.Width", group = "Species") %>% 
-#'   bb_axis(x = list(tick = list(fit = FALSE))) %>% 
+#'   bb_scatterplot(data = iris, x = "Sepal.Length", y = "Sepal.Width", group = "Species") %>%
+#'   bb_axis(x = list(tick = list(fit = FALSE))) %>%
 #'   bb_legend(position = "inset", inset = list(anchor = "top-right"))
-#' 
 bb_legend <- function(bb, ...) {
-
+  
   .bb_opt(bb, "legend", ...)
-
+  
 }
 
 
 
 #' Add title to Billboard.js chart
 #'
-#' @param bb A \code{billboard} \code{htmlwidget} object.
+#' @param bb A `billboard` `htmlwidget` object.
 #' @param text The chart title.
-#' @param padding A named list with \code{top}, \code{right}, \code{bottom}, \code{left} values.
+#' @param padding A named list with `top`, `right`, `bottom`, `left` values.
 #' @param position A string specifying the position of the title.
 #' @param ... Additional arguments.
 #'
-#' @return A \code{billboard} \code{htmlwidget} object.
+#' @return A `billboard` `htmlwidget` object.
 #' @export
-#' 
-#' @seealso \link{bb_labs}
-#' 
-#' @examples 
-#' billboarder() %>% 
-#'   bb_barchart(data = table(sample(letters, 100, TRUE))) %>% 
+#'
+#' @seealso [bb_labs()]
+#'
+#' @examples
+#' billboarder() %>%
+#'   bb_barchart(data = table(sample(letters, 100, TRUE))) %>%
 #'   bb_title(text = "Random letters", position = "center")
-#' 
 bb_title <- function(bb, text = NULL, padding = NULL, position = "top-center", ...) {
-
+  
   .bb_opt2(bb, "title", dropNulls(c(
     list(text = text, padding = padding, position = position),
     list(...)
   )))
-
+  
 }
 
 
 
 #' Point property for a Billboard.js chart
 #'
-#' @param bb A \code{billboard} \code{htmlwidget} object.
-#' @param ... See \url{https://naver.github.io/billboard.js/release/latest/doc/Options.html#.point}
+#' @param bb A `billboard` `htmlwidget` object.
+#' @param ... See <https://naver.github.io/billboard.js/release/latest/doc/Options.html#.point>
 #'
-#' @return A \code{billboard} \code{htmlwidget} object.
+#' @return A `billboard` `htmlwidget` object.
 #' @export
 #'
 #' @examples
 #' # Set point size
-#' billboarder() %>% 
-#'   bb_scatterplot(data = iris, x = "Sepal.Length", y = "Sepal.Width", group = "Species") %>% 
-#'   bb_axis(x = list(tick = list(fit = FALSE))) %>% 
+#' billboarder() %>%
+#'   bb_scatterplot(data = iris, x = "Sepal.Length", y = "Sepal.Width", group = "Species") %>%
+#'   bb_axis(x = list(tick = list(fit = FALSE))) %>%
 #'   bb_point(r = 10)
 bb_point <- function(bb, ...) {
   
@@ -249,16 +241,16 @@ bb_point <- function(bb, ...) {
 
 #' Tooltip property for a Billboard.js chart
 #'
-#' @param bb A \code{billboard} \code{htmlwidget} object.
-#' @param ... See \url{https://naver.github.io/billboard.js/release/latest/doc/Options.html#.tooltip}
+#' @param bb A `billboard` `htmlwidget` object.
+#' @param ... See <https://naver.github.io/billboard.js/release/latest/doc/Options.html#.tooltip>
 #'
-#' @return A \code{billboard} \code{htmlwidget} object.
+#' @return A `billboard` `htmlwidget` object.
 #' @export
 #'
 #' @examples
 #' # Format tooltip
-#' billboarder() %>% 
-#'   bb_scatterplot(data = iris, x = "Sepal.Length", y = "Sepal.Width", group = "Species") %>% 
+#' billboarder() %>%
+#'   bb_scatterplot(data = iris, x = "Sepal.Length", y = "Sepal.Width", group = "Species") %>%
 #'   bb_tooltip(
 #'     format = list(
 #'       # skip the title in tooltip
@@ -276,22 +268,21 @@ bb_tooltip <- function(bb, ...) {
 
 #' Color property for a Billboard.js chart
 #'
-#' @param bb A \code{billboard} \code{htmlwidget} object.
+#' @param bb A `billboard` `htmlwidget` object.
 #' @param palette A color palette to use with series added in the chart.
-#' @param ... See \url{https://naver.github.io/billboard.js/release/latest/doc/Options.html#.color}
+#' @param ... See <https://naver.github.io/billboard.js/release/latest/doc/Options.html#.color>
 #'
-#' @return A \code{billboard} \code{htmlwidget} object.
+#' @return A `billboard` `htmlwidget` object.
 #' @export
 #'
 #' @examples
-#' 
 #' library("RColorBrewer")
-#' 
+#'
 #' # Scatter
-#' billboarder() %>% 
-#'   bb_scatterplot(data = iris, x = "Sepal.Length", y = "Sepal.Width", group = "Species") %>% 
-#'   bb_axis(x = list(tick = list(fit = FALSE))) %>% 
-#'   bb_point(r = 8) %>% 
+#' billboarder() %>%
+#'   bb_scatterplot(data = iris, x = "Sepal.Length", y = "Sepal.Width", group = "Species") %>%
+#'   bb_axis(x = list(tick = list(fit = FALSE))) %>%
+#'   bb_point(r = 8) %>%
 #'   bb_color(palette = brewer.pal(n = 3, name = "Reds"))
 #'
 #' # Pie
@@ -299,12 +290,10 @@ bb_tooltip <- function(bb, ...) {
 #'   package = c("billboarder", "ggiraph", "officer", "shinyWidgets", "visNetwork"),
 #'   stars = c(9, 177, 43, 44, 169)
 #' )
-#' cols <- brewer.pal(n = 5, name = "Dark2")
-#' 
+#'
 #' billboarder() %>%
 #'   bb_piechart(data = stars) %>%
 #'   bb_color(palette = brewer.pal(n = 5, name = "Reds"))
-#' 
 bb_color <- function(bb, palette = NULL, ...) {
   
   if (length(palette) == 1) {
@@ -317,36 +306,34 @@ bb_color <- function(bb, palette = NULL, ...) {
 
 
 #' Set colors for each datas
-#' 
 #'
-#' @param bb A \code{billboard} \code{htmlwidget} object.
+#' @param bb A `billboard` `htmlwidget` object.
 #' @param ... A named list, where names correspond to the data, and values
-#' to color associate with it.
+#'   to color associate with it.
 #' @param opacity Color opacity (for area charts).
 #'
-#' @return A \code{billboard} \code{htmlwidget} object.
+#' @return A `billboard` `htmlwidget` object.
 #' @export
 #'
 #' @examples
-#'
 #' library("RColorBrewer")
-#' 
+#'
 #' # Scatter
-#' billboarder() %>% 
+#' billboarder() %>%
 #'   bb_scatterplot(
-#'    data = iris, 
-#'    x = "Sepal.Length", 
-#'    y = "Sepal.Width", 
-#'    group = "Species"
-#'   ) %>% 
-#'   bb_axis(x = list(tick = list(fit = FALSE))) %>% 
-#'   bb_point(r = 8) %>% 
+#'     data = iris,
+#'     x = "Sepal.Length",
+#'     y = "Sepal.Width",
+#'     group = "Species"
+#'   ) %>%
+#'   bb_axis(x = list(tick = list(fit = FALSE))) %>%
+#'   bb_point(r = 8) %>%
 #'   bb_colors_manual(
-#'    setosa = "#440154", 
-#'    virginica = "#21908C", 
-#'    versicolor = "#FDE725"
+#'     setosa = "#440154",
+#'     virginica = "#21908C",
+#'     versicolor = "#FDE725"
 #'   )
-#' 
+#'
 #' # Pie
 #' stars <- data.frame(
 #'   package = c("billboarder", "ggiraph", "officer",
@@ -354,13 +341,12 @@ bb_color <- function(bb, palette = NULL, ...) {
 #'   stars = c(9, 177, 43, 44, 169)
 #' )
 #' cols <- brewer.pal(n = 5, name = "Dark2")
-#' 
-#' billboarder() %>% 
-#'   bb_piechart(data = stars) %>% 
+#'
+#' billboarder() %>%
+#'   bb_piechart(data = stars) %>%
 #'   bb_colors_manual(
-#'    setNames(as.list(cols), stars$package) # this is a named list
+#'     setNames(as.list(cols), stars$package) # this is a named list
 #'   )
-#'   
 bb_colors_manual <- function(bb, ..., opacity = 1) {
   
   args <- list(...)
@@ -374,31 +360,29 @@ bb_colors_manual <- function(bb, ..., opacity = 1) {
 
 #' Grid property for a Billboard.js chart
 #'
-#' @param bb A \code{billboard} \code{htmlwidget} object.
-#' @param ... See \url{https://naver.github.io/billboard.js/release/latest/doc/Options.html#.grid}
-#' 
-#' @note \code{bb_x_grid} and \code{bb_y_grid} are shortcut for modifying the x-axis and the y-axis respectively.
+#' @param bb A `billboard` `htmlwidget` object.
+#' @param ... See <https://naver.github.io/billboard.js/release/latest/doc/Options.html#.grid>
 #'
-#' @return A \code{billboard} \code{htmlwidget} object.
+#' @note [bb_x_grid()] and [bb_y_grid()] are shortcuts for modifying the x-axis and the y-axis respectively.
+#'
+#' @return A `billboard` `htmlwidget` object.
 #' @export
-#' 
+#'
 #' @name bb_grid
 #'
 #' @examples
-#' 
 #' stars <- data.frame(
 #'   package = c("billboarder", "ggiraph", "officer", "shinyWidgets", "visNetwork"),
 #'   stars = c(1, 176, 42, 40, 166)
 #' )
-#' 
+#'
 #' billboarder() %>%
-#'   bb_barchart(data = stars) %>% 
+#'   bb_barchart(data = stars) %>%
 #'   bb_y_grid(show = TRUE)
-#' 
+#'
 #' billboarder() %>%
-#'   bb_barchart(data = stars) %>% 
+#'   bb_barchart(data = stars) %>%
 #'   bb_y_grid(lines = list(list(value = mean(stars$stars), text = "Horizontal line")))
-#' 
 bb_grid <- function(bb, ...) {
   
   .bb_opt(bb, "grid", ...)
@@ -428,13 +412,24 @@ bb_y_grid <- function(bb, ...) {
 
 #' Interaction property for a Billboard.js chart
 #'
-#' @param bb A \code{billboard} \code{htmlwidget} object.
-#' @param ... See \url{https://naver.github.io/billboard.js/release/latest/doc/Options.html#.interaction}
+#' @param bb A `billboard` `htmlwidget` object.
+#' @param ... See <https://naver.github.io/billboard.js/release/latest/doc/Options.html#.interaction>
 #'
-#' @return A \code{billboard} \code{htmlwidget} object.
+#' @return A `billboard` `htmlwidget` object.
 #' @export
 #'
-# @examples
+#' @examples
+#' @examples
+#' @examples
+#' # Disable interactions
+#' billboarder() %>%
+#'   bb_linechart(data = c(1, 3, 2, 5, 4)) %>%
+#'   bb_interaction(enabled = FALSE)
+#'
+#' # Only mouse input
+#' billboarder() %>%
+#'   bb_linechart(data = c(1, 3, 2, 5, 4)) %>%
+#'   bb_interaction(inputType = list(touch = FALSE))
 bb_interaction <- function(bb, ...) {
   
   .bb_opt(bb, "interaction", ...)
@@ -447,13 +442,18 @@ bb_interaction <- function(bb, ...) {
 
 #' Transition property for a Billboard.js chart
 #'
-#' @param bb A \code{billboard} \code{htmlwidget} object.
-#' @param ... See \url{https://naver.github.io/billboard.js/release/latest/doc/Options.html#.transition}
+#' @param bb A `billboard` `htmlwidget` object.
+#' @param ... See <https://naver.github.io/billboard.js/release/latest/doc/Options.html#.transition>
 #'
-#' @return A \code{billboard} \code{htmlwidget} object.
+#' @return A `billboard` `htmlwidget` object.
 #' @export
 #'
-# @examples
+#' @examples
+#' @examples
+#' # Set transition duration
+#' billboarder() %>%
+#'   bb_linechart(data = c(5, 3, 6, 2, 7)) %>%
+#'   bb_transition(duration = 1000)
 bb_transition <- function(bb, ...) {
   
   .bb_opt(bb, "transition", ...)
@@ -465,13 +465,18 @@ bb_transition <- function(bb, ...) {
 
 #' Spline property for a Billboard.js chart
 #'
-#' @param bb A \code{billboard} \code{htmlwidget} object.
-#' @param ... See \url{https://naver.github.io/billboard.js/release/latest/doc/Options.html#.spline}
+#' @param bb A `billboard` `htmlwidget` object.
+#' @param ... See <https://naver.github.io/billboard.js/release/latest/doc/Options.html#.spline>
 #'
-#' @return A \code{billboard} \code{htmlwidget} object.
+#' @return A `billboard` `htmlwidget` object.
 #' @export
 #'
-# @examples
+#' @examples
+#' @examples
+# # Customize spline interpolation
+# billboarder() %>%
+#   bb_linechart(data = c(1, 5, 3, 6, 2), type = "spline") %>%
+#   bb_spline(interpolation = list(type = "natural"))
 bb_spline <- function(bb, ...) {
   
   .bb_opt(bb, "spline", ...)
@@ -481,19 +486,18 @@ bb_spline <- function(bb, ...) {
 
 #' Line property for a Billboard.js chart
 #'
-#' @param bb A \code{billboard} \code{htmlwidget} object.
-#' @param ... See \url{https://naver.github.io/billboard.js/release/latest/doc/Options.html#.line}
+#' @param bb A `billboard` `htmlwidget` object.
+#' @param ... See <https://naver.github.io/billboard.js/release/latest/doc/Options.html#.line>
 #'
-#' @return A \code{billboard} \code{htmlwidget} object.
+#' @return A `billboard` `htmlwidget` object.
 #' @export
 #'
 #' @examples
 #' # Set if null data point will be connected or not.
-#' b <- billboarder() %>% 
+#' b <- billboarder() %>%
 #'   bb_linechart(data = c(1, 2, NA, 4, 5))
 #' b
-#' b %>%  bb_line(connectNull = TRUE)
-#' 
+#' b %>% bb_line(connectNull = TRUE)
 bb_line <- function(bb, ...) {
   
   .bb_opt(bb, "line", ...)
@@ -503,21 +507,22 @@ bb_line <- function(bb, ...) {
 
 #' Pie property for a Billboard.js chart
 #'
-#' @param bb A \code{billboard} \code{htmlwidget} object.
-#' @param ... See \url{https://naver.github.io/billboard.js/release/latest/doc/Options.html#.pie}
+#' @param bb A `billboard` `htmlwidget` object.
+#' @param ... See <https://naver.github.io/billboard.js/release/latest/doc/Options.html#.pie>
 #'
-#' @return A \code{billboard} \code{htmlwidget} object.
+#' @return A `billboard` `htmlwidget` object.
 #' @export
 #'
 #' @examples
 #' billboarder() %>%
-#'   bb_piechart(data = table(mtcars$cyl)) %>% 
-#'   bb_pie(label = list(
-#'     ratio = 0.5, 
-#'     format = htmlwidgets::JS("function(value) {return d3.format('$')(value);}")
-#'   ), 
-#'   expand = FALSE)
-#'   
+#'   bb_piechart(data = table(mtcars$cyl)) %>%
+#'   bb_pie(
+#'     label = list(
+#'       ratio = 0.5,
+#'       format = htmlwidgets::JS("function(value) {return d3.format('$')(value);}")
+#'     ),
+#'     expand = FALSE
+#'   )
 bb_pie <- function(bb, ...) {
   
   .bb_opt(bb, "pie", ...)
@@ -526,17 +531,16 @@ bb_pie <- function(bb, ...) {
 
 #' Donut property for a Billboard.js chart
 #'
-#' @param bb A \code{billboard} \code{htmlwidget} object.
-#' @param ... See \url{https://naver.github.io/billboard.js/release/latest/doc/Options.html#.donut}
+#' @param bb A `billboard` `htmlwidget` object.
+#' @param ... See <https://naver.github.io/billboard.js/release/latest/doc/Options.html#.donut>
 #'
-#' @return A \code{billboard} \code{htmlwidget} object.
+#' @return A `billboard` `htmlwidget` object.
 #' @export
 #'
 #' @examples
 #' billboarder() %>%
 #'   bb_donutchart(data = table(mtcars$cyl)) %>%
 #'   bb_donut(title = "Donut Title", width = 10)
-#'   
 bb_donut <- function(bb, ...) {
   
   .bb_opt(bb, "donut", ...)
@@ -546,18 +550,19 @@ bb_donut <- function(bb, ...) {
 
 #' Gauge property for a Billboard.js chart
 #'
-#' @param bb A \code{billboard} \code{htmlwidget} object.
-#' @param ... See \url{https://naver.github.io/billboard.js/release/latest/doc/Options.html#.gauge}
+#' @param bb A `billboard` `htmlwidget` object.
+#' @param ... See <https://naver.github.io/billboard.js/release/latest/doc/Options.html#.gauge>
 #'
-#' @return A \code{billboard} \code{htmlwidget} object.
+#' @return A `billboard` `htmlwidget` object.
 #' @export
 #'
 #' @examples
-#' billboarder() %>% 
-#'   bb_gaugechart(value = 50) %>% 
-#'   bb_gauge(min = 0, max = 200, units = "km/h", width = 10,
-#'            label = list(format = htmlwidgets::JS("function(value) {return value;}")))
-#'            
+#' billboarder() %>%
+#'   bb_gaugechart(value = 50) %>%
+#'   bb_gauge(
+#'     min = 0, max = 200, units = "km/h", width = 10,
+#'     label = list(format = htmlwidgets::JS("function(value) {return value;}"))
+#'   )
 bb_gauge <- function(bb, ...) {
   
   .bb_opt(bb, "gauge", ...)
@@ -568,17 +573,16 @@ bb_gauge <- function(bb, ...) {
 
 #' Bar property for a Billboard.js chart
 #'
-#' @param bb A \code{billboard} \code{htmlwidget} object.
-#' @param ... See \url{https://naver.github.io/billboard.js/release/latest/doc/Options.html#.bar}
+#' @param bb A `billboard` `htmlwidget` object.
+#' @param ... See <https://naver.github.io/billboard.js/release/latest/doc/Options.html#.bar>
 #'
-#' @return A \code{billboard} \code{htmlwidget} object.
+#' @return A `billboard` `htmlwidget` object.
 #' @export
 #'
 #' @examples
 #' billboarder() %>%
-#'   bb_barchart(data = data.frame(v1 = c("a", "b", "c"), value = c(5, 6, 3))) %>% 
+#'   bb_barchart(data = data.frame(v1 = c("a", "b", "c"), value = c(5, 6, 3))) %>%
 #'   bb_bar(width = list(ratio = 0.95))
-#'   
 bb_bar <- function(bb, ...) {
   
   .bb_opt(bb, "bar", ...)
@@ -589,13 +593,18 @@ bb_bar <- function(bb, ...) {
 
 #' Area property for a Billboard.js chart
 #'
-#' @param bb A \code{billboard} \code{htmlwidget} object.
-#' @param ... See \url{https://naver.github.io/billboard.js/release/latest/doc/Options.html#.area}
+#' @param bb A `billboard` `htmlwidget` object.
+#' @param ... See <https://naver.github.io/billboard.js/release/latest/doc/Options.html#.area>
 #'
-#' @return A \code{billboard} \code{htmlwidget} object.
+#' @return A `billboard` `htmlwidget` object.
 #' @export
 #'
-# @examples
+#' @examples
+#' @examples
+#' # Area chart options
+#' billboarder() %>%
+#'   bb_linechart(data = c(2, 4, 3, 6, 5), type = "area") %>%
+#'   bb_area(linearGradient = TRUE)
 bb_area <- function(bb, ...) {
   
   .bb_opt(bb, "area", ...)
@@ -607,23 +616,21 @@ bb_area <- function(bb, ...) {
 
 
 #' @title Subchart property for a Billboard.js chart
-#' 
+#'
 #' @description Create a subchart allowing to zoom and navigate on the chart.
 #'
-#' @param bb A \code{billboard} \code{htmlwidget} object.
-#' @param ... See \url{https://naver.github.io/billboard.js/release/latest/doc/Options.html#.subchart}
+#' @param bb A `billboard` `htmlwidget` object.
+#' @param ... See <https://naver.github.io/billboard.js/release/latest/doc/Options.html#.subchart>
 #'
-#' @return A \code{billboard} \code{htmlwidget} object.
+#' @return A `billboard` `htmlwidget` object.
 #' @export
 #'
 #' @examples
-#' 
 #' data("equilibre_mensuel")
-#' 
-#' billboarder() %>% 
-#'   bb_linechart(data = equilibre_mensuel[, c("date", "production")], type = "spline") %>% 
-#'   bb_subchart(show = TRUE)
 #'
+#' billboarder() %>%
+#'   bb_linechart(data = equilibre_mensuel[, c("date", "production")], type = "spline") %>%
+#'   bb_subchart(show = TRUE)
 bb_subchart <- function(bb, ...) {
   
   .bb_opt(bb, "subchart", ...)
@@ -633,80 +640,74 @@ bb_subchart <- function(bb, ...) {
 
 
 #' @title Regions property for a Billboard.js chart
-#' 
+#'
 #' @description Add a shading effect to the background of the chart, to highlight a period for example.
 #'
-#' @param bb A \code{billboard} \code{htmlwidget} object.
-#' @param ... See \url{https://naver.github.io/billboard.js/release/latest/doc/Options.html#.regions}
+#' @param bb A `billboard` `htmlwidget` object.
+#' @param ... See <https://naver.github.io/billboard.js/release/latest/doc/Options.html#.regions>
 #'
-#' @seealso \code{\link{bb_add_style}}
-#' 
-#' @note This function can be used with \code{\link{billboarderProxy}} in shiny application.
+#' @seealso [bb_add_style()]
 #'
-#' @return A \code{billboard} \code{htmlwidget} object.
+#' @note This function can be used with [billboarderProxy()] in Shiny applications.
+#'
+#' @return A `billboard` `htmlwidget` object.
 #' @export
 #'
 #' @examples
-#' #' With a categorical X-axis
+#' # With a categorical X-axis
 #' dat <- data.frame(
 #'   month = month.abb,
 #'   AirPassengers = tail(AirPassengers, 12)
 #' )
 #' # Highlight Jun/Jul/Aug
-#' billboarder() %>% 
-#'   bb_linechart(data = dat, x = "month") %>% 
-#'   bb_x_axis(type = "category") %>% 
+#' billboarder() %>%
+#'   bb_linechart(data = dat, x = "month") %>%
+#'   bb_x_axis(type = "category") %>%
 #'   bb_regions(
-#'     list(start = 4.5, end = 7.5) #' jan = 0
+#'     list(start = 4.5, end = 7.5) # jan = 0
 #'   )
-#' 
+#'
 #' # With a barchart
-#' billboarder() %>% 
-#'   bb_barchart(data = dat) %>% 
+#' billboarder() %>%
+#'   bb_barchart(data = dat) %>%
 #'   bb_regions(
 #'     list(start = 1.5, end = 2.5, class = "custom"),
 #'     list(start = 8, end = 10, class = "foo")
-#'   ) %>% 
-#'   bb_add_style(region = list(custom = "fill: red;", foo = "fill: #'009246;"))
-#' 
-#' 
-#' 
-#' 
+#'   ) %>%
+#'   bb_add_style(region = list(custom = "fill: red;", foo = "fill: #009246;"))
+#'
 #' # With Date X-axis
 #' library("stats")
 #' dat <- data.frame(
 #'   date = seq.Date(from = Sys.Date(), by = "day", length.out = 365),
 #'   var = density(rexp(n = 1000), n = 365)$y
 #' )
-#' 
-#' billboarder() %>% 
-#'   bb_linechart(data = dat) %>% 
-#'   bb_x_axis(tick = list(fit = FALSE)) %>% 
-#'   bb_y_axis(min = 0, padding = 0) %>% 
+#'
+#' billboarder() %>%
+#'   bb_linechart(data = dat) %>%
+#'   bb_x_axis(tick = list(fit = FALSE)) %>%
+#'   bb_y_axis(min = 0, padding = 0) %>%
 #'   bb_regions(
 #'     list(start = format(Sys.Date() + 30), end = format(Sys.Date() + 120))
 #'   )
-#' 
-#' 
-#' 
+#'
 #' # With POSIXct X-axis
 #' dat <- data.frame(
 #'   time = seq.POSIXt(from = Sys.time(), by = "min", length.out = 60),
 #'   var = round(sort(rnorm(60)), 2)
 #' )
-#' 
-#' billboarder() %>% 
-#'   bb_linechart(data = dat) %>% 
-#'   bb_x_axis(tick = list(format = "%H:%M", fit = FALSE)) %>%  
+#'
+#' billboarder() %>%
+#'   bb_linechart(data = dat) %>%
+#'   bb_x_axis(tick = list(format = "%H:%M", fit = FALSE)) %>%
 #'   bb_regions(
-#'     list(start = format(dat$time[15]), 
+#'     list(start = format(dat$time[15]),
 #'          end = format(dat$time[30]))
 #'   )
-#'
 bb_regions <- function(bb, ...) {
   
   if ("billboarder_Proxy" %in% class(bb)) {
-    .bb_proxy(bb, "regions",  ...)
+    .bb_proxy(bb, "regions", ...)
   } else {
     .bb_opt(bb, "regions", ...)
   }
@@ -718,25 +719,24 @@ bb_regions <- function(bb, ...) {
 
 #' Zoom property for a Billboard.js chart
 #'
-#' @param bb A \code{billboard} \code{htmlwidget} object.
-#' @param ... See \url{https://naver.github.io/billboard.js/release/latest/doc/Options.html#.zoom}
+#' @param bb A `billboard` `htmlwidget` object.
+#' @param ... See <https://naver.github.io/billboard.js/release/latest/doc/Options.html#.zoom>
 #'
-#' @return A \code{billboard} \code{htmlwidget} object.
+#' @return A `billboard` `htmlwidget` object.
 #' @export
 #'
 #' @examples
 #' # data
 #' data("equilibre_mensuel")
-#' 
+#'
 #' # line chart
-#' billboarder() %>% 
+#' billboarder() %>%
 #'   bb_linechart(
-#'     data = equilibre_mensuel[, c("date", "consommation", "production")], 
+#'     data = equilibre_mensuel[, c("date", "consommation", "production")],
 #'     type = "spline"
-#'   ) %>% 
-#'   bb_x_axis(tick = list(format = "%Y-%m", fit = FALSE)) %>% 
+#'   ) %>%
+#'   bb_x_axis(tick = list(format = "%Y-%m", fit = FALSE)) %>%
 #'   bb_zoom(enabled = TRUE)
-#' 
 bb_zoom <- function(bb, ...) {
   
   .bb_opt(bb, "zoom", ...)
@@ -748,26 +748,25 @@ bb_zoom <- function(bb, ...) {
 
 #' Bubble property for a Billboard.js chart
 #'
-#' @param bb A \code{billboard} \code{htmlwidget} object.
-#' @param ... See \url{https://naver.github.io/billboard.js/release/latest/doc/Options.html#.bubble}
+#' @param bb A `billboard` `htmlwidget` object.
+#' @param ... See <https://naver.github.io/billboard.js/release/latest/doc/Options.html#.bubble>
 #'
-#' @return A \code{billboard} \code{htmlwidget} object.
+#' @return A `billboard` `htmlwidget` object.
 #' @export
 #'
 #' @examples
-#' billboarder() %>% 
+#' billboarder() %>%
 #'   bb_scatterplot(
-#'     data = iris, 
+#'     data = iris,
 #'     mapping = bbaes(Sepal.Length, Sepal.Width, group = Species, size = Petal.Width)
-#'   ) %>% 
+#'   ) %>%
 #'   bb_bubble(maxR = 10)
-#' 
-#' 
-#' billboarder() %>% 
+#'
+#' billboarder() %>%
 #'   bb_scatterplot(
-#'     data = iris, 
+#'     data = iris,
 #'     mapping = bbaes(Sepal.Length, Sepal.Width, group = Species, size = Petal.Width)
-#'   ) %>% 
+#'   ) %>%
 #'   bb_bubble(maxR = JS("function(d) {return Math.sqrt(d.value.z * 20);}"))
 bb_bubble <- function(bb, ...) {
   
@@ -779,12 +778,17 @@ bb_bubble <- function(bb, ...) {
 
 #' SVG property for a Billboard.js chart
 #'
-#' @param bb A \code{billboard} \code{htmlwidget} object.
-#' @param ... See \url{https://naver.github.io/billboard.js/release/latest/doc/Options.html#.svg}
+#' @param bb A `billboard` `htmlwidget` object.
+#' @param ... See <https://naver.github.io/billboard.js/release/latest/doc/Options.html#.svg>
 #'
-#' @return A \code{billboard} \code{htmlwidget} object.
+#' @return A `billboard` `htmlwidget` object.
 #' @export
 #'
+#' @examples
+# # Set SVG class name
+# billboarder() %>%
+#   bb_linechart(data = c(2, 5, 3, 4, 6)) %>%
+#   bb_svg(classname = "custom-billboard")
 bb_svg <- function(bb, ...) {
   
   .bb_opt(bb, "svg", ...)
@@ -796,38 +800,38 @@ bb_svg <- function(bb, ...) {
 
 #' Radar property for a Billboard.js chart
 #'
-#' @param bb A \code{billboard} \code{htmlwidget} object.
-#' @param ... See \url{https://naver.github.io/billboard.js/release/latest/doc/Options.html#.radar}
+#' @param bb A `billboard` `htmlwidget` object.
+#' @param ... See <https://naver.github.io/billboard.js/release/latest/doc/Options.html#.radar>
 #'
-#' @return A \code{billboard} \code{htmlwidget} object.
+#' @return A `billboard` `htmlwidget` object.
 #' @export
 #'
 #' @examples
 #' library("billboarder")
 #' data("avengers")
-#' 
+#'
 #' # number of levels
 #' billboarder() %>%
 #'   bb_radarchart(
 #'     data = avengers,
 #'     mapping = bbaes(x = axis, y = value, group = group)
-#'   ) %>% 
+#'   ) %>%
 #'   bb_radar(level = list(depth = 4))
-#' 
+#'
 #' # hide levels
 #' billboarder() %>%
 #'   bb_radarchart(
 #'     data = avengers,
 #'     mapping = bbaes(x = axis, y = value, group = group)
-#'   ) %>% 
+#'   ) %>%
 #'   bb_radar(level = list(show = FALSE))
-#' 
+#'
 #' # max value on axis
 #' billboarder() %>%
 #'   bb_radarchart(
 #'     data = avengers,
 #'     mapping = bbaes(x = axis, y = value, group = group)
-#'   ) %>% 
+#'   ) %>%
 #'   bb_radar(axis = list(max = 10))
 bb_radar <- function(bb, ...) {
   
@@ -839,19 +843,19 @@ bb_radar <- function(bb, ...) {
 
 #' Treemap property for a Billboard.js chart
 #'
-#' @param bb A \code{billboard} \code{htmlwidget} object.
-#' @param ... See \url{https://naver.github.io/billboard.js/release/latest/doc/Options.html#.treemap}
+#' @param bb A `billboard` `htmlwidget` object.
+#' @param ... See <https://naver.github.io/billboard.js/release/latest/doc/Options.html#.treemap>
 #'
-#' @return A \code{billboard} \code{htmlwidget} object.
+#' @return A `billboard` `htmlwidget` object.
 #' @export
 #'
 #' @examples
 #' library("billboarder")
 #' data("mpg", package = "ggplot2")
-#' 
-#' billboarder() %>% 
-#'   bb_treemapchart(mpg[, 1]) %>% 
-#'   bb_treemap(label = list(show = TRUE, threshold = 0.03))%>% 
+#'
+#' billboarder() %>%
+#'   bb_treemapchart(mpg[, 1]) %>%
+#'   bb_treemap(label = list(show = TRUE, threshold = 0.03)) %>%
 #'   bb_data(
 #'     labels = list(colors = "#FFF")
 #'   )
@@ -868,48 +872,44 @@ bb_treemap <- function(bb, ...) {
 
 #' Export a Billboard to PNG
 #'
-#' @param bb A \code{\link{billboarder}} \code{htmlwidget} object
-#'  or a \code{\link{billboarderProxy}} \code{htmlwidget} object.
-#' @param filename A string of the filename, excluding extension (will be \code{".png"}).
+#' @param bb A [billboarder()] `htmlwidget` object or a [billboarderProxy()] `htmlwidget` object.
+#' @param filename A string of the filename, excluding extension (will be `".png"`).
 #' @param download_label Label to appear on the link to download PNG.
 #' @param ... Additional arguments (not used).
-#' 
 #'
-#' @return A \code{billboard} \code{htmlwidget} object.
+#' @return A `billboard` `htmlwidget` object.
 #' @export
-#' 
+#'
 #' @note This function has two uses:
 #' \itemize{
-#'  \item{\strong{in shiny:} you can export to PNG with an \code{observeEvent} by using \code{\link{billboarderProxy}}.}
-#'  \item{\strong{in markdown and in shiny:} add a button to download chart as PNG.}
+#'  \item{\strong{in Shiny:} you can export to PNG with an `observeEvent()` by using [billboarderProxy()].}
+#'  \item{\strong{in R Markdown and in Shiny:} add a button to download chart as PNG.}
 #' }
 #'
 #' @examples
-#' 
 #' # Add a button to download as PNG:
-#' 
+#'
 #' data("equilibre_mensuel")
-#' billboarder() %>% 
+#' billboarder() %>%
 #'   bb_linechart(
 #'     data = equilibre_mensuel,
 #'     mapping = bbaes(date, solde),
 #'     type = "spline"
-#'   ) %>% 
+#'   ) %>%
 #'   bb_x_axis(
 #'     tick = list(format = "%Y-%m", fit = FALSE)
-#'   ) %>% 
+#'   ) %>%
 #'   bb_export(
 #'     filename = "my-awesome-chart",
 #'     download_label = "Click to download"
 #'   )
-#'   
 #'
-#' # In shiny, you can use proxy :
-#' 
+#' # In Shiny, you can use proxy:
+#'
 #' if (interactive()) {
 #'   library(shiny)
 #'   library(billboarder)
-#'   
+#'
 #'   ui <- fluidPage(
 #'     fluidRow(
 #'       column(
@@ -917,16 +917,16 @@ bb_treemap <- function(bb, ...) {
 #'         tags$h1("Export billboard as PNG via Proxy"),
 #'         billboarderOutput(outputId = "mybb"),
 #'         actionButton(
-#'           inputId = "export", 
-#'           label = "Export", 
+#'           inputId = "export",
+#'           label = "Export",
 #'           icon = icon("download")
 #'         )
 #'       )
 #'     )
 #'   )
-#'   
+#'
 #'   server <- function(input, output, session) {
-#'     
+#'
 #'     output$mybb <- renderBillboarder({
 #'       data("prod_par_filiere")
 #'       billboarder() %>%
@@ -936,14 +936,14 @@ bb_treemap <- function(bb, ...) {
 #'         ) %>%
 #'         bb_y_grid(show = TRUE)
 #'     })
-#'     
+#'
 #'     observeEvent(input$export, {
-#'       billboarderProxy(shinyId = "mybb") %>% 
+#'       billboarderProxy(shinyId = "mybb") %>%
 #'         bb_export(filename = "my-billboard-chart")
 #'     })
-#'     
+#'
 #'   }
-#'   
+#'
 #'   shinyApp(ui, server)
 #' }
 bb_export <- function(bb, filename = NULL, download_label = "Export (.png)", ...) {
@@ -961,13 +961,17 @@ bb_export <- function(bb, filename = NULL, download_label = "Export (.png)", ...
 
 #' Render property for a Billboard.js chart
 #'
-#' @param bb A \code{\link{billboarder}} \code{htmlwidget} object
-#'  or a \code{\link{billboarderProxy}} \code{htmlwidget} object.
-#' @param ... See \url{https://naver.github.io/billboard.js/release/latest/doc/Options.html#.render} for possible options.
+#' @param bb A [billboarder()] `htmlwidget` object or a [billboarderProxy()] `htmlwidget` object.
+#' @param ... See <https://naver.github.io/billboard.js/release/latest/doc/Options.html#.render> for possible options.
 #'
-#' @return A \code{billboard} \code{htmlwidget} object.
+#' @return A `billboard` `htmlwidget` object.
 #' @export
 #'
+#' @examples
+#' # Customize render options
+#' billboarder() %>%
+#'   bb_linechart(data = c(10, 20, 15, 30)) %>%
+#'   bb_render(mode = "canvas")
 bb_render <- function(bb, ...) {
   
   .bb_opt(bb, "render", ...)
@@ -976,12 +980,17 @@ bb_render <- function(bb, ...) {
 
 #' The padding of the chart element.
 #'
-#' @param bb A \code{\link{billboarder}} \code{htmlwidget} object
-#'  or a \code{\link{billboarderProxy}} \code{htmlwidget} object.
-#' @param ... See \url{https://naver.github.io/billboard.js/release/latest/doc/Options.html#.padding} for possible options.
+#' @param bb A [billboarder()] `htmlwidget` object or a [billboarderProxy()] `htmlwidget` object.
+#' @param ... See <https://naver.github.io/billboard.js/release/latest/doc/Options.html#.padding> for possible options.
 #'
-#' @return A \code{billboard} \code{htmlwidget} object.
+#' @return A `billboard` `htmlwidget` object.
 #' @export
+#' 
+#' @examples
+#' # Add padding around the chart
+#' billboarder() %>%
+#'   bb_barchart(data = table(sample(letters[1:5], 100, TRUE))) %>%
+#'   bb_padding(top = 100, right = 100, bottom = 100, left = 100)
 bb_padding <- function(bb, ...) {
   .bb_opt(bb, "padding", ...)
 }

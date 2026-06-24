@@ -16,13 +16,13 @@ bb_lollipop(
 )
 }
 \arguments{
-\item{bb}{A \code{billboard} \code{htmlwidget} object.}
+\item{bb}{A `billboard` `htmlwidget` object.}
 
-\item{data}{A \code{data.frame}, the first column will be used for x axis unless
-argument \code{x} is specified, the second one will be use as y values.
- If not a \code{data.frame}, an object coercible to \code{data.frame}.}
+\item{data}{A `data.frame`, the first column will be used for x axis unless
+argument `x` is specified, the second one will be use as y values.
+If not a `data.frame`, an object coercible to `data.frame`.}
 
-\item{mapping}{Mapping of variables on the chart, see \code{\link{bbaes}}.}
+\item{mapping}{Mapping of variables on the chart, see [bbaes()].}
 
 \item{rotated}{Switch x and y axis position.}
 
@@ -35,16 +35,15 @@ argument \code{x} is specified, the second one will be use as y values.
 \item{...}{Not used.}
 }
 \value{
-A \code{billboard} \code{htmlwidget} object.
+A `billboard` `htmlwidget` object.
 }
 \description{
 Helper for creating a lollipop chart
 }
 \examples{
-
 # From wikipedia
 sw <- data.frame(
-  film = c("The Force Awakens", "The Phantom Menace", 
+  film = c("The Force Awakens", "The Phantom Menace",
            "Revenge of the Sith", "A New Hope",
            "Attack of the Clones", "The Empire Strikes Back",
            "Return of the Jedi"
@@ -55,27 +54,25 @@ sw <- data.frame(
 )
 
 # Simple example
-billboarder() \%>\% 
+billboarder() \%>\%
   bb_lollipop(data = sw)
 
 # Fancy example
-billboarder() \%>\% 
-  bb_lollipop(data = sw, rotated = TRUE)\%>\% 
-  bb_y_grid(show = TRUE) \%>\% 
+billboarder() \%>\%
+  bb_lollipop(data = sw, rotated = TRUE) \%>\%
+  bb_y_grid(show = TRUE) \%>\%
   bb_y_axis(tick = list(
     values = c(0, 5e+08, 1e+09, 1.5e+09, 2e+09),
     outer = FALSE,
     format = htmlwidgets::JS("d3.formatPrefix('$,.0', 1e6)")
-  )) \%>\% 
-  bb_x_axis(tick = list(centered = TRUE)) \%>\% 
+  )) \%>\%
+  bb_x_axis(tick = list(centered = TRUE)) \%>\%
   bb_labs(
     title = "Star Wars - Total Lifetime Grosses",
     caption = "Data source : wikipedia"
   )
 
-
 # With mapping
-billboarder(data = sw) \%>\% 
+billboarder(data = sw) \%>\%
   bb_lollipop(mapping = bbaes(x = film, y = worldwide_gross))
-  
 }

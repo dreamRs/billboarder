@@ -7,12 +7,12 @@
 bb_area(bb, ...)
 }
 \arguments{
-\item{bb}{A \code{billboard} \code{htmlwidget} object.}
+\item{bb}{A `billboard` `htmlwidget` object.}
 
-\item{...}{See \url{https://naver.github.io/billboard.js/release/latest/doc/Options.html#.area}}
+\item{...}{See <https://naver.github.io/billboard.js/release/latest/doc/Options.html#.area>}
 }
 \value{
-A \code{billboard} \code{htmlwidget} object.
+A `billboard` `htmlwidget` object.
 }
 \description{
 Area property for a Billboard.js chart

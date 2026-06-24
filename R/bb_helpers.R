@@ -1,78 +1,74 @@
 #' Helper for creating a bar chart
 #'
-#' @param bb A \code{billboard} \code{htmlwidget} object.
-#' @param data A \code{data.frame}, the first column will be used for x axis unless
-#' specified otherwise in \code{mapping}. If not a \code{data.frame}, an object coercible to \code{data.frame}.
-#' @param mapping Mapping of variables on the chart, see \code{\link{bbaes}}.
+#' @param bb A `billboard` `htmlwidget` object.
+#' @param data A `data.frame`, the first column will be used for x axis unless
+#'   specified otherwise in `mapping`. If not a `data.frame`, an object coercible to `data.frame`.
+#' @param mapping Mapping of variables on the chart, see [bbaes()].
 #' @param stacked Logical, if several columns are provided, produce a stacked bar chart, else
-#' a dodge bar chart.
+#'   a dodge bar chart.
 #' @param rotated Switch x and y axis position.
 #' @param color Bar's color.
-#' @param ... Arguments for slot bar, see \url{https://naver.github.io/billboard.js/release/latest/doc/Options.html#.bar}.
-#' 
-#' @note This function can be used with \code{\link{billboarderProxy}} in shiny application.
+#' @param ... Arguments for slot bar, see <https://naver.github.io/billboard.js/release/latest/doc/Options.html#.bar>.
 #'
-#' @return A \code{billboard} \code{htmlwidget} object.
+#' @note This function can be used with [billboarderProxy()] in Shiny applications.
+#'
+#' @return A `billboard` `htmlwidget` object.
 #' @export
 #'
 #' @examples
-#' 
 #' stars <- data.frame(
 #'   package = c("billboarder", "ggiraph", "officer",
-#'               "shinyWidgets", "visNetwork", "rAmCharts", 
+#'               "shinyWidgets", "visNetwork", "rAmCharts",
 #'               "D3partitionR"),
 #'   stars = c(67, 252, 160, 144, 224, 32, 25)
 #' )
-#' 
+#'
 #' # By default, first column is mapped on the x-axis
 #' # second one on the y axis
 #' billboarder() %>%
 #'   bb_barchart(data = stars)
-#' 
-#' 
+#'
 #' # Specify explicitly the columns to use
 #' billboarder() %>%
 #'   bb_barchart(data = stars, mapping = bbaes(package, stars), rotated = TRUE)
-#' 
-#' 
+#'
 #' # Add some options
 #' billboarder() %>%
-#'   bb_barchart(data = stars[order(stars$stars), ], x = "package", y = "stars", rotated = TRUE) %>% 
-#'   bb_data(names = list(stars = "Number of stars")) %>% 
+#'   bb_barchart(data = stars[order(stars$stars), ], x = "package", y = "stars", rotated = TRUE) %>%
+#'   bb_data(names = list(stars = "Number of stars")) %>%
 #'   bb_y_grid(show = TRUE)
-#' 
-#' 
-#' 
+#'
 #' # Hack stacked barcharts (to color bar)
 #' stars_wide <- data.frame(
 #'   author = c("dreamRs", "davidgohel", "davidgohel", "dreamRs",
 #'              "datastorm-open", "datastorm-open", "AntoineGuillot2"),
 #'   package = c("billboarder", "ggiraph", "officer",
-#'               "shinyWidgets", "visNetwork", "rAmCharts", 
+#'               "shinyWidgets", "visNetwork", "rAmCharts",
 #'               "D3partitionR"),
 #'   stars = c(67, 252, 160, 144, 224, 32, 25)
 #' )
-#' 
+#'
 #' billboarder() %>%
-#'   bb_barchart(data = stars_wide, 
-#'               mapping = bbaes(package, stars, group = author),
-#'               stacked = TRUE)
-#' 
+#'   bb_barchart(
+#'     data = stars_wide,
+#'     mapping = bbaes(package, stars, group = author),
+#'     stacked = TRUE
+#'   )
+#'
 #' billboarder() %>%
-#'   bb_barchart(data = stars_wide,
-#'               mapping = bbaes(author, stars, group = package),
-#'               stacked = TRUE)
-#' 
-#' 
-#' 
+#'   bb_barchart(
+#'     data = stars_wide,
+#'     mapping = bbaes(author, stars, group = package),
+#'     stacked = TRUE
+#'   )
+#'
 #' # Grouping variable
 #' tab <- table(sample(letters[1:5], 100, TRUE), sample(LETTERS[1:5], 100, TRUE))
 #' dat <- as.data.frame(tab)
-#' 
+#'
 #' billboarder() %>%
 #'   bb_barchart(data = dat, bbaes(x = Var1, y = Freq, group = Var2), rotated = TRUE)
-#' 
-#' 
+#'
 #' # You can also pass data in a 'wide' format
 #' dat2 <- data.frame(
 #'   x = letters[1:5],
@@ -82,12 +78,11 @@
 #'   D = sample.int(n = 100, size = 5),
 #'   E = sample.int(n = 100, size = 5)
 #' )
-#' 
+#'
 #' # But cannot use mapping
 #' billboarder() %>%
-#'   bb_barchart(data = dat2, stacked = TRUE) %>% 
+#'   bb_barchart(data = dat2, stacked = TRUE) %>%
 #'   bb_data(order = NULL, labels = TRUE)
-
 bb_barchart <- function(bb, data, mapping = NULL, stacked = FALSE, rotated = FALSE, color = NULL, ...) {
   
   if (missing(data))
@@ -150,7 +145,7 @@ bb_barchart <- function(bb, data, mapping = NULL, stacked = FALSE, rotated = FAL
   
   if ("billboarder_Proxy" %in% class(bb)) {
     
-    # bb <- bb_load(proxy = bb, x = x, json = json, groups = stacked, unload = bb$unload) 
+    # bb <- bb_load(proxy = bb, x = x, json = json, groups = stacked, unload = bb$unload)
     
     if (!is.null(color)) {
       colp <- stats::setNames(as.list(color), setdiff(names(json), getOption("billboarder-x", default = "bb-x")))
@@ -159,14 +154,14 @@ bb_barchart <- function(bb, data, mapping = NULL, stacked = FALSE, rotated = FAL
     }
     
     bb <- bb_load(proxy = bb,
-                  json = json, 
-                  groups = stacked, 
+                  json = json,
+                  groups = stacked,
                   x = getOption("billboarder-x", default = "bb-x"),
-                  unload = bb$unload, 
-                  colors = colp) 
+                  unload = bb$unload,
+                  colors = colp)
     
     bb <- bb_categories(bb = bb, categories = json[[1]])
-
+    
   } else {
     
     bb <- .bb_opt2(bb, "data", dropNulls(data_opt))
@@ -186,37 +181,36 @@ bb_barchart <- function(bb, data, mapping = NULL, stacked = FALSE, rotated = FAL
 
 
 #' Manual color for barchart
-#' 
-#' @param bb A \code{billboard} \code{htmlwidget} object.
+#'
+#' @param bb A `billboard` `htmlwidget` object.
 #' @param values A named vector, names represent the categories of the bar chart,
-#' values correspond to colors. All categories must be present in the vector, in 
-#' the same order of the chart.
-#' 
-#' @note Must be called after \code{bb_bar}.
-#'  
-#' @return A \code{billboard} \code{htmlwidget} object.
+#'   values correspond to colors. All categories must be present in the vector, in
+#'   the same order of the chart.
+#'
+#' @note Must be called after [bb_bar()].
+#'
+#' @return A `billboard` `htmlwidget` object.
 #' @export
-#' 
+#'
 #' @importFrom jsonlite toJSON
 #' @importFrom htmlwidgets JS
-#' 
+#'
 #' @examples
 #' \dontrun{
-#' 
 #' library("data.table")
 #' library("billboarder")
-#' 
+#'
 #' data("mpg", package = "ggplot2")
 #' setDT(mpg)
-#' 
+#'
 #' # all in blue
 #' manufa <- unique(mpg$manufacturer)
 #' cols <- rep("#08298A", length(manufa))
 #' names(cols) <- manufa
-#' 
+#'
 #' # Nissan in red
-#' cols[["nissan"]] <- "#DF0101"#' 
-#' 
+#' cols[["nissan"]] <- "#DF0101"
+#'
 #' billboarder() %>%
 #'   bb_barchart(data = mpg[, list(count = .N), by = manufacturer][order(count)]) %>%
 #'   bb_bar_color_manual(values = cols)
@@ -237,7 +231,7 @@ bb_bar_color_manual <- function(bb, values) {
       ),
       paste(
         sprintf(
-          "if (x[d.index] == '%s') { return '%s'; }", 
+          "if (x[d.index] == '%s') { return '%s'; }",
           names(values), unname(values)
         ),
         collapse = "\n"
@@ -255,23 +249,22 @@ bb_bar_color_manual <- function(bb, values) {
 
 
 #' @title Set categories on X axis
-#' 
+#'
 #' @description Set or modify x axis labels.
 #'
-#' @param bb A \code{billboard} \code{htmlwidget} object. 
+#' @param bb A `billboard` `htmlwidget` object.
 #' @param categories A character vector to set names on a category axis.
-#' 
-#' @note This function can be used with \code{\link{billboarder-shiny}} to modify labels on axis, e.g. for barcharts.
 #'
-#' @return A \code{billboard} \code{htmlwidget} object.
+#' @note This function can be used with `billboarder-shiny` to modify labels on axis, e.g. for barcharts.
+#'
+#' @return A `billboard` `htmlwidget` object.
 #' @export
 #'
 #' @examples
 #' # Simple line with month names as x labels
-#' billboarder() %>% 
-#'   bb_linechart(data = round(rnorm(12))) %>% 
+#' billboarder() %>%
+#'   bb_linechart(data = round(rnorm(12))) %>%
 #'   bb_categories(categories = month.name)
-#'   
 bb_categories <- function(bb, categories) {
   
   if ("billboarder_Proxy" %in% class(bb)) {
@@ -279,7 +272,7 @@ bb_categories <- function(bb, categories) {
     bb <- .bb_proxy(bb, "categories", categories)
     
   } else {
-
+    
     bb <- .bb_opt(bb, "axis", x = list(type = "category", categories = categories))
     
   }
@@ -292,53 +285,50 @@ bb_categories <- function(bb, categories) {
 
 #' Helper for creating a scatter chart
 #'
-#' @param bb A \code{billboard} \code{htmlwidget} object.
-#' @param data A \code{data.frame}
-#' @param mapping Mapping of variables on the chart, see \code{\link{bbaes}}.
-#' @param ... Alternative mapping, you can specify \code{x = "Sepal.Length"} for example.
-#' @param point_opacity Opacity for points, value between \code{[0,1]}.
-#' 
-#' @note This function can be used with \code{\link{billboarderProxy}} in shiny application.
+#' @param bb A `billboard` `htmlwidget` object.
+#' @param data A `data.frame`
+#' @param mapping Mapping of variables on the chart, see [bbaes()].
+#' @param ... Alternative mapping, you can specify `x = "Sepal.Length"` for example.
+#' @param point_opacity Opacity for points, value between `[0,1]`.
 #'
-#' @return A \code{billboard} \code{htmlwidget} object.
+#' @note This function can be used with [billboarderProxy()] in Shiny applications.
+#'
+#' @return A `billboard` `htmlwidget` object.
 #' @export
-#' 
+#'
 #' @importFrom stats setNames
 #' @importFrom scales rescale
 #'
 #' @examples
 #' # Use first and second variable by default
-#' billboarder() %>% 
+#' billboarder() %>%
 #'   bb_scatterplot(data = iris)
-#' 
-#' 
+#'
 #' # Explicit mapping
-#' billboarder() %>% 
+#' billboarder() %>%
 #'   bb_scatterplot(
-#'     data = iris, 
+#'     data = iris,
 #'     mapping = bbaes(Petal.Length, Petal.Width)
-#'   ) %>% 
+#'   ) %>%
 #'   bb_x_axis(tick = list(fit = FALSE))
-#' 
-#' 
+#'
 #' # Grouping variable
-#' billboarder() %>% 
+#' billboarder() %>%
 #'   bb_scatterplot(
-#'     data = iris, 
+#'     data = iris,
 #'     mapping = bbaes(Sepal.Length, Sepal.Width, group = Species)
 #'   )
-#'   
+#'
 #' # Size variable
-#' billboarder() %>% 
+#' billboarder() %>%
 #'   bb_scatterplot(
-#'     data = iris, 
+#'     data = iris,
 #'     mapping = bbaes(
 #'       Sepal.Length, Sepal.Width,
 #'       group = Species, size = Petal.Width
 #'     )
-#'   ) %>% 
+#'   ) %>%
 #'   bb_x_axis(tick = list(fit = FALSE))
-#'
 bb_scatterplot <- function(bb, data, mapping = NULL, ..., point_opacity = NULL) {
   
   if (missing(data))
@@ -375,14 +365,14 @@ bb_scatterplot <- function(bb, data, mapping = NULL, ..., point_opacity = NULL) 
     json <- data[c(x, y)]
     if (!is.null(z)) {
       json$y <- mapply(
-        FUN = function(y, z) list(y = y, z = z), 
-        y = json$y, z = data[[z]], 
+        FUN = function(y, z) list(y = y, z = z),
+        y = json$y, z = data[[z]],
         SIMPLIFY = FALSE
       )
     }
   } else {
     xs <- stats::setNames(
-      object = as.list(paste(unique(data[[group]]), "x", sep = "_")), 
+      object = as.list(paste(unique(data[[group]]), "x", sep = "_")),
       nm = unique(data[[group]])
     )
     if (!is.null(z)) {
@@ -390,10 +380,10 @@ bb_scatterplot <- function(bb, data, mapping = NULL, ..., point_opacity = NULL) 
         split(x = data[[x]], f = paste(data[[group]], "x", sep = "_")),
         split(
           x = mapply(
-            FUN = function(y, z) list(y = y, z = z), 
-            y = data[[y]], z = data[[z]], 
+            FUN = function(y, z) list(y = y, z = z),
+            y = data[[y]], z = data[[z]],
             SIMPLIFY = FALSE
-          ), 
+          ),
           f = data[[group]]
         )
       )
@@ -425,7 +415,7 @@ bb_scatterplot <- function(bb, data, mapping = NULL, ..., point_opacity = NULL) 
   )
   
   if ("billboarder_Proxy" %in% class(bb)) {
-    bb <- bb_load(proxy = bb, json = json, xs = xs, unload = bb$unload) 
+    bb <- bb_load(proxy = bb, json = json, xs = xs, unload = bb$unload)
     bb <- bb_proxy_axis_labels(proxy = bb, x = x, y = y)
   } else {
     bb <- .bb_opt2(bb, "data", data_opt)
@@ -447,39 +437,38 @@ bb_scatterplot <- function(bb, data, mapping = NULL, ..., point_opacity = NULL) 
 
 #' Helper for creating a gauge
 #'
-#' @param bb A \code{billboard} \code{htmlwidget} object.
+#' @param bb A `billboard` `htmlwidget` object.
 #' @param value A single numeric value or a vector for stacked gauge.
-#' @param name Name for the value, appear in  tooltip, same length as `value`.
+#' @param name Name for the value, appear in tooltip, same length as `value`.
 #' @param color Color for the gauge, if provided, `steps` and `steps_color` are ignored.
 #' @param steps Upper bound for changing colors
 #' @param steps_color Colors corresponding to steps
 #' @param ... Arguments for slot gauge.
-#' 
-#' @note This function can be used with \code{\link{billboarderProxy}} in shiny application.
 #'
-#' @return A \code{billboard} \code{htmlwidget} object.
+#' @note This function can be used with [billboarderProxy()] in Shiny applications.
+#'
+#' @return A `billboard` `htmlwidget` object.
 #' @export
-#' 
+#'
 #' @importFrom stats setNames
 #'
 #' @examples
-#' billboarder() %>% 
+#' billboarder() %>%
 #'   bb_gaugechart(value = 50)
-#' 
+#'
 #' # With some options
-#' billboarder() %>% 
+#' billboarder() %>%
 #'   bb_gaugechart(
 #'     value = 160,
 #'     steps_color = rev(c("#FF0000", "#F97600", "#F6C600", "#60B044"))
-#'   ) %>% 
+#'   ) %>%
 #'   bb_gauge(
 #'     label = list(format = suffix("km/h")),
 #'     min = 10, max = 200, width = 20
 #'   )
-#'
 bb_gaugechart <- function(bb,
                           value,
-                          name = "Value", 
+                          name = "Value",
                           color = NULL,
                           steps = c(30, 60, 90, 100),
                           steps_color = c("#FF0000", "#F97600", "#F6C600", "#60B044"),
@@ -537,38 +526,36 @@ bb_gaugechart <- function(bb,
 
 #' Helper for creating a pie chart
 #'
-#' @param bb A \code{billboard} \code{htmlwidget} object.
-#' @param data A \code{data.frame}, first column should contain labels, second column values associated, except if mapping is provided.
-#' @param mapping Mapping of variables on the chart, see \code{\link{bbaes}}.
-#' @param ... Arguments for slot pie, \url{https://naver.github.io/billboard.js/release/latest/doc/Options.html#.pie}.
-#' 
-#' @note This function can be used with \code{\link{billboarderProxy}} in shiny application.
+#' @param bb A `billboard` `htmlwidget` object.
+#' @param data A `data.frame`, first column should contain labels, second column values associated, except if mapping is provided.
+#' @param mapping Mapping of variables on the chart, see [bbaes()].
+#' @param ... Arguments for slot pie, <https://naver.github.io/billboard.js/release/latest/doc/Options.html#.pie>.
 #'
-#' @return A \code{billboard} \code{htmlwidget} object.
+#' @note This function can be used with [billboarderProxy()] in Shiny applications.
+#'
+#' @return A `billboard` `htmlwidget` object.
 #' @export
-#' 
+#'
 #' @importFrom stats setNames
-#' 
+#'
 #' @examples
-#' 
 #' stars <- data.frame(
 #'   package = c("billboarder", "ggiraph", "officer", "shinyWidgets", "visNetwork"),
 #'   stars = c(9, 177, 43, 44, 169)
 #' )
-#' 
-#' # Default
-#' billboarder() %>% 
-#'   bb_piechart(data = stars)
-#' 
-#' # Explicit mapping
-#' billboarder() %>% 
-#'   bb_piechart(data = stars, bbaes(package, stars))
-#' 
-#' # Other way to specify mapping
-#' billboarder(data = stars) %>% 
-#'   bb_aes(package, stars) %>% 
-#'   bb_piechart()
 #'
+#' # Default
+#' billboarder() %>%
+#'   bb_piechart(data = stars)
+#'
+#' # Explicit mapping
+#' billboarder() %>%
+#'   bb_piechart(data = stars, bbaes(package, stars))
+#'
+#' # Other way to specify mapping
+#' billboarder(data = stars) %>%
+#'   bb_aes(package, stars) %>%
+#'   bb_piechart()
 bb_piechart <- function(bb, data, mapping = NULL, ...) {
   
   if (missing(data))
@@ -590,12 +577,12 @@ bb_piechart <- function(bb, data, mapping = NULL, ...) {
       message("'group' isn't used for pie charts.")
       mapping$group <- NULL
     }
-      
+    
     
     data_mapped <- bbmapping(data = data, mapping = mapping)
     
     json <- mapply(
-      FUN = function(name, value) {stats::setNames(list(list(value)), name)}, 
+      FUN = function(name, value) {stats::setNames(list(list(value)), name)},
       name = as.factor(data_mapped[[1]]), value = data_mapped[[2]]
     )
     
@@ -605,10 +592,10 @@ bb_piechart <- function(bb, data, mapping = NULL, ...) {
     json = json,
     type = "pie"
   )
-
+  
   if ("billboarder_Proxy" %in% class(bb)) {
     
-    bb <- bb_load(proxy = bb, json = json, unload = bb$unload) 
+    bb <- bb_load(proxy = bb, json = json, unload = bb$unload)
     
   } else {
     
@@ -626,24 +613,24 @@ bb_piechart <- function(bb, data, mapping = NULL, ...) {
 
 #' Helper for creating a donut chart
 #'
-#' @param bb A \code{billboard} \code{htmlwidget} object.
-#' @param data A \code{data.frame}.
-#' @param mapping Mapping of variables on the chart, see \code{\link{bbaes}}.
-#' @param ... Arguments for slot donut, \url{https://naver.github.io/billboard.js/release/latest/doc/Options.html#.donut}.
-#' 
-#' @note This function can be used with \code{\link{billboarderProxy}} in shiny application.
+#' @param bb A `billboard` `htmlwidget` object.
+#' @param data A `data.frame`.
+#' @param mapping Mapping of variables on the chart, see [bbaes()].
+#' @param ... Arguments for slot donut, <https://naver.github.io/billboard.js/release/latest/doc/Options.html#.donut>.
 #'
-#' @return A \code{billboard} \code{htmlwidget} object.
+#' @note This function can be used with [billboarderProxy()] in Shiny applications.
+#'
+#' @return A `billboard` `htmlwidget` object.
 #' @export
-#' 
+#'
 #' @examples
 #' \dontrun{
 #' stars <- data.frame(
 #'   package = c("billboarder", "ggiraph", "officer", "shinyWidgets", "visNetwork"),
 #'   stars = c(9, 177, 43, 44, 169)
 #' )
-#' 
-#' billboarder() %>% 
+#'
+#' billboarder() %>%
 #'   bb_donutchart(data = stars, title = "Stars")
 #' }
 bb_donutchart <- function(bb, data, mapping = NULL, ...) {
@@ -666,12 +653,12 @@ bb_donutchart <- function(bb, data, mapping = NULL, ...) {
       message("'group' isn't used for donut charts.")
       mapping$group <- NULL
     }
-      
+    
     
     data_mapped <- bbmapping(data = data, mapping = mapping)
     
     json <- mapply(
-      FUN = function(name, value) {stats::setNames(list(list(value)), name)}, 
+      FUN = function(name, value) {stats::setNames(list(list(value)), name)},
       name = as.factor(data_mapped[[1]]), value = data_mapped[[2]]
     )
     
@@ -684,7 +671,7 @@ bb_donutchart <- function(bb, data, mapping = NULL, ...) {
   
   if ("billboarder_Proxy" %in% class(bb)) {
     
-    bb <- bb_load(proxy = bb, json = json, unload = bb$unload) 
+    bb <- bb_load(proxy = bb, json = json, unload = bb$unload)
     
   } else {
     
@@ -704,105 +691,97 @@ bb_donutchart <- function(bb, data, mapping = NULL, ...) {
 
 #' Helper for creating a line chart
 #'
-#' @param bb A \code{billboard} \code{htmlwidget} object.
-#' @param data A \code{data.frame} or a \code{vector}.
-#' @param mapping Mapping of variables on the chart, see \code{\link{bbaes}}.
-#' @param type Type of chart : \code{"line"}, \code{"spline"}, \code{"step"}, \code{"area"}, \code{"area-spline"}, \code{"area-step"}, 
-#'  \code{"area-line-range"}, \code{"area-spline-range"}.
+#' @param bb A `billboard` `htmlwidget` object.
+#' @param data A `data.frame` or a `vector`.
+#' @param mapping Mapping of variables on the chart, see [bbaes()].
+#' @param type Type of chart: `"line"`, `"spline"`, `"step"`, `"area"`, `"area-spline"`, `"area-step"`,
+#'   `"area-line-range"`, `"area-spline-range"`.
 #' @param show_point Whether to show each point in line.
 #' @param dasharray Pattern of dashes and gaps used to paint the outline of the line,
-#'  see \url{https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray} for specifications.
+#'   see <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray> for specifications.
 #' @param width Width of the stroke to be applied to the line,
-#'  see \url{https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-width} for specifications.
+#'   see <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-width> for specifications.
 #' @param ... Not used.
-#' 
-#' @note Types area-line-range and area-spline-range don't work in RStudio viewer, open chart in a browser. 
-#'  This function can be used with \code{\link{billboarderProxy}} in shiny application.
 #'
-#' @return A \code{billboard} \code{htmlwidget} object.
+#' @note Types `area-line-range` and `area-spline-range` don't work in the RStudio viewer; open chart in a browser.
+#'   This function can be used with [billboarderProxy()] in Shiny applications.
+#'
+#' @return A `billboard` `htmlwidget` object.
 #' @export
 #'
 #' @examples
-#' 
 #' ## Different types
 #' x <- round(rnorm(20), 2)
-#' 
-#' billboarder() %>% 
+#'
+#' billboarder() %>%
 #'   bb_linechart(data = x)
-#' 
-#' billboarder() %>% 
+#'
+#' billboarder() %>%
 #'   bb_linechart(data = x, type = "spline")
-#' 
-#' billboarder() %>% 
+#'
+#' billboarder() %>%
 #'   bb_linechart(data = x, type = "area")
-#' 
-#' billboarder() %>% 
+#'
+#' billboarder() %>%
 #'   bb_linechart(data = x, type = "area-spline")
-#'   
-#'   
+#'
 #' ## Timeserie with date (Date)
 #' data("economics", package = "ggplot2")
-#' 
+#'
 #' billboarder() %>%
-#'   bb_linechart(data = economics[, c("date", "psavert")]) %>% 
+#'   bb_linechart(data = economics[, c("date", "psavert")]) %>%
 #'   bb_x_axis(tick = list(format = "%Y-%m", fit = FALSE)) %>%
-#'   bb_y_axis(tick = list(format = suffix("%")), 
-#'             label = list(text = "Personal savings rate")) %>% 
-#'   bb_legend(show = FALSE) %>% 
-#'   bb_x_grid(show = TRUE) %>% 
-#'   bb_y_grid(show = TRUE) %>% 
+#'   bb_y_axis(
+#'     tick = list(format = suffix("%")),
+#'     label = list(text = "Personal savings rate")
+#'   ) %>%
+#'   bb_legend(show = FALSE) %>%
+#'   bb_x_grid(show = TRUE) %>%
+#'   bb_y_grid(show = TRUE) %>%
 #'   bb_subchart(show = TRUE)
-#'   
-#'   
-#' # With multiple lines :
-#' 
+#'
+#' # With multiple lines:
 #' data("economics_long", package = "ggplot2")
-#' 
+#'
 #' billboarder() %>%
-#'   bb_linechart(economics_long, bbaes(date, value, variable)) %>% 
-#'   bb_data(hide = "pop") %>% 
+#'   bb_linechart(economics_long, bbaes(date, value, variable)) %>%
+#'   bb_data(hide = "pop") %>%
 #'   bb_x_axis(tick = list(format = "%Y-%m", fit = FALSE))
-#'   
-#'   
 #'
 #' ## Timeserie with datetime (POSIXct)
 #' data("cdc_prod_filiere")
-#' 
-#' billboarder() %>% 
+#'
+#' billboarder() %>%
 #'   bb_linechart(data = cdc_prod_filiere[, c("date_heure", "prod_eolien")])
-#' 
-#' # or with mapping :
-#' billboarder() %>% 
+#'
+#' # or with mapping:
+#' billboarder() %>%
 #'   bb_linechart(cdc_prod_filiere, bbaes(date_heure, prod_bioenergies))
-#'   
-#'   
-#'  
-#' ### Other type for x-axis 
-#'  
+#'
+#' ### Other type for x-axis
+#'
 #' ## character/factor on x-axis
 #' AirPassengers1960 <- data.frame(
-#'   month = month.name, 
+#'   month = month.name,
 #'   AirPassengers = tail(AirPassengers, 12)
 #' )
 #' # you have to specify that x-axis is of type 'category'
 #' # and that column 'month' must be used for x-axis values
-#' billboarder() %>% 
-#'   bb_linechart(data = AirPassengers1960, x = "month") %>% 
+#' billboarder() %>%
+#'   bb_linechart(data = AirPassengers1960, x = "month") %>%
 #'   bb_x_axis(type = "category")
-#' 
-#' 
+#'
 #' ## numeric on x-axis
 #' lynx.df <- data.frame(
 #'   year = time(lynx),
 #'   lynx = lynx
 #' )
-#' # just specify which variable must be use n the x-axis
-#' billboarder() %>% 
+#' # just specify which variable must be used on the x-axis
+#' billboarder() %>%
 #'   bb_linechart(data = lynx.df, x = "year")
-#'   
-#'   
+#'
 #' ### Area range charts
-#' 
+#'
 #' # Generate data
 #' dat <- data.frame(
 #'   date = seq.Date(Sys.Date(), length.out = 20, by = "day"),
@@ -811,30 +790,28 @@ bb_donutchart <- function(bb, data, mapping = NULL, ...) {
 #' )
 #' dat$ymin1 <- dat$y1 - 5
 #' dat$ymax1 <- dat$y1 + 5
-#' 
+#'
 #' dat$ymin2 <- dat$y2 - sample(3:15, 20, TRUE)
 #' dat$ymax2 <- dat$y2 + sample(3:15, 20, TRUE)
-#' 
-#' 
-#' # Make chart : use ymin & ymax aes for range
-#' billboarder(data = dat) %>% 
+#'
+#' # Make chart: use ymin & ymax aes for range
+#' billboarder(data = dat) %>%
 #'   bb_linechart(
 #'     mapping = bbaes(x = date, y = y1, ymin = ymin1, ymax = ymax1),
 #'     type = "area-line-range"
-#'   ) %>% 
+#'   ) %>%
 #'   bb_linechart(
-#'     mapping = bbaes(x = date, y = y2, ymin = ymin2, ymax = ymax2), 
+#'     mapping = bbaes(x = date, y = y2, ymin = ymin2, ymax = ymax2),
 #'     type = "area-spline-range"
-#'   ) %>% 
+#'   ) %>%
 #'   bb_y_axis(min = 50)
-#'   
-bb_linechart <- function(bb, data, mapping = NULL, type = "line", 
+bb_linechart <- function(bb, data, mapping = NULL, type = "line",
                          show_point = FALSE, dasharray = NULL, width = NULL,
                          ...) {
   
   type <- match.arg(
-    arg = type, 
-    choices = c("line", "spline", "step", "area", 
+    arg = type,
+    choices = c("line", "spline", "step", "area",
                 "area-spline", "area-step", "bar",
                 "area-line-range", "area-spline-range"),
     several.ok = TRUE
@@ -859,7 +836,7 @@ bb_linechart <- function(bb, data, mapping = NULL, type = "line",
   if (!is.null(mapping)) {
     data <- bbmapping(data = data, mapping = mapping)
     # if (!is.null(bb$data$json$y))
-  } 
+  }
   if (inherits(x = data[[1]], what = c("Date", "POSIXct"))) {
     if (inherits(x = data[[1]], what = c("POSIXct"))) {
       if (!"billboarder_Proxy" %in% class(bb)) {
@@ -892,13 +869,13 @@ bb_linechart <- function(bb, data, mapping = NULL, type = "line",
   
   if ("billboarder_Proxy" %in% class(bb)) {
     
-    bb <- bb_load(proxy = bb, json = data_opt$json, unload = bb$unload) 
+    bb <- bb_load(proxy = bb, json = data_opt$json, unload = bb$unload)
     
   } else {
     
     if (!is.null(dasharray)) {
       dasharray <- setNames(
-        object = as.list(sprintf("stroke-dasharray:%s;", rep_len(dasharray, length(data) - 1))), 
+        object = as.list(sprintf("stroke-dasharray:%s;", rep_len(dasharray, length(data) - 1))),
         nm = sprintf(".billboarder-line-%s", names(data)[-1])
       )
       bb <- bb_add_style(bb, .list = dasharray)
@@ -906,7 +883,7 @@ bb_linechart <- function(bb, data, mapping = NULL, type = "line",
     
     if (!is.null(width)) {
       width <- setNames(
-        object = as.list(sprintf("stroke-width:%s;", rep_len(width, length(data) - 1))), 
+        object = as.list(sprintf("stroke-width:%s;", rep_len(width, length(data) - 1))),
         nm = sprintf(".billboarder-line-%s", names(data)[-1])
       )
       bb <- bb_add_style(bb, .list = width)
@@ -915,7 +892,7 @@ bb_linechart <- function(bb, data, mapping = NULL, type = "line",
     bb <- .bb_opt(bb, "line", classes = as.list(sprintf("billboarder-line-%s", names(data)[-1])))
     
     bb <- .bb_opt2(bb, "data", c(data_opt, args))
-
+    
     bb <- bb_point(bb, show = show_point)
     
   }
@@ -928,59 +905,58 @@ bb_linechart <- function(bb, data, mapping = NULL, type = "line",
 
 #' Helper for creating a density plot
 #'
-#' @param bb A \code{billboard} \code{htmlwidget} object.
-#' @param data A \code{data.frame} or a \code{vector}, the first column will
-#'  be used to calculate density if \code{x} is \code{NULL}.
-#' @param mapping Mapping of variables on the chart, see \code{\link{bbaes}}.
+#' @param bb A `billboard` `htmlwidget` object.
+#' @param data A `data.frame` or a `vector`, the first column will
+#'   be used to calculate density if `x` is `NULL`.
+#' @param mapping Mapping of variables on the chart, see [bbaes()].
 #' @param stacked Logical, create a stacked density plot.
-#' @param stat Stat to compute : \code{density} or \code{count}.
-#' @param fill Produce a conditional density estimate, this option force \code{stacked = TRUE}.
-#' @param ... Arguments passed to \code{\link[stats]{density}}.
+#' @param stat Stat to compute: `density` or `count`.
+#' @param fill Produce a conditional density estimate, this option force `stacked = TRUE`.
+#' @param ... Arguments passed to [stats::density()].
 #'
-#' @return A \code{billboard} \code{htmlwidget} object.
+#' @return A `billboard` `htmlwidget` object.
 #' @export
-#' 
-#' @seealso \code{\link{bb_histogram}}
-#' 
+#'
+#' @seealso [bb_histogram()]
+#'
 #' @importFrom stats setNames density density.default
 #'
 #' @examples
-#' 
 #' # With a vector
 #' billboarder() %>%
 #'   bb_densityplot(data = rnorm(1e4))
-#' 
+#'
 #' data("diamonds", package = "ggplot2")
-#' 
+#'
 #' # density plot with one variable
-#' billboarder() %>% 
+#' billboarder() %>%
 #'   bb_densityplot(data = diamonds, x = "carat")
-#' 
+#'
 #' # Same with mapping
-#' billboarder() %>% 
+#' billboarder() %>%
 #'   bb_densityplot(diamonds, bbaes(carat))
-#' 
+#'
 #' # With a grouping variable
-#' billboarder() %>% 
-#'   bb_densityplot(data = diamonds, x = "depth", group = "cut") %>% 
+#' billboarder() %>%
+#'   bb_densityplot(data = diamonds, x = "depth", group = "cut") %>%
 #'   bb_x_axis(min = 55, max = 70)
-#' 
+#'
 #' # Same with mapping
-#' billboarder() %>% 
-#'   bb_densityplot(diamonds, bbaes(depth, group = cut)) %>% 
+#' billboarder() %>%
+#'   bb_densityplot(diamonds, bbaes(depth, group = cut)) %>%
 #'   bb_x_axis(min = 55, max = 70)
-#' 
-#' 
+#'
 #' # a stacked density plot using count as statistic
 #' bb <- billboarder() %>%
-#'   bb_densityplot(diamonds, bbaes(depth, group = cut),
-#'                  stacked = TRUE, stat = "count") %>%
+#'   bb_densityplot(
+#'     diamonds, bbaes(depth, group = cut),
+#'     stacked = TRUE, stat = "count"
+#'   ) %>%
 #'   bb_x_axis(min = 55, max = 70)
 #' bb
-#' 
+#'
 #' # changing order
 #' bb %>% bb_data(order = "asc")
-#' 
 bb_densityplot <- function(bb, data, mapping = NULL, stacked = FALSE, stat = "density", fill = FALSE, ...) {
   
   stat <- match.arg(arg = stat, choices = c("density", "count"))
@@ -1055,7 +1031,7 @@ bb_densityplot <- function(bb, data, mapping = NULL, stacked = FALSE, stat = "de
       FUN = function(g) {
         tmp <- data[[x]][data[[group]] %in% g]
         l <- stats::density(
-          x = tmp, from = range_x[1], to = range_x[2], bw = bw, 
+          x = tmp, from = range_x[1], to = range_x[2], bw = bw,
           adjust = adjust, kernel = kernel, weights = weights, n = n
         )[c("x", "y")]
         if (stat == "count") {
@@ -1113,7 +1089,7 @@ bb_densityplot <- function(bb, data, mapping = NULL, stacked = FALSE, stat = "de
     
     bb <- bb_proxy_axis_labels(proxy = bb, x = x, y = stat)
     
-    bb <- bb_load(proxy = bb, json = json, xs = xs, unload = bb$unload) 
+    bb <- bb_load(proxy = bb, json = json, xs = xs, unload = bb$unload)
     
   } else {
     
@@ -1133,85 +1109,82 @@ bb_densityplot <- function(bb, data, mapping = NULL, stacked = FALSE, stat = "de
 
 #' Helper for creating an histogram
 #'
-#' @param bb A \code{billboard} \code{htmlwidget} object.
-#' @param data A \code{data.frame} or a \code{vector}, the first column will
-#'  be used to calculate density if \code{x} is \code{NULL}.
-#' @param mapping Mapping of variables on the chart, see \code{\link{bbaes}}.
+#' @param bb A `billboard` `htmlwidget` object.
+#' @param data A `data.frame` or a `vector`, the first column will
+#'   be used to calculate density if `x` is `NULL`.
+#' @param mapping Mapping of variables on the chart, see [bbaes()].
 #' @param stacked Logical, create a stacked histogram.
 #' @param fill Logical, create a stacked percentage histogram.
-#' @param bins Number of bins. Overridden by \code{binwidth}. Defaults to 30.
-#' @param binwidth The width of the bins. See \code{\link[ggplot2]{geom_histogram}}
+#' @param bins Number of bins. Overridden by `binwidth`. Defaults to 30.
+#' @param binwidth The width of the bins. See [ggplot2::geom_histogram()]
 #' @param ... Not used.
 #'
-#' @return A \code{billboard} \code{htmlwidget} object.
+#' @return A `billboard` `htmlwidget` object.
 #' @export
-#' 
-#' @seealso \code{\link{bb_densityplot}}
-#' 
+#'
+#' @seealso [bb_densityplot()]
+#'
 #' @importFrom stats reshape
 #' @importFrom ggplot2 ggplot aes_string geom_histogram layer_data
 #' @importFrom htmlwidgets JS
 #'
 #' @examples
-#' 
 #' data("diamonds", package = "ggplot2")
-#' 
+#'
 #' # one variable
-#' billboarder() %>% 
+#' billboarder() %>%
 #'   bb_histogram(data = diamonds, x = "price")
-#' 
+#'
 #' # with mapping
-#' billboarder() %>% 
+#' billboarder() %>%
 #'   bb_histogram(diamonds, bbaes(price))
-#' 
+#'
 #' # equivalent to
-#' billboarder() %>% 
+#' billboarder() %>%
 #'   bb_histogram(data = diamonds$price)
-#' 
+#'
 #' # prettier with 'binwidth'
 #' # (but you need to know your data)
-#' billboarder() %>% 
-#'   bb_histogram(data = diamonds, x = "price", binwidth = 500) %>% 
+#' billboarder() %>%
+#'   bb_histogram(data = diamonds, x = "price", binwidth = 500) %>%
 #'   bb_colors_manual()
-#' 
+#'
 #' # with a grouping variable
 #' billboarder() %>%
 #'   bb_histogram(data = diamonds, x = "price",
 #'                group = "cut", binwidth = 500)
-#' 
+#'
 #' # and with mapping
 #' billboarder() %>%
 #'   bb_histogram(diamonds, bbaes(price, group = cut),
 #'                binwidth = 500)
-#' 
+#'
 #' # stacked histogram
 #' billboarder() %>%
 #'   bb_histogram(diamonds, bbaes(price, group = cut),
 #'                stacked = TRUE, binwidth = 500)
-#' 
-#' 
+#'
 #' # another example
 #' dat <- data.frame(
 #'   sample = c(rnorm(n = 500, mean = 1), rnorm(n = 500, mean = 2)),
 #'   group = rep(c("A", "B"), each = 500)
 #' )
-#' 
-#' billboarder() %>% 
+#'
+#' billboarder() %>%
 #'   bb_histogram(data = dat, x = "sample", binwidth = 0.25)
-#' 
+#'
 #' samples_mean <- tapply(dat$sample, dat$group, mean)
-#' billboarder() %>% 
+#' billboarder() %>%
 #'   bb_histogram(data = dat, x = "sample", group = "group",
-#'                binwidth = 0.25) %>% 
+#'                binwidth = 0.25) %>%
 #'   bb_x_grid(
 #'     lines = list(
-#'       list(value = unname(samples_mean['A']),
+#'       list(value = unname(samples_mean["A"]),
 #'            text = "mean of sample A"),
-#'       list(value = unname(samples_mean['B']), 
+#'       list(value = unname(samples_mean["B"]),
 #'            text = "mean of sample B")
 #'     )
 #'   )
-#' 
 bb_histogram <- function(bb, data, mapping = NULL, stacked = FALSE, fill = FALSE, bins = 30, binwidth = NULL, ...) {
   
   if (!requireNamespace(package = "ggplot2"))
@@ -1327,7 +1300,7 @@ bb_histogram <- function(bb, data, mapping = NULL, stacked = FALSE, fill = FALSE
       ),
       tick = list(
         fit = FALSE,
-        outer = FALSE, 
+        outer = FALSE,
         centered = TRUE
       )
     ),
@@ -1356,7 +1329,7 @@ bb_histogram <- function(bb, data, mapping = NULL, stacked = FALSE, fill = FALSE
     
     bb <- bb_proxy_axis_labels(proxy = bb, x = x, y = "count")
     
-    bb <- bb_load(proxy = bb, json = json, x = x, unload = bb$unload) 
+    bb <- bb_load(proxy = bb, json = json, x = x, unload = bb$unload)
     
   } else {
     
@@ -1380,25 +1353,24 @@ bb_histogram <- function(bb, data, mapping = NULL, stacked = FALSE, fill = FALSE
 
 #' Helper for creating a lollipop chart
 #'
-#' @param bb A \code{billboard} \code{htmlwidget} object.
-#' @param data A \code{data.frame}, the first column will be used for x axis unless
-#' argument \code{x} is specified, the second one will be use as y values.
-#'  If not a \code{data.frame}, an object coercible to \code{data.frame}. 
-#' @param mapping Mapping of variables on the chart, see \code{\link{bbaes}}.
+#' @param bb A `billboard` `htmlwidget` object.
+#' @param data A `data.frame`, the first column will be used for x axis unless
+#'   argument `x` is specified, the second one will be use as y values.
+#'   If not a `data.frame`, an object coercible to `data.frame`.
+#' @param mapping Mapping of variables on the chart, see [bbaes()].
 #' @param rotated Switch x and y axis position.
 #' @param point_color Color of the lollipop.
 #' @param point_size Size of the lollipop.
 #' @param line_color Color of the lines between the axis and the lollipop.
 #' @param ... Not used.
 #'
-#' @return A \code{billboard} \code{htmlwidget} object.
+#' @return A `billboard` `htmlwidget` object.
 #' @export
 #'
 #' @examples
-#' 
 #' # From wikipedia
 #' sw <- data.frame(
-#'   film = c("The Force Awakens", "The Phantom Menace", 
+#'   film = c("The Force Awakens", "The Phantom Menace",
 #'            "Revenge of the Sith", "A New Hope",
 #'            "Attack of the Clones", "The Empire Strikes Back",
 #'            "Return of the Jedi"
@@ -1407,31 +1379,29 @@ bb_histogram <- function(bb, data, mapping = NULL, stacked = FALSE, fill = FALSE
 #'                       775398007, 649398328, 538375067,
 #'                       475106177)
 #' )
-#' 
+#'
 #' # Simple example
-#' billboarder() %>% 
+#' billboarder() %>%
 #'   bb_lollipop(data = sw)
-#' 
+#'
 #' # Fancy example
-#' billboarder() %>% 
-#'   bb_lollipop(data = sw, rotated = TRUE)%>% 
-#'   bb_y_grid(show = TRUE) %>% 
+#' billboarder() %>%
+#'   bb_lollipop(data = sw, rotated = TRUE) %>%
+#'   bb_y_grid(show = TRUE) %>%
 #'   bb_y_axis(tick = list(
 #'     values = c(0, 5e+08, 1e+09, 1.5e+09, 2e+09),
 #'     outer = FALSE,
 #'     format = htmlwidgets::JS("d3.formatPrefix('$,.0', 1e6)")
-#'   )) %>% 
-#'   bb_x_axis(tick = list(centered = TRUE)) %>% 
+#'   )) %>%
+#'   bb_x_axis(tick = list(centered = TRUE)) %>%
 #'   bb_labs(
 #'     title = "Star Wars - Total Lifetime Grosses",
 #'     caption = "Data source : wikipedia"
 #'   )
-#' 
-#' 
+#'
 #' # With mapping
-#' billboarder(data = sw) %>% 
+#' billboarder(data = sw) %>%
 #'   bb_lollipop(mapping = bbaes(x = film, y = worldwide_gross))
-#'   
 bb_lollipop <- function(bb, data, mapping = NULL, rotated = FALSE, point_color = "#112446", point_size = 8, line_color = "#000", ...) {
   
   if (missing(data))
@@ -1463,7 +1433,7 @@ bb_lollipop <- function(bb, data, mapping = NULL, rotated = FALSE, point_color =
   
   if ("billboarder_Proxy" %in% class(bb)) {
     
-    bb <- bb_load(proxy = bb, json = data_opt$json, unload = bb$unload) 
+    bb <- bb_load(proxy = bb, json = data_opt$json, unload = bb$unload)
     
   } else {
     
@@ -1483,8 +1453,8 @@ bb_lollipop <- function(bb, data, mapping = NULL, rotated = FALSE, point_color =
     }
     
     bb <- bb_add_style(
-      bb = bb, 
-      ".bb-target-lollipop-lines > .bb-circle" = "opacity: 1;", 
+      bb = bb,
+      ".bb-target-lollipop-lines > .bb-circle" = "opacity: 1;",
       ".bb-target-lollipop-lines > .bb-lines" = "opacity: 0;"
     )
     
@@ -1506,39 +1476,38 @@ bb_lollipop <- function(bb, data, mapping = NULL, rotated = FALSE, point_color =
 
 #' Helper for creating a radar chart
 #'
-#' @param bb A \code{billboard} \code{htmlwidget} object.
-#' @param data A \code{data.frame}, the first column will be used for x axis unless
-#' specified otherwise in \code{mapping}. If not a \code{data.frame}, an object coercible to \code{data.frame}.
-#' @param mapping Mapping of variables on the chart, see \code{\link{bbaes}}.
-#' @param ... Arguments passed to \code{\link{bb_radar}}.
+#' @param bb A `billboard` `htmlwidget` object.
+#' @param data A `data.frame`, the first column will be used for x axis unless
+#'   specified otherwise in `mapping`. If not a `data.frame`, an object coercible to `data.frame`.
+#' @param mapping Mapping of variables on the chart, see [bbaes()].
+#' @param ... Arguments passed to [bb_radar()].
 #'
-#' @return A \code{billboard} \code{htmlwidget} object.
+#' @return A `billboard` `htmlwidget` object.
 #' @export
 #'
 #' @examples
 #' library("billboarder")
-#' 
+#'
 #' # data about Avengers
 #' data("avengers_wide")
-#' 
-#' # if not specified, first column is used as x-axis, 
+#'
+#' # if not specified, first column is used as x-axis,
 #' # all others are used on y-axis
 #' billboarder() %>%
 #'   bb_radarchart(data = avengers_wide)
-#' 
+#'
 #' # specify explicitly which column to use with mapping
 #' billboarder() %>%
 #'   bb_radarchart(
 #'     data = avengers_wide,
 #'     mapping = bbaes(x = axis, y = `Captain America`)
 #'   )
-#' 
-#' 
+#'
 #' # with data in "long" format you can use "group" aesthetics
 #' data("avengers")
 #' billboarder() %>%
 #'   bb_radarchart(
-#'     data = avengers, 
+#'     data = avengers,
 #'     mapping = bbaes(x = axis, y = value, group = group)
 #'   )
 bb_radarchart <- function(bb, data, mapping = NULL, ...) {
@@ -1586,10 +1555,10 @@ bb_radarchart <- function(bb, data, mapping = NULL, ...) {
     
     bb <- bb_load(
       proxy = bb,
-      json = json, 
+      json = json,
       x = getOption("billboarder-x", default = "bb-x"),
       unload = bb$unload
-    ) 
+    )
     
   } else {
     
@@ -1608,28 +1577,28 @@ bb_radarchart <- function(bb, data, mapping = NULL, ...) {
 
 #' Helper for creating a treemap chart
 #'
-#' @param bb A \code{billboard} \code{htmlwidget} object.
-#' @param data A \code{data.frame}, the first column will be used for x axis unless
-#'  specified otherwise in \code{mapping}. If not a \code{data.frame}, an object coercible to \code{data.frame}.
-#' @param mapping Mapping of variables on the chart, see \code{\link{bbaes}}.
-#' @param ... Arguments passed to \code{\link{bb_treemap}}.
+#' @param bb A `billboard` `htmlwidget` object.
+#' @param data A `data.frame`, the first column will be used for x axis unless
+#'   specified otherwise in `mapping`. If not a `data.frame`, an object coercible to `data.frame`.
+#' @param mapping Mapping of variables on the chart, see [bbaes()].
+#' @param ... Arguments passed to [bb_treemap()].
 #'
-#' @return A \code{billboard} \code{htmlwidget} object.
+#' @return A `billboard` `htmlwidget` object.
 #' @export
 #'
 #' @examples
 #' library("billboarder")
 #' data("mpg", package = "ggplot2")
-#' 
-#' billboarder() %>% 
+#'
+#' billboarder() %>%
 #'   bb_treemapchart(mpg[, 1])
-#' 
-#' billboarder() %>% 
+#'
+#' billboarder() %>%
 #'   bb_treemapchart(
-#'     data = mpg, 
+#'     data = mpg,
 #'     mapping = aes(x = manufacturer),
 #'     label = list(show = TRUE, threshold = 0.3)
-#'   ) %>% 
+#'   ) %>%
 #'   bb_data(
 #'     labels = list(colors = "#FFF")
 #'   )
@@ -1670,10 +1639,10 @@ bb_treemapchart <- function(bb, data, mapping = NULL, ...) {
     
     bb <- bb_load(
       proxy = bb,
-      json = json, 
+      json = json,
       x = getOption("billboarder-x", default = "bb-x"),
       unload = bb$unload
-    ) 
+    )
     
   } else {
     
@@ -1685,5 +1654,3 @@ bb_treemapchart <- function(bb, data, mapping = NULL, ...) {
   
   return(bb)
 }
-
-

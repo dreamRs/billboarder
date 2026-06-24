@@ -7,22 +7,21 @@
 bb_data(bb, ...)
 }
 \arguments{
-\item{bb}{A \code{billboard} \code{htmlwidget} object.}
+\item{bb}{A `billboard` `htmlwidget` object.}
 
-\item{...}{Arguments defined in \url{https://naver.github.io/billboard.js/demo/}.}
+\item{...}{Arguments defined in <https://naver.github.io/billboard.js/demo/>.}
 }
 \value{
-A \code{billboard} \code{htmlwidget} object.
+A `billboard` `htmlwidget` object.
 }
 \description{
 Add data to Billboard chart
 }
 \note{
-This function can be used with \code{\link{billboarderProxy}} in shiny application.
+This function can be used with [billboarderProxy()] in Shiny applications.
 }
 \examples{
 billboarder() \%>\%
- bb_barchart(data = table(mtcars$cyl)) \%>\%
- bb_data(names = list(Freq = "Number of cylinders"), labels = TRUE)
- 
+  bb_barchart(data = table(mtcars$cyl)) \%>\%
+  bb_data(names = list(Freq = "Number of cylinders"), labels = TRUE)
 }

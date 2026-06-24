@@ -7,12 +7,12 @@
 bb_donut(bb, ...)
 }
 \arguments{
-\item{bb}{A \code{billboard} \code{htmlwidget} object.}
+\item{bb}{A `billboard` `htmlwidget` object.}
 
-\item{...}{See \url{https://naver.github.io/billboard.js/release/latest/doc/Options.html#.donut}}
+\item{...}{See <https://naver.github.io/billboard.js/release/latest/doc/Options.html#.donut>}
 }
 \value{
-A \code{billboard} \code{htmlwidget} object.
+A `billboard` `htmlwidget` object.
 }
 \description{
 Donut property for a Billboard.js chart
@@ -21,5 +21,4 @@ Donut property for a Billboard.js chart
 billboarder() \%>\%
   bb_donutchart(data = table(mtcars$cyl)) \%>\%
   bb_donut(title = "Donut Title", width = 10)
-  
 }

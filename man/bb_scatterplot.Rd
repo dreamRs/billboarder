@@ -7,56 +7,53 @@
 bb_scatterplot(bb, data, mapping = NULL, ..., point_opacity = NULL)
 }
 \arguments{
-\item{bb}{A \code{billboard} \code{htmlwidget} object.}
+\item{bb}{A `billboard` `htmlwidget` object.}
 
-\item{data}{A \code{data.frame}}
+\item{data}{A `data.frame`}
 
-\item{mapping}{Mapping of variables on the chart, see \code{\link{bbaes}}.}
+\item{mapping}{Mapping of variables on the chart, see [bbaes()].}
 
-\item{...}{Alternative mapping, you can specify \code{x = "Sepal.Length"} for example.}
+\item{...}{Alternative mapping, you can specify `x = "Sepal.Length"` for example.}
 
-\item{point_opacity}{Opacity for points, value between \code{[0,1]}.}
+\item{point_opacity}{Opacity for points, value between `[0,1]`.}
 }
 \value{
-A \code{billboard} \code{htmlwidget} object.
+A `billboard` `htmlwidget` object.
 }
 \description{
 Helper for creating a scatter chart
 }
 \note{
-This function can be used with \code{\link{billboarderProxy}} in shiny application.
+This function can be used with [billboarderProxy()] in Shiny applications.
 }
 \examples{
 # Use first and second variable by default
-billboarder() \%>\% 
+billboarder() \%>\%
   bb_scatterplot(data = iris)
 
-
 # Explicit mapping
-billboarder() \%>\% 
+billboarder() \%>\%
   bb_scatterplot(
-    data = iris, 
+    data = iris,
     mapping = bbaes(Petal.Length, Petal.Width)
-  ) \%>\% 
+  ) \%>\%
   bb_x_axis(tick = list(fit = FALSE))
 
-
 # Grouping variable
-billboarder() \%>\% 
+billboarder() \%>\%
   bb_scatterplot(
-    data = iris, 
+    data = iris,
     mapping = bbaes(Sepal.Length, Sepal.Width, group = Species)
   )
-  
+
 # Size variable
-billboarder() \%>\% 
+billboarder() \%>\%
   bb_scatterplot(
-    data = iris, 
+    data = iris,
     mapping = bbaes(
       Sepal.Length, Sepal.Width,
       group = Species, size = Petal.Width
     )
-  ) \%>\% 
+  ) \%>\%
   bb_x_axis(tick = list(fit = FALSE))
-
 }

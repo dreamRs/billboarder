@@ -7,23 +7,22 @@
 bb_categories(bb, categories)
 }
 \arguments{
-\item{bb}{A \code{billboard} \code{htmlwidget} object.}
+\item{bb}{A `billboard` `htmlwidget` object.}
 
 \item{categories}{A character vector to set names on a category axis.}
 }
 \value{
-A \code{billboard} \code{htmlwidget} object.
+A `billboard` `htmlwidget` object.
 }
 \description{
 Set or modify x axis labels.
 }
 \note{
-This function can be used with \code{\link{billboarder-shiny}} to modify labels on axis, e.g. for barcharts.
+This function can be used with `billboarder-shiny` to modify labels on axis, e.g. for barcharts.
 }
 \examples{
 # Simple line with month names as x labels
-billboarder() \%>\% 
-  bb_linechart(data = round(rnorm(12))) \%>\% 
+billboarder() \%>\%
+  bb_linechart(data = round(rnorm(12))) \%>\%
   bb_categories(categories = month.name)
-  
 }

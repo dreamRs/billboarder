@@ -7,20 +7,20 @@
 bb_point(bb, ...)
 }
 \arguments{
-\item{bb}{A \code{billboard} \code{htmlwidget} object.}
+\item{bb}{A `billboard` `htmlwidget` object.}
 
-\item{...}{See \url{https://naver.github.io/billboard.js/release/latest/doc/Options.html#.point}}
+\item{...}{See <https://naver.github.io/billboard.js/release/latest/doc/Options.html#.point>}
 }
 \value{
-A \code{billboard} \code{htmlwidget} object.
+A `billboard` `htmlwidget` object.
 }
 \description{
 Point property for a Billboard.js chart
 }
 \examples{
 # Set point size
-billboarder() \%>\% 
-  bb_scatterplot(data = iris, x = "Sepal.Length", y = "Sepal.Width", group = "Species") \%>\% 
-  bb_axis(x = list(tick = list(fit = FALSE))) \%>\% 
+billboarder() \%>\%
+  bb_scatterplot(data = iris, x = "Sepal.Length", y = "Sepal.Width", group = "Species") \%>\%
+  bb_axis(x = list(tick = list(fit = FALSE))) \%>\%
   bb_point(r = 10)
 }

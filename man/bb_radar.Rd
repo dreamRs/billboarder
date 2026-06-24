@@ -7,12 +7,12 @@
 bb_radar(bb, ...)
 }
 \arguments{
-\item{bb}{A \code{billboard} \code{htmlwidget} object.}
+\item{bb}{A `billboard` `htmlwidget` object.}
 
-\item{...}{See \url{https://naver.github.io/billboard.js/release/latest/doc/Options.html#.radar}}
+\item{...}{See <https://naver.github.io/billboard.js/release/latest/doc/Options.html#.radar>}
 }
 \value{
-A \code{billboard} \code{htmlwidget} object.
+A `billboard` `htmlwidget` object.
 }
 \description{
 Radar property for a Billboard.js chart
@@ -26,7 +26,7 @@ billboarder() \%>\%
   bb_radarchart(
     data = avengers,
     mapping = bbaes(x = axis, y = value, group = group)
-  ) \%>\% 
+  ) \%>\%
   bb_radar(level = list(depth = 4))
 
 # hide levels
@@ -34,7 +34,7 @@ billboarder() \%>\%
   bb_radarchart(
     data = avengers,
     mapping = bbaes(x = axis, y = value, group = group)
-  ) \%>\% 
+  ) \%>\%
   bb_radar(level = list(show = FALSE))
 
 # max value on axis
@@ -42,6 +42,6 @@ billboarder() \%>\%
   bb_radarchart(
     data = avengers,
     mapping = bbaes(x = axis, y = value, group = group)
-  ) \%>\% 
+  ) \%>\%
   bb_radar(axis = list(max = 10))
 }

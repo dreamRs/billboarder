@@ -13,31 +13,29 @@ bb_x_axis(bb, ...)
 bb_y_axis(bb, ...)
 }
 \arguments{
-\item{bb}{A \code{billboard} \code{htmlwidget} object.}
+\item{bb}{A `billboard` `htmlwidget` object.}
 
-\item{...}{Arguments defined in \url{https://naver.github.io/billboard.js/demo/}.}
+\item{...}{Arguments defined in <https://naver.github.io/billboard.js/demo/>.}
 }
 \value{
-A \code{billboard} \code{htmlwidget} object.
+A `billboard` `htmlwidget` object.
 }
 \description{
 Add axis parameters
 }
 \examples{
-
 stars <- data.frame(
   package = c("billboarder", "ggiraph", "officer", "shinyWidgets", "visNetwork"),
   stars = c(9, 178, 43, 46, 175)
 )
 
 # Add a label to y axis
-billboarder() \%>\% 
-  bb_barchart(data = stars) \%>\% 
+billboarder() \%>\%
+  bb_barchart(data = stars) \%>\%
   bb_axis(y = list(label = list(text = "# of stars", position = "middle")))
-  
-# or shorter :
-billboarder() \%>\% 
-  bb_barchart(data = stars) \%>\% 
-  bb_y_axis(label = list(text = "# of stars", position = "outer-top"))
 
+# or shorter :
+billboarder() \%>\%
+  bb_barchart(data = stars) \%>\%
+  bb_y_axis(label = list(text = "# of stars", position = "outer-top"))
 }

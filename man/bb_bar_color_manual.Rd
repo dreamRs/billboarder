@@ -7,24 +7,23 @@
 bb_bar_color_manual(bb, values)
 }
 \arguments{
-\item{bb}{A \code{billboard} \code{htmlwidget} object.}
+\item{bb}{A `billboard` `htmlwidget` object.}
 
 \item{values}{A named vector, names represent the categories of the bar chart,
-values correspond to colors. All categories must be present in the vector, in 
+values correspond to colors. All categories must be present in the vector, in
 the same order of the chart.}
 }
 \value{
-A \code{billboard} \code{htmlwidget} object.
+A `billboard` `htmlwidget` object.
 }
 \description{
 Manual color for barchart
 }
 \note{
-Must be called after \code{bb_bar}.
+Must be called after [bb_bar()].
 }
 \examples{
 \dontrun{
-
 library("data.table")
 library("billboarder")
 
@@ -37,7 +36,7 @@ cols <- rep("#08298A", length(manufa))
 names(cols) <- manufa
 
 # Nissan in red
-cols[["nissan"]] <- "#DF0101"#' 
+cols[["nissan"]] <- "#DF0101"
 
 billboarder() \%>\%
   bb_barchart(data = mpg[, list(count = .N), by = manufacturer][order(count)]) \%>\%

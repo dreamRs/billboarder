@@ -7,12 +7,12 @@
 bb_spline(bb, ...)
 }
 \arguments{
-\item{bb}{A \code{billboard} \code{htmlwidget} object.}
+\item{bb}{A `billboard` `htmlwidget` object.}
 
-\item{...}{See \url{https://naver.github.io/billboard.js/release/latest/doc/Options.html#.spline}}
+\item{...}{See <https://naver.github.io/billboard.js/release/latest/doc/Options.html#.spline>}
 }
 \value{
-A \code{billboard} \code{htmlwidget} object.
+A `billboard` `htmlwidget` object.
 }
 \description{
 Spline property for a Billboard.js chart

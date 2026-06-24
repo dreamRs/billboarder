@@ -7,17 +7,17 @@
 bb_radarchart(bb, data, mapping = NULL, ...)
 }
 \arguments{
-\item{bb}{A \code{billboard} \code{htmlwidget} object.}
+\item{bb}{A `billboard` `htmlwidget` object.}
 
-\item{data}{A \code{data.frame}, the first column will be used for x axis unless
-specified otherwise in \code{mapping}. If not a \code{data.frame}, an object coercible to \code{data.frame}.}
+\item{data}{A `data.frame`, the first column will be used for x axis unless
+specified otherwise in `mapping`. If not a `data.frame`, an object coercible to `data.frame`.}
 
-\item{mapping}{Mapping of variables on the chart, see \code{\link{bbaes}}.}
+\item{mapping}{Mapping of variables on the chart, see [bbaes()].}
 
-\item{...}{Arguments passed to \code{\link{bb_radar}}.}
+\item{...}{Arguments passed to [bb_radar()].}
 }
 \value{
-A \code{billboard} \code{htmlwidget} object.
+A `billboard` `htmlwidget` object.
 }
 \description{
 Helper for creating a radar chart
@@ -28,7 +28,7 @@ library("billboarder")
 # data about Avengers
 data("avengers_wide")
 
-# if not specified, first column is used as x-axis, 
+# if not specified, first column is used as x-axis,
 # all others are used on y-axis
 billboarder() \%>\%
   bb_radarchart(data = avengers_wide)
@@ -40,12 +40,11 @@ billboarder() \%>\%
     mapping = bbaes(x = axis, y = `Captain America`)
   )
 
-
 # with data in "long" format you can use "group" aesthetics
 data("avengers")
 billboarder() \%>\%
   bb_radarchart(
-    data = avengers, 
+    data = avengers,
     mapping = bbaes(x = axis, y = value, group = group)
   )
 }

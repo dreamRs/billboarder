@@ -7,17 +7,16 @@
 bb_export(bb, filename = NULL, download_label = "Export (.png)", ...)
 }
 \arguments{
-\item{bb}{A \code{\link{billboarder}} \code{htmlwidget} object
-or a \code{\link{billboarderProxy}} \code{htmlwidget} object.}
+\item{bb}{A [billboarder()] `htmlwidget` object or a [billboarderProxy()] `htmlwidget` object.}
 
-\item{filename}{A string of the filename, excluding extension (will be \code{".png"}).}
+\item{filename}{A string of the filename, excluding extension (will be `".png"`).}
 
 \item{download_label}{Label to appear on the link to download PNG.}
 
 \item{...}{Additional arguments (not used).}
 }
 \value{
-A \code{billboard} \code{htmlwidget} object.
+A `billboard` `htmlwidget` object.
 }
 \description{
 Export a Billboard to PNG
@@ -25,36 +24,34 @@ Export a Billboard to PNG
 \note{
 This function has two uses:
 \itemize{
- \item{\strong{in shiny:} you can export to PNG with an \code{observeEvent} by using \code{\link{billboarderProxy}}.}
- \item{\strong{in markdown and in shiny:} add a button to download chart as PNG.}
+ \item{\strong{in Shiny:} you can export to PNG with an `observeEvent()` by using [billboarderProxy()].}
+ \item{\strong{in R Markdown and in Shiny:} add a button to download chart as PNG.}
 }
 }
 \examples{
-
 # Add a button to download as PNG:
 
 data("equilibre_mensuel")
-billboarder() \%>\% 
+billboarder() \%>\%
   bb_linechart(
     data = equilibre_mensuel,
     mapping = bbaes(date, solde),
     type = "spline"
-  ) \%>\% 
+  ) \%>\%
   bb_x_axis(
     tick = list(format = "\%Y-\%m", fit = FALSE)
-  ) \%>\% 
+  ) \%>\%
   bb_export(
     filename = "my-awesome-chart",
     download_label = "Click to download"
   )
-  
 
-# In shiny, you can use proxy :
+# In Shiny, you can use proxy:
 
 if (interactive()) {
   library(shiny)
   library(billboarder)
-  
+
   ui <- fluidPage(
     fluidRow(
       column(
@@ -62,16 +59,16 @@ if (interactive()) {
         tags$h1("Export billboard as PNG via Proxy"),
         billboarderOutput(outputId = "mybb"),
         actionButton(
-          inputId = "export", 
-          label = "Export", 
+          inputId = "export",
+          label = "Export",
           icon = icon("download")
         )
       )
     )
   )
-  
+
   server <- function(input, output, session) {
-    
+
     output$mybb <- renderBillboarder({
       data("prod_par_filiere")
       billboarder() \%>\%
@@ -81,14 +78,14 @@ if (interactive()) {
         ) \%>\%
         bb_y_grid(show = TRUE)
     })
-    
+
     observeEvent(input$export, {
-      billboarderProxy(shinyId = "mybb") \%>\% 
+      billboarderProxy(shinyId = "mybb") \%>\%
         bb_export(filename = "my-billboard-chart")
     })
-    
+
   }
-  
+
   shinyApp(ui, server)
 }
 }

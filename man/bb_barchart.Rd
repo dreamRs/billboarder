@@ -15,12 +15,12 @@ bb_barchart(
 )
 }
 \arguments{
-\item{bb}{A \code{billboard} \code{htmlwidget} object.}
+\item{bb}{A `billboard` `htmlwidget` object.}
 
-\item{data}{A \code{data.frame}, the first column will be used for x axis unless
-specified otherwise in \code{mapping}. If not a \code{data.frame}, an object coercible to \code{data.frame}.}
+\item{data}{A `data.frame`, the first column will be used for x axis unless
+specified otherwise in `mapping`. If not a `data.frame`, an object coercible to `data.frame`.}
 
-\item{mapping}{Mapping of variables on the chart, see \code{\link{bbaes}}.}
+\item{mapping}{Mapping of variables on the chart, see [bbaes()].}
 
 \item{stacked}{Logical, if several columns are provided, produce a stacked bar chart, else
 a dodge bar chart.}
@@ -29,22 +29,21 @@ a dodge bar chart.}
 
 \item{color}{Bar's color.}
 
-\item{...}{Arguments for slot bar, see \url{https://naver.github.io/billboard.js/release/latest/doc/Options.html#.bar}.}
+\item{...}{Arguments for slot bar, see <https://naver.github.io/billboard.js/release/latest/doc/Options.html#.bar>.}
 }
 \value{
-A \code{billboard} \code{htmlwidget} object.
+A `billboard` `htmlwidget` object.
 }
 \description{
 Helper for creating a bar chart
 }
 \note{
-This function can be used with \code{\link{billboarderProxy}} in shiny application.
+This function can be used with [billboarderProxy()] in Shiny applications.
 }
 \examples{
-
 stars <- data.frame(
   package = c("billboarder", "ggiraph", "officer",
-              "shinyWidgets", "visNetwork", "rAmCharts", 
+              "shinyWidgets", "visNetwork", "rAmCharts",
               "D3partitionR"),
   stars = c(67, 252, 160, 144, 224, 32, 25)
 )
@@ -54,41 +53,39 @@ stars <- data.frame(
 billboarder() \%>\%
   bb_barchart(data = stars)
 
-
 # Specify explicitly the columns to use
 billboarder() \%>\%
   bb_barchart(data = stars, mapping = bbaes(package, stars), rotated = TRUE)
 
-
 # Add some options
 billboarder() \%>\%
-  bb_barchart(data = stars[order(stars$stars), ], x = "package", y = "stars", rotated = TRUE) \%>\% 
-  bb_data(names = list(stars = "Number of stars")) \%>\% 
+  bb_barchart(data = stars[order(stars$stars), ], x = "package", y = "stars", rotated = TRUE) \%>\%
+  bb_data(names = list(stars = "Number of stars")) \%>\%
   bb_y_grid(show = TRUE)
-
-
 
 # Hack stacked barcharts (to color bar)
 stars_wide <- data.frame(
   author = c("dreamRs", "davidgohel", "davidgohel", "dreamRs",
              "datastorm-open", "datastorm-open", "AntoineGuillot2"),
   package = c("billboarder", "ggiraph", "officer",
-              "shinyWidgets", "visNetwork", "rAmCharts", 
+              "shinyWidgets", "visNetwork", "rAmCharts",
               "D3partitionR"),
   stars = c(67, 252, 160, 144, 224, 32, 25)
 )
 
 billboarder() \%>\%
-  bb_barchart(data = stars_wide, 
-              mapping = bbaes(package, stars, group = author),
-              stacked = TRUE)
+  bb_barchart(
+    data = stars_wide,
+    mapping = bbaes(package, stars, group = author),
+    stacked = TRUE
+  )
 
 billboarder() \%>\%
-  bb_barchart(data = stars_wide,
-              mapping = bbaes(author, stars, group = package),
-              stacked = TRUE)
-
-
+  bb_barchart(
+    data = stars_wide,
+    mapping = bbaes(author, stars, group = package),
+    stacked = TRUE
+  )
 
 # Grouping variable
 tab <- table(sample(letters[1:5], 100, TRUE), sample(LETTERS[1:5], 100, TRUE))
@@ -96,7 +93,6 @@ dat <- as.data.frame(tab)
 
 billboarder() \%>\%
   bb_barchart(data = dat, bbaes(x = Var1, y = Freq, group = Var2), rotated = TRUE)
-
 
 # You can also pass data in a 'wide' format
 dat2 <- data.frame(
@@ -110,6 +106,6 @@ dat2 <- data.frame(
 
 # But cannot use mapping
 billboarder() \%>\%
-  bb_barchart(data = dat2, stacked = TRUE) \%>\% 
+  bb_barchart(data = dat2, stacked = TRUE) \%>\%
   bb_data(order = NULL, labels = TRUE)
 }

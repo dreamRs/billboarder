@@ -16,114 +16,106 @@ bb_linechart(
 )
 }
 \arguments{
-\item{bb}{A \code{billboard} \code{htmlwidget} object.}
+\item{bb}{A `billboard` `htmlwidget` object.}
 
-\item{data}{A \code{data.frame} or a \code{vector}.}
+\item{data}{A `data.frame` or a `vector`.}
 
-\item{mapping}{Mapping of variables on the chart, see \code{\link{bbaes}}.}
+\item{mapping}{Mapping of variables on the chart, see [bbaes()].}
 
-\item{type}{Type of chart : \code{"line"}, \code{"spline"}, \code{"step"}, \code{"area"}, \code{"area-spline"}, \code{"area-step"}, 
-\code{"area-line-range"}, \code{"area-spline-range"}.}
+\item{type}{Type of chart: `"line"`, `"spline"`, `"step"`, `"area"`, `"area-spline"`, `"area-step"`,
+`"area-line-range"`, `"area-spline-range"`.}
 
 \item{show_point}{Whether to show each point in line.}
 
 \item{dasharray}{Pattern of dashes and gaps used to paint the outline of the line,
-see \url{https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray} for specifications.}
+see <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray> for specifications.}
 
 \item{width}{Width of the stroke to be applied to the line,
-see \url{https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-width} for specifications.}
+see <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-width> for specifications.}
 
 \item{...}{Not used.}
 }
 \value{
-A \code{billboard} \code{htmlwidget} object.
+A `billboard` `htmlwidget` object.
 }
 \description{
 Helper for creating a line chart
 }
 \note{
-Types area-line-range and area-spline-range don't work in RStudio viewer, open chart in a browser. 
- This function can be used with \code{\link{billboarderProxy}} in shiny application.
+Types `area-line-range` and `area-spline-range` don't work in the RStudio viewer; open chart in a browser.
+  This function can be used with [billboarderProxy()] in Shiny applications.
 }
 \examples{
-
 ## Different types
 x <- round(rnorm(20), 2)
 
-billboarder() \%>\% 
+billboarder() \%>\%
   bb_linechart(data = x)
 
-billboarder() \%>\% 
+billboarder() \%>\%
   bb_linechart(data = x, type = "spline")
 
-billboarder() \%>\% 
+billboarder() \%>\%
   bb_linechart(data = x, type = "area")
 
-billboarder() \%>\% 
+billboarder() \%>\%
   bb_linechart(data = x, type = "area-spline")
-  
-  
+
 ## Timeserie with date (Date)
 data("economics", package = "ggplot2")
 
 billboarder() \%>\%
-  bb_linechart(data = economics[, c("date", "psavert")]) \%>\% 
+  bb_linechart(data = economics[, c("date", "psavert")]) \%>\%
   bb_x_axis(tick = list(format = "\%Y-\%m", fit = FALSE)) \%>\%
-  bb_y_axis(tick = list(format = suffix("\%")), 
-            label = list(text = "Personal savings rate")) \%>\% 
-  bb_legend(show = FALSE) \%>\% 
-  bb_x_grid(show = TRUE) \%>\% 
-  bb_y_grid(show = TRUE) \%>\% 
+  bb_y_axis(
+    tick = list(format = suffix("\%")),
+    label = list(text = "Personal savings rate")
+  ) \%>\%
+  bb_legend(show = FALSE) \%>\%
+  bb_x_grid(show = TRUE) \%>\%
+  bb_y_grid(show = TRUE) \%>\%
   bb_subchart(show = TRUE)
-  
-  
-# With multiple lines :
 
+# With multiple lines:
 data("economics_long", package = "ggplot2")
 
 billboarder() \%>\%
-  bb_linechart(economics_long, bbaes(date, value, variable)) \%>\% 
-  bb_data(hide = "pop") \%>\% 
+  bb_linechart(economics_long, bbaes(date, value, variable)) \%>\%
+  bb_data(hide = "pop") \%>\%
   bb_x_axis(tick = list(format = "\%Y-\%m", fit = FALSE))
-  
-  
 
 ## Timeserie with datetime (POSIXct)
 data("cdc_prod_filiere")
 
-billboarder() \%>\% 
+billboarder() \%>\%
   bb_linechart(data = cdc_prod_filiere[, c("date_heure", "prod_eolien")])
 
-# or with mapping :
-billboarder() \%>\% 
+# or with mapping:
+billboarder() \%>\%
   bb_linechart(cdc_prod_filiere, bbaes(date_heure, prod_bioenergies))
-  
-  
- 
-### Other type for x-axis 
- 
+
+### Other type for x-axis
+
 ## character/factor on x-axis
 AirPassengers1960 <- data.frame(
-  month = month.name, 
+  month = month.name,
   AirPassengers = tail(AirPassengers, 12)
 )
 # you have to specify that x-axis is of type 'category'
 # and that column 'month' must be used for x-axis values
-billboarder() \%>\% 
-  bb_linechart(data = AirPassengers1960, x = "month") \%>\% 
+billboarder() \%>\%
+  bb_linechart(data = AirPassengers1960, x = "month") \%>\%
   bb_x_axis(type = "category")
-
 
 ## numeric on x-axis
 lynx.df <- data.frame(
   year = time(lynx),
   lynx = lynx
 )
-# just specify which variable must be use n the x-axis
-billboarder() \%>\% 
+# just specify which variable must be used on the x-axis
+billboarder() \%>\%
   bb_linechart(data = lynx.df, x = "year")
-  
-  
+
 ### Area range charts
 
 # Generate data
@@ -138,17 +130,15 @@ dat$ymax1 <- dat$y1 + 5
 dat$ymin2 <- dat$y2 - sample(3:15, 20, TRUE)
 dat$ymax2 <- dat$y2 + sample(3:15, 20, TRUE)
 
-
-# Make chart : use ymin & ymax aes for range
-billboarder(data = dat) \%>\% 
+# Make chart: use ymin & ymax aes for range
+billboarder(data = dat) \%>\%
   bb_linechart(
     mapping = bbaes(x = date, y = y1, ymin = ymin1, ymax = ymax1),
     type = "area-line-range"
-  ) \%>\% 
+  ) \%>\%
   bb_linechart(
-    mapping = bbaes(x = date, y = y2, ymin = ymin2, ymax = ymax2), 
+    mapping = bbaes(x = date, y = y2, ymin = ymin2, ymax = ymax2),
     type = "area-spline-range"
-  ) \%>\% 
+  ) \%>\%
   bb_y_axis(min = 50)
-  
 }

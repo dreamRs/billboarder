@@ -7,12 +7,12 @@
 bb_legend(bb, ...)
 }
 \arguments{
-\item{bb}{A \code{billboard} \code{htmlwidget} object.}
+\item{bb}{A `billboard` `htmlwidget` object.}
 
-\item{...}{Arguments defined in \url{https://naver.github.io/billboard.js/release/latest/doc/Options.html#.legend}.}
+\item{...}{Arguments defined in <https://naver.github.io/billboard.js/release/latest/doc/Options.html#.legend>.}
 }
 \value{
-A \code{billboard} \code{htmlwidget} object.
+A `billboard` `htmlwidget` object.
 }
 \description{
 Add legend parameters
@@ -27,18 +27,17 @@ stars <- data.frame(
 
 # Hide legend
 billboarder() \%>\%
-  bb_barchart(data = stars) \%>\% 
+  bb_barchart(data = stars) \%>\%
   bb_legend(show = FALSE)
 
 # Right legend
 billboarder() \%>\%
-  bb_piechart(data = stars) \%>\% 
+  bb_piechart(data = stars) \%>\%
   bb_legend(position = "right")
 
 # Inset legend
 billboarder() \%>\%
-  bb_scatterplot(data = iris, x = "Sepal.Length", y = "Sepal.Width", group = "Species") \%>\% 
-  bb_axis(x = list(tick = list(fit = FALSE))) \%>\% 
+  bb_scatterplot(data = iris, x = "Sepal.Length", y = "Sepal.Width", group = "Species") \%>\%
+  bb_axis(x = list(tick = list(fit = FALSE))) \%>\%
   bb_legend(position = "inset", inset = list(anchor = "top-right"))
-
 }

@@ -13,32 +13,30 @@ bb_x_grid(bb, ...)
 bb_y_grid(bb, ...)
 }
 \arguments{
-\item{bb}{A \code{billboard} \code{htmlwidget} object.}
+\item{bb}{A `billboard` `htmlwidget` object.}
 
-\item{...}{See \url{https://naver.github.io/billboard.js/release/latest/doc/Options.html#.grid}}
+\item{...}{See <https://naver.github.io/billboard.js/release/latest/doc/Options.html#.grid>}
 }
 \value{
-A \code{billboard} \code{htmlwidget} object.
+A `billboard` `htmlwidget` object.
 }
 \description{
 Grid property for a Billboard.js chart
 }
 \note{
-\code{bb_x_grid} and \code{bb_y_grid} are shortcut for modifying the x-axis and the y-axis respectively.
+[bb_x_grid()] and [bb_y_grid()] are shortcuts for modifying the x-axis and the y-axis respectively.
 }
 \examples{
-
 stars <- data.frame(
   package = c("billboarder", "ggiraph", "officer", "shinyWidgets", "visNetwork"),
   stars = c(1, 176, 42, 40, 166)
 )
 
 billboarder() \%>\%
-  bb_barchart(data = stars) \%>\% 
+  bb_barchart(data = stars) \%>\%
   bb_y_grid(show = TRUE)
 
 billboarder() \%>\%
-  bb_barchart(data = stars) \%>\% 
+  bb_barchart(data = stars) \%>\%
   bb_y_grid(lines = list(list(value = mean(stars$stars), text = "Horizontal line")))
-
 }

@@ -7,19 +7,18 @@
 bb_bar(bb, ...)
 }
 \arguments{
-\item{bb}{A \code{billboard} \code{htmlwidget} object.}
+\item{bb}{A `billboard` `htmlwidget` object.}
 
-\item{...}{See \url{https://naver.github.io/billboard.js/release/latest/doc/Options.html#.bar}}
+\item{...}{See <https://naver.github.io/billboard.js/release/latest/doc/Options.html#.bar>}
 }
 \value{
-A \code{billboard} \code{htmlwidget} object.
+A `billboard` `htmlwidget` object.
 }
 \description{
 Bar property for a Billboard.js chart
 }
 \examples{
 billboarder() \%>\%
-  bb_barchart(data = data.frame(v1 = c("a", "b", "c"), value = c(5, 6, 3))) \%>\% 
+  bb_barchart(data = data.frame(v1 = c("a", "b", "c"), value = c(5, 6, 3))) \%>\%
   bb_bar(width = list(ratio = 0.95))
-  
 }

@@ -7,7 +7,7 @@
 bb_colors_manual(bb, ..., opacity = 1)
 }
 \arguments{
-\item{bb}{A \code{billboard} \code{htmlwidget} object.}
+\item{bb}{A `billboard` `htmlwidget` object.}
 
 \item{...}{A named list, where names correspond to the data, and values
 to color associate with it.}
@@ -15,29 +15,28 @@ to color associate with it.}
 \item{opacity}{Color opacity (for area charts).}
 }
 \value{
-A \code{billboard} \code{htmlwidget} object.
+A `billboard` `htmlwidget` object.
 }
 \description{
 Set colors for each datas
 }
 \examples{
-
 library("RColorBrewer")
 
 # Scatter
-billboarder() \%>\% 
+billboarder() \%>\%
   bb_scatterplot(
-   data = iris, 
-   x = "Sepal.Length", 
-   y = "Sepal.Width", 
-   group = "Species"
-  ) \%>\% 
-  bb_axis(x = list(tick = list(fit = FALSE))) \%>\% 
-  bb_point(r = 8) \%>\% 
+    data = iris,
+    x = "Sepal.Length",
+    y = "Sepal.Width",
+    group = "Species"
+  ) \%>\%
+  bb_axis(x = list(tick = list(fit = FALSE))) \%>\%
+  bb_point(r = 8) \%>\%
   bb_colors_manual(
-   setosa = "#440154", 
-   virginica = "#21908C", 
-   versicolor = "#FDE725"
+    setosa = "#440154",
+    virginica = "#21908C",
+    versicolor = "#FDE725"
   )
 
 # Pie
@@ -48,10 +47,9 @@ stars <- data.frame(
 )
 cols <- brewer.pal(n = 5, name = "Dark2")
 
-billboarder() \%>\% 
-  bb_piechart(data = stars) \%>\% 
+billboarder() \%>\%
+  bb_piechart(data = stars) \%>\%
   bb_colors_manual(
-   setNames(as.list(cols), stars$package) # this is a named list
+    setNames(as.list(cols), stars$package) # this is a named list
   )
-  
 }

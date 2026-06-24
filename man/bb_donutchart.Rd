@@ -7,22 +7,22 @@
 bb_donutchart(bb, data, mapping = NULL, ...)
 }
 \arguments{
-\item{bb}{A \code{billboard} \code{htmlwidget} object.}
+\item{bb}{A `billboard` `htmlwidget` object.}
 
-\item{data}{A \code{data.frame}.}
+\item{data}{A `data.frame`.}
 
-\item{mapping}{Mapping of variables on the chart, see \code{\link{bbaes}}.}
+\item{mapping}{Mapping of variables on the chart, see [bbaes()].}
 
-\item{...}{Arguments for slot donut, \url{https://naver.github.io/billboard.js/release/latest/doc/Options.html#.donut}.}
+\item{...}{Arguments for slot donut, <https://naver.github.io/billboard.js/release/latest/doc/Options.html#.donut>.}
 }
 \value{
-A \code{billboard} \code{htmlwidget} object.
+A `billboard` `htmlwidget` object.
 }
 \description{
 Helper for creating a donut chart
 }
 \note{
-This function can be used with \code{\link{billboarderProxy}} in shiny application.
+This function can be used with [billboarderProxy()] in Shiny applications.
 }
 \examples{
 \dontrun{
@@ -31,7 +31,7 @@ stars <- data.frame(
   stars = c(9, 177, 43, 44, 169)
 )
 
-billboarder() \%>\% 
+billboarder() \%>\%
   bb_donutchart(data = stars, title = "Stars")
 }
 }

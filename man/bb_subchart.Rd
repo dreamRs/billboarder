@@ -7,22 +7,20 @@
 bb_subchart(bb, ...)
 }
 \arguments{
-\item{bb}{A \code{billboard} \code{htmlwidget} object.}
+\item{bb}{A `billboard` `htmlwidget` object.}
 
-\item{...}{See \url{https://naver.github.io/billboard.js/release/latest/doc/Options.html#.subchart}}
+\item{...}{See <https://naver.github.io/billboard.js/release/latest/doc/Options.html#.subchart>}
 }
 \value{
-A \code{billboard} \code{htmlwidget} object.
+A `billboard` `htmlwidget` object.
 }
 \description{
 Create a subchart allowing to zoom and navigate on the chart.
 }
 \examples{
-
 data("equilibre_mensuel")
 
-billboarder() \%>\% 
-  bb_linechart(data = equilibre_mensuel[, c("date", "production")], type = "spline") \%>\% 
+billboarder() \%>\%
+  bb_linechart(data = equilibre_mensuel[, c("date", "production")], type = "spline") \%>\%
   bb_subchart(show = TRUE)
-
 }

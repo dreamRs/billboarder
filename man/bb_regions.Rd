@@ -7,44 +7,41 @@
 bb_regions(bb, ...)
 }
 \arguments{
-\item{bb}{A \code{billboard} \code{htmlwidget} object.}
+\item{bb}{A `billboard` `htmlwidget` object.}
 
-\item{...}{See \url{https://naver.github.io/billboard.js/release/latest/doc/Options.html#.regions}}
+\item{...}{See <https://naver.github.io/billboard.js/release/latest/doc/Options.html#.regions>}
 }
 \value{
-A \code{billboard} \code{htmlwidget} object.
+A `billboard` `htmlwidget` object.
 }
 \description{
 Add a shading effect to the background of the chart, to highlight a period for example.
 }
 \note{
-This function can be used with \code{\link{billboarderProxy}} in shiny application.
+This function can be used with [billboarderProxy()] in Shiny applications.
 }
 \examples{
-#' With a categorical X-axis
+# With a categorical X-axis
 dat <- data.frame(
   month = month.abb,
   AirPassengers = tail(AirPassengers, 12)
 )
 # Highlight Jun/Jul/Aug
-billboarder() \%>\% 
-  bb_linechart(data = dat, x = "month") \%>\% 
-  bb_x_axis(type = "category") \%>\% 
+billboarder() \%>\%
+  bb_linechart(data = dat, x = "month") \%>\%
+  bb_x_axis(type = "category") \%>\%
   bb_regions(
-    list(start = 4.5, end = 7.5) #' jan = 0
+    list(start = 4.5, end = 7.5) # jan = 0
   )
 
 # With a barchart
-billboarder() \%>\% 
-  bb_barchart(data = dat) \%>\% 
+billboarder() \%>\%
+  bb_barchart(data = dat) \%>\%
   bb_regions(
     list(start = 1.5, end = 2.5, class = "custom"),
     list(start = 8, end = 10, class = "foo")
-  ) \%>\% 
-  bb_add_style(region = list(custom = "fill: red;", foo = "fill: #'009246;"))
-
-
-
+  ) \%>\%
+  bb_add_style(region = list(custom = "fill: red;", foo = "fill: #009246;"))
 
 # With Date X-axis
 library("stats")
@@ -53,15 +50,13 @@ dat <- data.frame(
   var = density(rexp(n = 1000), n = 365)$y
 )
 
-billboarder() \%>\% 
-  bb_linechart(data = dat) \%>\% 
-  bb_x_axis(tick = list(fit = FALSE)) \%>\% 
-  bb_y_axis(min = 0, padding = 0) \%>\% 
+billboarder() \%>\%
+  bb_linechart(data = dat) \%>\%
+  bb_x_axis(tick = list(fit = FALSE)) \%>\%
+  bb_y_axis(min = 0, padding = 0) \%>\%
   bb_regions(
     list(start = format(Sys.Date() + 30), end = format(Sys.Date() + 120))
   )
-
-
 
 # With POSIXct X-axis
 dat <- data.frame(
@@ -69,15 +64,14 @@ dat <- data.frame(
   var = round(sort(rnorm(60)), 2)
 )
 
-billboarder() \%>\% 
-  bb_linechart(data = dat) \%>\% 
-  bb_x_axis(tick = list(format = "\%H:\%M", fit = FALSE)) \%>\%  
+billboarder() \%>\%
+  bb_linechart(data = dat) \%>\%
+  bb_x_axis(tick = list(format = "\%H:\%M", fit = FALSE)) \%>\%
   bb_regions(
-    list(start = format(dat$time[15]), 
+    list(start = format(dat$time[15]),
          end = format(dat$time[30]))
   )
-
 }
 \seealso{
-\code{\link{bb_add_style}}
+[bb_add_style()]
 }

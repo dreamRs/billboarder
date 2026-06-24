@@ -7,20 +7,20 @@
 bb_tooltip(bb, ...)
 }
 \arguments{
-\item{bb}{A \code{billboard} \code{htmlwidget} object.}
+\item{bb}{A `billboard` `htmlwidget` object.}
 
-\item{...}{See \url{https://naver.github.io/billboard.js/release/latest/doc/Options.html#.tooltip}}
+\item{...}{See <https://naver.github.io/billboard.js/release/latest/doc/Options.html#.tooltip>}
 }
 \value{
-A \code{billboard} \code{htmlwidget} object.
+A `billboard` `htmlwidget` object.
 }
 \description{
 Tooltip property for a Billboard.js chart
 }
 \examples{
 # Format tooltip
-billboarder() \%>\% 
-  bb_scatterplot(data = iris, x = "Sepal.Length", y = "Sepal.Width", group = "Species") \%>\% 
+billboarder() \%>\%
+  bb_scatterplot(data = iris, x = "Sepal.Length", y = "Sepal.Width", group = "Species") \%>\%
   bb_tooltip(
     format = list(
       # skip the title in tooltip

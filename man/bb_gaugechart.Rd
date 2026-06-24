@@ -15,11 +15,11 @@ bb_gaugechart(
 )
 }
 \arguments{
-\item{bb}{A \code{billboard} \code{htmlwidget} object.}
+\item{bb}{A `billboard` `htmlwidget` object.}
 
 \item{value}{A single numeric value or a vector for stacked gauge.}
 
-\item{name}{Name for the value, appear in  tooltip, same length as `value`.}
+\item{name}{Name for the value, appear in tooltip, same length as `value`.}
 
 \item{color}{Color for the gauge, if provided, `steps` and `steps_color` are ignored.}
 
@@ -30,27 +30,26 @@ bb_gaugechart(
 \item{...}{Arguments for slot gauge.}
 }
 \value{
-A \code{billboard} \code{htmlwidget} object.
+A `billboard` `htmlwidget` object.
 }
 \description{
 Helper for creating a gauge
 }
 \note{
-This function can be used with \code{\link{billboarderProxy}} in shiny application.
+This function can be used with [billboarderProxy()] in Shiny applications.
 }
 \examples{
-billboarder() \%>\% 
+billboarder() \%>\%
   bb_gaugechart(value = 50)
 
 # With some options
-billboarder() \%>\% 
+billboarder() \%>\%
   bb_gaugechart(
     value = 160,
     steps_color = rev(c("#FF0000", "#F97600", "#F6C600", "#60B044"))
-  ) \%>\% 
+  ) \%>\%
   bb_gauge(
     label = list(format = suffix("km/h")),
     min = 10, max = 200, width = 20
   )
-
 }

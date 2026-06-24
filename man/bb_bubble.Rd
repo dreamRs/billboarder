@@ -7,29 +7,28 @@
 bb_bubble(bb, ...)
 }
 \arguments{
-\item{bb}{A \code{billboard} \code{htmlwidget} object.}
+\item{bb}{A `billboard` `htmlwidget` object.}
 
-\item{...}{See \url{https://naver.github.io/billboard.js/release/latest/doc/Options.html#.bubble}}
+\item{...}{See <https://naver.github.io/billboard.js/release/latest/doc/Options.html#.bubble>}
 }
 \value{
-A \code{billboard} \code{htmlwidget} object.
+A `billboard` `htmlwidget` object.
 }
 \description{
 Bubble property for a Billboard.js chart
 }
 \examples{
-billboarder() \%>\% 
+billboarder() \%>\%
   bb_scatterplot(
-    data = iris, 
+    data = iris,
     mapping = bbaes(Sepal.Length, Sepal.Width, group = Species, size = Petal.Width)
-  ) \%>\% 
+  ) \%>\%
   bb_bubble(maxR = 10)
 
-
-billboarder() \%>\% 
+billboarder() \%>\%
   bb_scatterplot(
-    data = iris, 
+    data = iris,
     mapping = bbaes(Sepal.Length, Sepal.Width, group = Species, size = Petal.Width)
-  ) \%>\% 
+  ) \%>\%
   bb_bubble(maxR = JS("function(d) {return Math.sqrt(d.value.z * 20);}"))
 }

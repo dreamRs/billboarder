@@ -7,13 +7,12 @@
 bb_padding(bb, ...)
 }
 \arguments{
-\item{bb}{A \code{\link{billboarder}} \code{htmlwidget} object
-or a \code{\link{billboarderProxy}} \code{htmlwidget} object.}
+\item{bb}{A [billboarder()] `htmlwidget` object or a [billboarderProxy()] `htmlwidget` object.}
 
-\item{...}{See \url{https://naver.github.io/billboard.js/release/latest/doc/Options.html#.padding} for possible options.}
+\item{...}{See <https://naver.github.io/billboard.js/release/latest/doc/Options.html#.padding> for possible options.}
 }
 \value{
-A \code{billboard} \code{htmlwidget} object.
+A `billboard` `htmlwidget` object.
 }
 \description{
 The padding of the chart element.

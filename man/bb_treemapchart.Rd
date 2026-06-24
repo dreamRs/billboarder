@@ -7,17 +7,17 @@
 bb_treemapchart(bb, data, mapping = NULL, ...)
 }
 \arguments{
-\item{bb}{A \code{billboard} \code{htmlwidget} object.}
+\item{bb}{A `billboard` `htmlwidget` object.}
 
-\item{data}{A \code{data.frame}, the first column will be used for x axis unless
-specified otherwise in \code{mapping}. If not a \code{data.frame}, an object coercible to \code{data.frame}.}
+\item{data}{A `data.frame`, the first column will be used for x axis unless
+specified otherwise in `mapping`. If not a `data.frame`, an object coercible to `data.frame`.}
 
-\item{mapping}{Mapping of variables on the chart, see \code{\link{bbaes}}.}
+\item{mapping}{Mapping of variables on the chart, see [bbaes()].}
 
-\item{...}{Arguments passed to \code{\link{bb_treemap}}.}
+\item{...}{Arguments passed to [bb_treemap()].}
 }
 \value{
-A \code{billboard} \code{htmlwidget} object.
+A `billboard` `htmlwidget` object.
 }
 \description{
 Helper for creating a treemap chart
@@ -26,15 +26,15 @@ Helper for creating a treemap chart
 library("billboarder")
 data("mpg", package = "ggplot2")
 
-billboarder() \%>\% 
+billboarder() \%>\%
   bb_treemapchart(mpg[, 1])
 
-billboarder() \%>\% 
+billboarder() \%>\%
   bb_treemapchart(
-    data = mpg, 
+    data = mpg,
     mapping = aes(x = manufacturer),
     label = list(show = TRUE, threshold = 0.3)
-  ) \%>\% 
+  ) \%>\%
   bb_data(
     labels = list(colors = "#FFF")
   )

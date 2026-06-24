@@ -7,23 +7,24 @@
 bb_pie(bb, ...)
 }
 \arguments{
-\item{bb}{A \code{billboard} \code{htmlwidget} object.}
+\item{bb}{A `billboard` `htmlwidget` object.}
 
-\item{...}{See \url{https://naver.github.io/billboard.js/release/latest/doc/Options.html#.pie}}
+\item{...}{See <https://naver.github.io/billboard.js/release/latest/doc/Options.html#.pie>}
 }
 \value{
-A \code{billboard} \code{htmlwidget} object.
+A `billboard` `htmlwidget` object.
 }
 \description{
 Pie property for a Billboard.js chart
 }
 \examples{
 billboarder() \%>\%
-  bb_piechart(data = table(mtcars$cyl)) \%>\% 
-  bb_pie(label = list(
-    ratio = 0.5, 
-    format = htmlwidgets::JS("function(value) {return d3.format('$')(value);}")
-  ), 
-  expand = FALSE)
-  
+  bb_piechart(data = table(mtcars$cyl)) \%>\%
+  bb_pie(
+    label = list(
+      ratio = 0.5,
+      format = htmlwidgets::JS("function(value) {return d3.format('$')(value);}")
+    ),
+    expand = FALSE
+  )
 }

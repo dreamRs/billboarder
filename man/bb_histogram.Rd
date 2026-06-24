@@ -16,49 +16,48 @@ bb_histogram(
 )
 }
 \arguments{
-\item{bb}{A \code{billboard} \code{htmlwidget} object.}
+\item{bb}{A `billboard` `htmlwidget` object.}
 
-\item{data}{A \code{data.frame} or a \code{vector}, the first column will
-be used to calculate density if \code{x} is \code{NULL}.}
+\item{data}{A `data.frame` or a `vector`, the first column will
+be used to calculate density if `x` is `NULL`.}
 
-\item{mapping}{Mapping of variables on the chart, see \code{\link{bbaes}}.}
+\item{mapping}{Mapping of variables on the chart, see [bbaes()].}
 
 \item{stacked}{Logical, create a stacked histogram.}
 
 \item{fill}{Logical, create a stacked percentage histogram.}
 
-\item{bins}{Number of bins. Overridden by \code{binwidth}. Defaults to 30.}
+\item{bins}{Number of bins. Overridden by `binwidth`. Defaults to 30.}
 
-\item{binwidth}{The width of the bins. See \code{\link[ggplot2]{geom_histogram}}}
+\item{binwidth}{The width of the bins. See [ggplot2::geom_histogram()]}
 
 \item{...}{Not used.}
 }
 \value{
-A \code{billboard} \code{htmlwidget} object.
+A `billboard` `htmlwidget` object.
 }
 \description{
 Helper for creating an histogram
 }
 \examples{
-
 data("diamonds", package = "ggplot2")
 
 # one variable
-billboarder() \%>\% 
+billboarder() \%>\%
   bb_histogram(data = diamonds, x = "price")
 
 # with mapping
-billboarder() \%>\% 
+billboarder() \%>\%
   bb_histogram(diamonds, bbaes(price))
 
 # equivalent to
-billboarder() \%>\% 
+billboarder() \%>\%
   bb_histogram(data = diamonds$price)
 
 # prettier with 'binwidth'
 # (but you need to know your data)
-billboarder() \%>\% 
-  bb_histogram(data = diamonds, x = "price", binwidth = 500) \%>\% 
+billboarder() \%>\%
+  bb_histogram(data = diamonds, x = "price", binwidth = 500) \%>\%
   bb_colors_manual()
 
 # with a grouping variable
@@ -76,30 +75,28 @@ billboarder() \%>\%
   bb_histogram(diamonds, bbaes(price, group = cut),
                stacked = TRUE, binwidth = 500)
 
-
 # another example
 dat <- data.frame(
   sample = c(rnorm(n = 500, mean = 1), rnorm(n = 500, mean = 2)),
   group = rep(c("A", "B"), each = 500)
 )
 
-billboarder() \%>\% 
+billboarder() \%>\%
   bb_histogram(data = dat, x = "sample", binwidth = 0.25)
 
 samples_mean <- tapply(dat$sample, dat$group, mean)
-billboarder() \%>\% 
+billboarder() \%>\%
   bb_histogram(data = dat, x = "sample", group = "group",
-               binwidth = 0.25) \%>\% 
+               binwidth = 0.25) \%>\%
   bb_x_grid(
     lines = list(
-      list(value = unname(samples_mean['A']),
+      list(value = unname(samples_mean["A"]),
            text = "mean of sample A"),
-      list(value = unname(samples_mean['B']), 
+      list(value = unname(samples_mean["B"]),
            text = "mean of sample B")
     )
   )
-
 }
 \seealso{
-\code{\link{bb_densityplot}}
+[bb_densityplot()]
 }

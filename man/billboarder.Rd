@@ -13,10 +13,10 @@ billboarder(
 )
 }
 \arguments{
-\item{bb_opts}{A \code{list} in JSON format with chart parameters,
-see \url{https://naver.github.io/billboard.js/demo/}.}
+\item{bb_opts}{A `list` in JSON format with chart parameters, see
+<https://naver.github.io/billboard.js/demo/>.}
 
-\item{data}{A \code{data.frame}.}
+\item{data}{A `data.frame`.}
 
 \item{width}{A numeric input in pixels.}
 
@@ -25,5 +25,5 @@ see \url{https://naver.github.io/billboard.js/demo/}.}
 \item{elementId}{Use an explicit element ID for the widget.}
 }
 \description{
-Create an interactive visualization with Javascript library Billboard.js
+Create an interactive visualization with Javascript library Billboard.js.
 }

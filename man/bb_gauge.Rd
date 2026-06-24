@@ -7,20 +7,21 @@
 bb_gauge(bb, ...)
 }
 \arguments{
-\item{bb}{A \code{billboard} \code{htmlwidget} object.}
+\item{bb}{A `billboard` `htmlwidget` object.}
 
-\item{...}{See \url{https://naver.github.io/billboard.js/release/latest/doc/Options.html#.gauge}}
+\item{...}{See <https://naver.github.io/billboard.js/release/latest/doc/Options.html#.gauge>}
 }
 \value{
-A \code{billboard} \code{htmlwidget} object.
+A `billboard` `htmlwidget` object.
 }
 \description{
 Gauge property for a Billboard.js chart
 }
 \examples{
-billboarder() \%>\% 
-  bb_gaugechart(value = 50) \%>\% 
-  bb_gauge(min = 0, max = 200, units = "km/h", width = 10,
-           label = list(format = htmlwidgets::JS("function(value) {return value;}")))
-           
+billboarder() \%>\%
+  bb_gaugechart(value = 50) \%>\%
+  bb_gauge(
+    min = 0, max = 200, units = "km/h", width = 10,
+    label = list(format = htmlwidgets::JS("function(value) {return value;}"))
+  )
 }
