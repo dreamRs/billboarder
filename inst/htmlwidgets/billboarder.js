@@ -1,410 +1,463 @@
 // HTMLWidgets billboard ----
 
-/*global HTMLWidgets, bb, Shiny */
+/* global HTMLWidgets, bb, Shiny */
 
 HTMLWidgets.widget({
   name: "billboarder",
-
   type: "output",
 
   factory: function(el, width, height) {
+    let chart = null;
+    let bb_opts = null;
 
-    var chart, bb_opts;
-    var head = document.head || document.getElementsByTagName("head")[0];
+    const head = document.head || document.getElementsByTagName("head")[0];
+
+    function safeGetChartSize() {
+      return {
+        width: el.clientWidth || width || 0,
+        height: el.clientHeight || height || 0
+      };
+    }
+
+    function upsertStyle(styleId, cssText) {
+      let styleEl = document.getElementById(styleId);
+
+      if (!styleEl) {
+        styleEl = document.createElement("style");
+        styleEl.id = styleId;
+        styleEl.type = "text/css";
+        head.appendChild(styleEl);
+      }
+
+      if (styleEl.styleSheet) {
+        styleEl.styleSheet.cssText = cssText;
+      } else {
+        styleEl.textContent = cssText;
+      }
+    }
+
+    function prefixCssWithWidgetId(css, widgetId) {
+      if (Array.isArray(css)) {
+        return css.map(function(rule) {
+          return "#" + widgetId + " " + rule;
+        }).join("\n");
+      }
+
+      return "#" + widgetId + " " + css;
+    }
+
+    function cloneEventPayload(payload) {
+      return JSON.parse(JSON.stringify(payload));
+    }
+
+    function getCategoriesFromChart(ctx) {
+      if (ctx && typeof ctx.categories === "function") {
+        return ctx.categories() || [];
+      }
+
+      return [];
+    }
+
+    function addCategoryToDatum(ctx, datum) {
+      const cloned = cloneEventPayload(datum);
+      const categories = getCategoriesFromChart(ctx);
+
+      cloned.category =
+        Array.isArray(categories) && typeof cloned.index !== "undefined"
+          ? categories[cloned.index] ?? null
+          : null;
+
+      return cloned;
+    }
+
+    function shinySetInput(name, value) {
+      if (HTMLWidgets.shinyMode && typeof Shiny !== "undefined") {
+        Shiny.onInputChange(name, {
+          value: value,
+          nonce: Date.now()
+        });
+      }
+    }
+
+    function attachDefaultShinyCallbacks(opts) {
+      opts.data = opts.data || {};
+
+      if (typeof opts.data.onclick === "undefined") {
+        opts.data.onclick = function(d) {
+          shinySetInput(el.id + "_click", addCategoryToDatum(this, d));
+        };
+      }
+
+      if (typeof opts.data.onover === "undefined") {
+        opts.data.onover = function(d) {
+          shinySetInput(el.id + "_over", addCategoryToDatum(this, d));
+        };
+      }
+
+      if (typeof opts.data.onselected === "undefined") {
+        opts.data.onselected = function(d) {
+          shinySetInput(el.id + "_selected", d);
+        };
+      }
+
+      if (typeof opts.data.onunselected === "undefined") {
+        opts.data.onunselected = function(d) {
+          shinySetInput(el.id + "_unselected", d);
+        };
+      }
+
+      if (opts.zoom && typeof opts.zoom.onzoom === "undefined") {
+        opts.zoom.onzoom = function(domain) {
+          shinySetInput(el.id + "_zoom", domain);
+        };
+      }
+    }
+
+    function attachExportCallback(opts) {
+      if (typeof opts.export === "undefined") {
+        return;
+      }
+
+      const userOnRendered = opts.onrendered;
+
+      opts.onrendered = function() {
+        if (typeof userOnRendered === "function") {
+          userOnRendered.apply(this, arguments);
+        }
+
+        const ctx = this;
+
+        setTimeout(function() {
+          if (!ctx || typeof ctx.export !== "function") {
+            return;
+          }
+
+          ctx.export("image/png", function(dataUrl) {
+            const link = document.getElementById(el.id + "-export");
+
+            if (!link) {
+              return;
+            }
+
+            link.download =
+              (typeof opts.export.filename !== "undefined"
+                ? opts.export.filename
+                : "export-" + Date.now()) + ".png";
+
+            link.innerHTML = opts.export.download_label || "Export (.png)";
+            link.href = dataUrl;
+            link.style.display = "inline-block";
+          });
+        }, 300);
+      };
+    }
+
+    function applyWidgetSizing(opts) {
+      const size = safeGetChartSize();
+
+      opts.size = opts.size || {};
+      opts.size.width = size.width;
+      opts.size.height = size.height;
+    }
+
+    function applyBillboarderSpecialStyles(opts) {
+      if (
+        opts.billboarderspecials &&
+        typeof opts.billboarderspecials.opacity !== "undefined"
+      ) {
+        const css =
+          "#" +
+          el.id +
+          " .bb-area { opacity: " +
+          opts.billboarderspecials.opacity +
+          " !important; }";
+
+        upsertStyle(el.id + "-billboarder-opacity-style", css);
+      }
+    }
+
+    function applyCustomStyles(opts) {
+      if (typeof opts.customStyle === "undefined") {
+        return;
+      }
+
+      const css = prefixCssWithWidgetId(opts.customStyle, el.id);
+      upsertStyle(el.id + "-billboarder-custom-style", css);
+    }
+
+    function destroyExistingChart() {
+      if (chart && typeof chart.destroy === "function") {
+        chart.destroy();
+      }
+      chart = null;
+    }
+
+    function resizeChartToContainer() {
+      if (!chart || typeof chart.resize !== "function") {
+        return;
+      }
+
+      const container = document.getElementById(el.id);
+
+      if (!container) {
+        return;
+      }
+
+      chart.resize({
+        width: container.clientWidth,
+        height: container.clientHeight
+      });
+    }
+
+    function handleFlexdashboardResize() {
+      if (typeof window.FlexDashboard === "undefined") {
+        return;
+      }
+
+      window.requestAnimationFrame(function() {
+        window.requestAnimationFrame(function() {
+          if (!chart) {
+            return;
+          }
+
+          if (typeof chart.flush === "function") {
+            chart.flush();
+          }
+
+          resizeChartToContainer();
+        });
+      });
+    }
+
+    function resolveOptions(x) {
+      if (x && x.bb_opts && typeof x.bb_opts.data !== "undefined") {
+        return x.bb_opts;
+      }
+
+      return x.bb_empty || {};
+    }
 
     return {
       renderValue: function(x) {
+        bb_opts = resolveOptions(x);
 
-        if (typeof x.bb_opts.data == "undefined") {
-          bb_opts = x.bb_empty;
-        } else {
-          bb_opts = x.bb_opts;
-        }
-
-        // bindto element
+        bb_opts = bb_opts || {};
+        bb_opts.data = bb_opts.data || {};
         bb_opts.bindto = "#" + el.id;
 
-        // Shiny interaction
         if (HTMLWidgets.shinyMode) {
-
-          // Click
-          if (typeof bb_opts.data.onclick == "undefined") {
-            bb_opts.data.onclick = function(d, element) {
-              var click = JSON.parse(JSON.stringify(d));
-              click.category = this.categories()[click.index];
-              Shiny.onInputChange(el.id + "_click", click);
-            };
-          }
-
-          // Hover
-          if (typeof bb_opts.data.onover == "undefined") {
-            bb_opts.data.onover = function(d, element) {
-              var over = JSON.parse(JSON.stringify(d));
-              over.category = this.categories()[over.index];
-              Shiny.onInputChange(el.id + "_over", over);
-            };
-          }
-
-          // Selected
-          if (typeof bb_opts.data.onselected == "undefined") {
-            bb_opts.data.onselected = function(d) {
-              Shiny.onInputChange(el.id + "_selected", d);
-            };
-          }
-
-          // Unselected
-          if (typeof bb_opts.data.onunselected == "undefined") {
-            bb_opts.data.onunselected = function(d) {
-              Shiny.onInputChange(el.id + "_selected", d);
-            };
-          }
-
-          // Zoom
-          if (typeof bb_opts.zoom != "undefined") {
-            if (typeof bb_opts.zoom.onzoom == "undefined") {
-              bb_opts.zoom.onzoom = function(domain) {
-                Shiny.onInputChange(el.id + "_zoom", domain);
-              };
-            }
-          }
+          attachDefaultShinyCallbacks(bb_opts);
         }
 
-        // Sizing
-        var w = el.clientWidth;
-        var h = el.clientHeight;
-        bb_opts.size = {};
-        bb_opts.size.width = w;
-        bb_opts.size.height = h;
+        applyWidgetSizing(bb_opts);
+        attachExportCallback(bb_opts);
 
-        // Custom legend .contents.templat
-        if (typeof bb_opts.legend !== "undefined") {
-          if (typeof bb_opts.legend.contents !== "undefined") {
-            if (typeof bb_opts.legend.contents.template !== "undefined") {
-              //var custom_legend = document.createElement("div");
-              //custom_legend.setAttribute("id", el.id + "_custom_legend");
-              //document.getElementById(el.id)
-              //  .insertAdjacentElement("beforeend", custom_legend);
-              //bb_opts.legend.contents.bindto = "#" + el.id + "_custom_legend";
-            }
-          }
-        }
-        
-        if (typeof bb_opts.export !== "undefined") {
-          bb_opts.onrendered = function() {
-            var ctx = this;
-            setTimeout(function() {
-              ctx.export("image/png", function(dataUrl) {
-                var link = document.getElementById(el.id + "-export");
-                if (typeof bb_opts.export.filename !== "undefined") {
-                  link.download = bb_opts.export.filename + ".png";
-                } else {
-                  link.download = "export-" + Date.now() + ".png"; 
-                }
-                link.innerHTML = bb_opts.export.download_label;
-                link.href = dataUrl;
-                link.style.display = "inline-block";
-                //if (HTMLWidgets.shinyMode) {
-                //  Shiny.onInputChange("export_bb", dataUrl);
-                //}
-              });
-            }, 300);
-          };
-        }
+        destroyExistingChart();
+        chart = bb.generate(bb_opts);
 
-
-
-        // Generate billboard chart
-        chart = bb.generate(bb_opts)
-        
-        // if in flexdahboard, whait before redrawing chart
-        // because 1st init doesn't work for some reason
-        if (typeof(window.FlexDashboard) !== "undefined") {
-          setTimeout(function() {
-            chart.flush();
-            chart.resize({
-              width: el.clientWidth,
-              height: el.clientHeight
-            });
-          }, 500);
-        }
-
-        
-
-        // Billboarder specials
-        if (typeof bb_opts.billboarderspecials != "undefined") {
-          if (typeof bb_opts.billboarderspecials.opacity != "undefined") {
-            var cssopacity =
-                "#" +
-                el.id +
-                " .bb-area { opacity: " +
-                bb_opts.billboarderspecials.opacity +
-                " !important; }",
-              styleopacity = document.createElement("style");
-            styleopacity.type = "text/css";
-            if (styleopacity.styleSheet) {
-              styleopacity.styleSheet.cssText = cssopacity;
-            } else {
-              styleopacity.appendChild(document.createTextNode(cssopacity));
-            }
-            head.appendChild(styleopacity);
-          }
-        }
-
-        // Custom style
-        if (typeof bb_opts.customStyle != "undefined") {
-            var customcss = bb_opts.customStyle,
-              stylecustom = document.createElement("style");
-            if (Array.isArray(customcss)) {
-              customcss = customcss
-                .map(function(x) {
-                  return "#" + el.id + " " + x;
-                })
-                .join(" ");
-            } else {
-              customcss = "#" + el.id + " " + customcss;
-            }
-            //console.log(customcss);
-            stylecustom.type = "text/css";
-            if (stylecustom.styleSheet) {
-              stylecustom.styleSheet.cssText = customcss;
-            } else {
-              stylecustom.appendChild(document.createTextNode(customcss));
-            }
-            head.appendChild(stylecustom);
-        }
-        
+        handleFlexdashboardResize();
+        applyBillboarderSpecialStyles(bb_opts);
+        applyCustomStyles(bb_opts);
       },
 
       getChart: function() {
         return chart;
       },
 
-      resize: function(width, height) {
-        var container = document.getElementById(el.id); 
-        if (container) {
-          // code to re-render the widget with a new size	
-          var w = container.clientWidth;	
-          var h = container.clientHeight;	
-          chart.resize({ width: w, height: h });	
-        }
+      resize: function() {
+        resizeChartToContainer();
       }
     };
   }
 });
 
-// From Friss tuto (https://github.com/FrissAnalytics/shinyJsTutorials/blob/master/tutorials/tutorial_03.Rmd)
+// Access underlying billboard instance ----
+
 function get_billboard(id) {
-  // Get the HTMLWidgets object
-  var htmlWidgetsObj = HTMLWidgets.find("#" + id);
+  const htmlWidgetsObj = HTMLWidgets.find("#" + id);
 
-  // Use the getChart method we created to get the underlying billboard chart
-  var bbObj;
-
-  if (typeof htmlWidgetsObj != "undefined") {
-    bbObj = htmlWidgetsObj.getChart();
+  if (typeof htmlWidgetsObj === "undefined" || htmlWidgetsObj === null) {
+    return undefined;
   }
 
-  return bbObj;
+  return htmlWidgetsObj.getChart();
 }
 
 // Shiny ----
 
 if (HTMLWidgets.shinyMode) {
+  function withChart(message, callback) {
+    const chart = get_billboard(message.id);
 
-  // data = load
+    if (!chart) {
+      return;
+    }
+
+    callback(chart, message.data, message);
+  }
+
   Shiny.addCustomMessageHandler("update-billboard-data", function(message) {
-    var chart = get_billboard(message.id);
-    if (typeof chart != "undefined") {
-      // chart.unload();
-      chart.load(message.data);
-    }
+    withChart(message, function(chart, data) {
+      chart.load(data);
+    });
   });
 
-  // load
   Shiny.addCustomMessageHandler("update-billboard-load", function(message) {
-    var chart = get_billboard(message.id);
-    if (typeof chart != "undefined") {
-      chart.load(message.data);
-    }
+    withChart(message, function(chart, data) {
+      chart.load(data);
+    });
   });
 
-  // unload (not used)
   Shiny.addCustomMessageHandler("update-billboard-unload", function(message) {
-    //var chart = get_billboard(data.id);
-    //var d = data.data;
-    //console.log(isEmpty(d));
-    //if (!isEmpty(d)) {
-    //  chart.unload(d);
-    //} else {
-    //  chart.unload();
-    //}
+    withChart(message, function(chart, data) {
+      if (typeof chart.unload !== "function") {
+        return;
+      }
+
+      if (data && Object.keys(data).length > 0) {
+        chart.unload(data);
+      } else {
+        chart.unload();
+      }
+    });
   });
 
-  // focus
   Shiny.addCustomMessageHandler("update-billboard-focus", function(message) {
-    var chart = get_billboard(message.id);
-    if (typeof chart != "undefined") {
-      if (message.data.ids.length > 0) {
-        chart.focus(message.data.ids);
+    withChart(message, function(chart, data) {
+      if (data && Array.isArray(data.ids) && data.ids.length > 0) {
+        chart.focus(data.ids);
       } else {
         chart.focus();
       }
-    }
+    });
   });
-  // defocus
+
   Shiny.addCustomMessageHandler("update-billboard-defocus", function(message) {
-    var chart = get_billboard(message.id);
-    if (typeof chart != "undefined") {
-      if (message.data.ids.length > 0) {
-        chart.defocus(message.data.ids);
+    withChart(message, function(chart, data) {
+      if (data && Array.isArray(data.ids) && data.ids.length > 0) {
+        chart.defocus(data.ids);
       } else {
         chart.defocus();
       }
-    }
+    });
   });
-  // Axis labels
-  Shiny.addCustomMessageHandler("update-billboard-axis_labels", function(
-    message
-  ) {
-    var chart = get_billboard(message.id);
-    if (typeof chart != "undefined") {
-      chart.axis.labels(message.data);
-    }
+
+  Shiny.addCustomMessageHandler("update-billboard-axis_labels", function(message) {
+    withChart(message, function(chart, data) {
+      if (chart.axis && typeof chart.axis.labels === "function") {
+        chart.axis.labels(data);
+      }
+    });
   });
-  // X values
+
   Shiny.addCustomMessageHandler("update-billboard-xs", function(message) {
-    var chart = get_billboard(message.id);
-    if (typeof chart != "undefined") {
-      chart.xs(message.data);
-    }
+    withChart(message, function(chart, data) {
+      chart.xs(data);
+    });
   });
-  // categories
-  Shiny.addCustomMessageHandler("update-billboard-categories", function(
-    message
-  ) {
-    var chart = get_billboard(message.id);
-    if (typeof chart != "undefined") {
-      chart.categories(message.data[0]);
-    }
+
+  Shiny.addCustomMessageHandler("update-billboard-categories", function(message) {
+    withChart(message, function(chart, data) {
+      chart.categories(Array.isArray(data) ? data[0] : data);
+    });
   });
-  // Regions
+
   Shiny.addCustomMessageHandler("update-billboard-region", function(message) {
-    var chart = get_billboard(message.id);
-    if (typeof chart != "undefined") {
-      chart.regions(message.data);
-    }
+    withChart(message, function(chart, data) {
+      chart.regions(data);
+    });
   });
-  // Groups
+
   Shiny.addCustomMessageHandler("update-billboard-groups", function(message) {
-    var chart = get_billboard(message.id);
-    if (typeof chart != "undefined") {
-      chart.groups(message.data);
-    }
+    withChart(message, function(chart, data) {
+      chart.groups(data);
+    });
   });
-  // Show legend
-  Shiny.addCustomMessageHandler("update-billboard-legend-show", function(
-    message
-  ) {
-    var chart = get_billboard(message.id);
-    if (typeof chart != "undefined") {
-      if (message.data.targetIds !== null) {
-        chart.legend.show(message.data.targetIds);
+
+  Shiny.addCustomMessageHandler("update-billboard-legend-show", function(message) {
+    withChart(message, function(chart, data) {
+      if (data && data.targetIds !== null) {
+        chart.legend.show(data.targetIds);
       } else {
         chart.legend.show();
       }
-    }
+    });
   });
-  // Hide legend
-  Shiny.addCustomMessageHandler("update-billboard-legend-hide", function(
-    message
-  ) {
-    var chart = get_billboard(message.id);
-    if (typeof chart != "undefined") {
-      if (message.data.targetIds !== null) {
-        chart.legend.hide(message.data.targetIds);
+
+  Shiny.addCustomMessageHandler("update-billboard-legend-hide", function(message) {
+    withChart(message, function(chart, data) {
+      if (data && data.targetIds !== null) {
+        chart.legend.hide(data.targetIds);
       } else {
         chart.legend.hide();
       }
-    }
+    });
   });
-  // Show tooltip
-  Shiny.addCustomMessageHandler("update-billboard-tooltip-show", function(
-    message
-  ) {
-    var chart = get_billboard(message.id);
-    if (typeof chart != "undefined") {
-      chart.tooltip.show(message.data);
-    }
+
+  Shiny.addCustomMessageHandler("update-billboard-tooltip-show", function(message) {
+    withChart(message, function(chart, data) {
+      chart.tooltip.show(data);
+    });
   });
-  // Hide tooltip
-  Shiny.addCustomMessageHandler("update-billboard-tooltip-hide", function(
-    message
-  ) {
-    var chart = get_billboard(message.id);
-    if (typeof chart != "undefined") {
+
+  Shiny.addCustomMessageHandler("update-billboard-tooltip-hide", function(message) {
+    withChart(message, function(chart) {
       chart.tooltip.hide();
-    }
+    });
   });
-  // Hide
+
   Shiny.addCustomMessageHandler("update-billboard-hide", function(message) {
-    var chart = get_billboard(message.id);
-    if (typeof chart != "undefined") {
-      chart.hide(message.data.targetIdsValue, message.data.options);
-    }
+    withChart(message, function(chart, data) {
+      chart.hide(data.targetIdsValue, data.options);
+    });
   });
-  // Show
+
   Shiny.addCustomMessageHandler("update-billboard-show", function(message) {
-    var chart = get_billboard(message.id);
-    if (typeof chart != "undefined") {
-      chart.show(message.data.targetIdsValue, message.data.options);
-    }
+    withChart(message, function(chart, data) {
+      chart.show(data.targetIdsValue, data.options);
+    });
   });
-  // Data names
-  Shiny.addCustomMessageHandler("update-billboard-data-names", function(
-    message
-  ) {
-    var chart = get_billboard(message.id);
-    if (typeof chart != "undefined") {
-      chart.data.names(message.data.names);
-    }
+
+  Shiny.addCustomMessageHandler("update-billboard-data-names", function(message) {
+    withChart(message, function(chart, data) {
+      chart.data.names(data.names);
+    });
   });
-  // Data colors
-  Shiny.addCustomMessageHandler("update-billboard-data-colors", function(
-    message
-  ) {
-    var chart = get_billboard(message.id);
-    if (typeof chart != "undefined") {
-      chart.data.colors(message.data.colors);
-    }
+
+  Shiny.addCustomMessageHandler("update-billboard-data-colors", function(message) {
+    withChart(message, function(chart, data) {
+      chart.data.colors(data.colors);
+    });
   });
+
   Shiny.addCustomMessageHandler("update-billboard-flow", function(message) {
-    var chart = get_billboard(message.id);
-    if (typeof chart != "undefined") {
-      chart.flow(message.data);
-    }
+    withChart(message, function(chart, data) {
+      chart.flow(data);
+    });
   });
-  // Export
+
   Shiny.addCustomMessageHandler("update-billboard-export", function(message) {
-    var chart = get_billboard(message.id);
-    if (typeof chart != "undefined") {
+    withChart(message, function(chart, data) {
+      if (typeof chart.export !== "function") {
+        return;
+      }
+
       chart.export("image/png", function(dataUrl) {
-        download(message.data.filename + ".png", dataUrl);
+        download(data.filename + ".png", dataUrl);
       });
-    }
+    });
   });
 }
 
-// Utils -----
+// Utils ----
 
 function download(filename, dataImage) {
-  var element = document.createElement("a");
+  const element = document.createElement("a");
   element.setAttribute("href", dataImage);
   element.setAttribute("download", filename);
-
   element.style.display = "none";
+
   document.body.appendChild(element);
-
   element.click();
-
   document.body.removeChild(element);
 }
