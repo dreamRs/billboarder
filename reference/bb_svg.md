@@ -12,13 +12,13 @@ bb_svg(bb, ...)
 
 - bb:
 
-  A `billboard` `htmlwidget` object.
+  A \`billboard\` \`htmlwidget\` object.
 
 - ...:
 
   See
-  <https://naver.github.io/billboard.js/release/latest/doc/Options.html#.svg>
+  \<https://naver.github.io/billboard.js/release/latest/doc/Options.html#.svg\>
 
 ## Value
 
-A `billboard` `htmlwidget` object.
+A \`billboard\` \`htmlwidget\` object.

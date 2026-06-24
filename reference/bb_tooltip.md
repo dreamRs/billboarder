@@ -12,23 +12,23 @@ bb_tooltip(bb, ...)
 
 - bb:
 
-  A `billboard` `htmlwidget` object.
+  A \`billboard\` \`htmlwidget\` object.
 
 - ...:
 
   See
-  <https://naver.github.io/billboard.js/release/latest/doc/Options.html#.tooltip>
+  \<https://naver.github.io/billboard.js/release/latest/doc/Options.html#.tooltip\>
 
 ## Value
 
-A `billboard` `htmlwidget` object.
+A \`billboard\` \`htmlwidget\` object.
 
 ## Examples
 
 ``` r
 # Format tooltip
-billboarder() %>% 
-  bb_scatterplot(data = iris, x = "Sepal.Length", y = "Sepal.Width", group = "Species") %>% 
+billboarder() %>%
+  bb_scatterplot(data = iris, x = "Sepal.Length", y = "Sepal.Width", group = "Species") %>%
   bb_tooltip(
     format = list(
       # skip the title in tooltip

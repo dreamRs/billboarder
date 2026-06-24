@@ -12,24 +12,24 @@ bb_point(bb, ...)
 
 - bb:
 
-  A `billboard` `htmlwidget` object.
+  A \`billboard\` \`htmlwidget\` object.
 
 - ...:
 
   See
-  <https://naver.github.io/billboard.js/release/latest/doc/Options.html#.point>
+  \<https://naver.github.io/billboard.js/release/latest/doc/Options.html#.point\>
 
 ## Value
 
-A `billboard` `htmlwidget` object.
+A \`billboard\` \`htmlwidget\` object.
 
 ## Examples
 
 ``` r
 # Set point size
-billboarder() %>% 
-  bb_scatterplot(data = iris, x = "Sepal.Length", y = "Sepal.Width", group = "Species") %>% 
-  bb_axis(x = list(tick = list(fit = FALSE))) %>% 
+billboarder() %>%
+  bb_scatterplot(data = iris, x = "Sepal.Length", y = "Sepal.Width", group = "Species") %>%
+  bb_axis(x = list(tick = list(fit = FALSE))) %>%
   bb_point(r = 10)
 
   

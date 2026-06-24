@@ -12,31 +12,29 @@ bb_donutchart(bb, data, mapping = NULL, ...)
 
 - bb:
 
-  A `billboard` `htmlwidget` object.
+  A \`billboard\` \`htmlwidget\` object.
 
 - data:
 
-  A `data.frame`.
+  A \`data.frame\`.
 
 - mapping:
 
-  Mapping of variables on the chart, see
-  [`bbaes`](https://dreamrs.github.io/billboarder/reference/billboard-aes.md).
+  Mapping of variables on the chart, see \[bbaes()\].
 
 - ...:
 
   Arguments for slot donut,
-  <https://naver.github.io/billboard.js/release/latest/doc/Options.html#.donut>.
+  \<https://naver.github.io/billboard.js/release/latest/doc/Options.html#.donut\>.
 
 ## Value
 
-A `billboard` `htmlwidget` object.
+A \`billboard\` \`htmlwidget\` object.
 
 ## Note
 
-This function can be used with
-[`billboarderProxy`](https://dreamrs.github.io/billboarder/reference/billboarder-shiny.md)
-in shiny application.
+This function can be used with \[billboarderProxy()\] in Shiny
+applications.
 
 ## Examples
 
@@ -47,7 +45,7 @@ stars <- data.frame(
   stars = c(9, 177, 43, 44, 169)
 )
 
-billboarder() %>% 
+billboarder() %>%
   bb_donutchart(data = stars, title = "Stars")
 } # }
 ```

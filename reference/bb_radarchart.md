@@ -12,27 +12,25 @@ bb_radarchart(bb, data, mapping = NULL, ...)
 
 - bb:
 
-  A `billboard` `htmlwidget` object.
+  A \`billboard\` \`htmlwidget\` object.
 
 - data:
 
-  A `data.frame`, the first column will be used for x axis unless
-  specified otherwise in `mapping`. If not a `data.frame`, an object
-  coercible to `data.frame`.
+  A \`data.frame\`, the first column will be used for x axis unless
+  specified otherwise in \`mapping\`. If not a \`data.frame\`, an object
+  coercible to \`data.frame\`.
 
 - mapping:
 
-  Mapping of variables on the chart, see
-  [`bbaes`](https://dreamrs.github.io/billboarder/reference/billboard-aes.md).
+  Mapping of variables on the chart, see \[bbaes()\].
 
 - ...:
 
-  Arguments passed to
-  [`bb_radar`](https://dreamrs.github.io/billboarder/reference/bb_radar.md).
+  Arguments passed to \[bb_radar()\].
 
 ## Value
 
-A `billboard` `htmlwidget` object.
+A \`billboard\` \`htmlwidget\` object.
 
 ## Examples
 
@@ -42,7 +40,7 @@ library("billboarder")
 # data about Avengers
 data("avengers_wide")
 
-# if not specified, first column is used as x-axis, 
+# if not specified, first column is used as x-axis,
 # all others are used on y-axis
 billboarder() %>%
   bb_radarchart(data = avengers_wide)
@@ -62,12 +60,11 @@ billboarder() %>%
   
 
 {"x":{"bb_opts":{"interaction":{"inputType":{"touch":false}},"data":{"x":"bb-x","json":{"bb-x":["Durability","Energy","Fighting Skills","Intelligence","Speed","Strength"],"Captain America":[3,1,6,3,2,3]},"type":"radar"},"radar":[]},"data":null},"evals":[],"jsHooks":[]}
-
 # with data in "long" format you can use "group" aesthetics
 data("avengers")
 billboarder() %>%
   bb_radarchart(
-    data = avengers, 
+    data = avengers,
     mapping = bbaes(x = axis, y = value, group = group)
   )
 

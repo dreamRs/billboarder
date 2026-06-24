@@ -12,16 +12,16 @@ bb_donut(bb, ...)
 
 - bb:
 
-  A `billboard` `htmlwidget` object.
+  A \`billboard\` \`htmlwidget\` object.
 
 - ...:
 
   See
-  <https://naver.github.io/billboard.js/release/latest/doc/Options.html#.donut>
+  \<https://naver.github.io/billboard.js/release/latest/doc/Options.html#.donut\>
 
 ## Value
 
-A `billboard` `htmlwidget` object.
+A \`billboard\` \`htmlwidget\` object.
 
 ## Examples
 
@@ -33,5 +33,5 @@ billboarder() %>%
   
   
 
-{"x":{"bb_opts":{"interaction":{"inputType":{"touch":false}},"data":{"json":{"4":[11],"6":[7],"8":[14]},"type":"donut"},"donut":{"title":"Donut Title","width":10}},"data":null},"evals":[],"jsHooks":[]}  
+{"x":{"bb_opts":{"interaction":{"inputType":{"touch":false}},"data":{"json":{"4":[11],"6":[7],"8":[14]},"type":"donut"},"donut":{"title":"Donut Title","width":10}},"data":null},"evals":[],"jsHooks":[]}
 ```

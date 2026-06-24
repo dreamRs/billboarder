@@ -12,7 +12,7 @@ bb_colors_manual(bb, ..., opacity = 1)
 
 - bb:
 
-  A `billboard` `htmlwidget` object.
+  A \`billboard\` \`htmlwidget\` object.
 
 - ...:
 
@@ -25,28 +25,27 @@ bb_colors_manual(bb, ..., opacity = 1)
 
 ## Value
 
-A `billboard` `htmlwidget` object.
+A \`billboard\` \`htmlwidget\` object.
 
 ## Examples
 
 ``` r
-
 library("RColorBrewer")
 
 # Scatter
-billboarder() %>% 
+billboarder() %>%
   bb_scatterplot(
-   data = iris, 
-   x = "Sepal.Length", 
-   y = "Sepal.Width", 
-   group = "Species"
-  ) %>% 
-  bb_axis(x = list(tick = list(fit = FALSE))) %>% 
-  bb_point(r = 8) %>% 
+    data = iris,
+    x = "Sepal.Length",
+    y = "Sepal.Width",
+    group = "Species"
+  ) %>%
+  bb_axis(x = list(tick = list(fit = FALSE))) %>%
+  bb_point(r = 8) %>%
   bb_colors_manual(
-   setosa = "#440154", 
-   virginica = "#21908C", 
-   versicolor = "#FDE725"
+    setosa = "#440154",
+    virginica = "#21908C",
+    versicolor = "#FDE725"
   )
 
   
@@ -61,14 +60,14 @@ stars <- data.frame(
 )
 cols <- brewer.pal(n = 5, name = "Dark2")
 
-billboarder() %>% 
-  bb_piechart(data = stars) %>% 
+billboarder() %>%
+  bb_piechart(data = stars) %>%
   bb_colors_manual(
-   setNames(as.list(cols), stars$package) # this is a named list
+    setNames(as.list(cols), stars$package) # this is a named list
   )
 
   
   
 
-{"x":{"bb_opts":{"interaction":{"inputType":{"touch":false}},"data":{"json":{"billboarder":[9],"ggiraph":[177],"officer":[43],"shinyWidgets":[44],"visNetwork":[169]},"type":"pie","colors":{"billboarder":"#1B9E77","ggiraph":"#D95F02","officer":"#7570B3","shinyWidgets":"#E7298A","visNetwork":"#66A61E"}},"pie":[],"billboarderspecials":{"opacity":1}},"data":null},"evals":[],"jsHooks":[]}  
+{"x":{"bb_opts":{"interaction":{"inputType":{"touch":false}},"data":{"json":{"billboarder":[9],"ggiraph":[177],"officer":[43],"shinyWidgets":[44],"visNetwork":[169]},"type":"pie","colors":{"billboarder":"#1B9E77","ggiraph":"#D95F02","officer":"#7570B3","shinyWidgets":"#E7298A","visNetwork":"#66A61E"}},"pie":[],"billboarderspecials":{"opacity":1}},"data":null},"evals":[],"jsHooks":[]}
 ```

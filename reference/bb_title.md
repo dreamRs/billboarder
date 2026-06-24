@@ -12,7 +12,7 @@ bb_title(bb, text = NULL, padding = NULL, position = "top-center", ...)
 
 - bb:
 
-  A `billboard` `htmlwidget` object.
+  A \`billboard\` \`htmlwidget\` object.
 
 - text:
 
@@ -20,7 +20,7 @@ bb_title(bb, text = NULL, padding = NULL, position = "top-center", ...)
 
 - padding:
 
-  A named list with `top`, `right`, `bottom`, `left` values.
+  A named list with \`top\`, \`right\`, \`bottom\`, \`left\` values.
 
 - position:
 
@@ -32,17 +32,17 @@ bb_title(bb, text = NULL, padding = NULL, position = "top-center", ...)
 
 ## Value
 
-A `billboard` `htmlwidget` object.
+A \`billboard\` \`htmlwidget\` object.
 
 ## See also
 
-[bb_labs](https://dreamrs.github.io/billboarder/reference/bb_labs.md)
+\[bb_labs()\]
 
 ## Examples
 
 ``` r
-billboarder() %>% 
-  bb_barchart(data = table(sample(letters, 100, TRUE))) %>% 
+billboarder() %>%
+  bb_barchart(data = table(sample(letters, 100, TRUE))) %>%
   bb_title(text = "Random letters", position = "center")
 
   

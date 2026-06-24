@@ -12,16 +12,16 @@ bb_treemap(bb, ...)
 
 - bb:
 
-  A `billboard` `htmlwidget` object.
+  A \`billboard\` \`htmlwidget\` object.
 
 - ...:
 
   See
-  <https://naver.github.io/billboard.js/release/latest/doc/Options.html#.treemap>
+  \<https://naver.github.io/billboard.js/release/latest/doc/Options.html#.treemap\>
 
 ## Value
 
-A `billboard` `htmlwidget` object.
+A \`billboard\` \`htmlwidget\` object.
 
 ## Examples
 
@@ -29,9 +29,9 @@ A `billboard` `htmlwidget` object.
 library("billboarder")
 data("mpg", package = "ggplot2")
 
-billboarder() %>% 
-  bb_treemapchart(mpg[, 1]) %>% 
-  bb_treemap(label = list(show = TRUE, threshold = 0.03))%>% 
+billboarder() %>%
+  bb_treemapchart(mpg[, 1]) %>%
+  bb_treemap(label = list(show = TRUE, threshold = 0.03)) %>%
   bb_data(
     labels = list(colors = "#FFF")
   )

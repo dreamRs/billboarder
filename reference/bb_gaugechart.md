@@ -20,7 +20,7 @@ bb_gaugechart(
 
 - bb:
 
-  A `billboard` `htmlwidget` object.
+  A \`billboard\` \`htmlwidget\` object.
 
 - value:
 
@@ -49,18 +49,17 @@ bb_gaugechart(
 
 ## Value
 
-A `billboard` `htmlwidget` object.
+A \`billboard\` \`htmlwidget\` object.
 
 ## Note
 
-This function can be used with
-[`billboarderProxy`](https://dreamrs.github.io/billboarder/reference/billboarder-shiny.md)
-in shiny application.
+This function can be used with \[billboarderProxy()\] in Shiny
+applications.
 
 ## Examples
 
 ``` r
-billboarder() %>% 
+billboarder() %>%
   bb_gaugechart(value = 50)
 
   
@@ -68,11 +67,11 @@ billboarder() %>%
 
 {"x":{"bb_opts":{"interaction":{"inputType":{"touch":false}},"data":{"json":{"Value":[50]},"type":"gauge"},"gauge":[],"color":{"pattern":["#FF0000","#F97600","#F6C600","#60B044"],"threshold":{"values":[30,60,90,100]}}},"data":null},"evals":[],"jsHooks":[]}
 # With some options
-billboarder() %>% 
+billboarder() %>%
   bb_gaugechart(
     value = 160,
     steps_color = rev(c("#FF0000", "#F97600", "#F6C600", "#60B044"))
-  ) %>% 
+  ) %>%
   bb_gauge(
     label = list(format = suffix("km/h")),
     min = 10, max = 200, width = 20

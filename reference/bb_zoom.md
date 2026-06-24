@@ -12,16 +12,16 @@ bb_zoom(bb, ...)
 
 - bb:
 
-  A `billboard` `htmlwidget` object.
+  A \`billboard\` \`htmlwidget\` object.
 
 - ...:
 
   See
-  <https://naver.github.io/billboard.js/release/latest/doc/Options.html#.zoom>
+  \<https://naver.github.io/billboard.js/release/latest/doc/Options.html#.zoom\>
 
 ## Value
 
-A `billboard` `htmlwidget` object.
+A \`billboard\` \`htmlwidget\` object.
 
 ## Examples
 
@@ -30,12 +30,12 @@ A `billboard` `htmlwidget` object.
 data("equilibre_mensuel")
 
 # line chart
-billboarder() %>% 
+billboarder() %>%
   bb_linechart(
-    data = equilibre_mensuel[, c("date", "consommation", "production")], 
+    data = equilibre_mensuel[, c("date", "consommation", "production")],
     type = "spline"
-  ) %>% 
-  bb_x_axis(tick = list(format = "%Y-%m", fit = FALSE)) %>% 
+  ) %>%
+  bb_x_axis(tick = list(format = "%Y-%m", fit = FALSE)) %>%
   bb_zoom(enabled = TRUE)
 
   

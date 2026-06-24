@@ -12,16 +12,16 @@ bb_radar(bb, ...)
 
 - bb:
 
-  A `billboard` `htmlwidget` object.
+  A \`billboard\` \`htmlwidget\` object.
 
 - ...:
 
   See
-  <https://naver.github.io/billboard.js/release/latest/doc/Options.html#.radar>
+  \<https://naver.github.io/billboard.js/release/latest/doc/Options.html#.radar\>
 
 ## Value
 
-A `billboard` `htmlwidget` object.
+A \`billboard\` \`htmlwidget\` object.
 
 ## Examples
 
@@ -34,7 +34,7 @@ billboarder() %>%
   bb_radarchart(
     data = avengers,
     mapping = bbaes(x = axis, y = value, group = group)
-  ) %>% 
+  ) %>%
   bb_radar(level = list(depth = 4))
 
   
@@ -46,7 +46,7 @@ billboarder() %>%
   bb_radarchart(
     data = avengers,
     mapping = bbaes(x = axis, y = value, group = group)
-  ) %>% 
+  ) %>%
   bb_radar(level = list(show = FALSE))
 
   
@@ -58,7 +58,7 @@ billboarder() %>%
   bb_radarchart(
     data = avengers,
     mapping = bbaes(x = axis, y = value, group = group)
-  ) %>% 
+  ) %>%
   bb_radar(axis = list(max = 10))
 
   

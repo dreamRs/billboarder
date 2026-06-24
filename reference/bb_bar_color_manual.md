@@ -12,7 +12,7 @@ bb_bar_color_manual(bb, values)
 
 - bb:
 
-  A `billboard` `htmlwidget` object.
+  A \`billboard\` \`htmlwidget\` object.
 
 - values:
 
@@ -22,17 +22,16 @@ bb_bar_color_manual(bb, values)
 
 ## Value
 
-A `billboard` `htmlwidget` object.
+A \`billboard\` \`htmlwidget\` object.
 
 ## Note
 
-Must be called after `bb_bar`.
+Must be called after \[bb_bar()\].
 
 ## Examples
 
 ``` r
 if (FALSE) { # \dontrun{
-
 library("data.table")
 library("billboarder")
 
@@ -45,7 +44,7 @@ cols <- rep("#08298A", length(manufa))
 names(cols) <- manufa
 
 # Nissan in red
-cols[["nissan"]] <- "#DF0101"#' 
+cols[["nissan"]] <- "#DF0101"
 
 billboarder() %>%
   bb_barchart(data = mpg[, list(count = .N), by = manufacturer][order(count)]) %>%

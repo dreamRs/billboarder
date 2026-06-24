@@ -1,6 +1,7 @@
 # Create a Billboard.js widget
 
-Create an interactive visualization with Javascript library Billboard.js
+Create an interactive visualization with Javascript library
+Billboard.js.
 
 ## Usage
 
@@ -18,12 +19,12 @@ billboarder(
 
 - bb_opts:
 
-  A `list` in JSON format with chart parameters, see
-  <https://naver.github.io/billboard.js/demo/>.
+  A \`list\` in JSON format with chart parameters, see
+  \<https://naver.github.io/billboard.js/demo/\>.
 
 - data:
 
-  A `data.frame`.
+  A \`data.frame\`.
 
 - width:
 

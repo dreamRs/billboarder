@@ -12,25 +12,24 @@ bb_subchart(bb, ...)
 
 - bb:
 
-  A `billboard` `htmlwidget` object.
+  A \`billboard\` \`htmlwidget\` object.
 
 - ...:
 
   See
-  <https://naver.github.io/billboard.js/release/latest/doc/Options.html#.subchart>
+  \<https://naver.github.io/billboard.js/release/latest/doc/Options.html#.subchart\>
 
 ## Value
 
-A `billboard` `htmlwidget` object.
+A \`billboard\` \`htmlwidget\` object.
 
 ## Examples
 
 ``` r
-
 data("equilibre_mensuel")
 
-billboarder() %>% 
-  bb_linechart(data = equilibre_mensuel[, c("date", "production")], type = "spline") %>% 
+billboarder() %>%
+  bb_linechart(data = equilibre_mensuel[, c("date", "production")], type = "spline") %>%
   bb_subchart(show = TRUE)
 
   

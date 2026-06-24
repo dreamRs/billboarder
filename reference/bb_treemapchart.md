@@ -12,27 +12,25 @@ bb_treemapchart(bb, data, mapping = NULL, ...)
 
 - bb:
 
-  A `billboard` `htmlwidget` object.
+  A \`billboard\` \`htmlwidget\` object.
 
 - data:
 
-  A `data.frame`, the first column will be used for x axis unless
-  specified otherwise in `mapping`. If not a `data.frame`, an object
-  coercible to `data.frame`.
+  A \`data.frame\`, the first column will be used for x axis unless
+  specified otherwise in \`mapping\`. If not a \`data.frame\`, an object
+  coercible to \`data.frame\`.
 
 - mapping:
 
-  Mapping of variables on the chart, see
-  [`bbaes`](https://dreamrs.github.io/billboarder/reference/billboard-aes.md).
+  Mapping of variables on the chart, see \[bbaes()\].
 
 - ...:
 
-  Arguments passed to
-  [`bb_treemap`](https://dreamrs.github.io/billboarder/reference/bb_treemap.md).
+  Arguments passed to \[bb_treemap()\].
 
 ## Value
 
-A `billboard` `htmlwidget` object.
+A \`billboard\` \`htmlwidget\` object.
 
 ## Examples
 
@@ -40,19 +38,19 @@ A `billboard` `htmlwidget` object.
 library("billboarder")
 data("mpg", package = "ggplot2")
 
-billboarder() %>% 
+billboarder() %>%
   bb_treemapchart(mpg[, 1])
 
   
   
 
 {"x":{"bb_opts":{"interaction":{"inputType":{"touch":false}},"data":{"json":{"audi":[18],"chevrolet":[19],"dodge":[37],"ford":[25],"honda":[9],"hyundai":[14],"jeep":[8],"land rover":[4],"lincoln":[3],"mercury":[4],"nissan":[13],"pontiac":[5],"subaru":[14],"toyota":[34],"volkswagen":[27]},"type":"treemap"},"treemap":[]},"data":null},"evals":[],"jsHooks":[]}
-billboarder() %>% 
+billboarder() %>%
   bb_treemapchart(
-    data = mpg, 
+    data = mpg,
     mapping = aes(x = manufacturer),
     label = list(show = TRUE, threshold = 0.3)
-  ) %>% 
+  ) %>%
   bb_data(
     labels = list(colors = "#FFF")
   )

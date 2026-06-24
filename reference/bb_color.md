@@ -12,7 +12,7 @@ bb_color(bb, palette = NULL, ...)
 
 - bb:
 
-  A `billboard` `htmlwidget` object.
+  A \`billboard\` \`htmlwidget\` object.
 
 - palette:
 
@@ -21,23 +21,22 @@ bb_color(bb, palette = NULL, ...)
 - ...:
 
   See
-  <https://naver.github.io/billboard.js/release/latest/doc/Options.html#.color>
+  \<https://naver.github.io/billboard.js/release/latest/doc/Options.html#.color\>
 
 ## Value
 
-A `billboard` `htmlwidget` object.
+A \`billboard\` \`htmlwidget\` object.
 
 ## Examples
 
 ``` r
-
 library("RColorBrewer")
 
 # Scatter
-billboarder() %>% 
-  bb_scatterplot(data = iris, x = "Sepal.Length", y = "Sepal.Width", group = "Species") %>% 
-  bb_axis(x = list(tick = list(fit = FALSE))) %>% 
-  bb_point(r = 8) %>% 
+billboarder() %>%
+  bb_scatterplot(data = iris, x = "Sepal.Length", y = "Sepal.Width", group = "Species") %>%
+  bb_axis(x = list(tick = list(fit = FALSE))) %>%
+  bb_point(r = 8) %>%
   bb_color(palette = brewer.pal(n = 3, name = "Reds"))
 
   
@@ -49,7 +48,6 @@ stars <- data.frame(
   package = c("billboarder", "ggiraph", "officer", "shinyWidgets", "visNetwork"),
   stars = c(9, 177, 43, 44, 169)
 )
-cols <- brewer.pal(n = 5, name = "Dark2")
 
 billboarder() %>%
   bb_piechart(data = stars) %>%

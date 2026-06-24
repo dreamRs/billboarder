@@ -12,16 +12,16 @@ bb_legend(bb, ...)
 
 - bb:
 
-  A `billboard` `htmlwidget` object.
+  A \`billboard\` \`htmlwidget\` object.
 
 - ...:
 
   Arguments defined in
-  <https://naver.github.io/billboard.js/release/latest/doc/Options.html#.legend>.
+  \<https://naver.github.io/billboard.js/release/latest/doc/Options.html#.legend\>.
 
 ## Value
 
-A `billboard` `htmlwidget` object.
+A \`billboard\` \`htmlwidget\` object.
 
 ## Examples
 
@@ -35,7 +35,7 @@ stars <- data.frame(
 
 # Hide legend
 billboarder() %>%
-  bb_barchart(data = stars) %>% 
+  bb_barchart(data = stars) %>%
   bb_legend(show = FALSE)
 
   
@@ -44,7 +44,7 @@ billboarder() %>%
 {"x":{"bb_opts":{"interaction":{"inputType":{"touch":false}},"data":{"x":"bb-x","json":{"bb-x":["billboarder","ggiraph","officer","shinyWidgets","visNetwork"],"stars":[1,176,42,40,166]},"type":"bar"},"bar":[],"axis":{"x":{"type":"category"},"rotated":false},"legend":{"show":false}},"data":null},"evals":[],"jsHooks":[]}
 # Right legend
 billboarder() %>%
-  bb_piechart(data = stars) %>% 
+  bb_piechart(data = stars) %>%
   bb_legend(position = "right")
 
   
@@ -53,8 +53,8 @@ billboarder() %>%
 {"x":{"bb_opts":{"interaction":{"inputType":{"touch":false}},"data":{"json":{"billboarder":[1],"ggiraph":[176],"officer":[42],"shinyWidgets":[40],"visNetwork":[166]},"type":"pie"},"pie":[],"legend":{"position":"right"}},"data":null},"evals":[],"jsHooks":[]}
 # Inset legend
 billboarder() %>%
-  bb_scatterplot(data = iris, x = "Sepal.Length", y = "Sepal.Width", group = "Species") %>% 
-  bb_axis(x = list(tick = list(fit = FALSE))) %>% 
+  bb_scatterplot(data = iris, x = "Sepal.Length", y = "Sepal.Width", group = "Species") %>%
+  bb_axis(x = list(tick = list(fit = FALSE))) %>%
   bb_legend(position = "inset", inset = list(anchor = "top-right"))
 
   
