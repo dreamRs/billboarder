@@ -27,3 +27,62 @@ billboarder(
 \description{
 Create an interactive visualization with Javascript library Billboard.js.
 }
+\examples{
+# Bar chart
+stars <- data.frame(
+  package = c("billboarder", "ggiraph", "officer", "shinyWidgets", "visNetwork"),
+  stars = c(67, 252, 160, 144, 224)
+)
+
+billboarder() \%>\%
+  bb_barchart(data = stars) \%>\%
+  bb_y_grid(show = TRUE) \%>\%
+  bb_labs(
+    title = "GitHub stars",
+    caption = "Example with billboarder"
+  )
+
+# Scatter plot with grouping
+billboarder(data = iris) \%>\%
+  bb_scatterplot(
+    mapping = bbaes(Sepal.Length, Sepal.Width, group = Species)
+  ) \%>\%
+  bb_point(r = 6) \%>\%
+  bb_labs(
+    title = "Iris dataset",
+    subtitle = "Sepal length vs sepal width"
+  ) \%>\%
+  bb_x_axis(
+    label = list(text = "Sepal length", position = "outer-center")
+  ) \%>\%
+  bb_y_axis(
+    label = list(text = "Sepal width", position = "outer-middle")
+  )
+  
+  
+# Using raw Billboard.js options
+billboarder(
+  bb_opts = list(
+    data = list(
+      columns = list(
+        c("data1", 30, 200, 100, 400, 150, 250),
+        c("data2", 50, 20, 10, 40, 15, 25)
+      ),
+      type = "bar",
+      colors = list(
+        data1 = "#1f77b4",
+        data2 = "#ff7f0e"
+      )
+    ),
+    axis = list(
+      x = list(
+        type = "category",
+        categories = c("Jan", "Feb", "Mar", "Apr", "May", "Jun")
+      )
+    ),
+    grid = list(
+      y = list(show = TRUE)
+    )
+  )
+)
+}

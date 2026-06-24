@@ -419,8 +419,6 @@ bb_y_grid <- function(bb, ...) {
 #' @export
 #'
 #' @examples
-#' @examples
-#' @examples
 #' # Disable interactions
 #' billboarder() %>%
 #'   bb_linechart(data = c(1, 3, 2, 5, 4)) %>%
@@ -449,7 +447,6 @@ bb_interaction <- function(bb, ...) {
 #' @export
 #'
 #' @examples
-#' @examples
 #' # Set transition duration
 #' billboarder() %>%
 #'   bb_linechart(data = c(5, 3, 6, 2, 7)) %>%
@@ -472,11 +469,10 @@ bb_transition <- function(bb, ...) {
 #' @export
 #'
 #' @examples
-#' @examples
-# # Customize spline interpolation
-# billboarder() %>%
-#   bb_linechart(data = c(1, 5, 3, 6, 2), type = "spline") %>%
-#   bb_spline(interpolation = list(type = "natural"))
+#' # Customize spline interpolation
+#' billboarder() %>%
+#'   bb_linechart(data = c(1, 5, 3, 6, 2), type = "spline") %>%
+#'   bb_spline(interpolation = list(type = "natural"))
 bb_spline <- function(bb, ...) {
   
   .bb_opt(bb, "spline", ...)
@@ -598,8 +594,7 @@ bb_bar <- function(bb, ...) {
 #'
 #' @return A `billboard` `htmlwidget` object.
 #' @export
-#'
-#' @examples
+#' 
 #' @examples
 #' # Area chart options
 #' billboarder() %>%
@@ -785,10 +780,10 @@ bb_bubble <- function(bb, ...) {
 #' @export
 #'
 #' @examples
-# # Set SVG class name
-# billboarder() %>%
-#   bb_linechart(data = c(2, 5, 3, 4, 6)) %>%
-#   bb_svg(classname = "custom-billboard")
+#' # Set SVG class name
+#' billboarder() %>%
+#'   bb_linechart(data = c(2, 5, 3, 4, 6)) %>%
+#'   bb_svg(classname = "custom-billboard")
 bb_svg <- function(bb, ...) {
   
   .bb_opt(bb, "svg", ...)

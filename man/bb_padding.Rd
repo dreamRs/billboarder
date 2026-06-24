@@ -17,3 +17,9 @@ A `billboard` `htmlwidget` object.
 \description{
 The padding of the chart element.
 }
+\examples{
+# Add padding around the chart
+billboarder() \%>\%
+  bb_barchart(data = table(sample(letters[1:5], 100, TRUE))) \%>\%
+  bb_padding(top = 100, right = 100, bottom = 100, left = 100)
+}

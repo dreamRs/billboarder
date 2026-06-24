@@ -17,3 +17,9 @@ A `billboard` `htmlwidget` object.
 \description{
 SVG property for a Billboard.js chart
 }
+\examples{
+# Set SVG class name
+billboarder() \%>\%
+  bb_linechart(data = c(2, 5, 3, 4, 6)) \%>\%
+  bb_svg(classname = "custom-billboard")
+}

@@ -17,3 +17,14 @@ A `billboard` `htmlwidget` object.
 \description{
 Interaction property for a Billboard.js chart
 }
+\examples{
+# Disable interactions
+billboarder() \%>\%
+  bb_linechart(data = c(1, 3, 2, 5, 4)) \%>\%
+  bb_interaction(enabled = FALSE)
+
+# Only mouse input
+billboarder() \%>\%
+  bb_linechart(data = c(1, 3, 2, 5, 4)) \%>\%
+  bb_interaction(inputType = list(touch = FALSE))
+}

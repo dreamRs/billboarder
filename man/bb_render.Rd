@@ -17,3 +17,9 @@ A `billboard` `htmlwidget` object.
 \description{
 Render property for a Billboard.js chart
 }
+\examples{
+# Customize render options
+billboarder() \%>\%
+  bb_linechart(data = c(10, 20, 15, 30)) \%>\%
+  bb_render(mode = "canvas")
+}

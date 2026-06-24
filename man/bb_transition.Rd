@@ -17,3 +17,9 @@ A `billboard` `htmlwidget` object.
 \description{
 Transition property for a Billboard.js chart
 }
+\examples{
+# Set transition duration
+billboarder() \%>\%
+  bb_linechart(data = c(5, 3, 6, 2, 7)) \%>\%
+  bb_transition(duration = 1000)
+}

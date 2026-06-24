@@ -17,3 +17,9 @@ A `billboard` `htmlwidget` object.
 \description{
 Area property for a Billboard.js chart
 }
+\examples{
+# Area chart options
+billboarder() \%>\%
+  bb_linechart(data = c(2, 4, 3, 6, 5), type = "area") \%>\%
+  bb_area(linearGradient = TRUE)
+}

@@ -17,3 +17,9 @@ A `billboard` `htmlwidget` object.
 \description{
 Spline property for a Billboard.js chart
 }
+\examples{
+# Customize spline interpolation
+billboarder() \%>\%
+  bb_linechart(data = c(1, 5, 3, 6, 2), type = "spline") \%>\%
+  bb_spline(interpolation = list(type = "natural"))
+}
