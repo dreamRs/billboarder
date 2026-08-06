@@ -1,7 +1,7 @@
 billboarder 0.5.2
 ==================
 
-* Update of the billboard.js library to 4.0.1 (see https://github.com/naver/billboard.js/releases).
+* Update of the billboard.js library to 4.0.3 (see https://github.com/naver/billboard.js/releases).
 
 
 
