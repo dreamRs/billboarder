@@ -155,13 +155,10 @@ test_that("Line chart POSIXct", {
   
   # Retrieve sunrise and and sunset data with `suncalc`
   # library("suncalc")
-  sun <- structure(list(sunrise = structure(1497239294,
-                                            class = c("POSIXct", 
-                                                      "POSIXt"), tzone = "CET"), 
-                        sunset = structure(1497297332, class = c("POSIXct", 
-                                                                 "POSIXt"), tzone = "CET")), 
-                   .Names = c("sunrise", "sunset"), class = "data.frame", row.names = c(NA, 
-                                                                                        -1L))
+  sun <- data.frame(
+    sunrise = as.POSIXct("2017-06-12 05:48:14"),
+    sunset = as.POSIXct("2017-06-12 21:55:32")
+  )
   
   
   # line chart
