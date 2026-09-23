@@ -1,7 +1,8 @@
 billboarder 0.5.2
 ==================
 
-* Update of the billboard.js library to 4.0.3 (see https://github.com/naver/billboard.js/releases).
+* Update of the billboard.js library to 4.1.0 (see https://github.com/naver/billboard.js/releases).
+* Since v4.0.0 of billboard.js a canvas mode is availlable to render charts with `bb_render(mode = "canvas")`.
 
 
 

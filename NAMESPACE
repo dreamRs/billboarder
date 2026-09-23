@@ -82,26 +82,36 @@ export(renderBillboarder)
 export(set_color_palette)
 export(set_theme)
 export(suffix)
-importFrom(ggplot2,aes)
-importFrom(ggplot2,aes_string)
-importFrom(ggplot2,geom_histogram)
-importFrom(ggplot2,ggplot)
-importFrom(ggplot2,layer_data)
-importFrom(htmltools,htmlDependency)
-importFrom(htmltools,tags)
-importFrom(htmlwidgets,JS)
-importFrom(htmlwidgets,createWidget)
-importFrom(htmlwidgets,shinyRenderWidget)
-importFrom(htmlwidgets,shinyWidgetOutput)
-importFrom(htmlwidgets,sizingPolicy)
+importFrom(ggplot2,
+  aes,
+  aes_string,
+  geom_histogram,
+  ggplot,
+  layer_data
+)
+importFrom(htmltools,
+  htmlDependency,
+  tags
+)
+importFrom(htmlwidgets,
+  JS,
+  createWidget,
+  shinyRenderWidget,
+  shinyWidgetOutput,
+  sizingPolicy
+)
 importFrom(jsonlite,toJSON)
 importFrom(magrittr,"%>%")
-importFrom(rlang,as_label)
-importFrom(rlang,eval_tidy)
+importFrom(rlang,
+  as_label,
+  eval_tidy
+)
 importFrom(scales,rescale)
 importFrom(shiny,shinyAppDir)
-importFrom(stats,density)
-importFrom(stats,density.default)
-importFrom(stats,reshape)
-importFrom(stats,setNames)
+importFrom(stats,
+  density,
+  density.default,
+  reshape,
+  setNames
+)
 importFrom(utils,modifyList)
