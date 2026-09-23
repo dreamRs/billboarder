@@ -29,7 +29,10 @@ billboarder(data = prod_par_filiere) %>%
   bb_y_grid(show = TRUE) %>%
   bb_y_axis(
     tick = list(format = suffix("TWh")),
-    label = list(text = "production (in terawatt-hours)", position = "outer-top")
+    label = list(
+      text = "production (in terawatt-hours)", 
+      position = "outer-top"
+    )
   ) %>% 
   bb_legend(show = FALSE) %>% 
   bb_labs(
@@ -51,17 +54,29 @@ data("prod_par_filiere")
 
 billboarder() %>%
   bb_barchart(
-    data = prod_par_filiere[, c("annee", "prod_hydraulique", "prod_eolien", "prod_solaire")]
+    data = prod_par_filiere[
+      , c("annee", "prod_hydraulique", "prod_eolien", "prod_solaire")
+    ]
   ) %>%
   bb_data(
-    names = list(prod_hydraulique = "Hydraulic", prod_eolien = "Wind", prod_solaire = "Solar")
+    names = list(
+      prod_hydraulique = "Hydraulic",
+      prod_eolien = "Wind", 
+      prod_solaire = "Solar"
+    )
   ) %>% 
   bb_y_grid(show = TRUE) %>%
     bb_y_axis(
     tick = list(format = suffix("TWh")),
-    label = list(text = "production (in terawatt-hours)", position = "outer-top")
+    label = list(
+      text = "production (in terawatt-hours)", 
+      position = "outer-top"
+    )
   ) %>% 
-  bb_legend(position = "inset", inset = list(anchor = "top-right")) %>% 
+  bb_legend(
+    position = "inset", 
+    inset = list(anchor = "top-right")
+  ) %>% 
   bb_labs(
     title = "Renewable energy production",
     caption = "Data source: RTE (https://opendata.reseaux-energies.fr/)"
@@ -80,22 +95,36 @@ data("prod_par_filiere")
 # stacked bar chart !
 billboarder() %>%
   bb_barchart(
-    data = prod_par_filiere[, c("annee", "prod_hydraulique", "prod_eolien", "prod_solaire")], 
+    data = prod_par_filiere[
+      , c("annee", "prod_hydraulique", "prod_eolien", "prod_solaire")
+    ], 
     stacked = TRUE
   ) %>%
   bb_data(
-    names = list(prod_hydraulique = "Hydraulic", prod_eolien = "Wind", prod_solaire = "Solar"), 
+    names = list(
+      prod_hydraulique = "Hydraulic",
+      prod_eolien = "Wind",
+      prod_solaire = "Solar"
+    ), 
     labels = TRUE
   ) %>% 
   bb_colors_manual(
-    "prod_eolien" = "#41AB5D", "prod_hydraulique" = "#4292C6", "prod_solaire" = "#FEB24C"
+    "prod_eolien" = "#41AB5D",
+    "prod_hydraulique" = "#4292C6", 
+    "prod_solaire" = "#FEB24C"
   ) %>%
   bb_y_grid(show = TRUE) %>%
     bb_y_axis(
     tick = list(format = suffix("TWh")),
-    label = list(text = "production (in terawatt-hours)", position = "outer-top")
+    label = list(
+      text = "production (in terawatt-hours)", 
+      position = "outer-top"
+    )
   ) %>% 
-  bb_legend(position = "inset", inset = list(anchor = "top-right")) %>% 
+  bb_legend(
+    position = "inset", 
+    inset = list(anchor = "top-right")
+  ) %>% 
   bb_labs(
     title = "Renewable energy production",
     caption = "Data source: RTE (https://opendata.reseaux-energies.fr/)"
@@ -128,7 +157,12 @@ You can make a bubble chart using `size` aes :
 
 billboarder(data = mtcars) %>% 
   bb_scatterplot(
-   mapping = aes(wt, mpg, group = cyl, size = scales::rescale(qsec, to = c(0.2, 7))),
+   mapping = aes(
+     x = wt, 
+     y = mpg, 
+     group = cyl,
+     size = scales::rescale(qsec, to = c(0.2, 7))
+   ),
    point_opacity = 1
   ) %>% 
   bb_axis(x = list(tick = list(fit = FALSE))) %>% 
@@ -146,12 +180,12 @@ library(billboarder)
 
 # data
 data("prod_par_filiere")
+prod_par_filiere_16 <- prod_par_filiere[prod_par_filiere$annee == "2016", ]
 nuclear2016 <- data.frame(
   sources = c("Nuclear", "Other"),
   production = c(
-    prod_par_filiere$prod_nucleaire[prod_par_filiere$annee == "2016"],
-    prod_par_filiere$prod_total[prod_par_filiere$annee == "2016"] -
-      prod_par_filiere$prod_nucleaire[prod_par_filiere$annee == "2016"]
+    prod_par_filiere_16$prod_nucleaire,
+    prod_par_filiere_16$prod_total - prod_par_filiere_16$prod_nucleaire
   )
 )
 
@@ -207,7 +241,7 @@ library(billboarder)
 data("equilibre_mensuel")
 
 # line chart
-billboarder() %>% 
+line_chart <- billboarder() %>% 
   bb_linechart(
     data = equilibre_mensuel[, c("date", "consommation", "production")], 
     type = "spline"
@@ -215,7 +249,10 @@ billboarder() %>%
   bb_x_axis(tick = list(format = "%Y-%m", fit = FALSE)) %>% 
   bb_x_grid(show = TRUE) %>% 
   bb_y_grid(show = TRUE) %>% 
-  bb_colors_manual("consommation" = "firebrick", "production" = "forestgreen") %>% 
+  bb_colors_manual(
+    "consommation" = "firebrick",
+    "production" = "forestgreen"
+  ) %>% 
   bb_legend(position = "right") %>% 
   bb_subchart(show = TRUE, size = list(height = 30)) %>% 
   bb_labs(
@@ -223,6 +260,16 @@ billboarder() %>%
     y = "In megawatt (MW)",
     caption = "Data source: RTE (https://opendata.reseaux-energies.fr/)"
   )
+line_chart
+```
+
+You can render the same line chart using canvas instead of SVG for
+performance issue with :
+
+``` r
+
+line_chart %>% 
+  bb_render(mode = "canvas")
 ```
 
 ### Zoom by dragging
@@ -237,7 +284,10 @@ billboarder() %>%
   bb_x_axis(tick = list(format = "%Y-%m", fit = FALSE)) %>% 
   bb_x_grid(show = TRUE) %>% 
   bb_y_grid(show = TRUE) %>% 
-  bb_colors_manual("consommation" = "firebrick", "production" = "forestgreen") %>% 
+  bb_colors_manual(
+    "consommation" = "firebrick",
+    "production" = "forestgreen"
+  ) %>% 
   bb_legend(position = "right") %>% 
   bb_zoom(
     enabled = TRUE,
@@ -311,16 +361,29 @@ data("cdc_prod_filiere")
 
 billboarder() %>% 
   bb_linechart(
-    data = cdc_prod_filiere[, c("date_heure", "prod_eolien", "prod_hydraulique", "prod_solaire")], 
+    data = cdc_prod_filiere[
+      , c("date_heure", "prod_eolien", "prod_hydraulique", "prod_solaire")
+    ], 
     type = "area"
   ) %>% 
   bb_data(
-    groups = list(list("prod_eolien", "prod_hydraulique", "prod_solaire")),
-    names = list("prod_eolien" = "Wind", "prod_hydraulique" = "Hydraulic", "prod_solaire" = "Solar")
+    groups = list(list(
+      "prod_eolien", "prod_hydraulique", "prod_solaire"
+    )),
+    names = list(
+      "prod_eolien" = "Wind", 
+      "prod_hydraulique" = "Hydraulic",
+      "prod_solaire" = "Solar"
+    )
   ) %>% 
-  bb_legend(position = "inset", inset = list(anchor = "top-right")) %>% 
+  bb_legend(
+    position = "inset",
+    inset = list(anchor = "top-right")
+  ) %>% 
   bb_colors_manual(
-    "prod_eolien" = "#238443", "prod_hydraulique" = "#225EA8", "prod_solaire" = "#FEB24C", 
+    "prod_eolien" = "#238443",
+    "prod_hydraulique" = "#225EA8",
+    "prod_solaire" = "#FEB24C", 
     opacity = 0.8
   ) %>% 
   bb_y_axis(min = 0, padding = 0) %>% 
